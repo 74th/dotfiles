@@ -1,0 +1,26 @@
+"*":
+  "exception-reporting":
+    userId: "c8f97728-5a7a-5d34-5d3c-916c1e0ee606"
+  welcome:
+    showOnStartup: false
+  core:
+    themes: [
+      "atom-material-ui"
+      "saturn-syntax"
+    ]
+    projectHome: "~/Develop/"
+  editor:
+    invisibles: {}
+    fontFamily: "Ricty"
+    showLineNumbers: false
+    showIndentGuide: true
+    softWrap: true
+  linter: {}
+  "atom-beautify":
+    _analyticsUserId: "b962d1f0-87ad-42df-8f54-3ca80a4c64ef"
+  "slim-dark-ui": {}
+  "bracket-matcher":
+    autocompleteBrackets: false
+  "project-quick-open":
+    projectPaths: "~/Develop/"
+  build: {}

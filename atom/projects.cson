@@ -1,0 +1,10 @@
+eccube:
+  title: "eccube"
+  paths: [
+    "/Users/atsushi/Develop/eccube"
+  ]
+cheatsheets:
+  title: "cheatsheets"
+  paths: [
+    "/Users/atsushi/Develop/eccube"
+  ]
