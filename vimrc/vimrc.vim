@@ -12,6 +12,7 @@ filetype plugin indent off
 " 前処理
 "-----------------------------------------------------------
 if !exists('g:j74Spec')
+    " 未定義ならば低スペックとする
     let g:j74Spec = 'low'
 endif
 
