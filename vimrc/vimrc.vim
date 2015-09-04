@@ -39,7 +39,7 @@ if has('vim_starting')
     endfor
     "リポジトリルートをruntimepathへ追加
     execute 'set runtimepath+=' . g:j74VimRepoPath
-    if exists('~/.vim/bundle/neobundle.vim/')
+    if isdirectory(expand('~/.vim/bundle/neobundle.vim/'))
         " NeoBundle
         set runtimepath+=~/.vim/bundle/neobundle.vim/
         let g:j74NeoBundleExists=1
