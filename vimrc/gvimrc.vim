@@ -12,14 +12,7 @@ if g:j74OsName == 'Mac'
     set guifont=Ricty\ Regular:h13
 elseif g:j74OsName == 'Win'
     set guifont=Ricty\ Regular:h11
-    set guifontwide=Ricty\ Regular:h11
 endif
-"-----------------------------------------------------------
-"ブラウザで開く 2012/01/28
-NeoBundle 'tyru/open-browser.vim'
-"gxでブラウザで開く
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
 "-----------------------------------------------------------
 "vim-indent-guides インデントをハイライト表示する
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -50,3 +43,7 @@ set guioptions=egrLt
 "メニューを表示する
 command! ShowGuiMenu :set guioptions=egmrLtT<CR>
 command! HideGuiMenu :set guioptions=egrLt<CR>
+"-----------------------------------------------------------
+if g:j74NeoBundleExists == 1
+    call neobundle#end()
+endif

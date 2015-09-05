@@ -509,6 +509,8 @@ NeoBundle 'thinca/vim-localrc'
 " 一旦無効化したfiletypeを最後に復活させる
 " http://d.hatena.ne.jp/wiredool/20120618/1340019962
 if g:j74NeoBundleExists == 1
-    call neobundle#end()
+    if !has('gui_running')
+        call neobundle#end()
+    endif
 endif
 filetype plugin indent on
