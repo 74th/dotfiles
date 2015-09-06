@@ -1,3 +1,6 @@
+if g:j74NeoBundleExists == 1
+    neobundle#append()
+endif
 "カラースキーマ---------------------------------------------
 NeoBundle 'desert.vim'
 NeoBundle 'w0ng/vim-hybrid'
