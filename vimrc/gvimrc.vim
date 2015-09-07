@@ -1,5 +1,5 @@
 if g:j74NeoBundleExists == 1
-    neobundle#append()
+    call neobundle#append()
 endif
 "カラースキーマ---------------------------------------------
 NeoBundle 'desert.vim'
