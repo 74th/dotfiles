@@ -149,3 +149,7 @@ function GitPull() {
 #--------------------------------------
 # Atomのパッケージインストール
 alias AtomPackagelistImport='apm stars --install'
+#--------------------------------------
+# golang
+export GOPATH=$HOME/go
+
