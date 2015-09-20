@@ -5,8 +5,8 @@
     showOnStartup: false
   core:
     themes: [
-      "atom-material-ui"
-      "saturn-syntax"
+      "atom-dark-ui"
+      "atom-monokai"
     ]
     projectHome: "~/Develop/"
   editor:
