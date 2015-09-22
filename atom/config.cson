@@ -15,6 +15,7 @@
     showLineNumbers: false
     showIndentGuide: true
     softWrap: true
+    fontSize: 12
   linter: {}
   "atom-beautify":
     _analyticsUserId: "b962d1f0-87ad-42df-8f54-3ca80a4c64ef"
