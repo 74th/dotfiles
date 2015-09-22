@@ -151,5 +151,6 @@ function GitPull() {
 alias AtomPackagelistImport='apm stars --install'
 #--------------------------------------
 # golang
-export GOPATH=$HOME/go
+export GOPATH=$HOME/golang
+export GOROOT=/usr/local/opt/go/libexec
 
