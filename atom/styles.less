@@ -1,3 +1,4 @@
+@import "ui-variables";
 /*
  * Your Stylesheet
  *
@@ -29,7 +30,7 @@ atom-text-editor {
 
 // カーソルの色の設定
 atom-text-editor::shadow .cursor {
-  color: white;
+  color: @text-color-highlight;
 }
 // カーソルの点滅を停止
 atom-text-editor.is-focused::shadow .cursors.blink-off .cursor {
@@ -48,11 +49,11 @@ atom-text-editor.vim-mode.visual-mode
     {
       // 通常より少し濃くする
       .cursor {
-        background-color: white;
-        opacity:0.5;
+        background-color: @text-color-highlight;
+        opacity:0.3;
       }
       .blink-off .cursor {
-        opacity:0.5;
+        opacity:0.3;
       }
     }
   }
