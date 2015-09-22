@@ -30,7 +30,7 @@ atom-text-editor {
 
 // カーソルの色の設定
 atom-text-editor::shadow .cursor {
-  color: @text-color-highlight;
+  color: @text-color;
 }
 // カーソルの点滅を停止
 atom-text-editor.is-focused::shadow .cursors.blink-off .cursor {
@@ -40,21 +40,15 @@ atom-text-editor.is-focused::shadow .cursors.blink-off .cursor {
 // vim-modeのブロックカーソル
 atom-text-editor.vim-mode.normal-mode,
 atom-text-editor.vim-mode.operator-pending-mode,
-atom-text-editor.vim-mode.visual-mode
-{
-  &,
-  &.is-focused {
-    &::shadow,
-    &
-    {
-      // 通常より少し濃くする
-      .cursor {
-        background-color: @text-color-highlight;
-        opacity:0.3;
-      }
-      .blink-off .cursor {
-        opacity:0.3;
-      }
+atom-text-editor.vim-mode.visual-mode.is-focused {
+  &.is-focused::shadow
+  {
+    .cursor {
+      background-color: @text-color;
+      opacity:0.3;
+    }
+    .blink-off .cursor{
+      opacity:0.3;
     }
   }
 }
