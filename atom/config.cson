@@ -12,6 +12,9 @@
     packagesWithKeymapsDisabled: [
       "git-plus"
     ]
+    disabledPackages: [
+      "wrap-guide"
+    ]
   editor:
     invisibles: {}
     fontFamily: "Ricty"
