@@ -1,5 +1,9 @@
+# F5でコマンド実行
 'atom-text-editor':
   'f5': 'build:trigger'
 # 保存時にノーマルモードに戻る
 'atom-text-editor.vim-mode':
   'cmd-s': 'custom:save-and-normalmode'
+# command-paletteをvimっぽく:で開く
+'atom-text-editor.vim-mode.normal-mode':
+  ':' : 'command-palette:toggle'
