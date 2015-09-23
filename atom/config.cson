@@ -36,3 +36,5 @@
   "vim-mode": {}
   "git-plus":
     splitPane: "down"
+  "japanese-wrap":
+    characterWidth: {}
