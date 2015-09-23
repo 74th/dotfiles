@@ -9,6 +9,9 @@
       "atom-monokai"
     ]
     projectHome: "~/Develop/"
+    packagesWithKeymapsDisabled: [
+      "git-plus"
+    ]
   editor:
     invisibles: {}
     fontFamily: "Ricty"
@@ -28,3 +31,5 @@
   "go-plus":
     goPath: "~/golang"
   "vim-mode": {}
+  "git-plus":
+    splitPane: "down"
