@@ -1,2 +1,5 @@
 'atom-text-editor':
   'f5': 'build:trigger'
+# 保存時にノーマルモードに戻る
+'atom-text-editor.vim-mode':
+  'cmd-s': 'custom:save-and-normalmode'
