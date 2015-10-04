@@ -5,8 +5,8 @@
     showOnStartup: false
   core:
     themes: [
-      "atom-dark-ui"
-      "atom-monokai"
+      "unity-ui"
+      "monokai"
     ]
     projectHome: "~/Develop/"
     packagesWithKeymapsDisabled: [
@@ -18,7 +18,6 @@
   editor:
     invisibles: {}
     fontFamily: "Ricty"
-    showLineNumbers: false
     showIndentGuide: true
     softWrap: true
     fontSize: 12
@@ -38,3 +37,8 @@
     splitPane: "down"
   "japanese-wrap":
     characterWidth: {}
+  "tree-view":
+    hideVcsIgnoredFiles: true
+  "unity-ui":
+    showIcons: true
+    colorStatusIndicatorsInTreeView: true
