@@ -5,12 +5,14 @@
     showOnStartup: false
   core:
     themes: [
-      "unity-ui"
+      "seti-ui"
       "monokai"
     ]
     projectHome: "~/Develop/"
     packagesWithKeymapsDisabled: [
       "git-plus"
+      "welcome"
+      "symbols-tree-view"
     ]
     disabledPackages: [
       "wrap-guide"
@@ -20,7 +22,7 @@
     fontFamily: "Ricty"
     showIndentGuide: true
     softWrap: true
-    fontSize: 12
+    fontSize: 13
   linter: {}
   "atom-beautify":
     _analyticsUserId: "b962d1f0-87ad-42df-8f54-3ca80a4c64ef"
@@ -42,3 +44,7 @@
   "unity-ui":
     showIcons: true
     colorStatusIndicatorsInTreeView: true
+  "symbols-tree-view":
+    autoToggle: true
+    zAutoHideTypes: "text"
+  "fuzzy-finder": {}
