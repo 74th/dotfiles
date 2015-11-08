@@ -8,11 +8,38 @@
 #
 # An example CoffeeScript snippet to expand log to console.log:
 #
-# '.source.coffee':
-#   'Console log':
-#     'prefix': 'log'
-#     'body': 'console.log $1'
+'.source.coffee':
+ 'Console log':
+   'prefix': 'log'
+   'body': 'console.log $1'
 #
 # This file uses CoffeeScript Object Notation (CSON).
 # If you are unfamiliar with CSON, you can read more about it here:
 # https://github.com/bevry/cson#what-is-cson
+
+# Golang
+'.source.go':
+  'ディレクトリのファイル一覧の取得':
+    'prefix' : 'listfile'
+    'body' : 'ioutil.ReadDir(${1:"filepath"})'
+  '表示':
+    'prefix' : 'print'
+    'body' : 'fmt.Println($1)'
+  'スライスの作成':
+    'prefix' : 'createslice'
+    'body' : 'make([]${1:"type"}, ${2:"length:int"})'
+  'ソート用の型の作成':
+    'prefix' : 'type4sort'
+    'body' : '''
+type ${1:"TypeName"} []${2:"SortedType"}
+func (list $1) Len() int {
+	return len(list)
+}
+func (list $1) Swap(i, j int) {
+	list[i], list[j] = list[j], list[i]
+}
+func (list $1) Less(i, j int) bool {
+	return ${3:"less"}
+}
+// sort.Sort(list)
+'''

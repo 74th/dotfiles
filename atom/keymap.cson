@@ -1,3 +1,10 @@
+# --------------------------------------
+# いつでも
+'atom-text-editor':
+# f11           スニペット表示
+  'f11'         : 'snippets:available'
+# --------------------------------------
+# ノーマルモード時
 'atom-text-editor.vim-mode:not(.insert-mode)':
 # cmd-r         シンボル一覧
 # cmd-/         コメントトグル
@@ -10,18 +17,21 @@
   '`'           : "bookmarks:jump-to-previous-bookmark"
 # m             ブックマークトグル
   'm'           : "bookmarks:toggle-bookmark"
-# f5            ビルド
-  'f5'          : 'build:trigger'
-# cmd-s         保存（ノーマルモードへ戻る）
-'atom-text-editor.vim-mode':
-  'cmd-s'       : 'custom:save-and-normalmode'
+# f5            スクリプト実行
+  'f5'          : 'script:run'
+# f6            ビルド
+  'f6'          : 'build:trigger'
 # :             コマンドパレット
-'atom-text-editor.vim-mode.normal-mode':
   ':'           : 'command-palette:toggle'
+# --------------------------------------
+# インサートモード時
+'atom-text-editor.vim-mode.insert-mode':
+# cmd-s         保存（ノーマルモードへ戻る）
+  'cmd-s'       : 'custom:save-and-normalmode'
 # --------------------------------------
 # golang
 "atom-text-editor[data-grammar='source go']":
-# cmd-d         定義へ移動
-  'cmd-d'       : 'golang:godef'
+# f12           定義へ移動
+  'f12'         : 'golang:godef'
 # shift-cmd-d   定義から戻る
-  'shift-cmd-d' : 'golang:godef-return'
+  'shift-f12'   : 'golang:godef-return'
