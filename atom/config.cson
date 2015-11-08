@@ -5,7 +5,7 @@
     showOnStartup: false
   core:
     themes: [
-      "seti-ui"
+      "unity-ui"
       "monokai"
     ]
     projectHome: "~/Develop/"
@@ -16,6 +16,7 @@
     ]
     disabledPackages: [
       "wrap-guide"
+      "background-tips"
     ]
   editor:
     invisibles: {}
@@ -48,3 +49,10 @@
     autoToggle: true
     zAutoHideTypes: "text"
   "fuzzy-finder": {}
+  "autocomplete-plus": {}
+  "metro-ui":
+    themeAccentColor:
+      red: 7
+      green: 99
+      blue: 216
+      alpha: 1
