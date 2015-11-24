@@ -5,7 +5,7 @@
     showOnStartup: false
   core:
     themes: [
-      "unity-ui"
+      "atom-dark-ui"
       "monokai"
     ]
     projectHome: "~/Develop/"
@@ -17,12 +17,13 @@
     disabledPackages: [
       "wrap-guide"
       "background-tips"
+      "japanese-wrap"
+      "wrap-style"
     ]
   editor:
     invisibles: {}
     fontFamily: "Ricty"
     showIndentGuide: true
-    softWrap: true
     fontSize: 13
   linter: {}
   "atom-beautify":
@@ -40,6 +41,9 @@
     splitPane: "down"
   "japanese-wrap":
     characterWidth: {}
+    lineBreakingRule:
+      japanese: false
+      halfwidthKatakana: false
   "tree-view":
     hideVcsIgnoredFiles: true
   "unity-ui":
@@ -56,3 +60,8 @@
       green: 99
       blue: 216
       alpha: 1
+  "wrap-style":
+    style:
+      wordBreak: "break-all"
+      whiteSpace: "normal"
+    enabled: false
