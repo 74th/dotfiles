@@ -1,5 +1,5 @@
-copy %USERPROFILE%\dotfiles\vimrc\defaultvimrc.vim %USERPROFILE%\.vimrc
-copy %USERPROFILE%\dotfiles\vimrc\defaultGvimrc.vim %USERPROFILE%\.gvimrc
+copy %USERPROFILE%\dotfiles\vimrc\rootvimrc.vim %USERPROFILE%\.vimrc
+copy %USERPROFILE%\dotfiles\vimrc\rootgvimrc.vim %USERPROFILE%\.gvimrc
 
 IF EXIST %USERPROFILE%\.vim\bundle GOTO SKIP
 mkdir -p %USERPROFILE%\.vim\bundle

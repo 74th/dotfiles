@@ -17,6 +17,7 @@
     disabledPackages: [
       "wrap-guide"
       "background-tips"
+      "japanese-wrap"
     ]
   editor:
     invisibles: {}
