@@ -153,4 +153,8 @@ alias AtomPackagelistImport='apm stars --install'
 # golang
 export GOPATH=$HOME/golang
 export GOROOT=/usr/local/opt/go/libexec
-
+#--------------------------------------
+# vscode
+if [ $OSNAME = "Mac" ];then
+    code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
+fi

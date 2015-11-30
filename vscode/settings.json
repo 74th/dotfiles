@@ -1,0 +1,21 @@
+{
+    // font
+    "editor.fontFamily": "Ricty",
+    "editor.fontSize": 13,
+    // wrap
+    "editor.wrappingColumn": 0,
+    "editor.wrappingIndent": "indent",
+    // tab
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.renderWhitespace": true,
+    // auto format
+    "editor.formatOnType": true,
+    "editor.lineNumbers": false,
+
+    // golang
+    "go.lintOnSave": true,
+    "go.formatTool": "goreturns",
+    "go.buildOnSave": true,
+    "go.vetOnSave": true
+}
