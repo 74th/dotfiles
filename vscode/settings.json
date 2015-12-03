@@ -9,7 +9,7 @@
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.renderWhitespace": true,
-    // auto format
+    // auto format"
     "editor.formatOnType": true,
     "editor.lineNumbers": false,
 
@@ -17,5 +17,8 @@
     "go.lintOnSave": true,
     "go.formatTool": "goreturns",
     "go.buildOnSave": true,
-    "go.vetOnSave": true
+    "go.vetOnSave": true,
+    
+    // vimStyle
+    "vimStyle.useMacJisKeyboard": true
 }
