@@ -12,10 +12,12 @@
     // auto format
     "editor.formatOnType": true,
     "editor.lineNumbers": false,
-
     // golang
     "go.lintOnSave": true,
     "go.formatTool": "goreturns",
     "go.buildOnSave": true,
-    "go.vetOnSave": true
+    "go.vetOnSave": true,
+    // vimStyle
+    "vimStyle.useWinJisKeyboard": true,
+    "vimStyle.showMode": false
 }
