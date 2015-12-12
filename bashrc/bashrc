@@ -158,3 +158,12 @@ export GOROOT=/usr/local/opt/go/libexec
 if [ $OSNAME = "Mac" ];then
     code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
 fi
+#--------------------------------------
+# docker
+function EnvDocker() {
+    docker-machine start default
+    eval $(docker-machine env default)
+}
+function DeleteStoppedDocker() {
+    docker rm `docker ps -a | grep Exited | cut -c 1-12`
+}
