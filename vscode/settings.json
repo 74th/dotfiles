@@ -7,7 +7,7 @@
     "editor.wrappingIndent": "indent",
     // tab
     "editor.tabSize": 4,
-    "editor.insertSpaces": true,
+    "editor.insertSpaces": "auto",
     "editor.renderWhitespace": true,
     // auto format"
     "editor.formatOnType": true,
@@ -21,4 +21,5 @@
     
     // vimStyle
     "vimStyle.useMacJisKeyboard": true
+    "editor.selectionHighlight": false 
 }
