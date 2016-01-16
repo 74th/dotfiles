@@ -233,7 +233,7 @@ let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 set tabstop=4
 set shiftwidth=4
 set autoindent
-set expandtab
+set noexpandtab
 
 "不可視文字の表示
 " tab、trail(行末のスペース)のみ表示する
