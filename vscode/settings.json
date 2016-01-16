@@ -20,6 +20,8 @@
     "go.vetOnSave": true,
     
     // vimStyle
-    "vimStyle.useMacJisKeyboard": true
-    "editor.selectionHighlight": false 
+    "vimStyle.useMacJisKeyboard": true,
+    "vimStyle.showMode": true,
+    "vimStyle.useErgonomicKeyForMotion": false,
+    "editor.selectionHighlight": true
 }
