@@ -344,47 +344,6 @@ function! ParseXML()
 endfunction
 command! ParseXML :call ParseXML()
 "-----------------------------------------------------------
-"quickrun 2012/11/03
-NeoBundle 'thinca/vim-quickrun'
-let g:quickrun_config = {
-\   "_" : {
-\       "runner" : "vimproc",
-\       "runner/vimproc/updatetime" : 500,
-\   },
-\}
-":QuickRun <標準入力ファイル
-" 今のファイルでJasmine-nodeを実行
-function! QuickRunFirst(...)
-    let b:quickrun_previous = ""
-    for i in a:000
-        let b:quickrun_previous = b:quickrun_previous . " " . i
-    endfor
-    execute "QuickRun " . b:quickrun_previous
-endfunction
-command! -nargs=* QuickRunFirst :call QuickRunFirst(<f-args>)
-function! QuickRunRepeat()
-    if exists("b:quickrun_previous")
-        execute "QuickRun " . b:quickrun_previous
-    else
-        call quickrun#run()
-    endif
-endfunction
-nnoremap <F5> :call QuickRunRepeat()<CR>
-command! RunJasmineNode :QuickRun jasmine-node -cmdopt="%s"<CR>
-" てか<F5>でいいよね
-autocmd BufNewFile,BufRead *.spec.js nnoremap <buffer> <F5> :QuickRun jasmine-node -cmdopt="%s"<CR>
-"-----------------------------------------------------------
-"tabnewを楽にする 2012/11/27
-command! Tn :tabnew
-nnoremap <silent> gn :tabnew<CR>
-nnoremap <silent> g1 :tabn 1<CR>
-nnoremap <silent> g2 :tabn 2<CR>
-nnoremap <silent> g3 :tabn 3<CR>
-nnoremap <silent> g4 :tabn 4<CR>
-nnoremap <silent> g5 :tabn 5<CR>
-nnoremap <silent> g6 :tabn 6<CR>
-nnoremap <silent> g7 :tabn 7<CR>
-"-----------------------------------------------------------
 "文字コードを指定して再オープン 2014/10/31
 command! OpenUtf8 :e! ++enc=utf-8
 command! OpenSjis :e! ++enc=cp932
