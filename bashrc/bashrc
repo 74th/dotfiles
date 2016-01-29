@@ -3,30 +3,35 @@
 #--------------------------------------
 # OS判定
 if [ "$(uname)" == 'Darwin' ]; then
-    OSNAME='Mac'
+	OSNAME='Mac'
 else
-    OSNAME='Linux'
+	OSNAME='Linux'
 fi
 #--------------------------------------
 # 文字コードの標準設定
-export LANG=en_US.UTF-8
-export LESSCHARSET=utf-8
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+export LANG=en_US
+export LESSCHARSET=UTF-8
+if [ $OSNAME = "Mac" ];then
+	export LC_CTYPE=en_US.UTF-8
+	export LC_ALL=en_US.UTF-8
+else
+	export LC_CTYPE=C.UTF-8
+	export LC_ALL=C.UTF-8
+fi
 #--------------------------------------
 # 個人コマンドのパスを通す
 export PATH=~/dotfiles/command:$PATH
 #--------------------------------------
 # MacVim
 if [ $OSNAME = "Mac" ];then
-    alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+	alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 fi
 #--------------------------------------
 # エディターはVim
 if [ $OSNAME = "Mac" ];then
-    export EDITOR=/Applications/MacVim.app/Contents/MacOS/vim
+	export EDITOR=/Applications/MacVim.app/Contents/MacOS/vim
 else
-    export EDITOR=vim
+	export EDITOR=vim
 fi
 #--------------------------------------
 #bashに着色する
@@ -40,20 +45,20 @@ u2=`expr $USER : '\(..\).*'`
 # 現在のホストによってプロンプトの色を変える。
 # 30Black 31Red 32Green 33Yellow 34Blue 35Magenta 36Cyan 37White
 if [ $OSNAME = "Mac" ];then
-    # MacOSはマゼンダ（橙）
-    col=35
+	# MacOSはマゼンダ（橙）
+	col=35
 else
-    # その他Linuxは水色
-    col=36
+	# その他Linuxは水色
+	col=36
 fi
 
 # PS1="[h2:ホスト名][\W:カレントディレクトリ名][$/#]"
 # ディレクトリ名は白
 # ユーザの$は白、rootを示す#は赤
 if [ $UID -eq 0 ]; then
-    PS1="\[\e[${col}m\]$h3\[\e[m\]\W\[\e[31m\]#\[\e[m\]"
+	PS1="\[\e[${col}m\]$h3\[\e[m\]\W\[\e[31m\]#\[\e[m\]"
 else
-    PS1="\[\e[${col}m\]$h3\[\e[m\]\W\\$"
+	PS1="\[\e[${col}m\]$h3\[\e[m\]\W\\$"
 fi
 
 #--------------------------------------
@@ -76,10 +81,10 @@ alias sl='ls'
 #--------------------------------------
 # nvm(node version manager)があれば利用する
 if [ -e ~/.nvm ]; then
-    source ~/.nvm/nvm.sh
-    nvm use v0.8.14 > /dev/null
+	source ~/.nvm/nvm.sh
+	nvm use v0.8.14 > /dev/null
 else
-    alias nvm='echo "please:git clone git://github.com/creationix/nvm.git ~/.nvm"'
+	alias nvm='echo "please:git clone git://github.com/creationix/nvm.git ~/.nvm"'
 fi
 #--------------------------------------
 # github用のユーザ設定
@@ -93,19 +98,19 @@ alias java='java -Dfile.encoding=UTF-8'
 # Bashの補完 bash-completion
 # http://d.hatena.ne.jp/youhey/20120501/1335855775
 if [ $OSNAME = "Mac" ];then
-    # --Mac--
-    # まずbrew bundleすること
-    if [ -f /usr/local/etc/bash_completion ]; then
-        source /usr/local/etc/bash_completion
-    fi
+	# --Mac--
+	# まずbrew bundleすること
+	if [ -f /usr/local/etc/bash_completion ]; then
+		source /usr/local/etc/bash_completion
+	fi
 else
-    if [ -f /etc/bash_completion ]; then
-        source /etc/bash_completion
-    fi
+	if [ -f /etc/bash_completion ]; then
+		source /etc/bash_completion
+	fi
 fi
 # gitの補完
 if [ -f ~/dotfiles/bashrc/git-completion/git-completion.bash ]; then
-    source ~/dotfiles/bashrc/git-completion/git-completion.bash
+	source ~/dotfiles/bashrc/git-completion/git-completion.bash
 fi
 
 #--------------------------------------
@@ -118,11 +123,11 @@ bind '\C-w:unix-filename-rubout'
 #--------------------------------------
 # Androidのスクリーンショットを取る
 function TakeAndroidScreenshot() {
-    DATE=`date '+%y%m%d%H%M%S'`
-    adb shell mkdir /sdcard/screen_cap  
-    adb shell screencap -p /sdcard/screen_cap/screen-${DATE}.png
-    adb pull /sdcard/screen_cap/screen-${DATE}.png
-    adb shell rm /sdcard/screen_cap/screen-${DATE}.png
+DATE=`date '+%y%m%d%H%M%S'`
+adb shell mkdir /sdcard/screen_cap  
+adb shell screencap -p /sdcard/screen_cap/screen-${DATE}.png
+adb pull /sdcard/screen_cap/screen-${DATE}.png
+adb shell rm /sdcard/screen_cap/screen-${DATE}.png
 }
 
 #--------------------------------------
@@ -132,21 +137,21 @@ alias ConvertToPng='mogrify -format png'
 #--------------------------------------
 # 色々更新
 function UpdateDotfilesModule() {
-    # git-completion.bash
-    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/dotfiles/bashrc/git-completion/git-completion.bash
+# git-completion.bash
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/dotfiles/bashrc/git-completion/git-completion.bash
 }
 #--------------------------------------
 # Git簡単化
 function GitPushPush() {
-    git add -A
-    git commit -m "at $HOSTNAME"
-    git push origin master
+git add -A
+git commit -m "at $HOSTNAME"
+git push origin master
 }
 function GitPush() {
-    git push origin master
+git push origin master
 }
 function GitPull() {
-    git pull origin master
+git pull origin master
 }
 #--------------------------------------
 # Atomのパッケージインストール
@@ -158,14 +163,14 @@ export GOROOT=/usr/local/opt/go/libexec
 #--------------------------------------
 # vscode
 if [ $OSNAME = "Mac" ];then
-    code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
+	code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
 fi
 #--------------------------------------
 # docker
 function EnvDocker() {
-    docker-machine start default
-    eval $(docker-machine env default)
+docker-machine start default
+eval $(docker-machine env default)
 }
 function DeleteStoppedDocker() {
-    docker rm `docker ps -a | grep Exited | cut -c 1-12`
+docker rm `docker ps -a | grep Exited | cut -c 1-12`
 }
