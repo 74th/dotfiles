@@ -1,0 +1,2 @@
+PermitLocalCommand yes
+LocalCommand [[ "$TERM" =~ ^screen ]] && echo -ne "\ek$(echo '%h' | awk -F '.' '{print $1}')\e\\"
