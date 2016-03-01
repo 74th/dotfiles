@@ -4,8 +4,9 @@ escape ^z^z
 vbell on
 # ステータスバー
 hardstatus on
-hardstatus alwayslastline '%{= .b}%H%{-} %L=%-w%45L>%{=u b.}%n %t%{-}%+w %-17<%=%m/%d %02c:%s'
-caption always '%?%F%{= bw}%:%{= wk}%?%2n%f%07=%t%='
+#hardstatus alwayslastline '%{= .b}%H%{-} %L=%-w%45L>%{=u b.}%n %t%{-}%+w %-17<%=%m/%d %02c:%s'
+hardstatus alwayslastline '%{= .g}%H%{-} %L=%-w%45L>%{= gk}%n %t%{-}%+w %-17<%='
+caption always '%?%F%{= gk}%:%{= Kk}%?%2n%f%07=%t%='
 sorendition '+r .b'
 # 別画面サポート。Vimやless使うときに便利
 altscreen on
@@ -13,3 +14,5 @@ altscreen on
 defbce "on"
 # 起動メッセージ
 startup_message off
+
+shell -$SHELL
