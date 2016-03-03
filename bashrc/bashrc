@@ -4,19 +4,21 @@
 # OS判定
 if [ "$(uname)" == 'Darwin' ]; then
 	OSNAME='Mac'
-else
+elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 	OSNAME='Linux'
+elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
+	OSNAME='Cygwin'
 fi
 #--------------------------------------
 # 文字コードの標準設定
-export LANG=en_US
-export LESSCHARSET=UTF-8
-if [ $OSNAME = "Mac" ];then
+#export LESSCHARSET=UTF-8
+if [ $OSNAME = "Mac" ]; then
 	export LC_CTYPE=en_US.UTF-8
 	export LC_ALL=en_US.UTF-8
-else
-	export LC_CTYPE=C.UTF-8
-	export LC_ALL=C.UTF-8
+elif [ $OSNAME = "Linux" ]; then
+	export LANG=en_US.UTF-8
+	export LC_CTYPE=en_US.UTF-8
+	export LC_ALL=en_US.UTF-8
 fi
 #--------------------------------------
 # 個人コマンドのパスを通す
