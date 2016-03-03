@@ -89,10 +89,6 @@ else
 	alias nvm='echo "please:git clone git://github.com/creationix/nvm.git ~/.nvm"'
 fi
 #--------------------------------------
-# github用のユーザ設定
-git config --global user.name "74th"
-git config --global user.email "site@j74th.com"
-#--------------------------------------
 # Javacの文字コード
 alias javac='javac -J-Dfile.encoding=utf-8'
 alias java='java -Dfile.encoding=UTF-8'
@@ -132,6 +128,11 @@ adb pull /sdcard/screen_cap/screen-${DATE}.png
 adb shell rm /sdcard/screen_cap/screen-${DATE}.png
 }
 
+#--------------------------------------
+function SetGitUser() {
+	git config --local user.name 74th
+	git config --local user.email site@j74th.com
+}
 #--------------------------------------
 # ImageMagic関連
 alias ConvertToJpg='mogrify -format jpg'
