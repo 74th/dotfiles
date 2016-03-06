@@ -6,6 +6,13 @@ echo -n "repository username:"
 read repuser
 repdir=/home/$repuser/dotfiles
 
+#MySettings
+if [ -e ~/dotfiles ]; then
+    echo "Fail: directory ~/dotfiles is exists."
+else
+    ln -s /home/$repuser/dotfiles ~/dotfiles
+fi
+
 #bashrc
 if [ -e ~/.bashrc ]; then
     rm ~/.bashrc
@@ -23,12 +30,6 @@ fi
 if [ -e ~/.gvimrc ]; then
     rm ~/.gvimrc
 fi
-cp $repdir/vimrc/rootvimrc.vim ~/.vimrc
-cp $repdir/vimrc/rootgvimrc.vim ~/.gvimrc
+echo "execute 'source ~/dotfiles/vimrc/vimrc.vim'">~/.vimrc
+echo "execute 'source ~/dotfiles/vimrc/gvimrc.vim'">~/.gvimrc
 
-#MySettings
-if [ -e ~/dotfiles ]; then
-    echo "Fail: directory ~/dotfiles is exists."
-else
-    ln -s /home/$repuser/dotfiles ~/dotfiles
-fi
