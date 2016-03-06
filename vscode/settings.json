@@ -7,21 +7,23 @@
     "editor.wrappingIndent": "indent",
     // tab
     "editor.tabSize": 4,
-    "editor.insertSpaces": "auto",
+    "editor.insertSpaces": false,
     "editor.renderWhitespace": true,
+    "editor.cursorStyle": "line",
     // auto format"
     "editor.formatOnType": true,
     "editor.lineNumbers": false,
-
+    "editor.selectionHighlight": false,
     // golang
     "go.lintOnSave": true,
     "go.formatTool": "goreturns",
     "go.buildOnSave": true,
     "go.vetOnSave": true,
+    "go.gopath": "/Users/atsushi/golang",
+    "go.goroot": "/usr/local/opt/go/libexec",
     
     // vimStyle
     "vimStyle.useMacJisKeyboard": true,
     "vimStyle.showMode": true,
-    "vimStyle.useErgonomicKeyForMotion": false,
-    "editor.selectionHighlight": true
+    "vimStyle.useErgonomicKeyForMotion": false
 }

@@ -7,12 +7,13 @@ hardstatus on
 #hardstatus alwayslastline '%{= .b}%H%{-} %L=%-w%45L>%{=u b.}%n %t%{-}%+w %-17<%=%m/%d %02c:%s'
 hardstatus alwayslastline '%{= .g}%H%{-} %L=%-w%45L>%{= gk}%n %t%{-}%+w %-17<%='
 caption always '%?%F%{= gk}%:%{= Kk}%?%2n%f%07=%t%='
+#caption always "%{= mw} %-w%{=b cw}%n %t%{-}%+w %= %{=b mw}%y/%m/%d"
 sorendition '+r .b'
 # 別画面サポート。Vimやless使うときに便利
-altscreen on
+#altscreen on
 # 背景色消去
 defbce "on"
 # 起動メッセージ
 startup_message off
 
-shell -$SHELL
+#shell -$SHELL
