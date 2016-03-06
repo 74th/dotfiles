@@ -1,6 +1,6 @@
 一切のプラグインの使用を止めました
 
 ```
-cp ~/dotfiles/vimrc/rootvimrc.vim ~/.vimrc
-cp ~/dotfiles/vimrc/rootgvimrc.vim ~/.gvimrc
+echo "execute 'source ~/dotfiles/vimrc/vimrc.vim'">~/.vimrc
+echo "execute 'source ~/dotfiles/vimrc/gvimrc.vim'">~/.gvimrc
 ```
