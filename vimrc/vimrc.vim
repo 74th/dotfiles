@@ -1,3 +1,5 @@
+set encoding=utf-8
+
 " いらんファイルを作らない
 set nobackup
 set noundofile
