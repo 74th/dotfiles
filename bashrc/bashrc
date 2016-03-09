@@ -8,6 +8,10 @@ elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
 	OSNAME='Linux'
 elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
 	OSNAME='Cygwin'
+elif [ "$(expr substr $(uname -s) 1 9)" == 'CYGWIN_NT' ]; then
+	OSNAME='Cygwin'
+else
+	OSNAME='Linux'
 fi
 #--------------------------------------
 # 文字コードの標準設定
