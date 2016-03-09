@@ -12,8 +12,8 @@ cp ~/dotfiles/bashrc/rootbashrc ~/.bashrc
 cp ~/dotfiles/bashrc/rootbashrc ~/.bash_profile
 
 #vimrc
-echo "execute 'source ~/dotfiles/vimrc/vimrc.vim'">~/.vimrc
-echo "execute 'source ~/dotfiles/vimrc/gvimrc.vim'">~/.gvimrc
+echo "source ~/dotfiles/vimrc/vimrc.vim">~/.vimrc
+echo "source ~/dotfiles/vimrc/gvimrc.vim">~/.gvimrc
 
 #screenrc
 if [ -e ~/.screenrc ]; then
