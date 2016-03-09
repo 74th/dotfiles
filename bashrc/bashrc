@@ -60,14 +60,9 @@ fi
 if [ $UID -eq 0 ]; then
 	PS1="\[\e[${col}m\]$h3\[\e[m\]\W\[\e[31m\]#\[\e[m\]"
 else
-	# moto PS1="\[\e[${col}m\]$h3\[\e[m\]\W\\$"
-	# PS1='\[\033k\033\\\]\u@\h:\W\$ '
-	# PS1="\[\033k\033\\\]\[\e[${col}m\]$h3\[\e[m\]\W\\$"
-	# PS1="\[\e[${col}m\]$h3\[\e[m\]\W\\$"
-	#PS1='\[\033k\033\\\]\u@\h:\W\$ '
 	PS1="\[\e[${col}m\]$h3\[\e[m\]\W\\$"
 fi
-if [ "$TERM" != 'screen' -a "$TERM" != 'screen-bce' ]; then
+if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
 	PS1=${PS1}'\[\033k\W\033\\\]'
 fi
 

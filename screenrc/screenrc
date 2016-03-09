@@ -16,4 +16,4 @@ defbce "on"
 # 起動メッセージ
 startup_message off
 
-#shell -$SHELL
+shell -$SHELL
