@@ -1,4 +1,4 @@
-colorscheme elflord
+colorscheme evening
 
 " メニューは表示しない
 set guioptions=egrLt
