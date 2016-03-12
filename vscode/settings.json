@@ -1,7 +1,7 @@
 {
     // font
-    "editor.fontFamily": "Ricty",
-    "editor.fontSize": 13,
+    "editor.fontFamily": "SourceHanCodeJP-Light",
+    "editor.fontSize": 11,
     // wrap
     "editor.wrappingColumn": 0,
     "editor.wrappingIndent": "indent",
