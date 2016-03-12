@@ -164,6 +164,10 @@ git push origin master
 function GitPull() {
 git pull origin master
 }
+alias commit='git commit'
+alias add='git add'
+alias push='git push'
+alias pull='git push'
 #--------------------------------------
 # Atomのパッケージインストール
 alias AtomPackagelistImport='apm stars --install'
