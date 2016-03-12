@@ -1,6 +1,6 @@
 {
     // font
-    "editor.fontFamily": "SourceHanCodeJP-Light",
+    "editor.fontFamily": "SourceHanCodeJP-Light, '源ノ角ゴシック Code JP Light'",
     "editor.fontSize": 11,
     // wrap
     "editor.wrappingColumn": 0,
