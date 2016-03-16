@@ -189,3 +189,9 @@ eval $(docker-machine env default)
 function DeleteStoppedDocker() {
 docker rm `docker ps -a | grep Exited | cut -c 1-12`
 }
+#--------------------------------------
+# vimのエラー対策
+# E437: terminal capability "cm" required
+if [ "$TERM" == 'screen-bce' ]; then
+	export TERM=screen
+fi
