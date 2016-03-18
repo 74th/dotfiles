@@ -24,4 +24,4 @@ Cyan=86,183,165
 BoldCyan=102,239,213
 White=172,173,161
 BoldWhite=207,208,194
-
+CursorType=block
