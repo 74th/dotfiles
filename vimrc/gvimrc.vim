@@ -10,6 +10,7 @@ set columns=120
 if has('gui_macvim')
     set guifont=Gen\ Shin\ Gothic\ Monospace\ Light:h13
     set noimdisableactivate
+	set lsp=-1
 elseif has('win32')
     set guifont=Ricty\ Regular:h11
 endif
