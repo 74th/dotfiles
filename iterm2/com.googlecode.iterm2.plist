@@ -1290,7 +1290,7 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>374 108 765 290 0 0 1280 800 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>269 277 606 456 0 0 1280 777 </string>
+	<string>269 306 606 456 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 4 1130 773 0 0 1280 777 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
@@ -1303,7 +1303,7 @@
 			<key>Allow Title Reporting</key>
 			<false/>
 			<key>Ambiguous Double Width</key>
-			<true/>
+			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2078,7 +2078,7 @@
 			<key>Allow Title Reporting</key>
 			<false/>
 			<key>Ambiguous Double Width</key>
-			<true/>
+			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
