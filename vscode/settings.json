@@ -12,11 +12,13 @@
     "editor.cursorStyle": "line",
     // auto format"
     "editor.formatOnType": true,
-    "editor.lineNumbers": false,
+    "editor.lineNumbers": true,
     "editor.selectionHighlight": false,
+    
     // golang
     "go.lintOnSave": true,
     "go.formatTool": "goreturns",
+    "go.formatOnSave": true,
     "go.buildOnSave": true,
     "go.vetOnSave": true,
     "go.gopath": "/Users/atsushi/golang",
