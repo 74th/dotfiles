@@ -78,6 +78,7 @@ alias OpenTargz='tar zxvf'
 alias FreezeTarbz2='tar jcvf'
 alias OpenTarbz2='tar jxvf'
 alias EditBashrc="vi ~/dotfiles/bashrc/bashrc"
+alias EditMemo="gvim ~/memo.mkd"
 alias ReloadBashrc="source ~/dotfiles/bashrc/bashrc"
 alias ShowListenPorts='netstat -lnptua'
 alias lsa='ls -alh'
