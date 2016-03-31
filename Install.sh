@@ -5,11 +5,7 @@
 if [ -e ~/.bashrc ]; then
     rm ~/.bashrc
 fi
-if [ -e ~/.bash_profile ]; then
-    rm ~/.bash_profile
-fi
 cp ~/dotfiles/bashrc/rootbashrc ~/.bashrc
-cp ~/dotfiles/bashrc/rootbashrc ~/.bash_profile
 
 #vimrc
 echo "source ~/dotfiles/vimrc/vimrc.vim">~/.vimrc
