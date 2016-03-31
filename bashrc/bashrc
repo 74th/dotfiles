@@ -198,3 +198,6 @@ docker rm `docker ps -a | grep Exited | cut -c 1-12`
 if [ "$TERM" == 'screen-bce' ]; then
 	export TERM=screen
 fi
+#--------------------------------------
+# コマンドにいろいろ色を付ける
+alias ls='ls --color=auto'
