@@ -28,6 +28,6 @@ command! OpenEucjp :e! ++enc=euc-jp
 " 日本語表示
 set ambiwidth=double
 
-" マウスの利用
-set mouse=a
+" マウスの利用 初期値は向こうにしておく
+set mouse=
 set ttymouse=xterm2
