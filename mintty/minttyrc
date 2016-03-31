@@ -1,7 +1,7 @@
 BoldAsFont=no
 Font=源真ゴシック等幅 Light
 FontHeight=10
-Term=xterm-256color
+Term=xterm
 Transparency=medium
 BellFlash=yes
 BellTaskbar=no
@@ -25,3 +25,8 @@ BoldCyan=102,239,213
 White=172,173,161
 BoldWhite=207,208,194
 CursorType=block
+CursorBlinks=no
+ZoomShortcuts=no
+CopyAsRTF=no
+ClickTargetMod=off
+RightClickAction=paste
