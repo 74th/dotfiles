@@ -200,4 +200,6 @@ if [ "$TERM" == 'screen-bce' ]; then
 fi
 #--------------------------------------
 # コマンドにいろいろ色を付ける
-alias ls='ls --color=auto'
+if [ $OSTYPE = "Linux" ];then
+	alias ls='ls --color=auto'
+fi
