@@ -171,7 +171,13 @@ alias AtomPackagelistImport='apm stars --install'
 #--------------------------------------
 # golang
 export GOPATH=$HOME/golang
-export GOROOT=/usr/local/opt/go/libexec
+if [ $OSNAME = "Mac" ];then
+	export GOROOT=/usr/local/opt/go/libexec
+elif [ $OSNAME = "Cygwin" ];then
+	export GOROOT=/cygdrive/c/go
+else
+	export GOROOT=/usr/local/lib/go
+fi
 #--------------------------------------
 # vscode
 if [ $OSNAME = "Mac" ];then
