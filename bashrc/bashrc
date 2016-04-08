@@ -84,14 +84,6 @@ alias ":q"='exit'
 # 誤入力対策コマンド
 alias sl='ls'
 #--------------------------------------
-# nvm(node version manager)があれば利用する
-if [ -e ~/.nvm ]; then
-	source ~/.nvm/nvm.sh
-	nvm use v0.8.14 > /dev/null
-else
-	alias nvm='echo "please:git clone git://github.com/creationix/nvm.git ~/.nvm"'
-fi
-#--------------------------------------
 # Javacの文字コード
 alias javac='javac -J-Dfile.encoding=utf-8'
 alias java='java -Dfile.encoding=UTF-8'
@@ -145,36 +137,34 @@ alias ConvertToPng='mogrify -format png'
 #--------------------------------------
 # 色々更新
 function UpdateDotfilesModule() {
-# git-completion.bash
-curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/dotfiles/bashrc/git-completion/git-completion.bash
+	# git-completion.bash
+	curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/dotfiles/bashrc/git-completion/git-completion.bash
 }
 #--------------------------------------
 # Git簡単化
 function GitPushPush() {
-git add -A
-git commit -m "at $HOSTNAME"
-git push origin master
+	git add -A
+	git commit -m "at $HOSTNAME"
+	git push origin master
 }
 function GitPush() {
-git push origin master
+	git push origin master
 }
 function GitPull() {
-git pull origin master
+	git pull origin master
 }
 alias commit='git commit'
 alias add='git add'
 alias push='git push'
-alias pull='git push'
-#--------------------------------------
-# Atomのパッケージインストール
-alias AtomPackagelistImport='apm stars --install'
+alias pull='git pull'
+alias log='git log --graph'
 #--------------------------------------
 # golang
 export GOPATH=$HOME/golang
 if [ $OSNAME = "Mac" ];then
 	export GOROOT=/usr/local/opt/go/libexec
 elif [ $OSNAME = "Cygwin" ];then
-	export GOROOT=/cygdrive/c/go
+	export GOROOT=/cygdrive/c/Go
 else
 	export GOROOT=/usr/local/lib/go
 fi
@@ -187,10 +177,10 @@ fi
 # docker
 function EnvDocker() {
 docker-machine start default
-eval $(docker-machine env default)
+	eval $(docker-machine env default)
 }
 function DeleteStoppedDocker() {
-docker rm `docker ps -a | grep Exited | cut -c 1-12`
+	docker rm `docker ps -a | grep Exited | cut -c 1-12`
 }
 #--------------------------------------
 # vimのエラー対策
@@ -200,6 +190,8 @@ if [ "$TERM" == 'screen-bce' ]; then
 fi
 #--------------------------------------
 # コマンドにいろいろ色を付ける
-if [ $OSTYPE = "Linux" ];then
+if [ $OSNAME = "Mac" ];then
+	alias ls='ls -G'
+else
 	alias ls='ls --color=auto'
 fi
