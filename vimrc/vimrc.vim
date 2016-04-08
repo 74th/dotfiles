@@ -1,6 +1,6 @@
 syntax on
 
-" いらんファイルを作らない
+" 不要なファイルを作らない
 set nobackup
 set noundofile
 
@@ -12,6 +12,9 @@ set noexpandtab
 
 " 自動改行を抑制
 set textwidth=0
+
+" Ctrl+aで常に10進数扱いにする
+set nrformats=
 
 " CUIの場合
 set background=dark
@@ -28,6 +31,6 @@ command! OpenEucjp :e! ++enc=euc-jp
 " 日本語表示
 set ambiwidth=double
 
-" マウスの利用 初期値は向こうにしておく
+" マウスの利用 初期値は無効にしておく
 set mouse=
 set ttymouse=xterm2
