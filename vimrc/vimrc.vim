@@ -16,6 +16,9 @@ set textwidth=0
 " Ctrl+aで常に10進数扱いにする
 set nrformats=
 
+" ルーラーを表示
+set ruler
+
 " CUIの場合
 set background=dark
 
