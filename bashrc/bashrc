@@ -184,6 +184,7 @@ docker-machine start default
 function DeleteStoppedDocker() {
 	docker rm `docker ps -a | grep Exited | cut -c 1-12`
 }
+alias d='docker'
 #--------------------------------------
 # vimのエラー対策
 # E437: terminal capability "cm" required
