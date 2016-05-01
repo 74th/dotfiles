@@ -1,31 +1,34 @@
 {
     // font
-    "editor.fontFamily": "SourceHanCodeJP-Light, Source Han Code JP Light",
-    "editor.fontSize": 11,
+    "editor.fontFamily": "SourceHanCodeJP-Light, Source Han Code JP Light"
+    ,"editor.fontSize": 11
     // wrap
-    "editor.wrappingColumn": 0,
-    "editor.wrappingIndent": "indent",
+    ,"editor.wrappingColumn": 0
+    ,"editor.wrappingIndent": "indent"
     // tab
-    "editor.tabSize": 4,
-    "editor.insertSpaces": false,
-    "editor.renderWhitespace": true,
-    "editor.cursorStyle": "line",
+    ,"editor.tabSize": 4
+    ,"editor.insertSpaces": false
+    ,"editor.renderWhitespace": true
+    ,"editor.cursorStyle": "line"
     // auto format"
-    "editor.formatOnType": true,
-    "editor.lineNumbers": true,
-    "editor.selectionHighlight": false,
-    
+    ,"editor.formatOnType": true
+    ,"editor.lineNumbers": true
+    ,"editor.selectionHighlight": false
+
     // golang
-    "go.lintOnSave": true,
-    "go.formatTool": "goreturns",
-    "go.formatOnSave": true,
-    "go.buildOnSave": true,
-    "go.vetOnSave": true,
-    "go.gopath": "/Users/atsushi/golang",
-    "go.goroot": "/usr/local/opt/go/libexec",
-    
+    ,"go.lintOnSave": true
+    ,"go.formatTool": "goreturns"
+    ,"go.formatOnSave": true
+    ,"go.buildOnSave": true
+    ,"go.vetOnSave": true
+    ,"go.gopath": "~/golang"
+    ,"go.goroot": "/usr/local/opt/go/libexec"
+
+    // git
+    ,"git.path": "/usr/local/bin/git"
+
     // vimStyle
-    "vimStyle.useMacJisKeyboard": true,
-    "vimStyle.showMode": true,
-    "vimStyle.useErgonomicKeyForMotion": false
+    ,"vimStyle.useMacJisKeyboard": true
+    ,"vimStyle.showMode": true
+    ,"vimStyle.useErgonomicKeyForMotion": false
 }

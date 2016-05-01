@@ -1,2 +1,7 @@
 [
+	{
+		"key": "ctrl+]",
+		"command": "vim.Esc",
+		"when": "editorTextFocus"
+	}
 ]
