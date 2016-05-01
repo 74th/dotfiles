@@ -1290,9 +1290,9 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>374 108 765 290 0 0 1280 800 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>269 306 606 456 0 0 1280 777 </string>
+	<string>269 313 606 456 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 4 1130 773 0 0 1280 777 </string>
+	<string>0 4 1145 773 0 0 1280 777 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -2849,7 +2849,7 @@
 		</dict>
 	</array>
 	<key>NoSyncLastTipTime</key>
-	<real>480640067.09726697</real>
+	<real>481329929.907516</real>
 	<key>NoSyncPermissionToShowTip</key>
 	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
@@ -2858,9 +2858,16 @@
 	<real>463870430.735645</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
 	<real>478936051.15946001</real>
+	<key>NoSyncTipsDisabled</key>
+	<true/>
 	<key>NoSyncTipsToNotShow</key>
 	<array>
 		<string>000</string>
+		<string>0000</string>
+		<string>0001</string>
+		<string>0002</string>
+		<string>0003</string>
+		<string>0004</string>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
@@ -2868,12 +2875,16 @@
 	<false/>
 	<key>OpenBookmark</key>
 	<false/>
+	<key>OpenNoWindowsAtStartup</key>
+	<true/>
 	<key>OpenTmuxWindowsIn</key>
 	<integer>0</integer>
 	<key>PassOnControlClick</key>
 	<false/>
 	<key>PasteFromClipboard</key>
 	<false/>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -2928,9 +2939,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-03-25T23:07:35Z</date>
+	<date>2016-04-03T01:21:45Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
+	<key>Secure Input</key>
+	<true/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
