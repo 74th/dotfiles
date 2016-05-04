@@ -15,8 +15,10 @@ fi
 # nodejs
 if [ -e /c/Program\ Files/nodejs/ ];then
 	export PATH=$PATH:/c/Program\ Files/nodejs
+	export PATH=$PATH:/c/Users/atsushi/npm
 	alias node='winpty node'
-	alias npm='winpty npm'
+	alias npm='winpty npm.cmd'
+	alias cordova='winpty cordova.cmd'
 fi
 
 # vim
