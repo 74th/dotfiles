@@ -4,12 +4,10 @@
 # OS判定
 if [ "$(uname)" == 'Darwin' ]; then
 	OSNAME='Mac'
-elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-	OSNAME='Linux'
-elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
+elif [ "$(uname -o)" == 'Cygwin' ]; then
 	OSNAME='Cygwin'
-elif [ "$(expr substr $(uname -s) 1 9)" == 'CYGWIN_NT' ]; then
-	OSNAME='Cygwin'
+elif [ "$(uname -o)" == 'Msys' ]; then
+	OSNAME='MSYS'
 else
 	OSNAME='Linux'
 fi
