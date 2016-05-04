@@ -7,7 +7,7 @@ if [ "$(uname)" == 'Darwin' ]; then
 elif [ "$(uname -o)" == 'Cygwin' ]; then
 	OSNAME='Cygwin'
 elif [ "$(uname -o)" == 'Msys' ]; then
-	OSNAME='MSYS'
+	OSNAME='Msys'
 else
 	OSNAME='Linux'
 fi
@@ -200,4 +200,9 @@ fi
 if [ -e $HOME/npm/bin ];then
 	# npmのパスをす
 	export PATH=$HOME/npm/bin:$PATH
+fi
+#--------------------------------------
+# MSYS2用の設定
+if [ $OSNAME = "Msys" ];then
+	source ~/dotfiles/bashrc/msys.sh
 fi
