@@ -12,5 +12,5 @@ if has('gui_macvim')
 	set noimdisableactivate
 	set lsp=-1
 elseif has('win32')
-    set guifont=Ricty\ Regular:h11
+    set guifont=源真ゴシック等幅_Normal:h10:cSHIFTJIS
 endif
