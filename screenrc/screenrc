@@ -16,4 +16,10 @@ defbce "on"
 # 起動メッセージ
 startup_message off
 
+# タブの移動
+bind h eval 'focus left'
+bind l eval 'focus right'
+bind j eval 'focus down'
+bind k eval 'focus up'
+
 shell -$SHELL
