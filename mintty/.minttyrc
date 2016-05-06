@@ -1,7 +1,6 @@
 BoldAsFont=no
 Font=源真ゴシック等幅 Regular
 FontHeight=10
-BackgroundColour=0,0,0
 BackgroundColour=39,40,34
 ForegroundColour=248,248,242
 CursorColour=248,248,242
@@ -21,3 +20,4 @@ Cyan=161,239,228
 BoldCyan=161,239,228
 White=248,248,242
 BoldWhite=249,248,245
+CursorType=block
