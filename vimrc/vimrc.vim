@@ -1,3 +1,6 @@
+" Windowsでもutf-8に設定しておく
+set encoding=utf-8
+
 syntax on
 
 " 不要なファイルを作らない

@@ -4,12 +4,10 @@
 # OS判定
 if [ "$(uname)" == 'Darwin' ]; then
 	OSNAME='Mac'
-elif [ "$(expr substr $(uname -s) 1 5)" == 'Linux' ]; then
-	OSNAME='Linux'
-elif [ "$(expr substr $(uname -s) 1 10)" == 'MINGW32_NT' ]; then
+elif [ "$(uname -o)" == 'Cygwin' ]; then
 	OSNAME='Cygwin'
-elif [ "$(expr substr $(uname -s) 1 9)" == 'CYGWIN_NT' ]; then
-	OSNAME='Cygwin'
+elif [ "$(uname -o)" == 'Msys' ]; then
+	OSNAME='Msys'
 else
 	OSNAME='Linux'
 fi
@@ -184,6 +182,7 @@ docker-machine start default
 function DeleteStoppedDocker() {
 	docker rm `docker ps -a | grep Exited | cut -c 1-12`
 }
+alias d='docker'
 #--------------------------------------
 # vimのエラー対策
 # E437: terminal capability "cm" required
@@ -201,4 +200,9 @@ fi
 if [ -e $HOME/npm/bin ];then
 	# npmのパスをす
 	export PATH=$HOME/npm/bin:$PATH
+fi
+#--------------------------------------
+# MSYS2用の設定
+if [ $OSNAME = "Msys" ];then
+	source ~/dotfiles/bashrc/msys.sh
 fi
