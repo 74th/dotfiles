@@ -14,3 +14,6 @@ if has('gui_macvim')
 elseif has('win32')
     set guifont=源真ゴシック等幅_Normal:h10:cSHIFTJIS
 endif
+
+" GVIMではマウスが使えるように
+set mouse=a
