@@ -158,7 +158,7 @@ alias log='git log --graph'
 #--------------------------------------
 # golang
 if [ $OSNAME = "Mac" ];then
-	export GOROOT=/usr/local/opt/go/libexec
+	export GOROOT=/usr/local/Cellar/go/1.6.2/libexec/
 elif [ $OSNAME = "Cygwin" ];then
 	export GOROOT=/cygdrive/c/Go
 else
