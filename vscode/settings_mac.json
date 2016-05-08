@@ -21,8 +21,8 @@
     ,"go.formatOnSave": true
     ,"go.buildOnSave": true
     ,"go.vetOnSave": true
-    ,"go.gopath": "~/golang"
-    ,"go.goroot": "/usr/local/opt/go/libexec"
+    ,"go.gopath": "/Users/atsushi/golang"
+    ,"go.goroot": "/usr/local/Cellar/go/1.6.2/libexec/"
 
     // git
     ,"git.path": "/usr/local/bin/git"
