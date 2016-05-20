@@ -206,3 +206,8 @@ fi
 if [ $OSNAME = "Msys" ];then
 	source ~/dotfiles/bashrc/msys.sh
 fi
+#--------------------------------------
+# 便利ディレクトリ
+if [ $OSNAME = "Mac" ];then
+	export HOMEBREW_FORMULA_DIR=/usr/local/Library/Formula
+fi
