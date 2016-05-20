@@ -3,5 +3,15 @@
 		"key": "ctrl+]",
 		"command": "vim.Esc",
 		"when": "editorTextFocus"
-	}
+	},
+    {
+        "key": "ctrl+u",
+        "command": "scrollkey.up2",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+d",
+        "command": "scrollkey.down2",
+        "when": "editorTextFocus"
+    }
 ]
