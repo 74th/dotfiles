@@ -1,0 +1,32 @@
+// Place your settings in this file to overwrite the default settings
+{
+    // font
+    "editor.fontFamily": "Source Code Pro Normal, Source Han Code JP Light"
+    ,"editor.fontSize": 13
+    ,"editor.fontLigatures": true
+    // wrap
+    ,"editor.wrappingColumn": 0
+    ,"editor.wrappingIndent": "indent"
+    ,"editor.glyphMargin": true
+    // tab
+    ,"editor.tabSize": 4
+    ,"editor.insertSpaces": false
+    ,"editor.renderWhitespace": true
+    ,"editor.cursorStyle": "line"
+    // auto format"
+    ,"editor.formatOnType": true
+    ,"editor.lineNumbers": true
+    ,"editor.selectionHighlight": false
+    
+    // golang
+    ,"go.lintOnSave": true
+    ,"go.formatTool": "goreturns"
+    ,"go.formatOnSave": true
+    ,"go.buildOnSave": true
+    ,"go.vetOnSave": true
+
+    // vimStyle
+    ,"vimStyle.useMacJisKeyboard": true
+    ,"vimStyle.showMode": true
+    ,"vimStyle.useErgonomicKeyForMotion": false
+}
