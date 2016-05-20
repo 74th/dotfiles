@@ -40,3 +40,7 @@ set ambiwidth=double
 " マウスの利用 初期値は無効にしておく
 set mouse=
 set ttymouse=xterm2
+
+" LFとutf-8を標準にする
+set fileformats=unix,dos,mac
+set fileencodings=utf-8,cp932

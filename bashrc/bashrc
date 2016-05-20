@@ -161,13 +161,21 @@ if [ $OSNAME = "Mac" ];then
 	export GOROOT=/usr/local/Cellar/go/1.6.2/libexec/
 elif [ $OSNAME = "Cygwin" ];then
 	export GOROOT=/cygdrive/c/Go
-else
+elif [ $OSNAME = "Msys" ];then
+	export GOROOT=C:\\tools\\go
+elif [ -e /usr/local/lib/go ];then
 	export GOROOT=/usr/local/lib/go
+elif [ -e /usr/lib/go ];then
+	export GOROOT=/usr/lib/go
 fi
 if [ -e $HOME/golang ];then
 	export GOPATH=$HOME/golang
+	export GOPATH_DEF=$HOME/golang
 	export PATH=$GOPATH/bin:$PATH
 fi
+function ResetGopath() {
+	export GOPATH=$GOPATH_DEF
+}
 #--------------------------------------
 # vscode
 if [ $OSNAME = "Mac" ];then
@@ -176,7 +184,7 @@ fi
 #--------------------------------------
 # docker
 function EnvDocker() {
-docker-machine start default
+	docker-machine start default
 	eval $(docker-machine env default)
 }
 function DeleteStoppedDocker() {

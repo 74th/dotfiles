@@ -2,7 +2,7 @@
 
 # golang
 if [ -e /c/tools/go/bin ];then
-	export GOROOT=$PATH:/c/tools/go/bin
+	export GOROOT=/c/tools/go/
 	export PATH=$PATH:/c/tools/go/bin
 fi
 
