@@ -184,7 +184,7 @@ fi
 #--------------------------------------
 # docker
 function EnvDocker() {
-docker-machine start default
+	docker-machine start default
 	eval $(docker-machine env default)
 }
 function DeleteStoppedDocker() {
