@@ -18,5 +18,25 @@
 	"key": "f10",
 	"command": "go.test.cursor",
 	"when": "editorTextFocus && editorLangId == 'go' && !inDebugMode"
+},
+{
+	"key": "f2",
+	"command": "workbench.files.action.workingFilesPicker"
+},
+{
+	"key": "shift+f2",
+	"command": "workbench.action.quickOpen"
+},
+{
+	"key": "ctrl+w ctrl+w",
+	"command": "workbench.action.closeActiveEditor"
+},
+{
+	"key": "ctrl+w ctrl+l",
+	"command": "workbench.action.focusRightEditor"
+},
+{
+	"key": "ctrl+w ctrl+h",
+	"command": "workbench.action.focusLeftEditor"
 }
 ]
