@@ -1,0 +1,3 @@
+[submodule "command/lib/k380_fkeys_mac"]
+	path = command/lib/k380_fkeys_mac
+	url = https://github.com/74th/k380_fkeys_mac.git
