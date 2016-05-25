@@ -1,9 +1,13 @@
 [
+
+// for VimStyle
 {
 	"key": "ctrl+]",
 	"command": "vim.Esc",
 	"when": "editorTextFocus"
 },
+
+// C-d/u : for scroll key
 {
 	"key": "ctrl+d",
 	"command": "scrollkey.down1",
@@ -14,21 +18,32 @@
 	"command": "scrollkey.up1",
 	"when": "editorTextFocus"
 },
+
+// go F10 : test cursor
 {
 	"key": "f10",
 	"command": "go.test.cursor",
 	"when": "editorTextFocus && editorLangId == 'go' && !inDebugMode"
 },
+
+// F2 : working file picker
 {
 	"key": "f2",
 	"command": "workbench.files.action.workingFilesPicker"
 },
+// S-F2 : quick
 {
 	"key": "shift+f2",
 	"command": "workbench.action.quickOpen"
 },
+
+// C-W : move window
 {
 	"key": "ctrl+w ctrl+w",
+	"command": "workbench.action.closeActiveEditor"
+},
+{
+	"key": "ctrl+w w",
 	"command": "workbench.action.closeActiveEditor"
 },
 {
@@ -36,7 +51,21 @@
 	"command": "workbench.action.focusRightEditor"
 },
 {
+	"key": "ctrl+w l",
+	"command": "workbench.action.focusRightEditor"
+},
+{
 	"key": "ctrl+w ctrl+h",
 	"command": "workbench.action.focusLeftEditor"
+},
+{
+	"key": "ctrl+w h",
+	"command": "workbench.action.focusLeftEditor"
+},
+
+// dummy command
+{
+	 "key": "ctrl+shift+w",
+	 "command": "workbench.action.closeWindow"
 }
 ]
