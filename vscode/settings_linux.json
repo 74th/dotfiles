@@ -1,7 +1,7 @@
 {
     // font
     "editor.fontFamily": "SourceHanCodeJP-Light, Source Han Code JP Light,Source Han Code JP L"
-    ,"editor.fontSize": 11
+    ,"editor.fontSize": 13
     // wrap
     ,"editor.wrappingColumn": 0
     ,"editor.wrappingIndent": "indent"
