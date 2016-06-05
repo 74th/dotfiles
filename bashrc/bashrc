@@ -24,6 +24,8 @@ export PATH=~/dotfiles/command:$PATH
 # MacVim
 if [ $OSNAME = "Mac" ];then
 	alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+	alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+	alias vimless='/Applications/MacVim.app/Contents/Resources/vim/runtime/macros/less.sh'
 fi
 #--------------------------------------
 # エディターはVim
@@ -219,3 +221,19 @@ fi
 if [ $OSNAME = "Mac" ];then
 	export HOMEBREW_FORMULA_DIR=/usr/local/Library/Formula
 fi
+#--------------------------------------
+# 自分のチートシートディレクトリをpecoで開く
+function OpenCheatSheets() {
+	FILE=$(ls ~/mycheatsheets/ | peco)
+	vimless -c "set syntax=markdown" ~/mycheatsheets/$FILE
+}
+function EditCheatSheets() {
+	cd ~/MyCheatSheets/
+	git pull origin master
+	FILE=$(ls ~/mycheatsheets/ | peco)
+	vim ~/mycheatsheets/$FILE
+	git add -A
+	git commit -m "at $HOSTNAME"
+	git push origin master
+	cd -
+}
