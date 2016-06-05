@@ -12,7 +12,10 @@ if has('gui_macvim')
 	set noimdisableactivate
 	set lsp=-1
 elseif has('win32')
-    set guifont=源真ゴシック等幅_Normal:h10:cSHIFTJIS
+	set guifont=源真ゴシック等幅_Normal:h10:cSHIFTJIS
+else
+	set guifont=Source\ Code\ Pro\ Medium\ 10
+	set guifontwide=Source\ Han\ Code\ JP\ Semi-Light\ 11
 endif
 
 " GVIMではマウスが使えるように
