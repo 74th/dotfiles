@@ -1,1 +1,0 @@
-CALL set-config.sh

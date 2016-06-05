@@ -1,2 +1,0 @@
-CALL set-username.sh
-
