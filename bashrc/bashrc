@@ -52,14 +52,18 @@ else
 	# その他Linuxは水色
 	col=36
 fi
-
+# Gitのブランチを表示
+# 参考 http://qiita.com/caad1229/items/6d71d84933c8a87af0c4
+function parse_git_branch {
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
 # PS1="[h2:ホスト名][\W:カレントディレクトリ名][$/#]"
 # ディレクトリ名は白
 # ユーザの$は白、rootを示す#は赤
 if [ $UID -eq 0 ]; then
-	PS1="\[\e[${col}m\]$h3\[\e[m\]\W\[\e[31m\]#\[\e[m\]"
+	PS1="\[\e[${col}m\]$h3\e[33m\]\$(parse_git_branch)\[\e[m\]\W\[\e[31m\]#\[\e[m\]"
 else
-	PS1="\[\e[${col}m\]$h3\[\e[m\]\W\\$"
+	PS1="\[\e[${col}m\]$h3\e[33m\]\$(parse_git_branch)\[\e[m\]\W\$"
 fi
 if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
 	PS1=${PS1}'\[\033k$h3@\W\033\\\]'
