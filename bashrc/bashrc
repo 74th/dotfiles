@@ -145,22 +145,23 @@ function UpdateDotfilesModule() {
 }
 #--------------------------------------
 # Git簡単化
-function GitPushPush() {
+function pushpush() {
 	git add -A
 	git commit -m "at $HOSTNAME"
 	git push origin master
-}
-function GitPush() {
-	git push origin master
-}
-function GitPull() {
-	git pull origin master
 }
 alias commit='git commit'
 alias add='git add'
 alias push='git push'
 alias pull='git pull'
 alias log='git log --graph'
+function checkout() {
+	if [ $# -gt 0 ];then
+		git checkout $*
+	else
+		git checkout `git branch | peco | sed -e "s/\* //g" | awk "{print \$1}"`
+	fi
+}
 #--------------------------------------
 # golang
 if [ $OSNAME = "Mac" ];then
