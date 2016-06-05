@@ -2,6 +2,7 @@ git config --global core.autocrlf input
 git config --global core.safecrlf true
 
 git config --global push.default current
+git config --global push.followTags
 
 git config --global alias.branches "branch -a"
 git config --global alias.tags "tag"
