@@ -1,6 +1,6 @@
 {
     // font
-    "editor.fontFamily": "SourceHanCodeJP-Light, Source Han Code JP Light,Source Han Code JP L"
+    "editor.fontFamily": "Source Han Code JP Light,Source Han Code JP M"
     ,"editor.fontSize": 13
     // wrap
     ,"editor.wrappingColumn": 0
