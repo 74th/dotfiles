@@ -36,6 +36,7 @@ else
 fi
 #--------------------------------------
 # Bashの補完 bash-completion
+# https://github.com/git/git/tree/master/contrib/completion
 # http://d.hatena.ne.jp/youhey/20120501/1335855775
 if [ $OSNAME = "Mac" ];then
 	# --Mac--
@@ -76,11 +77,18 @@ fi
 function parse_git_branch {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
+# しばらく公式のを使ってみる
+#   * ステージングにない変更
+#   + ステージングにある状態
+GIT_PS1_SHOWDIRTYSTATE=true
+#   % ステージングにない新規ファイル
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM=auto
 # PS1='[h2:ホスト名][Gitリポジトリ][\W:カレントディレクトリ名][$/#]"
 # ディレクトリ名は白
 # ユーザの$は白、rootを示す#は赤
 if [ $UID -eq 0 ]; then
-	PS1="\[\e[${col}m\]$h3\[e[33m\]\$(parse_git_branch)\[\e[m\]\W\[\e[31m\]#\[\e[m\]"
+	PS1="\[\e[${col}m\]$h3\[e[33m\]\$(__git_ps1)\[\e[m\]\W\[\e[31m\]#\[\e[m\]"
 else
 	# 非表示の文字は\[ \]で囲うこと
 	PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$'
