@@ -17,6 +17,7 @@
     ,"editor.formatOnType": true
     ,"editor.lineNumbers": true
     ,"editor.selectionHighlight": false
+    ,"editor.autoClosingBrackets": false
     
     // golang
     ,"go.lintOnSave": true
