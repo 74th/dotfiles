@@ -1890,7 +1890,7 @@
 			<key>Name</key>
 			<string>full screen</string>
 			<key>Non Ascii Font</key>
-			<string>SourceHanCodeJP-ExtraLightIt 14</string>
+			<string>HiraginoSans-W1 14</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
@@ -2943,7 +2943,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-05-07T23:46:35Z</date>
+	<date>2016-06-03T21:28:26Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
