@@ -68,6 +68,11 @@ u2=`expr $USER : '\(..\).*'`
 if [ $OSNAME = "Mac" ];then
 	# MacOSはマゼンダ（橙）
 	col=35
+elif [ $OSNAME = "Cygwin" ];then
+	# Windowsは緑
+	col=32
+elif [ $OSNAME = "Msys" ];then
+	col=32
 else
 	# その他Linuxは水色
 	col=36
