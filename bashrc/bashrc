@@ -88,7 +88,8 @@ GIT_PS1_SHOWUPSTREAM=auto
 # ディレクトリ名は白
 # ユーザの$は白、rootを示す#は赤
 if [ $UID -eq 0 ]; then
-	PS1="\[\e[${col}m\]$h3\[e[33m\]\$(__git_ps1)\[\e[m\]\W\[\e[31m\]#\[\e[m\]"
+	PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$'
+	PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\[\e[31m\]#\[\e[m\]'
 else
 	# 非表示の文字は\[ \]で囲うこと
 	if [ $OSNAME = "Msys" ];then
