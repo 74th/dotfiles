@@ -28,9 +28,8 @@
     ,"git.path": "/usr/local/bin/git"
 
     // vimStyle
-    ,"vimStyle.useMacJisKeyboard": true
-    ,"vimStyle.showMode": true
-    ,"vimStyle.useErgonomicKeyForMotion": false
+    //,"vimStyle.showMode": false
+    ,"vimStyle.changeCursorStyle": false
     
     // mykeyscroll
     ,"scrollkey.line1": 1

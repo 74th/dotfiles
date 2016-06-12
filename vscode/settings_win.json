@@ -1,7 +1,7 @@
 // Place your settings in this file to overwrite the default settings
 {
     // font
-    "editor.fontFamily": "Source Code Pro Normal, Source Han Code JP Light"
+    "editor.fontFamily": "Source Code Pro Light, Source Han Code JP Light"
     ,"editor.fontSize": 13
     ,"editor.fontLigatures": true
     // wrap
@@ -17,6 +17,7 @@
     ,"editor.formatOnType": true
     ,"editor.lineNumbers": true
     ,"editor.selectionHighlight": false
+    ,"editor.autoClosingBrackets": false
     
     // golang
     ,"go.lintOnSave": true
