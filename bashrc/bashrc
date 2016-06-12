@@ -20,6 +20,15 @@ export LC_ALL=en_US.UTF-8
 #--------------------------------------
 # 個人コマンドのパスを通す
 export PATH=~/dotfiles/bin:$PATH
+if [ -e $HOME/golang ];then
+	export PATH=~/golang/bin:$PATH
+fi
+if [ -e $HOME/npm ];then
+	export PATH=~/npm/bin:$PATH
+fi
+if [ -e $HOME/bin ];then
+	export PATH=~/bin:$PATH
+fi
 #--------------------------------------
 # MacVim
 if [ $OSNAME = "Mac" ];then
