@@ -260,7 +260,7 @@ function OpenCheatSheets() {
 	vimless -c "set syntax=markdown" ~/mycheatsheets/$FILE
 }
 function EditCheatSheets() {
-	cd ~/MyCheatSheets/
+	cd ~/mycheatsheets/
 	git pull origin master
 	FILE=$(ls ~/mycheatsheets/ | peco)
 	vim ~/mycheatsheets/$FILE
