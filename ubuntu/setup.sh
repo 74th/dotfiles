@@ -1,6 +1,9 @@
-sudo apt-get update
+sudo apt update
 
 if [ $# = 0 ] || [ $1 = "git" ];then
-	sudo apt-get install git git-flow bash-completion
+	sudo apt install -y git git-flow bash-completion
 	sudo curl -o /etc/bash_completion.d/git-flow-completion.bash https://raw.githubusercontent.com/bobthecow/git-flow-completion/master/git-flow-completion.bash
+fi
+if [ $# = 0 ] || [ $1 = "tmux" ];then
+	sudo apt install -y tmux
 fi
