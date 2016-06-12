@@ -12,6 +12,12 @@ git config --global push.followTags
 echo globalのGitIgnore
 git config --global core.excludesfile ~/dotfiles/git/.gitignore
 
+echo git diffの並列実行
+git config --global core.preloadindex true
+
+echo Windows環境でgitが早くなる
+git config --global core.fscache true
+
 echo 人間らしいgitコマンド
 git config --global alias.branches "branch -a"
 git config --global alias.tags "tag"
