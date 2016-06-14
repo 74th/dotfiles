@@ -1,10 +1,12 @@
 {
     // font
-    "editor.fontFamily": "Source Han Code JP Light,Source Han Code JP M"
+    "editor.fontFamily": "Source Han Code JP Light,Source Han Code JP M,TakaoGothic"
     ,"editor.fontSize": 13
+    
     // wrap
     ,"editor.wrappingColumn": 0
     ,"editor.wrappingIndent": "indent"
+    
     // tab
     ,"editor.tabSize": 4
     ,"editor.insertSpaces": false
@@ -21,11 +23,6 @@
     ,"go.formatOnSave": true
     ,"go.buildOnSave": true
     ,"go.vetOnSave": true
-    ,"go.gopath": "/Users/atsushi/golang"
-    ,"go.goroot": "/usr/local/Cellar/go/1.6.2/libexec/"
-
-    // git
-    ,"git.path": "/usr/local/bin/git"
 
     // vimStyle
     ,"vimStyle.useMacJisKeyboard": true
@@ -33,7 +30,5 @@
     ,"vimStyle.useErgonomicKeyForMotion": false
     
     // mykeyscroll
-    ,"scrollkey.line1": 1
-    ,"scrollkey.line2": 30
-    ,"scrollkey.line3": 60
+    ,"scrollkey.line1": 30
 }
