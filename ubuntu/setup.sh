@@ -7,3 +7,6 @@ fi
 if [ $# = 0 ] || [ $1 = "tmux" ];then
 	sudo apt install -y tmux
 fi
+if [ $# = 0 ] || [ $1 = "mozc" ];then
+	sudo apt install -y ibus-mozc
+fi
