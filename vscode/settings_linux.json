@@ -1,6 +1,6 @@
 {
     // font
-    "editor.fontFamily": "Source Han Code JP Light,Source Han Code JP M,TakaoGothic"
+    "editor.fontFamily": "Source Code Pro,Source Han Code JP Light,TakaoGothic"
     ,"editor.fontSize": 13
     
     // wrap
@@ -25,9 +25,7 @@
     ,"go.vetOnSave": true
 
     // vimStyle
-    ,"vimStyle.useMacJisKeyboard": true
-    ,"vimStyle.showMode": true
-    ,"vimStyle.useErgonomicKeyForMotion": false
+    ,"vimStyle.defaultMode": "normal"
     
     // mykeyscroll
     ,"scrollkey.line1": 30
