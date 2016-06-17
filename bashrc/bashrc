@@ -48,7 +48,6 @@ fi
 # https://github.com/git/git/tree/master/contrib/completion
 # http://d.hatena.ne.jp/youhey/20120501/1335855775
 if [ $OSNAME = "Mac" ];then
-	# --Mac--
 	# まずbrew bundleすること
 	if [ -f /usr/local/etc/bash_completion ]; then
 		source /usr/local/etc/bash_completion
@@ -63,6 +62,7 @@ fi
 # gitの補完
 source ~/dotfiles/bashrc/git-completion/git-prompt.sh
 source ~/dotfiles/bashrc/git-completion/git-completion.bash
+source ~/dotfiles/bashrc/git-completion/git-flow-completion.bash
 #--------------------------------------
 #bashに着色する
 export CLICOLOR=1
@@ -157,11 +157,6 @@ adb shell rm /sdcard/screen_cap/screen-${DATE}.png
 }
 
 #--------------------------------------
-function SetGitUser() {
-	git config --local user.name 74th
-	git config --local user.email site@j74th.com
-}
-#--------------------------------------
 # ImageMagic関連
 alias ConvertToJpg='mogrify -format jpg'
 alias ConvertToPng='mogrify -format png'
@@ -198,6 +193,8 @@ elif [ $OSNAME = "Cygwin" ];then
 	export GOROOT=/cygdrive/c/Go
 elif [ $OSNAME = "Msys" ];then
 	export GOROOT=C:\\tools\\go
+elif [ -e $HOME/Library/golang/latest ];then
+	export GOROOT=$HOME/Library/golang/latest
 elif [ -e /usr/local/lib/go ];then
 	export GOROOT=/usr/local/lib/go
 elif [ -e /usr/lib/go ];then
