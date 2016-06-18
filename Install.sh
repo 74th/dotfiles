@@ -37,34 +37,32 @@ ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 
 # vscode
 if [ $OSNAME = "Linux" ]; then
-	if [ -e ~/.config/Code/ ];then
+	if [ -e ~/.config/Code ];then
 		VSCODE_DIR=~/.config/Code/User
 	fi
-	if [ $OSNAME = 'Darwin' ]; then
+fi
+if [ $OSNAME = 'Mac' ]; then
+	if [ -e ~/Library/Application\ Support/Code/User ];then
 		VSCODE_DIR=~/Library/Application\ Support/Code/User
 	fi
 fi
-if [ $VSCODE_DIR ]; then
+echo $VSCODE_DIR
+if [ -e "$VSCODE_DIR" ]; then
 
-	if [ -e $VSCODE_DIR/keybindings.json ]; then
-		rm $VSCODE_DIR/keybindings.json
+	if [ -e "$VSCODE_DIR/keybindings.json" ]; then
+		rm "$VSCODE_DIR/keybindings.json"
 	fi
-	ln -s ~/dotfiles/vscode/keybindings.json $VSCODE_DIR
+	ln -s ~/dotfiles/vscode/keybindings.json "$VSCODE_DIR"
 
-	if [ -e $VSCODE_DIR/settings.json ]; then
-		rm $VSCODE_DIR/settings.json
+	if [ -e "$VSCODE_DIR/settings.json" ]; then
+		rm "$VSCODE_DIR/settings.json"
 	fi
-	if [ $OSNAME = 'Darwin' ]; then
-		ln -s ~/dotfiles/vscode/settings_mac.json $VSCODE_DIR/settings.json
-	fi
-	if [ $OSNAME = 'Linux' ]; then
-		ln -s ~/dotfiles/vscode/settings_linux.json $VSCODE_DIR/settings.json
-	fi
+	ln -s ~/dotfiles/vscode/settings.json "$VSCODE_DIR/settings.json"
 
-	if [ -e $VSCODE_DIR/snippets ]; then
-		rm -rf $VSCODE_DIR/snippets
+	if [ -e "$VSCODE_DIR/snippets" ]; then
+		rm -rf "$VSCODE_DIR/snippets"
 	fi
-	ln -s ~/dotfiles/vscode/snippets $VSCODE_DIR
+	ln -s ~/dotfiles/vscode/snippets "$VSCODE_DIR"
 
 fi
 
