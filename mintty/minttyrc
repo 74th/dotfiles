@@ -1,5 +1,5 @@
 BoldAsFont=no
-Font=源真ゴシック等幅 Light
+Font=Source Code Pro
 FontHeight=10
 Term=xterm
 Transparency=medium
@@ -29,4 +29,4 @@ CursorBlinks=no
 ZoomShortcuts=no
 CopyAsRTF=no
 ClickTargetMod=off
-RightClickAction=paste
+RightClickAction=menu
