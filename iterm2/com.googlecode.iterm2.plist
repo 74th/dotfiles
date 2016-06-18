@@ -1292,7 +1292,7 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>269 313 606 456 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 4 1145 773 0 0 1280 777 </string>
+	<string>0 4 1130 773 0 0 1280 777 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -1423,12 +1423,16 @@
 			</dict>
 			<key>Ansi 7 Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.70993047952651978</real>
+				<real>0.87153351306915283</real>
+				<key>Color Space</key>
+				<string>Calibrated</string>
 				<key>Green Component</key>
-				<real>0.77144092321395874</real>
+				<real>0.94783097505569458</real>
 				<key>Red Component</key>
-				<real>0.76960963010787964</real>
+				<real>0.94555991888046265</real>
 			</dict>
 			<key>Ansi 8 Color</key>
 			<dict>
@@ -1454,12 +1458,16 @@
 			<true/>
 			<key>Background Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.10051459074020386</real>
+				<real>0.0</real>
+				<key>Color Space</key>
+				<string>Calibrated</string>
 				<key>Green Component</key>
-				<real>0.10051288455724716</real>
+				<real>0.0</real>
 				<key>Red Component</key>
-				<real>0.10051589459180832</real>
+				<real>0.0</real>
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
@@ -1554,12 +1562,16 @@
 			<false/>
 			<key>Foreground Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.70993047952651978</real>
+				<real>0.82774651050567627</real>
+				<key>Color Space</key>
+				<string>Calibrated</string>
 				<key>Green Component</key>
-				<real>0.77144092321395874</real>
+				<real>0.90003395080566406</real>
 				<key>Red Component</key>
-				<real>0.76960963010787964</real>
+				<real>0.89788216352462769</real>
 			</dict>
 			<key>Guid</key>
 			<string>98CD423D-EDFC-4ECA-A447-CF4EEBCD8689</string>
@@ -1890,11 +1902,11 @@
 			<key>Name</key>
 			<string>full screen</string>
 			<key>Non Ascii Font</key>
-			<string>HiraginoSans-W1 14</string>
+			<string>HiraginoSans-W1 12</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SourceHanCodeJP-Light 12</string>
+			<string>SourceCodePro-Light 13</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -2943,7 +2955,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-06-03T21:28:26Z</date>
+	<date>2016-06-18T01:32:45Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
@@ -2994,5 +3006,9 @@
 	<false/>
 	<key>iTerm Version</key>
 	<string>2.9.20160206</string>
+	<key>kCPKSelectionViewPreferredModeKey</key>
+	<integer>1</integer>
+	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
 </dict>
 </plist>
