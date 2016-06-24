@@ -19,8 +19,8 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 #--------------------------------------
 # 個人コマンドのパスを通す
-if [ -e $HOME/golang ];then
-	export PATH=~/golang/bin:$PATH
+if [ -e $HOME/go ];then
+	export PATH=~/go/bin:$PATH
 fi
 if [ -e $HOME/npm ];then
 	export PATH=~/npm/bin:$PATH
@@ -198,6 +198,8 @@ elif [ $OSNAME = "Msys" ];then
 	export GOROOT=C:\\tools\\go
 elif [ -e $HOME/Library/golang/latest ];then
 	export GOROOT=$HOME/Library/golang/latest
+elif [ -e $HOME/Library/go ];then
+	export GOROOT=$HOME/Library/go
 elif [ -e /usr/local/lib/go ];then
 	export GOROOT=/usr/local/lib/go
 elif [ -e /usr/lib/go ];then
