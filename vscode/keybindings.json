@@ -29,7 +29,7 @@
 // F2 : working file picker
 {
 	"key": "f2",
-	"command": "workbench.files.action.workingFilesPicker"
+"command": "workbench.action.quickOpen"
 },
 // S-F2 : quick
 {
@@ -48,19 +48,19 @@
 },
 {
 	"key": "ctrl+w ctrl+l",
-	"command": "workbench.action.focusRightEditor"
+	"command": "workbench.action.focusNextGroup"
 },
 {
 	"key": "ctrl+w l",
-	"command": "workbench.action.focusRightEditor"
+	"command": "workbench.action.focusNextGroup"
 },
 {
 	"key": "ctrl+w ctrl+h",
-	"command": "workbench.action.focusLeftEditor"
+	"command": "workbench.action.focusPreviousGroup"
 },
 {
 	"key": "ctrl+w h",
-	"command": "workbench.action.focusLeftEditor"
+	"command": "workbench.action.focusPreviousGroup"
 },
 
 // dummy command

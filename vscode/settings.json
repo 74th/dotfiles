@@ -8,9 +8,9 @@
     // wrap
     "editor.wrappingColumn": 0,
     "editor.wrappingIndent": "indent",
-    "editor.glyphMargin": true
+    "editor.glyphMargin": true,
     
-    // tab
+    // tb
     "editor.tabSize": 4,
     "editor.insertSpaces": false,
     "editor.renderWhitespace": true,
