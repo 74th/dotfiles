@@ -2,15 +2,16 @@
     // font
     // Macの場合、スペースを詰めて、ウェイトをハイフンで区切る
     // Windowsの場合、スペースを入れて、ウェイトもスペースで区切る
-    "editor.fontFamily": "SourceCodePro-Light,Source Code Pro Light,SourceHanCodeJP-Light,Source Han Code JP Light,TakaoGothic",
+    "editor.fontFamily": "SourceCodePro-Light,Source Code Pro Medium,SourceHanCodeJP-Light,Source Han Code JP Light,TakaoGothic",
     "editor.fontSize": 13,
+    
     
     // wrap
     "editor.wrappingColumn": 0,
     "editor.wrappingIndent": "indent",
     "editor.glyphMargin": true,
     
-    // tb
+    // tab
     "editor.tabSize": 4,
     "editor.insertSpaces": false,
     "editor.renderWhitespace": true,
@@ -35,3 +36,4 @@
     // mykeyscroll
     "scrollkey.line1": 30
 }
+
