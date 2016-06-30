@@ -135,6 +135,7 @@ alias lsa='ls -alh'
 alias ll='ls -alh'
 alias df='df -h'
 alias ":q"='exit'
+alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
 #--------------------------------------
 # 誤入力対策コマンド
 alias sl='ls'
