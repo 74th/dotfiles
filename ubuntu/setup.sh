@@ -24,3 +24,11 @@ if [ $# = 0 ] || [ $1 = "font-manager" ];then
 	sudo apt install -y font-manager
 fi
 
+# ICON
+if [ $# = 0 ] || [ $1 = "icon" ];then
+	# https://numixproject.org/
+	sudo add-apt-repository ppa:numix/ppa
+	sudo apt-get update
+	sudo apt-get install numix-icon-theme-shine
+fi
+
