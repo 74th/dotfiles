@@ -1,5 +1,5 @@
 [Configuration]
-FontName=Source Han Code JP 10
+FontName=Source Han Code JP Semi-Light 9
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBordersDefault=TRUE
@@ -18,8 +18,8 @@ MiscTabPosition=GTK_POS_TOP
 MiscHighlightUrls=TRUE
 MiscScrollAlternateScreen=TRUE
 BackgroundDarkness=1.000000
-
 ColorCursor=#f8f8f8f8f2f2
 ColorForeground=#f8f8f8f8f2f2
 ColorBackground=#272728282222
 ColorPalette=#272728282222;#f9f926267272;#a6a6e2e22e2e;#f4f4bfbf7575;#6666d9d9efef;#aeae8181ffff;#a1a1efefe4e4;#f8f8f8f8f2f2;#757571715e5e;#f9f926267272;#a6a6e2e22e2e;#f4f4bfbf7575;#6666d9d9efef;#aeae8181ffff;#a1a1efefe4e4;#f9f9f8f8f5f5
+
