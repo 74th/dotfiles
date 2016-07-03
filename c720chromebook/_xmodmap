@@ -3,5 +3,10 @@ remove control = Control_L
 keycode 133 = Control_L
 keycode 37 = Super_L
 keycode 108 = F13
+keycode 73 = F8
+keycode 74 = F10
+keycode 75 = F11
+keycode 76 = F12
 add control = Control_L
 add mod4 = Super_L
+
