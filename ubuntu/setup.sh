@@ -29,6 +29,6 @@ if [ $# = 0 ] || [ $1 = "icon" ];then
 	# https://numixproject.org/
 	sudo add-apt-repository ppa:numix/ppa
 	sudo apt-get update
-	sudo apt-get install numix-icon-theme-shine
+	sudo apt-get install numix-icon-theme-circle
 fi
 

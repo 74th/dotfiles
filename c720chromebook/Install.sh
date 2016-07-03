@@ -1,8 +1,8 @@
 #!/bin/bash
-if [ -e ~/.xmodmap ]; then
-	rm ~/.xmodmap
+if [ -e ~/Desktop/xmodmap.sh ]; then
+	rm ~/Desktop/xmodmap.sh
 fi
-ln -s ~/dotfiles/c720chromebook/_xmodmap ~/.xmodmap
+cp ~/dotfiles/c720chromebook/xmodmap.sh ~/Desktop/xmodmap.sh
 
 if [ -e ~/.xbindkeysrc ]; then
 	rm ~/.xbindkeysrc
