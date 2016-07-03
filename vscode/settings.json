@@ -22,6 +22,10 @@
     "editor.selectionHighlight": false,
     "editor.autoClosingBrackets": false,
 
+    // file
+    "files.eol": "\n",
+    "files.trimTrailingWhitespace": true,
+
     // golang
     "go.lintOnSave": true,
     "go.formatTool": "goreturns",
