@@ -32,6 +32,10 @@ export PATH=~/dotfiles/bin:$PATH
 if [ $OSNAME = "Mac" ];then
 	export PATH=~/dotfiles/bin/darwin:$PATH
 fi
+# npmのパスをす
+if [ -e $HOME/npm/bin ];then
+	export PATH=$HOME/npm/bin:$PATH
+fi
 #--------------------------------------
 # MacVim
 if [ $OSNAME = "Mac" ];then
@@ -131,11 +135,20 @@ alias EditBashrc="vi ~/dotfiles/bashrc/bashrc"
 alias EditMemo="gvim ~/memo.mkd"
 alias ReloadBashrc="source ~/dotfiles/bashrc/bashrc"
 alias ShowListenPorts='netstat -lnptua'
-alias lsa='ls -alh'
-alias ll='ls -alh'
 alias df='df -h'
 alias ":q"='exit'
 alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
+# コマンドにいろいろ色を付ける
+function __SetGnuColor() {
+	# Linux一般
+	alias ls='ls --color'
+	alias ll='ls -alh --color'
+}
+function __SetBsdColor() {
+	# BSD
+	alias ls='ls -G'
+	alias ll='ls -G -alh'
+}
 #--------------------------------------
 # 誤入力対策コマンド
 alias sl='ls'
@@ -181,7 +194,6 @@ alias commit='git commit'
 alias add='git add'
 alias push='git push'
 alias pull='git pull'
-alias log='git log --graph'
 function checkout() {
 	if [ $# -gt 0 ];then
 		git checkout $*
@@ -236,18 +248,6 @@ if [ "$TERM" == 'screen-bce' ]; then
 	export TERM=screen
 fi
 #--------------------------------------
-# コマンドにいろいろ色を付ける
-if [ $OSNAME = "Mac" ];then
-	alias ls='ls -G'
-else
-	alias ls='ls --color=auto'
-fi
-#--------------------------------------
-if [ -e $HOME/npm/bin ];then
-	# npmのパスをす
-	export PATH=$HOME/npm/bin:$PATH
-fi
-#--------------------------------------
 # MSYS2用の設定
 if [ $OSNAME = "Msys" ];then
 	source ~/dotfiles/bashrc/msys.sh
@@ -273,3 +273,28 @@ function EditCheatSheets() {
 	git push origin master
 	cd -
 }
+#--------------------------------------
+# MacでGNUツール群へのパスを通す
+if [ $OSNAME = "Mac" ];then
+	# brew install coreutils
+	if [ -e /usr/local/opt/coreutils/libexec/gnubin ];then
+		export PATH_NOGNU=$PATH
+		export PATH_USEGNU=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+		export PATH=$PATH_USEGNU
+
+		function UseBsd() {
+			export PATH=$PATH_NOGNU
+			__SetBsdColor
+		}
+
+		function UseGnu() {
+			export PATH=$PATH_USEGNU
+			__SetGnuColor
+		}
+		__SetGnuColor
+	else
+		__SetBsdColor
+	fi
+else
+	__SetGnuColor
+fi
