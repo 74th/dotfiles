@@ -19,6 +19,11 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 #--------------------------------------
 # 個人コマンドのパスを通す
+if [ -n "$PATH_SYSDEF" ];then
+	export PATH=$PATH_SYSDEF
+else
+	export PATH_SYSDEF=$PATH
+fi
 if [ -e $HOME/go ];then
 	export PATH=~/go/bin:$PATH
 fi
@@ -209,8 +214,8 @@ elif [ $OSNAME = "Cygwin" ];then
 	export GOROOT=/cygdrive/c/Go
 elif [ $OSNAME = "Msys" ];then
 	export GOROOT=C:\\tools\\go
-elif [ -e $HOME/Library/golang/latest ];then
-	export GOROOT=$HOME/Library/golang/latest
+elif [ -e $HOME/Library/go/latest ];then
+	export GOROOT=$HOME/Library/go/latest
 elif [ -e $HOME/Library/go ];then
 	export GOROOT=$HOME/Library/go
 elif [ -e /usr/local/lib/go ];then
