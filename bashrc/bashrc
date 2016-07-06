@@ -72,9 +72,11 @@ else
 	fi
 fi
 # gitの補完
-source ~/dotfiles/bashrc/git-completion/git-prompt.sh
-source ~/dotfiles/bashrc/git-completion/git-completion.bash
-source ~/dotfiles/bashrc/git-completion/git-flow-completion.bash
+source ~/dotfiles/bashrc/completion/git-prompt.sh
+source ~/dotfiles/bashrc/completion/git-completion.bash
+source ~/dotfiles/bashrc/completion/git-flow-completion.bash
+# make(mで保管するように)
+source ~/dotfiles/bashrc/completion/make
 #--------------------------------------
 #bashに着色する
 export CLICOLOR=1
@@ -131,7 +133,7 @@ if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
 fi
 
 #--------------------------------------
-# お砂糖コマンド
+# 簡単化
 alias FreezeTargz='tar zcvf'
 alias OpenTargz='tar zxvf'
 alias FreezeTarbz2='tar jcvf'
@@ -143,6 +145,8 @@ alias ShowListenPorts='netstat -lnptua'
 alias df='df -h'
 alias ":q"='exit'
 alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
+alias m="make"
+#--------------------------------------
 # コマンドにいろいろ色を付ける
 function __SetGnuColor() {
 	# Linux一般
@@ -238,10 +242,6 @@ if [ $OSNAME = "Mac" ];then
 fi
 #--------------------------------------
 # docker
-function EnvDocker() {
-	docker-machine start default
-	eval $(docker-machine env default)
-}
 function DeleteStoppedDocker() {
 	docker rm `docker ps -a | grep Exited | cut -c 1-12`
 }
@@ -303,3 +303,8 @@ if [ $OSNAME = "Mac" ];then
 else
 	__SetGnuColor
 fi
+#--------------------------------------
+# cdを打たなくてもcdになる
+shopt -s autocd
+# cdのミスをしても移動する
+shopt -s cdspell
