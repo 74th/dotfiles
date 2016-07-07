@@ -44,3 +44,10 @@ set ttymouse=xterm2
 " LFとutf-8を標準にする
 set fileformats=unix,dos,mac
 set fileencodings=utf-8,cp932
+
+" jj でノーマルモードに戻る
+inoremap <silent> jj <ESC>
+" 覚えたいインサートモードのコマンド
+" Ctrl-H BS
+" Ctrl-J Enter 
+" Ctrl-W BSの単語版

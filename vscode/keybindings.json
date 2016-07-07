@@ -119,6 +119,38 @@
 	"command": "workbench.action.focusPreviousGroup"
 },
 
+// ひたすら移動系をCtrl+j,Kに割り当てる
+{
+	"key": "ctrl+k",
+	"command": "showPrevParameterHint",
+	"when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+},
+{
+	"key": "ctrl+j",
+	"command": "showNextParameterHint",
+	"when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+},
+{
+	"key": "ctrl+k",
+	"command": "selectPrevQuickFix",
+	"when": "editorFocus && quickFixWidgetVisible"
+},
+{
+	"key": "ctrl+j",
+	"command": "selectNextQuickFix",
+	"when": "editorFocus && quickFixWidgetVisible"
+},
+{
+	"key": "ctrl+k",
+	"command": "selectPrevSuggestion",
+	"when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+},
+{
+	"key": "ctrl+j",
+	"command": "selectNextSuggestion",
+	"when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+},
+
 // go
 // F10/C-0 : カーソル位置のテストを実行
 {
