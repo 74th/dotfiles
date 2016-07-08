@@ -151,6 +151,20 @@
 	"when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
 },
 
+// vimのインサートモードの再現
+{
+	// Ctrl-H : BackSpace
+	"key": "ctrl+h",
+	"command": "deleteLeft",
+	"when": "editorTextFocus"
+},
+{
+	// Ctrl-J : Enter
+	"key": "ctrl+j",
+	"command": "editor.action.insertCursorBelow",
+	"when": "editorTextFocus"
+},
+
 // go
 // F10/C-0 : カーソル位置のテストを実行
 {
