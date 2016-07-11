@@ -18,6 +18,10 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 #--------------------------------------
+# MacのPATH
+if [ $OSNAME = "Mac" ];then
+	export PATH=/usr/local/bin:$PATH
+fi
 # 個人コマンドのパスを通す
 if [ -n "$PATH_SYSDEF" ];then
 	export PATH=$PATH_SYSDEF
@@ -198,7 +202,7 @@ function pushpush() {
 	git commit -m "at $HOSTNAME"
 	git push origin master
 }
-alias commit='git commit'
+alias commit='git commit -v'
 alias add='git add'
 alias push='git push'
 alias pull='git pull'
