@@ -38,6 +38,7 @@
 
     // vimStyle
     "vimStyle.defaultMode": "normal",
+    "vimStyle.imapEsc": "jj",
 
     // mykeyscroll
     "scrollkey.line1": 30
