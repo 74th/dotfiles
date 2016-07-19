@@ -119,36 +119,46 @@
 	"command": "workbench.action.focusPreviousGroup"
 },
 
-// ひたすら移動系をCtrl+j,Kに割り当てる
+// ひたすら移動系をCtrl+n,pに割り当てる
 {
-	"key": "ctrl+k",
+	"key": "ctrl+p",
 	"command": "showPrevParameterHint",
 	"when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
 },
 {
-	"key": "ctrl+j",
+	"key": "ctrl+n",
 	"command": "showNextParameterHint",
 	"when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
 },
 {
-	"key": "ctrl+k",
+	"key": "ctrl+p",
 	"command": "selectPrevQuickFix",
 	"when": "editorFocus && quickFixWidgetVisible"
 },
 {
-	"key": "ctrl+j",
+	"key": "ctrl+n",
 	"command": "selectNextQuickFix",
 	"when": "editorFocus && quickFixWidgetVisible"
 },
 {
-	"key": "ctrl+k",
+	"key": "ctrl+p",
 	"command": "selectPrevSuggestion",
 	"when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
 },
 {
-	"key": "ctrl+j",
+	"key": "ctrl+n",
 	"command": "selectNextSuggestion",
 	"when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+},
+{
+	"key": "ctrl+p",
+	"command": "workbench.action.quickOpenNavigatePrevious",
+	"when": "inQuickOpen"
+},
+{
+	"key": "ctrl+n",
+	"command": "workbench.action.quickOpenNavigateNext",
+	"when": "inQuickOpen"
 },
 
 // vimのインサートモードの再現
