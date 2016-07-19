@@ -166,7 +166,7 @@
 	// Ctrl-H : BackSpace
 	"key": "ctrl+h",
 	"command": "deleteLeft",
-	"when": "editorTextFocus"
+	"when": "editorTextFocus && vim.inInsertMode"
 },
 {
 	// Ctrl-J : Enter
