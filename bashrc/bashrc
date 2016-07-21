@@ -149,6 +149,7 @@ alias df='df -h'
 alias ":q"='exit'
 alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
 alias m="make"
+alias s7l="sudo systemctl"
 #--------------------------------------
 # コマンドにいろいろ色を付ける
 function __SetGnuColor() {
@@ -203,6 +204,7 @@ function pushpush() {
 	git push origin master
 }
 alias commit='git commit -v'
+alias commita='git commit -av'
 alias add='git add'
 alias push='git push'
 alias pull='git pull'
