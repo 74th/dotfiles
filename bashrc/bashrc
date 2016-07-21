@@ -149,6 +149,7 @@ alias df='df -h'
 alias ":q"='exit'
 alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
 alias m="make"
+alias g="git"
 alias s7l="sudo systemctl"
 #--------------------------------------
 # コマンドにいろいろ色を付ける
