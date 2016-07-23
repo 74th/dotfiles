@@ -1291,8 +1291,10 @@
 	<string>374 108 765 290 0 0 1280 800 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>269 313 606 456 0 0 1280 777 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>330 307 620 392 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 4 1130 773 0 0 1280 777 </string>
+	<string>0 4 1145 773 0 0 1280 777 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -1512,7 +1514,7 @@
 			<key>Columns</key>
 			<integer>160</integer>
 			<key>Command</key>
-			<string></string>
+			<string>/usr/local/bin/bash</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1547,7 +1549,7 @@
 			<key>Cursor Type</key>
 			<integer>2</integer>
 			<key>Custom Command</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Custom Directory</key>
 			<string>No</string>
 			<key>Default Bookmark</key>
@@ -2862,6 +2864,8 @@
 			<string>/Users/atsushi</string>
 		</dict>
 	</array>
+	<key>NoSyncInstallationId</key>
+	<string>A800A5C3-C96C-4EFF-A458-3EE50FFD6376</string>
 	<key>NoSyncLastTipTime</key>
 	<real>481329929.907516</real>
 	<key>NoSyncPermissionToShowTip</key>
@@ -2951,11 +2955,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=96</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-06-18T01:32:45Z</date>
+	<date>2016-07-09T00:19:43Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
@@ -3005,7 +3009,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20160206</string>
+	<string>3.0.4</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>1</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
