@@ -63,6 +63,10 @@ fi
 # Bashの補完 bash-completion
 # https://github.com/git/git/tree/master/contrib/completion
 # http://d.hatena.ne.jp/youhey/20120501/1335855775
+
+# make(mで保管するように)
+source ~/dotfiles/bashrc/completion/make
+
 if [ $OSNAME = "Mac" ];then
 	# まずbrew bundleすること
 	if [ -f /usr/local/etc/bash_completion ]; then
@@ -79,8 +83,6 @@ fi
 source ~/dotfiles/bashrc/completion/git-prompt.sh
 source ~/dotfiles/bashrc/completion/git-completion.bash
 source ~/dotfiles/bashrc/completion/git-flow-completion.bash
-# make(mで保管するように)
-source ~/dotfiles/bashrc/completion/make
 #--------------------------------------
 #bashに着色する
 export CLICOLOR=1
