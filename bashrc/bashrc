@@ -151,6 +151,8 @@ alias df='df -h'
 alias ":q"='exit'
 alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
 alias m="make"
+alias g="git"
+alias s7l="sudo systemctl"
 #--------------------------------------
 # コマンドにいろいろ色を付ける
 function __SetGnuColor() {
@@ -205,6 +207,7 @@ function pushpush() {
 	git push origin master
 }
 alias commit='git commit -v'
+alias commita='git commit -av'
 alias add='git add'
 alias push='git push'
 alias pull='git pull'
@@ -282,6 +285,32 @@ function EditCheatSheets() {
 	git commit -m "at $HOSTNAME"
 	git push origin master
 	cd -
+}
+#--------------------------------------
+# 自分のリポジトリを更新する
+function UpdateTools() {
+
+	cd $HOME/dotfiles
+	git pull
+	cd -
+
+	if [ -e $HOME/mydotfiles ];then
+		cd $HOME/mydotfiles
+		git pull
+		cd -
+	fi
+
+	if [ -e $HOME/mycheatsheets ];then
+		cd $HOME/mycheatsheets
+		git pull
+		cd -
+	fi
+
+	if [ -e $HOME/mybookmark ];then
+		cd $HOME/mybookmark
+		git pull
+		cd -
+	fi
 }
 #--------------------------------------
 # MacでGNUツール群へのパスを通す

@@ -13,11 +13,12 @@
     "editor.wrappingIndent": "indent",
     "editor.glyphMargin": true,
 
-    // tb
+    // tab
     "editor.tabSize": 4,
     "editor.insertSpaces": false,
     "editor.renderWhitespace": true,
     "editor.cursorStyle": "line",
+    "editor.renderIndentGuides": true,
 
     // auto format
     "editor.formatOnType": true,
@@ -38,7 +39,7 @@
 
     // vimStyle
     "vimStyle.defaultMode": "normal",
-    "vimStyle.enabled": false,
+    "vimStyle.enabled": true,
     "vimStyle.imapEsc": "jj",
 
     // mykeyscroll

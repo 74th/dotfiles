@@ -18,7 +18,6 @@ git config --global core.preloadindex true
 echo Windows環境でgitが早くなる
 echo https://github.com/msysgit/msysgit/wiki/Diagnosing-why-Git-is-so-slow
 git config --global core.fscache true
-git config --global core.ignoreStat true
 
 echo 人間らしいgitコマンド
 git config --global alias.branches "branch -a"
