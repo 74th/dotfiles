@@ -243,6 +243,7 @@ fi
 function ResetGopath() {
 	export GOPATH=$GOPATH_DEF
 }
+alias CDGOPATH=$GOPATH/src/github.com/74th/
 #--------------------------------------
 # vscode
 if [ $OSNAME = "Mac" ];then
