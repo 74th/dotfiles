@@ -1,5 +1,5 @@
 echo 改行コード対策
-git config --global core.autocrlf input
+git config --global core.autocrlf false
 echo CRLFをコミットしようとしたらエラー
 git config --global core.safecrlf true
 
@@ -30,6 +30,9 @@ git config --global alias.amend "commit --amend"
 git config --global alias.graph "log --graph -20 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order"
 git config --global alias.unmerged "diff --name-only --diff-filter=U"
 git config --global alias.history "log -10 --format=format:'%Cgreen%h %Creset• %s (%cN, %ar)'"
+
+echo やっぱり楽なコマンドが良い
+git config --global alias.st "status"
 
 # Windowsの場合、以下も追加する
 # ファイルモードを無視
