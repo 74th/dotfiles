@@ -129,6 +129,8 @@ else
 	if [ $OSNAME = "Msys" ];then
 		# Windowsだけなんか遅い
 		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$'
+	elif [ -f /mnt/c ]; then
+		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$'
 	else
 		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$'
 	fi
@@ -235,6 +237,10 @@ elif [ -e /usr/local/lib/go ];then
 elif [ -e /usr/lib/go ];then
 	export GOROOT=/usr/lib/go
 fi
+if [ -n "${GOROOT}" ];then
+	export PATH=$GOROOT/bin:$PATH
+fi
+export PATH=$GOPATH/bin:$PATH
 if [ -e $HOME/go ];then
 	export GOPATH=$HOME/go
 	export GOPATH_DEF=$HOME/go
