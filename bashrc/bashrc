@@ -132,7 +132,7 @@ else
 	elif [ -f /mnt/c ]; then
 		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$'
 	else
-		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$'
+		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$\033]2;${title=\W}\007'
 	fi
 fi
 if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
