@@ -128,11 +128,11 @@ else
 	# 非表示の文字は\[ \]で囲うこと
 	if [ $OSNAME = "Msys" ];then
 		# Windowsだけなんか遅い
-		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$\033]2;\W@$HOSTNAME\007'
+		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$\[\033]0;\W@$HOSTNAME\007\]'
 	elif [ -f /mnt/c ]; then
-		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$\033]2;\W@$HOSTNAME\007'
+		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$\[\033]0;\W@$HOSTNAME\007\]'
 	else
-		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$\033]2;\W@$HOSTNAME\007'
+		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$\[\033]0;\W@$HOSTNAME\007\]'
 	fi
 fi
 if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
