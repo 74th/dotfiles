@@ -213,6 +213,7 @@ alias commita='git commit -av'
 alias add='git add'
 alias push='git push'
 alias pull='git pull'
+alias gt='git status'
 function checkout() {
 	if [ $# -gt 0 ];then
 		git checkout $*
