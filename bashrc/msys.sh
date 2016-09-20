@@ -21,10 +21,3 @@ if [ -e /c/Program\ Files/nodejs/ ];then
 	alias npm='winpty npm.cmd'
 	alias cordova='winpty cordova.cmd'
 fi
-
-# vim
-if [ -e /c/Program\ Files\ \(x86\)/vim/vim74/ ];then
-	alias vi='winpty /c/Program\ Files\ \(x86\)/vim/vim74/vim.exe'
-	alias vim='winpty /c/Program\ Files\ \(x86\)/vim/vim74/vim.exe'
-	alias gvim='/c/Program\ Files\ \(x86\)/vim/vim74/gvim.exe'
-fi
