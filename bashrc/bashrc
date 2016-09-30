@@ -159,28 +159,27 @@ alias s7l="sudo systemctl"
 # パッケージアップデート
 if [ $OSNAME = "Mac" ];then
 	function UpdatePackage() {
-		bash -x -c 'brew update'
-		bash -x -c 'brew outdated'
+		sh -x -c 'brew update'
+		sh -x -c 'brew outdated'
 	}
 	function UpdatePackageDone() {
-		echo brew upgrade
-		bash -x -c 'brew upgrade all'
+		sh -x -c 'brew upgrade all'
 	}
 elif [ $OSNAME = "Msys" ];then
 	function UpdatePackage() {
-		bash -x -c 'pacman -Syup'
+		sh -x -c 'pacman -Syup'
 	}
 	function UpdatePackageDone() {
-		bash -x -c 'pacman -Syu --noconfirm'
+		sh -x -c 'pacman -Syu --noconfirm'
 	}
 elif [ -e /etc/lsb-release ];then
 	# debian,ubuntu
 	function UpdatePackage() {
-		bash -x -c 'sudo apt update'
-		bash -x -c 'sudo apt list --upgradable'
+		sh -x -c 'sudo apt update'
+		sh -x -c 'sudo apt list --upgradable'
 	}
 	function UpdatePackageDone() {
-		bash -x -c 'sudo apt upgrade -y'
+		sh -x -c 'sudo apt upgrade -y'
 	}
 fi
 #--------------------------------------
