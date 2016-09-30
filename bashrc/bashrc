@@ -156,6 +156,39 @@ alias m="make"
 alias g="git"
 alias s7l="sudo systemctl"
 #--------------------------------------
+# パッケージアップデート
+if [ $OSNAME = "Mac" ];then
+	function UpdatePackage() {
+		echo brew update
+		brew update
+		echo brew outdated
+		brew outdated
+	}
+	function UpdatePackageDone() {
+		echo brew upgrade
+		brew upgrade all
+	}
+elif [ $OSNAME = "Msys" ];then
+	function UpdatePackage() {
+		echo pacman -Syup
+		pacman -Syup
+	}
+	function UpdatePackageDone() {
+		echo pacman -Syu --noconfirm
+		pacman -Syu --noconfirm
+	}
+elif [ -e /etc/lsb-release ];then
+	# debian,ubuntu
+	function UpdatePackage() {
+		echo apt update
+		apt update
+	}
+	function UpdatePackageDone() {
+		echo apt upgrade -y
+		apt upgrade -y
+	}
+fi
+#--------------------------------------
 # コマンドにいろいろ色を付ける
 function __SetGnuColor() {
 	# Linux一般
