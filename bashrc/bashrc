@@ -251,7 +251,7 @@ function checkout() {
 #--------------------------------------
 # golang
 if [ $OSNAME = "Mac" ];then
-	export GOROOT=/usr/local/Cellar/go/1.6.2/libexec/
+	export GOROOT=/usr/local/opt/go/libexec
 elif [ $OSNAME = "Cygwin" ];then
 	export GOROOT=/cygdrive/c/Go
 elif [ $OSNAME = "Msys" ];then
