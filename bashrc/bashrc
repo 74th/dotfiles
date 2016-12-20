@@ -388,3 +388,16 @@ fi
 shopt -s autocd
 # cdのミスをしても移動する
 shopt -s cdspell
+#--------------------------------------
+if [ $OSNAME = "Cygwin" ];then
+	# CygwinからWindowsアプリを呼び出すと、Cygwinの環境変数が引き継がれる対策
+	# http://tagussan.rdy.jp/blog/archives/686
+
+	# /etc/profileでunset TMP TEMPしているところで、WindowsのTMP、TEMPをORIGINAL_TMPに格納する
+	# ORIGINAL_TMP=$TMP
+	# ORIGINAL_TEMP=$TEMP
+
+	# winenv xx で呼び出したものはWindowsの環境変数になる
+	alias winenv='HOME= SHELL= PATH=$ORIGINAL_PATH TMP=$ORIGINAL_TEMP TEMP=$ORIGINAL_TMP'
+	alias gvim='winenv gvim'
+fi
