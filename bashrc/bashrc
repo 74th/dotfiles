@@ -401,3 +401,8 @@ if [ $OSNAME = "Cygwin" ];then
 	alias winenv='HOME= SHELL= PATH=$ORIGINAL_PATH TMP=$ORIGINAL_TEMP TEMP=$ORIGINAL_TMP'
 	alias gvim='winenv gvim'
 fi
+#--------------------------------------
+# Macで.ssh/id_rsaの鍵をkeychainから使うようにする
+if [ $OSNAME = "Mac" ];then
+	ssh-add -K ~/.ssh/id_rsa 2>/dev/null
+fi
