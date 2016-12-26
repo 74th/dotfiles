@@ -7,41 +7,40 @@
     // For Linux
     //"editor.fontFamily": "Source Code Pro Medium,Source Han Code JP Medium,TakaoGothic",
     "editor.fontSize": 13,
-
     // wrap
     "editor.wrappingColumn": 0,
     "editor.wrappingIndent": "indent",
     "editor.glyphMargin": true,
-
-    // tab
+    // tab等の表示
     "editor.tabSize": 4,
     "editor.insertSpaces": false,
-    "editor.renderWhitespace": true,
-    "editor.cursorStyle": "line",
+    "editor.renderWhitespace": "boundary",
     "editor.renderIndentGuides": true,
-
+    "editor.renderControlCharacters": true,
+    // カーソル
+    "editor.cursorStyle": "line",
+    "editor.cursorBlinking": "smooth",
+    "editor.renderLineHighlight": "all",
     // auto format
     "editor.formatOnType": true,
-    "editor.lineNumbers": true,
+    "editor.formatOnSave": true,
+    "editor.lineNumbers": "on",
     "editor.selectionHighlight": false,
     "editor.autoClosingBrackets": false,
-
     // file
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
-
     // golang
     "go.lintOnSave": true,
     "go.formatTool": "goreturns",
     "go.formatOnSave": true,
     "go.buildOnSave": true,
     "go.vetOnSave": true,
-
     // vimStyle
     "vimStyle.defaultMode": "normal",
     "vimStyle.enabled": true,
     "vimStyle.imapEsc": "jj",
-
     // mykeyscroll
-    "scrollkey.line1": 30
+    "scrollkey.line1": 30,
+    "git.confirmSync": false
 }
