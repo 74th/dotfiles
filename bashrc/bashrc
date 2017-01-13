@@ -406,3 +406,10 @@ fi
 if [ $OSNAME = "Mac" ];then
 	ssh-add -K ~/.ssh/id_rsa 2>/dev/null
 fi
+#--------------------------------------
+# Golangでデバッグ
+if [ -e $GOPATH/bin/dlv ];then
+function dlv_test() {
+	$GOPATH/bin/dlv test --headless --listen "0.0.0.0:2345" --log=true
+}
+fi
