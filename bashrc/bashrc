@@ -269,6 +269,9 @@ elif [ $OSNAME = "Cygwin" ];then
 elif [ $OSNAME = "Msys" ];then
 	export GOROOT=C:\\tools\\go
 	export GOPATH=C:\\Users\\$USERNAME\\go
+elif [ -e $HOME/goroot/ ];then
+	export GOROOT=$HOME/goroot
+	export PATH=$GOROOT/bin:$PATH
 elif [ -e $HOME/Library/go/latest ];then
 	export GOROOT=$HOME/Library/go/latest
 elif [ -e $HOME/Library/go ];then
