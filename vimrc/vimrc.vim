@@ -63,4 +63,9 @@ endif
 " golang
 Plug 'fatih/vim-go'
 
+" markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled = 1
+
 call plug#end()
