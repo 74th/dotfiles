@@ -52,7 +52,18 @@ inoremap <silent> jj <ESC>
 " Ctrl-J Enter 
 " Ctrl-W BSの単語版
 
-" シンプルなvimplugin
-call plug#begin('~/.vim/plugged')
+" プラグインマネージャ vim-plug https://github.com/junegunn/vim-plug
+" 追加したら :PlugInstall を実行
+if has('win32')
+	call plug#begin('$HOME/vimfiles/plugged')
+else
+	call plug#begin('$HOME/.vim/plugged')
+endif
+
+" golang
+Plug 'fatih/vim-go'
+
+" ティラノスクリプト
 Plug 'bellflower2015/vim-syntax-tyranoscript'
+
 call plug#end()

@@ -7,6 +7,8 @@
     // For Linux
     //"editor.fontFamily": "Source Code Pro Medium,Source Han Code JP Medium,TakaoGothic",
     "editor.fontSize": 13,
+    // svg
+    "svgviewer.transparencygrid": false,
     // wrap
     "editor.wrappingColumn": 0,
     "editor.wrappingIndent": "indent",
@@ -21,6 +23,10 @@
     "editor.cursorStyle": "line",
     "editor.cursorBlinking": "smooth",
     "editor.renderLineHighlight": "all",
+    // 表示周り
+	"window.zoomLevel": 0,
+    // git
+    "git.confirmSync": false, // Syncボタンで尋ねない
     // auto format
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
@@ -30,6 +36,8 @@
     // file
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
+    // Terminal
+    "terminal.integrated.shell.windows": "C:\\cygwin64\\Cygwin.bat",
     // golang
     "go.lintOnSave": true,
     "go.formatTool": "goreturns",
@@ -41,6 +49,5 @@
     "vimStyle.enabled": true,
     "vimStyle.imapEsc": "jj",
     // mykeyscroll
-    "scrollkey.line1": 30,
-    "git.confirmSync": false
+    "scrollkey.line1": 30
 }
