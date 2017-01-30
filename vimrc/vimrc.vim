@@ -51,3 +51,16 @@ inoremap <silent> jj <ESC>
 " Ctrl-H BS
 " Ctrl-J Enter 
 " Ctrl-W BSの単語版
+
+" プラグインマネージャ vim-plug https://github.com/junegunn/vim-plug
+" 追加したら :PlugInstall を実行
+if has('win32')
+	call plug#begin('$HOME/vimfiles/plugged')
+else
+	call plug#begin('$HOME/.vim/plugged')
+endif
+
+" golang
+Plug 'fatih/vim-go'
+
+call plug#end()
