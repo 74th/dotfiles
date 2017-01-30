@@ -51,3 +51,8 @@ inoremap <silent> jj <ESC>
 " Ctrl-H BS
 " Ctrl-J Enter 
 " Ctrl-W BSの単語版
+
+" シンプルなvimplugin
+call plug#begin('~/.vim/plugged')
+Plug 'bellflower2015/vim-syntax-tyranoscript'
+call plug#end()
