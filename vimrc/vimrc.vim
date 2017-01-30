@@ -68,4 +68,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
 
+" ティラノスクリプト
+Plug 'bellflower2015/vim-syntax-tyranoscript'
+
 call plug#end()
