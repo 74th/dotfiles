@@ -118,23 +118,22 @@ GIT_PS1_SHOWDIRTYSTATE=true
 #   % ステージングにない新規ファイル
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM=auto
-# PS1='[h2:ホスト名][Gitリポジトリ][\W:カレントディレクトリ名][$/#]"
+# PS1='user@host /full/path master\r\n[$/#]"
 # ディレクトリ名は白
 # ユーザの$は白、rootを示す#は赤
 if [ $UID -eq 0 ]; then
-	PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$'
-	PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\[\e[31m\]#\[\e[m\]\033]0;#\W@$HOSTNAME\007'
+	PS1='\[\e[${col}m\]\u@\H\[\e[33m\]\[\e[m\] \w $(parse_git_branch)\r\n\$'
 else
 	# 非表示の文字は\[ \]で囲うこと
 	if [ $OSNAME = "Msys" ];then
 		# Windowsだけなんか遅い
-		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$\[\033]0;\W@$HOSTNAME\007\]'
+		PS1='\[\e[${col}m\]\u@\H\[\e[33m\]\[\e[m\] \w $(_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo $_EXITCODE; fi) $(parse_git_branch)\r\n\$'
 	elif [ $OSNAME = "Cygwin" ];then
-		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$\[\033]0;\W@$HOSTNAME\007\]'
+		PS1='\[\e[${col}m\]\u@\H\[\e[33m\]\[\e[m\] \w $(_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo $_EXITCODE; fi) $(parse_git_branch)\r\n\$'
 	elif [ -f /mnt/c ]; then
-		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$\[\033]0;\W@$HOSTNAME\007\]'
+		PS1='\[\e[${col}m\]\u@\H\[\e[33m\]\[\e[m\] \w $(_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo $_EXITCODE; fi) $(parse_git_branch)\r\n\$'
 	else
-		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$\[\033]0;\W@$HOSTNAME\007\]'
+		PS1='\[\e[${col}m\]\u@\H\[\e[33m\]\[\e[m\] \w $(_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo $_EXITCODE; fi) $(__git_ps1)\r\n\$'
 	fi
 fi
 if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
