@@ -111,6 +111,9 @@ fi
 function parse_git_branch {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
+function cygwin_pwd {
+	pwd | sed -e 's/\/cygdrive\/c\/Users\/'$USER'/w~/g' -e 's/\/home\/'$USER'/~/g'
+}
 # しばらく公式のを使ってみる
 #   * ステージングにない変更
 #   + ステージングにある状態
@@ -129,7 +132,7 @@ else
 		# Windowsだけなんか遅い
 		PS1='\[\e[${col}m\]\u@\H\[\e[33m\]\[\e[m\] \w $(_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo $_EXITCODE; fi) $(parse_git_branch)\r\n\$'
 	elif [ $OSNAME = "Cygwin" ];then
-		PS1='\[\e[${col}m\]\u@\H\[\e[33m\]\[\e[m\] \w $(_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo $_EXITCODE; fi) $(parse_git_branch)\r\n\$'
+		PS1='\[\e[${col}m\]\u@\H\[\e[33m\]\[\e[m\] $(cygwin_pwd) $(_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo $_EXITCODE; fi) $(parse_git_branch)\r\n\$'
 	elif [ -f /mnt/c ]; then
 		PS1='\[\e[${col}m\]\u@\H\[\e[33m\]\[\e[m\] \w $(_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo $_EXITCODE; fi) $(parse_git_branch)\r\n\$'
 	else
