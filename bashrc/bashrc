@@ -55,7 +55,7 @@ fi
 #--------------------------------------
 # エディターはVim
 if [ $OSNAME = "Mac" ];then
-	export EDITOR=/Applications/MacVim.app/Contents/MacOS/vim
+	export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 else
 	export EDITOR=vim
 fi
