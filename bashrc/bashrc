@@ -88,63 +88,69 @@ source ~/dotfiles/bashrc/completion/git-flow-completion.bash
 export CLICOLOR=1
 #--------------------------------------
 # 端末・プロンプトの設定
-# ホスト名とユーザ名の先頭 3文字をとりだす。全部だと長いので。
-h3=`expr $HOSTNAME : '\(...\).*'`
-u2=`expr $USER : '\(..\).*'`
+
+# PS1='user@host 1 /full/path master\r\n[$/#]"
+
+function __show_exitcode {
+	_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo -e "\e[31m$_EXITCODE\e[m "; fi
+}
+PS1='$(__show_exitcode)'
+
+# ユーザの$は白、rootを示す#は赤
+if [ $USER = "root" ];then
+	PS1=$PS1'\[\e[31m\]\u\e[${col}m\]'
+else
+	PS1=$PS1'\[\e[${col}m\]\u'
+fi
 
 # 現在のホストによってプロンプトの色を変える。
 # 30Black 31Red 32Green 33Yellow 34Blue 35Magenta 36Cyan 37White
 if [ $OSNAME = "Mac" ];then
-	# MacOSはマゼンダ（橙）
-	col=35
+	# MacOSは白
+	col=37
 elif [ $OSNAME = "Cygwin" ];then
 	# Windowsは緑
 	col=32
 elif [ $OSNAME = "Msys" ];then
 	col=32
 else
-	# その他Linuxは水色
-	col=36
+	# その他は赤色
+	col=31
 fi
-# Gitのブランチを表示
-# 参考 http://qiita.com/caad1229/items/6d71d84933c8a87af0c4
-function parse_git_branch {
-	_GITBRANCH=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-	if [ "$_GITBRANCH" != "" ];then echo -e "\e[33m$_GITBRANCH\e[m "; fi
-}
-function __cygwin_pwd {
-	pwd | sed -e 's/\/cygdrive\/c\/Users\/'$USER'/w~/g' -e 's/\/home\/'$USER'/~/g'
-}
-function __show_exitcode {
-	_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo -e "\e[31m$_EXITCODE\e[m "; fi
-}
-# しばらく公式のを使ってみる
-#   * ステージングにない変更
-#   + ステージングにある状態
-GIT_PS1_SHOWDIRTYSTATE=true
-#   % ステージングにない新規ファイル
-GIT_PS1_SHOWUNTRACKEDFILES=true
-GIT_PS1_SHOWUPSTREAM=auto
-# PS1='user@host 1 /full/path master\r\n[$/#]"
+PS1=$PS1'@\H\[\e[33m\]\[\e[m\] '
+
 # ディレクトリ名は白
-# ユーザの$は白、rootを示す#は赤
-PS1='\[\e[${col}m\]\u@\H\[\e[33m\]\[\e[m\] $(__show_exitcode)'
 if [ $OSNAME = "Cygwin" ];then
+	function __cygwin_pwd {
+		pwd | sed -e 's/\/cygdrive\/c\/Users\/'$USER'/w~/g' -e 's/\/home\/'$USER'/~/g'
+	}
 	PS1=$PS1'$(__cygwin_pwd) '
 else
-	PS1=$PS1'\w '
+	PS1=$PS1'\w'
 fi
 if [ $OSNAME = "Msys" -o $OSNAME = "Cygwin" -o -f /mnt/c ];then
-	# Windowsだけなんか遅い
-	PS1=$PS1'$(parse_git_branch)'
+	# Windowsだけなんか遅いのでブランチだけ
+	# Gitのブランチを表示
+	# 参考 http://qiita.com/caad1229/items/6d71d84933c8a87af0c4
+	function parse_git_branch {
+		_GITBRANCH=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+		if [ "$_GITBRANCH" != "" ];then echo -e "\e[33m$_GITBRANCH\e[m "; fi
+	}
+	PS1=$PS1'\[\e[33m$(parse_git_branch)\e[m\]'
 else
-	PS1=$PS1'$(__git_ps1)'
+	#   * ステージングにない変更
+	#   + ステージングにある状態
+	GIT_PS1_SHOWDIRTYSTATE=true
+	#   % ステージングにない新規ファイル
+	GIT_PS1_SHOWUNTRACKEDFILES=true
+	GIT_PS1_SHOWUPSTREAM=auto
+	PS1=$PS1'\[\e[33m$(__git_ps1)\e[m\]'
 fi
 PS1=$PS1'\r\n\$'
 
 # 非表示の文字は\[ \]で囲うこと
 if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
-	PS1=${PS1}'\[\033k$h3@\W\033\\\]'
+	PS1=$PS1'\[\033k$h3@\W\033\\\]'
 fi
 
 #--------------------------------------
