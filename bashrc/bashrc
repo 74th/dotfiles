@@ -358,32 +358,6 @@ function EditCheatSheets() {
 	cd -
 }
 #--------------------------------------
-# 自分のリポジトリを更新する
-function UpdateTools() {
-
-	cd $HOME/dotfiles
-	git pull
-	cd -
-
-	if [ -e $HOME/mydotfiles ];then
-		cd $HOME/mydotfiles
-		git pull
-		cd -
-	fi
-
-	if [ -e $HOME/mycheatsheets ];then
-		cd $HOME/mycheatsheets
-		git pull
-		cd -
-	fi
-
-	if [ -e $HOME/mybookmark ];then
-		cd $HOME/mybookmark
-		git pull
-		cd -
-	fi
-}
-#--------------------------------------
 # MacでGNUツール群へのパスを通す
 if [ $OSNAME = "Mac" ];then
 	# brew install coreutils
