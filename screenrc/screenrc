@@ -2,7 +2,7 @@
 vbell on
 # ステータスバー
 hardstatus alwayslastline '%{= dW}%L=%-w%45L>%{=u dW}%n %t%{-}%+w %-17<%='
-caption always "%{= kw}   %{= dW}%n %t%{-} %=%{-}"
+caption splitonly "%{= kw}   %{= dW}%n %t%{-} %=%{-}"
 sorendition '+r .b'
 # 別画面サポート。Vimやless使うときに便利
 #altscreen on
