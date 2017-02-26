@@ -291,17 +291,10 @@ if [ $OSNAME = "Mac" ];then
 elif [ $OSNAME = "Windows" ];then
 	export GOROOT=C:\\tools\\go
 	export GOPATH=C:\\Users\\$USERNAME\\go
-elif [ -e $HOME/goroot/ ];then
+elif [ -e $HOME/goroot/go/bin ];then
+	export GOROOT=$HOME/goroot/go
+elif [ -e $HOME/goroot/bin ];then
 	export GOROOT=$HOME/goroot
-	export PATH=$GOROOT/bin:$PATH
-elif [ -e $HOME/Library/go/latest ];then
-	export GOROOT=$HOME/Library/go/latest
-elif [ -e $HOME/Library/go ];then
-	export GOROOT=$HOME/Library/go
-elif [ -e /usr/local/lib/go ];then
-	export GOROOT=/usr/local/lib/go
-elif [ -e /usr/lib/go ];then
-	export GOROOT=/usr/lib/go
 fi
 if [ -n "${GOROOT}" ];then
 	export PATH=$GOROOT/bin:$PATH
