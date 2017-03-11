@@ -10,7 +10,7 @@
     // svg
     "svgviewer.transparencygrid": false,
     // wrap
-    "editor.wrappingColumn": 0,
+    "editor.wordWrap": "bounded",
     "editor.wrappingIndent": "indent",
     "editor.glyphMargin": true,
     // tab等の表示
@@ -24,7 +24,7 @@
     "editor.cursorBlinking": "smooth",
     "editor.renderLineHighlight": "all",
     // 表示周り
-	"window.zoomLevel": 0,
+    "window.zoomLevel": 0,
     // git
     "git.confirmSync": false, // Syncボタンで尋ねない
     // auto format
@@ -44,6 +44,8 @@
     "go.formatOnSave": true,
     "go.buildOnSave": true,
     "go.vetOnSave": true,
+    // typescript
+    "editor.codeLens": true,
     // vimStyle
     "vimStyle.defaultMode": "normal",
     "vimStyle.enabled": true,
