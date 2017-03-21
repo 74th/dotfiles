@@ -401,8 +401,22 @@ if [ $OSNAME = "Mac" ];then
 fi
 #--------------------------------------
 # Golangでデバッグ
-if [ -e $GOPATH/bin/dlv ];then
+if type dlv 2>/dev/null 1>/dev/null
+then
 function dlv_test() {
+	dlv test --headless --listen "0.0.0.0:2345" --log=true
 	$GOPATH/bin/dlv test --headless --listen "0.0.0.0:2345" --log=true
 }
+fi
+#--------------------------------------
+# peco
+if type peco 2>/dev/null 1>/dev/null
+then
+
+function find_cd() {
+	# ディレクトリ移動
+	cd "$(find . -type d | peco)"
+}
+alias fc="find_cd"
+
 fi
