@@ -424,11 +424,19 @@ function peco_cd() {
 }
 alias pcd="peco_cd"
 
-peco-select-history() {
+function peco-select-history() {
 	# 過去コマンド参照
 	declare l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
 	READLINE_LINE="$l"
 	READLINE_POINT=${#l}
 }
-bind -x '"\C-r": peco-select-history'
+#bind -x '"\C-r": peco-select-history'
+
+function peco-ls() {
+	# 過去コマンド参照
+	declare l=$(ls --color=never | peco)
+	READLINE_LINE="$READLINE_LINE$l"
+	READLINE_POINT=${#READLINE_LINE}
+}
+bind -x '"\C-r": peco-ls'
 fi
