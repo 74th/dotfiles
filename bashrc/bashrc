@@ -434,7 +434,7 @@ function peco-ls() {
 	currentdir=${array[${last_index}]}
 	declare l=$(ls $currentdir --color=never | peco)
 	# ディレクトリを判定して、入れる
-	READLINE_LINE="$READLINE_LINE$l"
+	READLINE_LINE="$READLINE_LINE$l/"
 	READLINE_POINT=${#READLINE_LINE}
 }
 bind -x '"\C-r": peco-ls'
