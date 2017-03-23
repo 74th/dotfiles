@@ -410,13 +410,25 @@ function dlv_test() {
 fi
 #--------------------------------------
 # peco
-if type peco 2>/dev/null 1>/dev/null
-then
+if type peco 2>/dev/null 1>/dev/null ;then
 
 function find_cd() {
-	# ディレクトリ移動
+	# ディレクトリを検索して移動
 	cd "$(find . -type d | peco)"
 }
 alias fc="find_cd"
 
+function peco_cd() {
+	# 1つ移動
+	cd "$(ls --color=never | peco)"
+}
+alias pcd="peco_cd"
+
+peco-select-history() {
+	# 過去コマンド参照
+	declare l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
+	READLINE_LINE="$l"
+	READLINE_POINT=${#l}
+}
+bind -x '"\C-r": peco-select-history'
 fi
