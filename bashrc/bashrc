@@ -341,6 +341,7 @@ function OpenCheatSheets() {
 	FILE=$(ls ~/mycheatsheets/ | peco)
 	vimless -c "set syntax=markdown" ~/mycheatsheets/$FILE
 }
+alias ShowCheatSheets="OpenCheatSheets"
 function EditCheatSheets() {
 	cd ~/mycheatsheets/
 	git pull origin master
@@ -418,25 +419,24 @@ function find_cd() {
 }
 alias fc="find_cd"
 
-function peco_cd() {
-	# 1つ移動
-	cd "$(ls --color=never | peco)"
-}
-alias pcd="peco_cd"
-
 function peco-select-history() {
 	# 過去コマンド参照
 	declare l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
 	READLINE_LINE="$l"
 	READLINE_POINT=${#l}
 }
-#bind -x '"\C-r": peco-select-history'
+bind -x '"\C-t": peco-select-history'
 
 function peco-ls() {
-	# 過去コマンド参照
-	declare l=$(ls --color=never | peco)
+	# ファイル指定の補完
+	array=( `echo $READLINE_LINE | tr -s ' '`)
+	last_index=`expr ${#array[@]} - 1`
+	currentdir=${array[${last_index}]}
+	declare l=$(ls $currentdir --color=never | peco)
+	# ディレクトリを判定して、入れる
 	READLINE_LINE="$READLINE_LINE$l"
 	READLINE_POINT=${#READLINE_LINE}
 }
 bind -x '"\C-r": peco-ls'
+
 fi
