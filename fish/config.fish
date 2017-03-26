@@ -21,6 +21,7 @@ else
 	set OSNAME 'Linux'
 	set OSDISTRO 'unknown'
 end
+
 #--------------------------------------
 # fish
 # viキーバインド
@@ -29,8 +30,11 @@ fish_vi_key_bindings
 set -U fish_prompt_pwd_dir_length 0
 
 #--------------------------------------
-# Git周り
-alias g=git
+# 文字コードの標準設定
+set LESSCHARSET UTF-8
+set LANG en_US.UTF-8
+set LC_CTYPE en_US.UTF-8
+set LC_ALL en_US.UTF-8
 
 #--------------------------------------
 # PATH
@@ -47,4 +51,18 @@ set PATH $HOME/dotfiles/bin $PATH
 if test $OSNAME = 'Mac'
 	set PATH ~/dotfiles/bin/darwin /usr/local/bin $PATH
 end
+
+
+#--------------------------------------
+# MacVim
+if test $OSNAME = "Mac"
+	alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$argv"'
+	alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$argv"'
+	alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/gvim "$argv"'
+	alias vimless='/Applications/MacVim.app/Contents/Resources/vim/runtime/macros/less.sh'
+end
+
+#--------------------------------------
+# git周り
+alias g=git
 
