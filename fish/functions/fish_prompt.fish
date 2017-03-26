@@ -1,3 +1,11 @@
+# windowsのgit表示
+function __parse_git_branch_windows
+	set _GITBRANCH (git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/')
+	if not test $_GITBRANCH = "" 
+		echo -n ' '
+		echo -n $_GITBRANCH
+	end
+end
 function fish_prompt --description 'Write out the prompt'
 
 	set -l last_status $status
@@ -28,7 +36,11 @@ function fish_prompt --description 'Write out the prompt'
 	echo -n (prompt_pwd)
 	set_color normal
 
-	__fish_git_prompt
+	if test $OSNAME = 'Windows'
+		__parse_git_branch_windows
+	else
+		__fish_git_prompt
+	end
 	__fish_hg_prompt
 	echo
 
