@@ -34,6 +34,10 @@ git config --global alias.deleteuntrackedfile "logi clean -f"
 echo やっぱり楽なコマンドが良い
 git config --global alias.st "status"
 
+echo vimを使用
+git config --global core.editor "vi"
+
+
 # Windowsの場合、以下も追加する
 # ファイルモードを無視
 # git config --global core.filemode false
