@@ -63,6 +63,37 @@ if test $OSNAME = "Mac"
 end
 
 #--------------------------------------
-# git周り
-alias g=git
+# エディターはVim
+if test $OSNAME = "Mac"
+	set EDITOR /Applications/MacVim.app/Contents/MacOS/Vim
+else
+	set EDITOR vi
+end
 
+#--------------------------------------
+# コマンド簡単化
+alias FreezeTargz='tar zcvf'
+alias OpenTargz='tar zxvf'
+alias FreezeTarbz2='tar jcvf'
+alias OpenTarbz2='tar jxvf'
+alias ShowListenPorts='netstat -lnptua'
+alias df='df -h'
+alias ":q"=exit
+alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
+alias m=make
+alias g=git
+alias s7l='sudo systemctl'
+alias sl=ls
+
+#--------------------------------------
+# Javacの文字コード
+alias javac='javac -J-Dfile.encoding=utf-8'
+alias java='java -Dfile.encoding=UTF-8'
+
+#--------------------------------------
+# ImageMagic関連
+alias ConvertToJpg='mogrify -format jpg'
+alias ConvertToPng='mogrify -format png'
+
+#--------------------------------------
+# git周り
