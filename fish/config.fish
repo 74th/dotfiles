@@ -49,7 +49,10 @@ if test -e $HOME/bin
 end
 set PATH $HOME/dotfiles/bin $PATH
 if test $OSNAME = 'Mac'
-	set PATH ~/dotfiles/bin/darwin /usr/local/bin $PATH
+	set PATH /usr/local/bin ~/dotfiles/bin/darwin $PATH
+end
+if test -e ~/dotfiles/dotfile/bin
+	set PATH ~/dotfiles/dotfile/bin $PATH
 end
 
 
@@ -97,3 +100,46 @@ alias ConvertToPng='mogrify -format png'
 
 #--------------------------------------
 # git周り
+function pushpush --description 'git commit and push'
+	git add -A
+	git commit -m "at $HOSTNAME"
+	git push origin master
+end
+alias commit='git commit -v'
+alias commita='git commit -av'
+alias add='git add'
+alias push='git push'
+alias pull='git pull'
+alias gt='git status'
+
+#--------------------------------------
+# golang
+if test -e $HOME/go
+	set GOPATH $HOME/go
+	set PATH $GOPATH/bin $PATH
+end
+if test $OSNAME = "Mac"
+	set GOROOT /usr/local/opt/go/libexec
+else if test $OSNAME = "Windows"
+	set GOROOT C:\\tools\\go
+	set GOPATH C:\\Users\\$USERNAME\\go
+else if test -e $HOME/goroot/go/bin
+	set GOROOT $HOME/goroot/go
+	set PATH $HOME/goroot/go/bin $PATH
+else if test -e $HOME/goroot/bin
+	set GOROOT $HOME/goroot
+	set PATH $HOME/goroot/bin $PATH
+end
+alias golinux='env GOOS=linux GOARCH=amd64 go'
+alias goarm='env GOOS=linux GOARCH=arm go'
+alias gowindows='env GOOS=windows GOARCH=amd64 go'
+alias gomac='env GOOS=darwin GOARCH=amd64 go'
+
+#--------------------------------------
+# vscode
+if test $OSNAME = "Mac"
+	function code --description 'VSCode'
+	env VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $argv
+	end
+end
+
