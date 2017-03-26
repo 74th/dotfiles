@@ -1,7 +1,7 @@
 # windowsのgit表示
 function __parse_git_branch_windows
 	set _GITBRANCH (git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/')
-	if not test $_GITBRANCH = "" 
+	if not test "$_GITBRANCH" = "" 
 		echo -n ' '
 		echo -n $_GITBRANCH
 	end
