@@ -26,6 +26,8 @@ end
 # fish
 # viキーバインド
 fish_vi_key_bindings
+# viキーバインドのモードは表示しない
+function fish_mode_prompt; end
 # プロンプトのディレクトリを省略しない
 set -U fish_prompt_pwd_dir_length 0
 
@@ -59,9 +61,9 @@ end
 #--------------------------------------
 # MacVim
 if test $OSNAME = "Mac"
-	alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$argv"'
-	alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$argv"'
-	alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/gvim "$argv"'
+	alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
+	alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
+	alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/gvim'
 	alias vimless='/Applications/MacVim.app/Contents/Resources/vim/runtime/macros/less.sh'
 end
 
@@ -84,7 +86,6 @@ alias df='df -h'
 alias ":q"=exit
 alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
 alias m=make
-alias g=git
 alias s7l='sudo systemctl'
 alias sl=ls
 
@@ -105,12 +106,22 @@ function pushpush --description 'git commit and push'
 	git commit -m "at $HOSTNAME"
 	git push origin master
 end
+alias g=git
 alias commit='git commit -v'
 alias commita='git commit -av'
 alias add='git add'
 alias push='git push'
 alias pull='git pull'
 alias gt='git status'
+
+# Fish git prompt
+set __fish_git_prompt_showdirtystate 'yes'
+set __fish_git_prompt_showstashstate 'yes'
+set __fish_git_prompt_showuntrackedfiles 'yes'
+set __fish_git_prompt_showupstream 'yes'
+set __fish_git_prompt_color_branch yellow
+set __fish_git_prompt_color_upstream_ahead green
+set __fish_git_prompt_color_upstream_behind red
 
 #--------------------------------------
 # golang
@@ -134,6 +145,14 @@ alias golinux='env GOOS=linux GOARCH=amd64 go'
 alias goarm='env GOOS=linux GOARCH=arm go'
 alias gowindows='env GOOS=windows GOARCH=amd64 go'
 alias gomac='env GOOS=darwin GOARCH=amd64 go'
+
+# デバッグ
+if type dlv 2>/dev/null 1>/dev/null
+	function dlv_test --description 'debug golang test'
+		dlv test --headless --listen "0.0.0.0:2345" --log=true
+		eval $GOPATH/bin/dlv test --headless --listen "0.0.0.0:2345" --log=true
+	end
+end
 
 #--------------------------------------
 # vscode
