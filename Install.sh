@@ -77,7 +77,7 @@ fi
 
 # fish
 if [ ! -e ~/.config/fish ]; then
-	mkdir -p .config/fish
+	mkdir -p ~/.config/fish
 fi
 if [ -e ~/.config/fish/config.fish ]; then
 	rm ~/.config/fish/config.fish
