@@ -87,4 +87,6 @@ if [ -e ~/.config/fish/functions ]; then
 	rm -rf ~/.config/fish/functions
 fi
 ln -s ~/dotfiles/fish/functions ~/.config/fish/functions
+rm -rf ~/.config/fish/fishd.*; true
+ln -s ~/dotfiles/fish/fishd.784f4359182f ~/.config/fish/
 
