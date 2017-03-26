@@ -1,13 +1,8 @@
-# エスケープは<C-z>
-escape ^z^z
 # ビープの代わりに画面表示
 vbell on
 # ステータスバー
-hardstatus on
-#hardstatus alwayslastline '%{= .b}%H%{-} %L=%-w%45L>%{=u b.}%n %t%{-}%+w %-17<%=%m/%d %02c:%s'
-hardstatus alwayslastline '%{= .g}%H%{-} %L=%-w%45L>%{= gk}%n %t%{-}%+w %-17<%='
-caption always '%?%F%{= gk}%:%{= Kk}%?%2n%f%07=%t%='
-#caption always "%{= mw} %-w%{=b cw}%n %t%{-}%+w %= %{=b mw}%y/%m/%d"
+hardstatus alwayslastline '%{= dW}%L=%-w%45L>%{= Wk}%n%{-}%{=u dW} %t%{-}%+w %-17<%='
+caption splitonly "%{= kw}   %{= dW}%n %t%{-} %=%{-}"
 sorendition '+r .b'
 # 別画面サポート。Vimやless使うときに便利
 #altscreen on

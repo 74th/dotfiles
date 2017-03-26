@@ -7,41 +7,50 @@
     // For Linux
     //"editor.fontFamily": "Source Code Pro Medium,Source Han Code JP Medium,TakaoGothic",
     "editor.fontSize": 13,
-
+    // svg
+    "svgviewer.transparencygrid": false,
     // wrap
-    "editor.wrappingColumn": 0,
+    "editor.wordWrap": "on",
     "editor.wrappingIndent": "indent",
     "editor.glyphMargin": true,
-
-    // tab
+    // tab等の表示
     "editor.tabSize": 4,
     "editor.insertSpaces": false,
-    "editor.renderWhitespace": true,
-    "editor.cursorStyle": "line",
+    "editor.renderWhitespace": "boundary",
     "editor.renderIndentGuides": true,
-
+    "editor.renderControlCharacters": true,
+    // カーソル
+    "editor.cursorStyle": "line",
+    "editor.cursorBlinking": "smooth",
+    "editor.renderLineHighlight": "all",
+    // 表示周り
+    "window.zoomLevel": 0,
+    // git
+    "git.confirmSync": false, // Syncボタンで尋ねない
     // auto format
     "editor.formatOnType": true,
-    "editor.lineNumbers": true,
+    "editor.formatOnSave": true,
+    "editor.lineNumbers": "on",
     "editor.selectionHighlight": false,
     "editor.autoClosingBrackets": false,
-
     // file
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
-
+    // Terminal
+    "terminal.integrated.shell.windows": "C:\\cygwin64\\Cygwin.bat",
     // golang
     "go.lintOnSave": true,
     "go.formatTool": "goreturns",
     "go.formatOnSave": true,
     "go.buildOnSave": true,
     "go.vetOnSave": true,
-
+    // typescript
+    "editor.codeLens": true,
     // vimStyle
     "vimStyle.defaultMode": "normal",
     "vimStyle.enabled": true,
     "vimStyle.imapEsc": "jj",
-
     // mykeyscroll
-    "scrollkey.line1": 30
+    "scrollkey.line1": 30,
+    "workbench.colorTheme": "NaturalContrast-HC"
 }
