@@ -10,7 +10,7 @@
     // svg
     "svgviewer.transparencygrid": false,
     // wrap
-    "editor.wordWrap": "bounded",
+    "editor.wordWrap": "on",
     "editor.wrappingIndent": "indent",
     "editor.glyphMargin": true,
     // tab等の表示
@@ -51,5 +51,6 @@
     "vimStyle.enabled": true,
     "vimStyle.imapEsc": "jj",
     // mykeyscroll
-    "scrollkey.line1": 30
+    "scrollkey.line1": 30,
+    "workbench.colorTheme": "NaturalContrast-HC"
 }
