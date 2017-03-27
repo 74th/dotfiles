@@ -80,3 +80,18 @@ if [ -e ~/.config/xfce4/terminal/terminalrc ];then
 	ln -s ~/dotfiles/xfce4terminal/terminalrc ~/.config/xfce4/terminal/terminalrc 
 fi
 
+# fish
+if [ ! -e ~/.config/fish ]; then
+	mkdir -p ~/.config/fish
+fi
+if [ -e ~/.config/fish/config.fish ]; then
+	rm ~/.config/fish/config.fish
+fi
+ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
+if [ -e ~/.config/fish/functions ]; then
+	rm -rf ~/.config/fish/functions
+fi
+ln -s ~/dotfiles/fish/functions ~/.config/fish/functions
+rm -rf ~/.config/fish/fishd.*; true
+ln -s ~/dotfiles/fish/fishd.784f4359182f ~/.config/fish/
+
