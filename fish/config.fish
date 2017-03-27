@@ -106,6 +106,11 @@ alias m=make
 alias s7l='sudo systemctl'
 alias sl=ls
 
+function ShowCheatSheets --description 'show my cheat sheets'
+	ls ~/mycheatsheets/ | peco | read sheet
+	less ~/mycheatsheets/$sheet
+end
+
 #--------------------------------------
 # Javacの文字コード
 alias javac='javac -J-Dfile.encoding=utf-8'
