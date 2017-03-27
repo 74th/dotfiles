@@ -22,6 +22,8 @@ fi
 if [ $(grep dotfiles ~/.gvimrc | wc -l ) -eq 0 ]; then
 	echo "source ~/dotfiles/vimrc/gvimrc.vim" >>~/.gvimrc
 fi
+# vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # screenrc
 if [ -e ~/.screenrc ]; then
@@ -89,4 +91,5 @@ fi
 ln -s ~/dotfiles/fish/functions ~/.config/fish/functions
 rm -rf ~/.config/fish/fishd.*; true
 ln -s ~/dotfiles/fish/fishd.784f4359182f ~/.config/fish/
-
+# fisherman
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
