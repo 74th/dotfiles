@@ -22,6 +22,11 @@ fi
 if [ $(grep dotfiles ~/.gvimrc | wc -l ) -eq 0 ]; then
 	echo "source ~/dotfiles/vimrc/gvimrc.vim" >>~/.gvimrc
 fi
+# vim plug
+if [ ! -e ~/.vim/autoload/plug.vim ]; then
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
 
 # screenrc
 if [ -e ~/.screenrc ]; then
