@@ -4,22 +4,12 @@
 # OS判定
 if [ "$(uname)" == 'Darwin' ]; then
 	OSNAME='Mac'
-	OSDISTRO='Mac'
 elif [ "$(uname -o)" == 'Cygwin' ]; then
-	OSNAME='Windows'
-	OSDISTRO='Cygwin'
+	OSNAME='Cygwin'
 elif [ "$(uname -o)" == 'Msys' ]; then
-	OSNAME='Windows'
-	OSDISTRO='Msys'
-elif [ -e "/etc/debian_version" ]; then
-	OSNAME='Linux'
-	OSDISTRO='Debian'
-elif [ -e "/etc/redhat-release" ]; then
-	OSNAME='Linux'
-	OSDISTRO='Redhat'
+	OSNAME='Msys'
 else
 	OSNAME='Linux'
-	OSDISTRO='unknown'
 fi
 #--------------------------------------
 # 文字コードの標準設定
@@ -60,15 +50,14 @@ fi
 if [ $OSNAME = "Mac" ];then
 	alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 	alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-	alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/gvim "$@"'
 	alias vimless='/Applications/MacVim.app/Contents/Resources/vim/runtime/macros/less.sh'
 fi
 #--------------------------------------
 # エディターはVim
 if [ $OSNAME = "Mac" ];then
-	export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+	export EDITOR=/Applications/MacVim.app/Contents/MacOS/vim
 else
-	export EDITOR=vi
+	export EDITOR=vim
 fi
 #--------------------------------------
 # Bashの補完 bash-completion
@@ -99,74 +88,55 @@ source ~/dotfiles/bashrc/completion/git-flow-completion.bash
 export CLICOLOR=1
 #--------------------------------------
 # 端末・プロンプトの設定
-
-# PS1='user@host 1 /full/path master\r\n[$/#]"
-
-function __show_exitcode {
-	_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo -e "\e[31m$_EXITCODE\e[m "; fi
-}
-# 直前のコマンドの終了コードが0以外なら赤色で表示
-PS1='$(__show_exitcode)'
+# ホスト名とユーザ名の先頭 3文字をとりだす。全部だと長いので。
+h3=`expr $HOSTNAME : '\(...\).*'`
+u2=`expr $USER : '\(..\).*'`
 
 # 現在のホストによってプロンプトの色を変える。
 # 30Black 31Red 32Green 33Yellow 34Blue 35Magenta 36Cyan 37White
 if [ $OSNAME = "Mac" ];then
-	# MacOSは白
-	col=37
-elif [ $OSNAME = "Windows" ];then
+	# MacOSはマゼンダ（橙）
+	col=35
+elif [ $OSNAME = "Cygwin" ];then
 	# Windowsは緑
 	col=32
-elif [ $OSDISTRO = "Redhat" ];then
-	# RedhatはCentOSなのでシアン
+elif [ $OSNAME = "Msys" ];then
+	col=32
+else
+	# その他Linuxは水色
 	col=36
-elif [ $OSDISTRO = "Debian" ];then
-	# Debianはオレンジ
-	col=35
-else
-	# その他は赤色
-	col=31
 fi
-
+# Gitのブランチを表示
+# 参考 http://qiita.com/caad1229/items/6d71d84933c8a87af0c4
+function parse_git_branch {
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+# しばらく公式のを使ってみる
+#   * ステージングにない変更
+#   + ステージングにある状態
+GIT_PS1_SHOWDIRTYSTATE=true
+#   % ステージングにない新規ファイル
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM=auto
+# PS1='[h2:ホスト名][Gitリポジトリ][\W:カレントディレクトリ名][$/#]"
+# ディレクトリ名は白
 # ユーザの$は白、rootを示す#は赤
-if [ $USER = "root" ];then
-	PS1=$PS1'\[\e[31m\]\u\e[${col}m\]'
+if [ $UID -eq 0 ]; then
+	PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$'
+	PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\[\e[31m\]#\[\e[m\]\033]0;#\W@$HOSTNAME\007'
 else
-	PS1=$PS1'\[\e[${col}m\]\u'
+	# 非表示の文字は\[ \]で囲うこと
+	if [ $OSNAME = "Msys" ];then
+		# Windowsだけなんか遅い
+		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$\[\033]0;\W@$HOSTNAME\007\]'
+	elif [ -f /mnt/c ]; then
+		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(parse_git_branch)\[\e[m\]\W\$\[\033]0;\W@$HOSTNAME\007\]'
+	else
+		PS1='\[\e[${col}m\]$h3\[\e[33m\]$(__git_ps1)\[\e[m\]\W\$\[\033]0;\W@$HOSTNAME\007\]'
+	fi
 fi
-PS1=$PS1'@\H\[\e[33m\]\[\e[m\] '
-
-if [ $OSDISTRO = "Cygwin" ];then
-	# Windowsのユーザディレクトリは簡易表示
-	function __cygwin_pwd {
-		pwd | sed -e 's/\/cygdrive\/c\/Users\/'$USER'/w~/g' -e 's/\/home\/'$USER'/~/g'
-	}
-	PS1=$PS1'$(__cygwin_pwd) '
-else
-	PS1=$PS1'\w'
-fi
-if [ $OSNAME = "Windows" -o -f /mnt/c ];then
-	# Windowsだけなんか遅いのでブランチだけ
-	# Gitのブランチを表示
-	# 参考 http://qiita.com/caad1229/items/6d71d84933c8a87af0c4
-	function parse_git_branch {
-		_GITBRANCH=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-		if [ "$_GITBRANCH" != "" ];then echo -e "\e[33m$_GITBRANCH\e[m "; fi
-	}
-	PS1=$PS1'\[\e[33m$(parse_git_branch)\e[m\]'
-else
-	#   * ステージングにない変更
-	#   + ステージングにある状態
-	GIT_PS1_SHOWDIRTYSTATE=true
-	#   % ステージングにない新規ファイル
-	GIT_PS1_SHOWUNTRACKEDFILES=true
-	GIT_PS1_SHOWUPSTREAM=auto
-	PS1=$PS1'\[\e[33m$(__git_ps1)\e[m\]'
-fi
-PS1=$PS1'\r\n\$'
-
-# 非表示の文字は\[ \]で囲うこと
 if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
-	PS1=$PS1'\[\033k`expr $HOSTNAME : "\(...\).*"`@\W\033\\\]'
+	PS1=${PS1}'\[\033k$h3@\W\033\\\]'
 fi
 
 #--------------------------------------
@@ -195,14 +165,14 @@ if [ $OSNAME = "Mac" ];then
 	function UpdatePackageDone() {
 		sh -x -c 'brew upgrade all'
 	}
-elif [ $OSDISTRO = "Msys" ];then
+elif [ $OSNAME = "Msys" ];then
 	function UpdatePackage() {
 		sh -x -c 'pacman -Syup'
 	}
 	function UpdatePackageDone() {
 		sh -x -c 'pacman -Syu --noconfirm'
 	}
-elif [ $OSDISTRO = "Debian" ];then
+elif [ -e /etc/lsb-release ];then
 	# debian,ubuntu
 	function UpdatePackage() {
 		sh -x -c 'sudo apt update'
@@ -280,29 +250,33 @@ function checkout() {
 }
 #--------------------------------------
 # golang
+if [ $OSNAME = "Mac" ];then
+	export GOROOT=/usr/local/opt/go/libexec
+elif [ $OSNAME = "Cygwin" ];then
+	export GOROOT=/cygdrive/c/Go
+elif [ $OSNAME = "Msys" ];then
+	export GOROOT=C:\\tools\\go
+elif [ -e $HOME/Library/go/latest ];then
+	export GOROOT=$HOME/Library/go/latest
+elif [ -e $HOME/Library/go ];then
+	export GOROOT=$HOME/Library/go
+elif [ -e /usr/local/lib/go ];then
+	export GOROOT=/usr/local/lib/go
+elif [ -e /usr/lib/go ];then
+	export GOROOT=/usr/lib/go
+fi
+if [ -n "${GOROOT}" ];then
+	export PATH=$GOROOT/bin:$PATH
+fi
+export PATH=$GOPATH/bin:$PATH
 if [ -e $HOME/go ];then
+	export GOPATH=$HOME/go
+	export GOPATH_DEF=$HOME/go
 	export PATH=$GOPATH/bin:$PATH
 fi
 function ResetGopath() {
 	export GOPATH=$GOPATH_DEF
 }
-
-if [ $OSNAME = "Mac" ];then
-	export GOROOT=/usr/local/opt/go/libexec
-elif [ $OSNAME = "Windows" ];then
-	export GOROOT=C:\\tools\\go
-	export GOPATH=C:\\Users\\$USERNAME\\go
-elif [ -e $HOME/goroot/go/bin ];then
-	export GOROOT=$HOME/goroot/go
-elif [ -e $HOME/goroot/bin ];then
-	export GOROOT=$HOME/goroot
-fi
-if [ -n "${GOROOT}" ];then
-	export PATH=$GOROOT/bin:$PATH
-fi
-if [ -n "${GOPATH}" ];then
-	export PATH=$GOPATH/bin:$PATH
-fi
 alias CDGOPATH='cd $GOPATH/src/github.com/74th/'
 alias golinux='GOOS=linux GOARCH=amd64 go'
 alias goarm='GOOS=linux GOARCH=arm go'
@@ -341,7 +315,6 @@ function OpenCheatSheets() {
 	FILE=$(ls ~/mycheatsheets/ | peco)
 	vimless -c "set syntax=markdown" ~/mycheatsheets/$FILE
 }
-alias ShowCheatSheets="OpenCheatSheets"
 function EditCheatSheets() {
 	cd ~/mycheatsheets/
 	git pull origin master
@@ -351,6 +324,32 @@ function EditCheatSheets() {
 	git commit -m "at $HOSTNAME"
 	git push origin master
 	cd -
+}
+#--------------------------------------
+# 自分のリポジトリを更新する
+function UpdateTools() {
+
+	cd $HOME/dotfiles
+	git pull
+	cd -
+
+	if [ -e $HOME/mydotfiles ];then
+		cd $HOME/mydotfiles
+		git pull
+		cd -
+	fi
+
+	if [ -e $HOME/mycheatsheets ];then
+		cd $HOME/mycheatsheets
+		git pull
+		cd -
+	fi
+
+	if [ -e $HOME/mybookmark ];then
+		cd $HOME/mybookmark
+		git pull
+		cd -
+	fi
 }
 #--------------------------------------
 # MacでGNUツール群へのパスを通す
@@ -382,61 +381,3 @@ fi
 shopt -s autocd
 # cdのミスをしても移動する
 shopt -s cdspell
-#--------------------------------------
-if [ $OSDISTRO = "Cygwin" ];then
-	# CygwinからWindowsアプリを呼び出すと、Cygwinの環境変数が引き継がれる対策
-	# http://tagussan.rdy.jp/blog/archives/686
-
-	# /etc/profileでunset TMP TEMPしているところで、WindowsのTMP、TEMPをORIGINAL_TMPに格納する
-	# ORIGINAL_TMP=$TMP
-	# ORIGINAL_TEMP=$TEMP
-
-	# winenv xx で呼び出したものはWindowsの環境変数になる
-	alias winenv='HOME= SHELL= PATH=$ORIGINAL_PATH TMP=$ORIGINAL_TEMP TEMP=$ORIGINAL_TMP'
-	alias gvim='winenv gvim'
-fi
-#--------------------------------------
-# Macで.ssh/id_rsaの鍵をkeychainから使うようにする
-if [ $OSNAME = "Mac" ];then
-	ssh-add -K ~/.ssh/id_rsa 2>/dev/null
-fi
-#--------------------------------------
-# Golangでデバッグ
-if type dlv 2>/dev/null 1>/dev/null
-then
-function dlv_test() {
-	dlv test --headless --listen "0.0.0.0:2345" --log=true
-	$GOPATH/bin/dlv test --headless --listen "0.0.0.0:2345" --log=true
-}
-fi
-#--------------------------------------
-# peco
-if type peco 2>/dev/null 1>/dev/null ;then
-
-function find_cd() {
-	# ディレクトリを検索して移動
-	cd "$(find . -type d | peco)"
-}
-alias fc="find_cd"
-
-function peco-select-history() {
-	# 過去コマンド参照
-	declare l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
-	READLINE_LINE="$l"
-	READLINE_POINT=${#l}
-}
-bind -x '"\C-t": peco-select-history'
-
-function peco-ls() {
-	# ファイル指定の補完
-	array=( `echo $READLINE_LINE | tr -s ' '`)
-	last_index=`expr ${#array[@]} - 1`
-	currentdir=${array[${last_index}]}
-	declare l=$(ls $currentdir --color=never | peco)
-	# ディレクトリを判定して、入れる
-	READLINE_LINE="$READLINE_LINE$l/"
-	READLINE_POINT=${#READLINE_LINE}
-}
-bind -x '"\C-r": peco-ls'
-
-fi
