@@ -33,26 +33,27 @@ set -U fish_prompt_pwd_dir_length 0
 
 # 色設定
 # fished.xxx からコピー
-SET fish_color_command:ffffff
-SET fish_color_comment:990000
-SET fish_color_cwd:green
-SET fish_color_cwd_root:red
-SET fish_color_end:009900
-SET fish_color_error:ff0000
-SET fish_color_escape:bryellow\x1e\x2d\x2dbold
-SET fish_color_history_current:\x2d\x2dbold
-SET fish_color_host:normal
-SET fish_color_match:\x2d\x2dbackground\x3dbrblue
-SET fish_color_normal:normal
-SET fish_color_operator:bryellow
-SET fish_color_param:00afff
-SET fish_color_quote:999900
-SET fish_color_redirection:00afff
-SET fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack
-SET fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
-SET fish_color_status:red
-SET fish_color_user:brgreen
-SET fish_color_valid_path:\x2d\x2dunderline
+set fish_color_autosuggestion 875f00
+set fish_color_command ffffff
+set fish_color_comment 990000
+set fish_color_cwd green
+set fish_color_cwd_root red
+set fish_color_end 009900
+set fish_color_error ff0000
+set fish_color_escape bryellow\x1e\x2d\x2dbold
+set fish_color_history_current \x2d\x2dbold
+set fish_color_host normal
+set fish_color_match \x2d\x2dbackground\x3dbrblue
+set fish_color_normal normal
+set fish_color_operator bryellow
+set fish_color_param 00afff
+set fish_color_quote 999900
+set fish_color_redirection 00afff
+set fish_color_search_match bryellow\x1e\x2d\x2dbackground\x3dbrblack
+set fish_color_selection white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
+set fish_color_status red
+set fish_color_user brgreen
+set fish_color_valid_path \x2d\x2dunderline
 
 #--------------------------------------
 # 文字コードの標準設定
