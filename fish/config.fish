@@ -31,30 +31,53 @@ function fish_mode_prompt; end
 # プロンプトのディレクトリを省略しない
 set -U fish_prompt_pwd_dir_length 0
 
+# 色設定
+# fished.xxx からコピー
+SET fish_color_command:ffffff
+SET fish_color_comment:990000
+SET fish_color_cwd:green
+SET fish_color_cwd_root:red
+SET fish_color_end:009900
+SET fish_color_error:ff0000
+SET fish_color_escape:bryellow\x1e\x2d\x2dbold
+SET fish_color_history_current:\x2d\x2dbold
+SET fish_color_host:normal
+SET fish_color_match:\x2d\x2dbackground\x3dbrblue
+SET fish_color_normal:normal
+SET fish_color_operator:bryellow
+SET fish_color_param:00afff
+SET fish_color_quote:999900
+SET fish_color_redirection:00afff
+SET fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack
+SET fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
+SET fish_color_status:red
+SET fish_color_user:brgreen
+SET fish_color_valid_path:\x2d\x2dunderline
+
 #--------------------------------------
 # 文字コードの標準設定
-set LESSCHARSET UTF-8
-set LANG en_US.UTF-8
-set LC_CTYPE en_US.UTF-8
-set LC_ALL en_US.UTF-8
+set -x LESSCHARSET UTF-8
+set -x LANG en_US.UTF-8
+set -x LC_CTYPE en_US.UTF-8
+set -x LC_ALL en_US.UTF-8
 
 #--------------------------------------
 # PATH
 if test -e $HOME/go
-	set PATH $HOME/go/bin $PATH
+	set -x PATH $HOME/go/bin $PATH
 end
 if test -e $HOME/npm
-	set PATH $HOME/npm/bin $PATH
+	set -x PATH $HOME/npm/bin $PATH
 end
 if test -e $HOME/bin
-	set PATH $HOME/bin $PATH
+	set -x PATH $HOME/bin $PATH
 end
 set PATH $HOME/dotfiles/bin $PATH
 if test $OSNAME = 'Mac'
-	set PATH /usr/local/bin ~/dotfiles/bin/darwin $PATH
+	set -x PATH /usr/local/bin ~/dotfiles/bin/darwin $PATH
 end
 if test -e ~/dotfiles/dotfile/bin
-	set PATH ~/dotfiles/dotfile/bin $PATH
+	set -x PATH ~/dotfiles/dotfile/bin $PATH
 end
 
 
@@ -66,11 +89,7 @@ end
 
 #--------------------------------------
 # エディターはVim
-if test $OSNAME = "Mac"
-	set EDITOR /Applications/MacVim.app/Contents/MacOS/Vim
-else
-	set EDITOR vi
-end
+set -x EDITOR vi
 
 #--------------------------------------
 # コマンド簡単化
@@ -123,8 +142,8 @@ set __fish_git_prompt_color_upstream_behind red
 #--------------------------------------
 # golang
 if test -e $HOME/go
-	set GOPATH $HOME/go
-	set PATH $GOPATH/bin $PATH
+	set -x GOPATH $HOME/go
+	set -x PATH $GOPATH/bin $PATH
 end
 if test $OSNAME = "Mac"
 	set -x GOROOT /usr/local/opt/go/libexec
@@ -148,6 +167,13 @@ if type dlv 2>/dev/null 1>/dev/null
 	function dlv_test --description 'debug golang test'
 		dlv test --headless --listen "0.0.0.0:2345" --log=true
 		eval $GOPATH/bin/dlv test --headless --listen "0.0.0.0:2345" --log=true
+	end
+end
+
+# GOPATHへの移動
+if test -e $GOPATH/src/github.com/74th
+	function CDGOPATH --description 'change directory to GOPATH'
+		cd $GOPATH/src/github.com/74th
 	end
 end
 
