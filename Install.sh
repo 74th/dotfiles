@@ -29,7 +29,9 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 if [ -e ~/.screenrc ]; then
 	rm ~/.screenrc
 fi
-ln -s ~/dotfiles/screenrc/screenrc ~/.screenrc
+if [ ! OSNAME = "Linux" ]; then
+	ln -s ~/dotfiles/screenrc/screenrc ~/.screenrc
+fi
 
 # tmux
 if [ -e ~/.tmux.conf ]; then
