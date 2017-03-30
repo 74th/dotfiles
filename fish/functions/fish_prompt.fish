@@ -44,6 +44,14 @@ function fish_prompt --description 'Write out the prompt'
 	__fish_hg_prompt
 	echo
 
+	if test $TERM = 'screen' -o $TERM = 'screen-bce'
+		hostname|read HOSTNAME
+		expr $HOSTNAME : '\(...\).*'|read h3
+		pwd|read PWD
+		basename $PWD|read PWD2
+		echo -ne "\033k$h3@$PWD2\033\\"
+	end
+
 	if not test $last_status -eq 0
 		set_color $fish_color_error
 	end
