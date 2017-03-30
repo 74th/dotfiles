@@ -213,6 +213,27 @@ function fish_user_key_bindings
 end
 
 #--------------------------------------
+# Cheat Sheets
+if test -e $HOME/mycheatsheets
+	function OpenCheatSheets
+		ls $HOME/mycheatsheets|peco|read sheet
+		vim $HOME/mycheatsheets/$sheet
+	end
+	alias ShowCheatSheets=OpenCheatSheets
+	function EditCheatSheets
+		cd ~/mycheatsheets/
+		git pull origin master
+		ls $HOME/mycheatsheets|peco|read sheet
+		vim ~/mycheatsheets/$sheet
+		git add -A
+		git commit -m "at $HOSTNAME"
+		git push origin master
+		cd -
+	end
+end
+
+
+#--------------------------------------
 # ローカル設定
 if test -e $HOME/.config.fish
 	source $HOME/.config.fish
