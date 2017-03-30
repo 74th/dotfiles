@@ -71,4 +71,7 @@ let g:vim_markdown_folding_disabled = 2
 " ティラノスクリプト
 Plug 'bellflower2015/vim-syntax-tyranoscript'
 
+" fish shell
+Plug 'dag/vim-fish'
+
 call plug#end()
