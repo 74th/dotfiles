@@ -64,6 +64,9 @@ set -x LC_ALL en_US.UTF-8
 
 #--------------------------------------
 # PATH
+if test $OSNAME = 'Mac'
+	set -x PATH /usr/local/bin ~/dotfiles/bin/darwin $PATH
+end
 if test -e $HOME/go
 	set -x PATH $HOME/go/bin $PATH
 end
@@ -74,9 +77,6 @@ if test -e $HOME/bin
 	set -x PATH $HOME/bin $PATH
 end
 set PATH $HOME/dotfiles/bin $PATH
-if test $OSNAME = 'Mac'
-	set -x PATH /usr/local/bin ~/dotfiles/bin/darwin $PATH
-end
 if test -e ~/dotfiles/dotfile/bin
 	set -x PATH ~/dotfiles/dotfile/bin $PATH
 end
@@ -231,7 +231,6 @@ if test -e $HOME/mycheatsheets
 		cd -
 	end
 end
-
 
 #--------------------------------------
 # ローカル設定
