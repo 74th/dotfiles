@@ -212,6 +212,14 @@ function fish_user_key_bindings
 	bind -M insert \cr 'peco_ls (commandline -b)'
 end
 
+function book
+	cat ~/bookmark | peco | read DIR
+	cd $DIR
+end
+function AddBookmark
+	pwd >> ~/bookmark
+end
+
 #--------------------------------------
 # Cheat Sheets
 if test -e $HOME/mycheatsheets
