@@ -58,10 +58,10 @@ if [ -e "$VSCODE_DIR" ]; then
 	fi
 	ln -s ~/dotfiles/vscode/keybindings.json "$VSCODE_DIR"
 
-	# if [ -e "$VSCODE_DIR/settings.json" ]; then
-	# 	rm "$VSCODE_DIR/settings.json"
-	# fi
-	# ln -s ~/dotfiles/vscode/settings.json "$VSCODE_DIR/settings.json"
+	if [ -e "$VSCODE_DIR/settings.json" ]; then
+		rm "$VSCODE_DIR/settings.json"
+	fi
+	ln -s ~/dotfiles/vscode/settings.json "$VSCODE_DIR/settings.json"
 
 	if [ -e "$VSCODE_DIR/snippets" ]; then
 		rm -rf "$VSCODE_DIR/snippets"
