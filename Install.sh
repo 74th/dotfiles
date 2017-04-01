@@ -95,3 +95,12 @@ rm -rf ~/.config/fish/fishd.*; true
 ln -s ~/dotfiles/fish/fishd.784f4359182f ~/.config/fish/
 # fisherman
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
+
+# Macの環境設定
+if [ $OSNAME = 'Mac' ]; then
+	# キーリピート
+	defaults write -g ApplePressAndHoldEnabled -bool false
+
+	# homebrew
+	~/dotfiles/homebrew/install.sh
+fi

@@ -56,6 +56,9 @@ C="$C hosts"
 # veertu
 C="$C veertu-desktop"
 
+# vs code
+C="$C visual-studio-code"
+
 brew install $P
 brew cask install $C
 
