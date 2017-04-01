@@ -1,4 +1,14 @@
+#!/bin/bash
+set -Ceu
+
+# homebrew https://brew.sh/index_ja.html
+if ! which brew >/dev/null 2>&1; then
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+
 P=
+C=
 
 brew update
 brew upgrade
@@ -33,13 +43,20 @@ P="$P go-delve/delve/delve"
 P="$P docker"
 P="$P docker-compose"
 P="$P docker-machine"
-
-brew install $P
+C="$C docker"
 
 # font
 brew tap caskroom/fonts
 C="$C font-source-han-code-jp"
 C="$C font-sourcecodepro-nerd-font"
+
+# hosts manager
+C="$C hosts"
+
+# veertu
+C="$C veertu-desktop"
+
+brew install $P
 brew cask install $C
 
 brew cleanup
