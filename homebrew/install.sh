@@ -59,6 +59,9 @@ C="$C veertu-desktop"
 # vs code
 C="$C visual-studio-code"
 
+# gimp
+C="$C gimp"
+
 brew install $P
 brew cask install $C
 

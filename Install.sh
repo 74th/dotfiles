@@ -25,6 +25,7 @@ fi
 # vim-plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+
 # screenrc
 if [ -e ~/.screenrc ]; then
 	rm ~/.screenrc
@@ -103,4 +104,11 @@ if [ $OSNAME = 'Mac' ]; then
 
 	# homebrew
 	~/dotfiles/homebrew/install.sh
+
+	# macvim-kaoriya用のmvim
+	if [ ! -e ~/bin ]; then
+		mkdir ~/bin
+	fi
+	curl https://raw.githubusercontent.com/splhack/macvim/master/src/MacVim/mvim > ~/bin/mvim
+	chmod 755 ~/bin/mvim
 fi
