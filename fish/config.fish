@@ -67,6 +67,9 @@ set -x LC_ALL en_US.UTF-8
 if test $OSNAME = 'Mac'
 	set -x PATH /usr/local/bin ~/dotfiles/bin/darwin $PATH
 end
+if test $OSNAME = 'Linux'
+	set -x PATH ~/dotfiles/bin/linux $PATH
+end
 if test -e $HOME/go
 	set -x PATH $HOME/go/bin $PATH
 end
@@ -79,13 +82,6 @@ end
 set PATH $HOME/dotfiles/bin $PATH
 if test -e ~/dotfiles/dotfile/bin
 	set -x PATH ~/dotfiles/dotfile/bin $PATH
-end
-
-
-#--------------------------------------
-# MacVim
-if test $OSNAME = "Mac"
-	alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/gvim'
 end
 
 #--------------------------------------
@@ -194,30 +190,41 @@ end
 #--------------------------------------
 # peco
 function peco_ls
-	if test (count $argv) = 0
-		set peco_flags
+	commandline|read CMD
+	if test $CMD = ""
+		# なにもないときはhistory
+		history|peco $peco_flags|read foo
+		if [ $foo ]
+			commandline $foo
+		else
+			commandline ''
+		end
 	else
-		set peco_flags --query "$argv"
-	end
-
-	history|peco $peco_flags|read foo
-
-	if [ $foo ]
-		commandline $foo
-	else
-		commandline ''
+		echo $CMD|pecols|read foo
+		if [ $foo ]
+			commandline -r $foo
+		end
 	end
 end
-function fish_user_key_bindings
-	bind -M insert \cr 'peco_ls (commandline -b)'
-end
 
-function book
+function OpenBookmark
 	cat ~/bookmark | peco | read DIR
-	cd $DIR
+	if [ $DIR ]
+		cd $DIR
+	end
 end
+alias bk=OpenBookmark
 function AddBookmark
 	pwd >> ~/bookmark
+end
+
+#--------------------------------------
+# Cheat Sheets
+function fish_user_key_bindings
+	# peco
+	bind -M insert \cr 'peco_ls'
+	# 第一候補を確定
+	bind -M insert \ck forward-char
 end
 
 #--------------------------------------
