@@ -62,6 +62,9 @@ C="$C visual-studio-code"
 # gimp
 C="$C gimp"
 
+# gimp
+C="$C qr-journal"
+
 brew install $P
 brew cask install $C
 
