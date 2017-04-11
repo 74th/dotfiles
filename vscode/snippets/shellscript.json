@@ -1,0 +1,20 @@
+{
+	"initial": {
+		"prefix": "log",
+		"body": [
+			"#!/bin/bash",
+			"set -Ceux",
+			""
+		],
+		"description": "初期化（-C 上書き禁止あり）"
+	},
+	"initial-overwrite": {
+		"prefix": "log",
+		"body": [
+			"#!/bin/bash",
+			"set -eux",
+			""
+		],
+		"description": "初期化（-C 上書き禁止なし）"
+	}
+}
