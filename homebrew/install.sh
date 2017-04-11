@@ -26,6 +26,8 @@ P="$P peco"
 P="$P readline"
 P="$P imagemagick"
 P="$P ffmpeg"
+# sftpのタブ補完が効く
+P="$P openssh"
 
 # develop
 P="$P git"
