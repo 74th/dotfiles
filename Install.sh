@@ -111,4 +111,12 @@ if [ $OSNAME = 'Mac' ]; then
 	fi
 	curl https://raw.githubusercontent.com/splhack/macvim/master/src/MacVim/mvim > ~/bin/mvim
 	chmod 755 ~/bin/mvim
+
+	# 環境変数
+	if [ ! -e ~/Library/LaunchAgents/setenv.plist ]; then
+		ln -s ~/dotfiles/mac_env/setenv.plist ~/Library/LaunchAgents/setenv.plist
+	else
+		launchctl unload ~/Library/LaunchAgents/setenv.plist
+	fi
+	launchctl load ~/Library/LaunchAgents/setenv.plist
 fi
