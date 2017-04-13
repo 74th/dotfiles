@@ -92,3 +92,4 @@ if &term == "xterm-256color"
     hi Visual  ctermbg=236
 endif
 
+autocmd BufRead,BufNewFile *.md set nolist
