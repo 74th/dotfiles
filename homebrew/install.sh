@@ -36,6 +36,7 @@ P="$P openssl"
 P="$P python"
 P="$P sqlite"
 P="$P jq"
+P="$P gnuplot"
 
 # Golang
 P="$P go"
