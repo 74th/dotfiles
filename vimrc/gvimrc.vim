@@ -1,4 +1,4 @@
-colorscheme evening
+colorscheme molokai
 
 " メニューは表示しない
 set guioptions=egrLt

@@ -74,4 +74,21 @@ Plug 'bellflower2015/vim-syntax-tyranoscript'
 " fish shell
 Plug 'dag/vim-fish'
 
+" type script
+" npm install -g typescript
+Plug 'Quramy/tsuquyomi'
+" syntax
+Plug 'leafgarland/typescript-vim'
+
+" molokai
+Plug 'tomasr/molokai'
+
 call plug#end()
+
+" CUIでも256colorならmolokaiを使う
+if &term == "xterm-256color"
+    colorscheme molokai
+    hi Comment ctermfg=102
+    hi Visual  ctermbg=236
+endif
+
