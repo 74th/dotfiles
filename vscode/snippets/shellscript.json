@@ -1,6 +1,6 @@
 {
 	"initial": {
-		"prefix": "log",
+		"prefix": "init",
 		"body": [
 			"#!/bin/bash",
 			"set -Ceux",
@@ -9,12 +9,32 @@
 		"description": "初期化（-C 上書き禁止あり）"
 	},
 	"initial-overwrite": {
-		"prefix": "log",
+		"prefix": "init",
 		"body": [
 			"#!/bin/bash",
 			"set -eux",
 			""
 		],
 		"description": "初期化（-C 上書き禁止なし）"
+	},
+	"check-arguments": {
+		"prefix": "arguments",
+		"body": [
+			"if [ $# -ne 1 ]; then",
+			"echo $0 <HOSTNAME>",
+			"	exit 1",
+			"fi",
+			""
+		],
+		"description": "引数チェック"
+	},
+	"check-file": {
+		"prefix": "file",
+		"body": [
+			"if [ ! -e Liunx.txt ]; then",
+			"	echo \"no file\"",
+			"fi"
+		],
+		"description": "ファイルの存在チェック"
 	}
 }
