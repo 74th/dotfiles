@@ -52,5 +52,5 @@
     "vimStyle.imapEsc": "jj",
     // mykeyscroll
     "scrollkey.line1": 30,
-    "workbench.colorTheme": "NaturalContrast-HC"
+    "workbench.colorTheme": "monokai-charcoal(HC)"
 }
