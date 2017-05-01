@@ -37,6 +37,7 @@ P="$P python"
 P="$P sqlite"
 P="$P jq"
 P="$P gnuplot"
+P="$P protobuf"
 
 # Golang
 P="$P go"
