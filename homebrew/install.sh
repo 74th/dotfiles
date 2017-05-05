@@ -68,6 +68,9 @@ C="$C gimp"
 # gimp
 C="$C qr-journal"
 
+# ディスク領域可視化
+C="$C Caskroom/cask/disk-inventory-x"
+
 brew install $P
 brew cask install $C
 
