@@ -60,14 +60,6 @@ fi
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
-# screenrc
-if [ -e ~/.screenrc ]; then
-	rm ~/.screenrc
-fi
-if [ ! OSNAME = "Linux" ]; then
-	ln -s ~/dotfiles/screenrc/screenrc ~/.screenrc
-fi
-
 # tmux
 if [ -e ~/.tmux.conf ]; then
 	rm ~/.tmux.conf
