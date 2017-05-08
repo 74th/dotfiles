@@ -1,13 +1,47 @@
 #!/bin/bash
 
-if [ $(uname) == 'Darwin' ]; then
+if [ "$(uname)" == 'Darwin' ]; then
 	OSNAME='Mac'
-elif [ $(uname -o) == 'Cygwin' ]; then
-	OSNAME='Cygwin'
-elif [ $(uname -o) == 'Msys' ]; then
-	OSNAME='Msys'
+	OSDISTRO='Mac'
+elif [ "$(uname -o)" == 'Cygwin' ]; then
+	OSNAME='Windows'
+	OSDISTRO='Cygwin'
+elif [ "$(uname -o)" == 'Msys' ]; then
+	OSNAME='Windows'
+	OSDISTRO='Msys'
+elif [ -e "/etc/debian_version" ]; then
+	OSNAME='Linux'
+	OSDISTRO='Debian'
+elif [ -e "/etc/redhat-release" ]; then
+	OSNAME='Linux'
+	OSDISTRO='Redhat'
 else
 	OSNAME='Linux'
+	OSDISTRO='unknown'
+fi
+
+# コマンドのチェック
+if ! type curl >/dev/null 2>&1; then
+	if [ $OSDISTRO = "Debian" ]; then
+		sudo apt -y install curl
+	elif [ $OSDISTRO = "Redhat" ]; then
+		sudo yum -y install curl
+	else
+		echo "please install curl"
+		exit 1
+	fi
+fi
+
+# fish shell のインストール
+if ! type fish >/dev/null 2>&1; then
+	if [ $OSDISTRO = "Debian" ]; then
+		sudo bash -c "echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' > /etc/apt/sources.list.d/fish.list "
+		sudo apt-get update
+		sudo apt-get install -y fish
+	elif [ $OSDISTRO = "Redhat" ]; then
+		sudo bash -c "cd /etc/yum.repos.d/;wget http://download.opensuse.org/repositories/shells:fish:release:2/CentOS_7/shells:fish:release:2.repo"
+		sudo yum install -y fish
+	fi
 fi
 
 # bashrc
@@ -76,8 +110,8 @@ sh ~/dotfiles/git/set-config.sh
 
 # xfce4
 if [ -e ~/.config/xfce4/terminal/terminalrc ];then
-	rm ~/.config/xfce4/terminal/terminalrc 
-	ln -s ~/dotfiles/xfce4terminal/terminalrc ~/.config/xfce4/terminal/terminalrc 
+	rm ~/.config/xfce4/terminal/terminalrc
+	ln -s ~/dotfiles/xfce4terminal/terminalrc ~/.config/xfce4/terminal/terminalrc
 fi
 
 # fish
@@ -96,6 +130,7 @@ rm -rf ~/.config/fish/fishd.*; true
 ln -s ~/dotfiles/fish/fishd.784f4359182f ~/.config/fish/
 # fisherman
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
+# balias
 
 # Macの環境設定
 if [ $OSNAME = 'Mac' ]; then
