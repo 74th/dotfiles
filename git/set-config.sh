@@ -17,6 +17,9 @@ git config --global core.excludesfile ~/dotfiles/git/.gitignore
 echo git diffの並列実行
 git config --global core.preloadindex true
 
+echo 色を付ける
+git config --global color.ui true
+
 echo 人間らしいgitコマンド
 git config --global alias.branches "branch -a"
 git config --global alias.addline "add -p"
