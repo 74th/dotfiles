@@ -22,19 +22,27 @@
 		"body": [
 			"if [ $# -ne 1 ]; then",
 			"echo $0 <HOSTNAME>",
-			"	exit 1",
-			"fi",
-			""
+			"	exit1",
+			"fi"
 		],
 		"description": "引数チェック"
 	},
 	"check-file": {
-		"prefix": "file",
+		"prefix": "check-file",
 		"body": [
 			"if [ ! -e Liunx.txt ]; then",
-			"	echo \"no file\"",
+			"    echo \"no file\"",
 			"fi"
 		],
 		"description": "ファイルの存在チェック"
+	},
+	"check-command": {
+		"prefix": "check-command",
+		"body": [
+			"if [ ! type curl >/dev/null 2>&1; ]; then",
+			"    echo \"please install curl\"",
+			"fi"
+		],
+		"description": "コマンドの存在チェック"
 	}
 }
