@@ -235,6 +235,7 @@ if test -e $HOME/mycheatsheets
 		vim $HOME/mycheatsheets/$sheet
 	end
 	alias ShowCheatSheets=OpenCheatSheets
+	alias oc=OpenCheatSheets
 	function EditCheatSheets
 		cd ~/mycheatsheets/
 		git pull origin master
@@ -245,6 +246,7 @@ if test -e $HOME/mycheatsheets
 		git push origin master
 		cd -
 	end
+	alias ec=EditCheatSheets
 end
 
 #--------------------------------------
