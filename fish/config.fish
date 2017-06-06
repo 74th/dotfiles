@@ -131,6 +131,8 @@ alias add='git add'
 alias push='git push'
 alias pull='git pull'
 alias gt='git status'
+alias checkout='git checkout'
+alias branch='git branch'
 
 # Fish git prompt
 set __fish_git_prompt_showdirtystate 'yes'
@@ -140,6 +142,16 @@ set __fish_git_prompt_showupstream 'yes'
 set __fish_git_prompt_color_branch yellow
 set __fish_git_prompt_color_upstream_ahead green
 set __fish_git_prompt_color_upstream_behind red
+
+#--------------------------------------
+# systemctl の簡略化
+if test $OSNAME = 'Linux'
+       alias st='sudo systemctl status'
+       alias start='sudo systemctl start'
+       alias stop='sudo systemctl stop'
+       alias restart='sudo systemctl restart'
+       alias log='sudo journalctl'
+end
 
 #--------------------------------------
 # golang
