@@ -76,6 +76,10 @@ end
 if test -e $HOME/npm
 	set -x PATH $HOME/npm/bin $PATH
 end
+# pyenv https://github.com/pyenv/pyenv
+if test -e $HOME/.pyenv
+	set -x PATH $HOME/.pyenv/shims $PATH
+end
 if test -e $HOME/bin
 	set -x PATH $HOME/bin $PATH
 end
@@ -157,7 +161,6 @@ end
 # golang
 if test -e $HOME/go
 	set -x GOPATH $HOME/go
-	set -x PATH $GOPATH/bin $PATH
 end
 if test $OSNAME = "Mac"
 	set -x GOROOT /usr/local/opt/go/libexec
