@@ -16,7 +16,7 @@
     // tab等の表示
     "editor.tabSize": 4,
     "editor.insertSpaces": false,
-    "editor.renderWhitespace": "boundary",
+    "editor.renderWhitespace": "none",
     "editor.renderIndentGuides": true,
     "editor.renderControlCharacters": true,
     // カーソル
@@ -39,18 +39,28 @@
     // Terminal
     "terminal.integrated.shell.windows": "C:\\cygwin64\\Cygwin.bat",
     // golang
-    "go.lintOnSave": true,
+    "go.lintOnSave": "package",
     "go.formatTool": "goreturns",
     "go.formatOnSave": true,
-    "go.buildOnSave": true,
-    "go.vetOnSave": true,
+    "go.buildOnSave": "package",
+    "go.vetOnSave": "package",
     // typescript
     "editor.codeLens": true,
     // vimStyle
     "vimStyle.defaultMode": "normal",
     "vimStyle.enabled": true,
     "vimStyle.imapEsc": "jj",
+    // python
+    "python.linting.enabled": false,
+    // color
+    "workbench.colorCustomizations": {
+        "editorLineNumber.foreground": "#43B9D8"
+    },
+    // minimap
+    "editor.minimap.enabled": false,
     // mykeyscroll
     "scrollkey.line1": 30,
+    "typescript.check.tscVersion": false,
+    "workbench.iconTheme": null,
     "workbench.colorTheme": "monokai-charcoal(HC)"
 }
