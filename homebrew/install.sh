@@ -49,6 +49,14 @@ P="$P docker-compose"
 P="$P docker-machine"
 C="$C docker"
 
+# tensorflow関連
+P="bazel"
+P="gpp"
+P="pyenv"
+
+# wine
+P="wine"
+
 # font
 brew tap caskroom/fonts
 C="$C font-source-han-code-jp"

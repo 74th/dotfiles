@@ -50,8 +50,13 @@
     "vimStyle.defaultMode": "normal",
     "vimStyle.enabled": true,
     "vimStyle.imapEsc": "jj",
-    // python
-    "python.linting.enabled": false,
+    // python -----------------------------
+    // Lintは有効にする
+    "python.linting.enabled": true,
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfArgs": [
+        "--style={COLUMN_LIMIT: 120}"
+    ],
     // color
     "workbench.colorCustomizations": {
         "editorLineNumber.foreground": "#43B9D8"

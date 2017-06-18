@@ -192,6 +192,12 @@
 		"command": "go.test.cursor",
 		"when": "editorTextFocus && editorLangId == 'go' && !inDebugMode"
 	},
+	//
+	{
+		"key": "cmd+r",
+		"command": "editor.action.rename",
+		"when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+	},
 	// dummy command
 	{
 		"key": "ctrl+shift+w",
