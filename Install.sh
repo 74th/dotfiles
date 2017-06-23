@@ -147,3 +147,8 @@ if [ $OSNAME = 'Mac' ]; then
 	fi
 	launchctl load ~/Library/LaunchAgents/setenv.plist
 fi
+
+# golang
+if type go >/dev/null 2>&1; then
+	./golang/goget.sh
+fi
