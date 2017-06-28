@@ -55,6 +55,9 @@ set fish_color_status red
 set fish_color_user brgreen
 set fish_color_valid_path \x2d\x2dunderline
 
+# 特に挨拶はいらない
+set fish_greeting ""
+
 #--------------------------------------
 # 文字コードの標準設定
 set -x LESSCHARSET UTF-8
