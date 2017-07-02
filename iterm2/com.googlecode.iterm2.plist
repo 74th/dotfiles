@@ -34874,7 +34874,7 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 456 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>181 290 918 495 0 0 1440 877 </string>
+	<string>181 268 918 495 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 900 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
@@ -34887,7 +34887,7 @@
 			<key>Allow Title Reporting</key>
 			<false/>
 			<key>Ambiguous Double Width</key>
-			<true/>
+			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -36526,7 +36526,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-06-14T13:14:05Z</date>
+	<date>2017-07-01T04:47:12Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
