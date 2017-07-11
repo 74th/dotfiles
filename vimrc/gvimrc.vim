@@ -8,7 +8,7 @@ set lines=55
 set columns=120
 
 if has('gui_macvim')
-	set guifont=Source\ Code\ Pro:h13
+	set guifont=Source\ Code\ Pro\ ExtraLight:h13
 	set guifontwide=Hiragino\ Sans\ W3:h11
 	set noimdisableactivate
 	set lsp=-1
