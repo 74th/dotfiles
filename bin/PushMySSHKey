@@ -1,0 +1,16 @@
+#!/bin/bash
+set -ux
+if [ $# -ne 1 ]; then
+	echo "PutMySSHKey <HOSTNAME>"
+fi
+
+ssh -o 'StrictHostKeyChecking no' ${1} mkdir .ssh
+scp -o 'StrictHostKeyChecking no' ~/.ssh/id_rsa.pub ${1}:.ssh
+scp -o 'StrictHostKeyChecking no' ~/.ssh/id_rsa ${1}:.ssh
+ssh -o 'StrictHostKeyChecking no' ${1} <<EOS
+chmod 755 .ssh
+cp .ssh/id_rsa.pub .ssh/authorized_keys
+chmod 644 .ssh/authorized_keys
+chmod 644 .ssh/id_rsa.pub
+chmod 600 .ssh/id_rsa
+EOS
