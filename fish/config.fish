@@ -108,6 +108,7 @@ alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
 alias m=make
 alias s7l='sudo systemctl'
 alias sl=ls
+alias du='du -h'
 
 function ShowCheatSheets --description 'show my cheat sheets'
 	ls ~/mycheatsheets/ | peco | read sheet
