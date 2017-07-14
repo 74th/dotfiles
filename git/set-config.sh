@@ -45,6 +45,9 @@ git config --global alias.upstreamtomaster "branch --set-upstream-to=origin/mast
 # vimを使用
 git config --global core.editor "vi"
 
+# 日本語の文字化けを治す
+git config --global core.quotepath false
+
 
 # Windowsの場合、以下も追加する
 # ファイルモードを無視
