@@ -57,11 +57,18 @@
     "python.formatting.yapfArgs": [
         "--style={COLUMN_LIMIT: 120}"
     ],
+    "terminal.integrated.shell.osx": "/usr/local/bin/fish",
     // color
     "workbench.colorCustomizations": {
         "editorLineNumber.foreground": "#43B9D8",
         "activityBar.foreground": "#43B9D8",
         "statusBar.foreground": "#43B9D8",
+        "statusBar.debuggingBackground": "#43B9D8",
+        "statusBar.debuggingForeground": "#000000",
+        "sideBarTitle.foreground": "#43B9D8",
+        "sideBarSectionHeader.foreground": "#43B9D8",
+        "panelTitle.activeForeground": "#43B9D8",
+        "panelTitle.inactiveForeground": "#43B9D8",
         "terminal.ansiBlack": "#8f8f8f",
         "terminal.ansiBrightBlack": "#8f8f8f",
         "terminal.ansiRed": "#f82a5d",
@@ -85,6 +92,5 @@
     "scrollkey.line1": 30,
     "typescript.check.tscVersion": false,
     "workbench.iconTheme": null,
-    "workbench.colorTheme": "monokai-charcoal(HC)",
-    "vsicons.dontShowNewVersionMessage": true
+    "workbench.colorTheme": "monokai-charcoal(HC)"
 }
