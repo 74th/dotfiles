@@ -126,6 +126,10 @@ curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
 
 # Macの環境設定
 if [ $OSNAME = 'Mac' ]; then
+	if [ ! -e ~/.config ]; then
+		mkdir ~/.config
+	fi
+
 	# キーリピート
 	defaults write -g ApplePressAndHoldEnabled -bool false
 
@@ -138,6 +142,9 @@ if [ $OSNAME = 'Mac' ]; then
 	fi
 	curl https://raw.githubusercontent.com/splhack/macvim/master/src/MacVim/mvim > ~/bin/mvim
 	chmod 755 ~/bin/mvim
+
+	# karabiner-elements
+	ln -s ~/dotfiles/karabiner-elements ~/.config/karabiner
 
 	# 環境変数
 	if [ ! -e ~/Library/LaunchAgents/setenv.plist ]; then

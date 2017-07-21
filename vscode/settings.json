@@ -94,5 +94,6 @@
     "scrollkey.line1": 30,
     "typescript.check.tscVersion": false,
     "workbench.iconTheme": null,
-    "workbench.colorTheme": "monokai-charcoal(HC)"
+    "workbench.colorTheme": "monokai-charcoal(HC)",
+    "material-icon-theme.showUpdateMessage": false
 }
