@@ -58,6 +58,16 @@ set fish_color_valid_path \x2d\x2dunderline
 # 特に挨拶はいらない
 set fish_greeting ""
 
+# Fish git prompt
+set __fish_git_prompt_showdirtystate 'yes'
+set __fish_git_prompt_showstashstate 'yes'
+set __fish_git_prompt_showuntrackedfiles 'yes'
+set __fish_git_prompt_showupstream 'yes'
+set __fish_git_prompt_color_branch yellow
+set __fish_git_prompt_color_upstream_ahead green
+set __fish_git_prompt_color_upstream_behind red
+
+alias UpdateFishCompletions='fish_update_completions'
 #--------------------------------------
 # 文字コードの標準設定
 set -x LESSCHARSET UTF-8
@@ -142,14 +152,6 @@ alias gt='git status'
 alias checkout='git checkout'
 alias branch='git branch'
 
-# Fish git prompt
-set __fish_git_prompt_showdirtystate 'yes'
-set __fish_git_prompt_showstashstate 'yes'
-set __fish_git_prompt_showuntrackedfiles 'yes'
-set __fish_git_prompt_showupstream 'yes'
-set __fish_git_prompt_color_branch yellow
-set __fish_git_prompt_color_upstream_ahead green
-set __fish_git_prompt_color_upstream_behind red
 
 #--------------------------------------
 # systemctl の簡略化
