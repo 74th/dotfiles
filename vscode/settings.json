@@ -69,6 +69,8 @@
         "sideBarSectionHeader.foreground": "#43B9D8",
         "panelTitle.activeForeground": "#43B9D8",
         "panelTitle.inactiveForeground": "#43B9D8",
+        "titleBar.activeForeground": "#43B9D8",
+        "titleBar.inactiveForeground": "#43B9D8",
         "terminal.ansiBlack": "#8f8f8f",
         "terminal.ansiBrightBlack": "#8f8f8f",
         "terminal.ansiRed": "#f82a5d",
