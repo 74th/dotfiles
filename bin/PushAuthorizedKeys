@@ -4,7 +4,7 @@ if [ $# -ne 1 ]; then
 	echo "PutMySSHKey <HOSTNAME>"
 fi
 
-ssh -o 'StrictHostKeyChecking no' '${1} mkdir .ssh'
+ssh -o 'StrictHostKeyChecking no' ${1} 'mkdir .ssh'
 scp -o 'StrictHostKeyChecking no' ~/.ssh/id_rsa.pub ${1}:.ssh
 ssh -o 'StrictHostKeyChecking no' ${1} <<EOS
 chmod 755 .ssh
