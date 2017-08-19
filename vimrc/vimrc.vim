@@ -83,6 +83,9 @@ Plug 'leafgarland/typescript-vim'
 " molokai
 Plug 'tomasr/molokai'
 
+" Re:View
+Plug 'moro/vim-review'
+
 call plug#end()
 
 " CUIでも256colorならmolokaiを使う
