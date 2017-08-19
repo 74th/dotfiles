@@ -33,16 +33,16 @@ if ! type curl >/dev/null 2>&1; then
 fi
 
 # fish shell のインストール
-if ! type fish >/dev/null 2>&1; then
-	if [ $OSDISTRO = "Debian" ]; then
-		sudo bash -c "echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' > /etc/apt/sources.list.d/fish.list "
-		sudo apt-get update
-		sudo apt-get install -y fish
-	elif [ $OSDISTRO = "Redhat" ]; then
-		sudo bash -c "cd /etc/yum.repos.d/;wget http://download.opensuse.org/repositories/shells:fish:release:2/CentOS_7/shells:fish:release:2.repo"
-		sudo yum install -y fish
-	fi
-fi
+#if ! type fish >/dev/null 2>&1; then
+#	if [ $OSDISTRO = "Debian" ]; then
+#		sudo bash -c "echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' > /etc/apt/sources.list.d/fish.list "
+#		sudo apt-get update
+#		sudo apt-get install -y fish
+#	elif [ $OSDISTRO = "Redhat" ]; then
+#		sudo bash -c "cd /etc/yum.repos.d/;wget http://download.opensuse.org/repositories/shells:fish:release:2/CentOS_7/shells:fish:release:2.repo"
+#		sudo yum install -y fish
+#	fi
+#fi
 
 # bashrc
 if [ $(grep dotfiles ~/.bashrc | wc -l ) -eq 0 ]; then
