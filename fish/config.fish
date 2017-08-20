@@ -55,6 +55,14 @@ set fish_color_status red
 set fish_color_user brgreen
 set fish_color_valid_path \x2d\x2dunderline
 
+# ホスト名をOSで変える
+if test $OSNAME = 'Linux'
+	# Linuxは黄色
+	set fish_color_host yellow
+end
+
+
+
 # 特に挨拶はいらない
 set fish_greeting ""
 
