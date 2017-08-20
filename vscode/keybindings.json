@@ -126,6 +126,11 @@
 		"key": "ctrl+w k",
 		"command": "workbench.action.focusActiveEditorGroup"
 	},
+	{
+		"key": "cmd+w",
+		"command": "workbench.action.focusActiveEditorGroup",
+		"when": "terminalFocus"
+	},
 	// ひたすら移動系をCtrl+n,pに割り当てる
 	{
 		"key": "ctrl+p",
