@@ -58,7 +58,7 @@ set fish_color_valid_path \x2d\x2dunderline
 # ホスト名をOSで変える
 if test $OSNAME = 'Linux'
 	set HOSTNAME (hostname)
-	if test $HOSTNAME = 'nagisa' or test $HOSTNAME = 'methyl' or test $HOSTNAME = 'mini' or test $HOSTNAME = 'patty' 
+	if test $HOSTNAME = 'nagisa' -o $HOSTNAME = 'methyl' -o $HOSTNAME = 'mini' -o $HOSTNAME = 'patty' 
 		# 自宅サーバは青
 		set fish_color_host blue
 	else
