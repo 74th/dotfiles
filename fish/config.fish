@@ -107,6 +107,9 @@ end
 if test -e $HOME/.pyenv
 	set -x PATH $HOME/.pyenv/shims $PATH
 end
+if test -e $HOME/.rbenv
+	set -x PATH $HOME/.rbenv/shims $PATH
+end
 if test -e $HOME/bin
 	set -x PATH $HOME/bin $PATH
 end
