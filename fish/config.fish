@@ -139,15 +139,6 @@ function ShowCheatSheets --description 'show my cheat sheets'
 	less ~/mycheatsheets/$sheet
 end
 
-function mkdircd --description 'mkdir and cd'
-	if test (count $argv) = 0 
-		echo 'mkdircd <dir>'
-	else
-		mkdir $argv[1]
-		cd $argv[1]
-	end
-end
-
 #--------------------------------------
 # Javacの文字コード
 alias javac='javac -J-Dfile.encoding=utf-8'
