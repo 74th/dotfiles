@@ -185,17 +185,14 @@ end
 if test -e $HOME/go
 	set -x GOPATH $HOME/go
 end
-if test $OSNAME = "Mac"
+if test -e /usr/local/opt/go/libexec
 	set -x GOROOT /usr/local/opt/go/libexec
 else if test $OSNAME = "Windows"
 	set -x GOROOT C:\\tools\\go
 	set -x GOPATH C:\\Users\\$USERNAME\\go
-else if test -e $HOME/goroot/go/bin
-	set -x GOROOT $HOME/goroot/go
-	set -x PATH $HOME/goroot/go/bin $PATH
-else if test -e $HOME/goroot/bin
-	set -x GOROOT $HOME/goroot
-	set -x PATH $HOME/goroot/bin $PATH
+else if test -e $HOME/lib/go/bin
+	set -x GOROOT $HOME/lib/go
+	set -x PATH $HOME/lib/go/bin $PATH
 end
 alias golinux='env GOOS=linux GOARCH=amd64 go'
 alias goarm='env GOOS=linux GOARCH=arm go'
