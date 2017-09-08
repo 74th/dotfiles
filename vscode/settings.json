@@ -3,10 +3,13 @@
     // Macの場合、スペースを詰めて、ウェイトをハイフンで区切る
     // Windows,Linuxの場合、スペースを入れて、ウェイトもスペースで区切る
     // For Mac, Windows
-    "editor.fontFamily": "SourceCodePro-Light,Source Code Pro Light,SourceHanCodeJP-Light,Source Han Code JP Light,TakaoGothic",
+    // "editor.fontFamily": "SourceCodePro-Light,Source Code Pro Light,SourceHanCodeJP-Light,Source Han Code JP Light,TakaoGothic",
+    "editor.fontFamily": "SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
     // For Linux
     //"editor.fontFamily": "Source Code Pro Medium,Source Han Code JP Medium,TakaoGothic",
     "editor.fontSize": 13,
+    // java
+    "java.referencesCodeLens.enabled": false,
     // svg
     "svgviewer.transparencygrid": false,
     // wrap
@@ -29,7 +32,7 @@
     "git.confirmSync": false, // Syncボタンで尋ねない
     // auto format
     "editor.formatOnType": true,
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "editor.lineNumbers": "on",
     "editor.selectionHighlight": false,
     "editor.autoClosingBrackets": false,
@@ -58,41 +61,14 @@
         "--style={COLUMN_LIMIT: 120}"
     ],
     "terminal.integrated.shell.osx": "/usr/local/bin/fish",
-    // color
-    "workbench.colorCustomizations": {
-        "editorLineNumber.foreground": "#43B9D8",
-        "activityBar.foreground": "#43B9D8",
-        "statusBar.foreground": "#43B9D8",
-        "statusBar.debuggingBackground": "#43B9D8",
-        "statusBar.debuggingForeground": "#000000",
-        "sideBarTitle.foreground": "#43B9D8",
-        "sideBarSectionHeader.foreground": "#43B9D8",
-        "panelTitle.activeForeground": "#43B9D8",
-        "panelTitle.inactiveForeground": "#43B9D8",
-        "titleBar.activeForeground": "#43B9D8",
-        "titleBar.inactiveForeground": "#43B9D8",
-        "terminal.ansiBlack": "#8f8f8f",
-        "terminal.ansiBrightBlack": "#8f8f8f",
-        "terminal.ansiRed": "#f82a5d",
-        "terminal.ansiBrightRed": "#f82a5d",
-        "terminal.ansiGreen": "#98d800",
-        "terminal.ansiBrightGreen": "#98d800",
-        "terminal.ansiYellow": "#e7dc60",
-        "terminal.ansiBrightYellow": "#e7dc60",
-        "terminal.ansiBlue": "#5ccaef",
-        "terminal.ansiBrightBlue": "#5ccaef",
-        "terminal.ansiMagenta": "#f57f00",
-        "terminal.ansiBrightMagenta": "#f57f00",
-        "terminal.ansiCyan": "#a57fff",
-        "terminal.ansiBrightCyan": "#a57fff",
-        "terminal.ansiWhite": "#f1f1f1",
-        "terminal.ansiBrightWhite": "#f1f1f1"
-    },
+    "terminal.integrated.shell.linux": "fish",
     // minimap
     "editor.minimap.enabled": false,
     // mykeyscroll
     "scrollkey.line1": 30,
     "typescript.check.tscVersion": false,
     "workbench.iconTheme": null,
-    "workbench.colorTheme": "monokai-charcoal(HC)"
+    "workbench.colorTheme": "monokai-charcoal(HC)",
+    "workbench.startupEditor": "newUntitledFile",
+    "java.errors.incompleteClasspath.severity": "ignore"
 }
