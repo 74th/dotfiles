@@ -4,7 +4,8 @@
     // Windows,Linuxの場合、スペースを入れて、ウェイトもスペースで区切る
     // For Mac, Windows
     // "editor.fontFamily": "SourceCodePro-Light,Source Code Pro Light,SourceHanCodeJP-Light,Source Han Code JP Light,TakaoGothic",
-    "editor.fontFamily": "SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
+    "editor.fontFamily": "Hasklig,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
+    "editor.fontLigatures": true,
     // For Linux
     //"editor.fontFamily": "Source Code Pro Medium,Source Han Code JP Medium,TakaoGothic",
     "editor.fontSize": 13,
@@ -47,6 +48,7 @@
     "go.formatOnSave": true,
     "go.buildOnSave": "package",
     "go.vetOnSave": "package",
+    "go.gopath": "/Users/nnyn/go",
     // typescript
     "editor.codeLens": true,
     // vimStyle
@@ -64,11 +66,16 @@
     "terminal.integrated.shell.linux": "fish",
     // minimap
     "editor.minimap.enabled": false,
+    // plantuml
+    "plantuml.server": "http://nagisa:18080/",
+    "plantuml.render": "PlantUMLServer",
+    // cordova
+
     // mykeyscroll
     "scrollkey.line1": 30,
     "typescript.check.tscVersion": false,
     "workbench.iconTheme": null,
-    "workbench.colorTheme": "monokai-charcoal(HC)",
+    "workbench.colorTheme": "monokai-chacoral(HC)",
     "workbench.startupEditor": "newUntitledFile",
     "java.errors.incompleteClasspath.severity": "ignore"
 }
