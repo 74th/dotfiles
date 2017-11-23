@@ -22,6 +22,7 @@ P="$P coreutils"
 # CUIツール
 P="$P wget"
 P="$P fish"
+P="$P direnv"
 P="$P peco"
 P="$P readline"
 P="$P imagemagick"

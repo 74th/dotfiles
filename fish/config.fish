@@ -289,3 +289,8 @@ end
 if test -e $HOME/.config.fish
 	source $HOME/.config.fish
 end
+#--------------------------------------
+
+if test -e /usr/local/bin/direnv
+	eval (direnv hook fish)
+end
