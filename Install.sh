@@ -144,9 +144,15 @@ if [ $OSNAME = 'Mac' ]; then
 	chmod 755 ~/bin/mvim
 
 	# karabiner-elements
+	if [ -e ~/.config/karabiner ]; then
+		rm -rf ~/.config/karabiner
+	fi
 	ln -s ~/dotfiles/karabiner-elements ~/.config/karabiner
 
 	# 環境変数
+	if [ ! -e ~/Library/LaunchAgents ]; then
+		mkdir ~/Library/LaunchAgents
+	fi
 	if [ ! -e ~/Library/LaunchAgents/setenv.plist ]; then
 		ln -s ~/dotfiles/mac_env/setenv.plist ~/Library/LaunchAgents/setenv.plist
 	else

@@ -13,6 +13,8 @@ C=
 brew update
 brew upgrade
 
+#brew cask install xquartz
+
 # bash
 P="$P bash bash-completion"
 
@@ -51,23 +53,25 @@ P="$P docker-machine"
 C="$C docker"
 
 # tensorflow関連
-P="bazel"
-P="gpp"
-P="pyenv"
+P="$P bazel"
+P="$P gpp"
+P="$P pyenv"
 
 # wine
-P="wine"
+P="$P wine"
 
 # font
 brew tap caskroom/fonts
+C="$C font-source-code-pro"
 C="$C font-source-han-code-jp"
 C="$C font-sourcecodepro-nerd-font"
+C="$C font-fira-code"
 
 # hosts manager
 C="$C hosts"
 
 # veertu
-C="$C veertu-desktop"
+#C="$C veertu-desktop"
 
 # vs code
 C="$C visual-studio-code"
@@ -81,7 +85,9 @@ C="$C qr-journal"
 # ディスク領域可視化
 C="$C Caskroom/cask/disk-inventory-x"
 
+echo $P
 brew install $P
-brew cask install $C
+
+#brew cask install $C
 
 brew cleanup
