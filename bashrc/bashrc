@@ -288,9 +288,7 @@ function ResetGopath() {
 	export GOPATH=$GOPATH_DEF
 }
 
-if [ $OSNAME = "Mac" ];then
-	export GOROOT=/usr/local/opt/go/libexec
-elif [ $OSNAME = "Windows" ];then
+if [ $OSNAME = "Windows" ];then
 	export GOROOT=C:\\tools\\go
 	export GOPATH=C:\\Users\\$USERNAME\\go
 elif [ -e $HOME/goroot/go/bin ];then
