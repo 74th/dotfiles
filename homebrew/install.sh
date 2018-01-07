@@ -44,7 +44,7 @@ P="$P protobuf"
 
 # Golang
 P="$P go"
-P="$P go-delve/delve/delve"
+#P="$P go-delve/delve/delve"
 
 # docker
 P="$P docker"
@@ -59,6 +59,9 @@ P="$P pyenv"
 
 # wine
 P="$P wine"
+
+# plantuml
+P="$P plantuml"
 
 # font
 brew tap caskroom/fonts
@@ -79,11 +82,14 @@ C="$C visual-studio-code"
 # gimp
 C="$C gimp"
 
-# gimp
+# QE
 C="$C qr-journal"
 
 # ディスク領域可視化
 C="$C Caskroom/cask/disk-inventory-x"
+
+# MacVim
+C="$C macvim"
 
 echo $P
 brew install $P
