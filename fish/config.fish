@@ -117,6 +117,10 @@ set PATH $HOME/dotfiles/bin $PATH
 if test -e ~/dotfiles/dotfile/bin
 	set -x PATH ~/dotfiles/dotfile/bin $PATH
 end
+# CUDA https://developer.nvidia.com/cuda-toolkit
+if test -e /usr/local/cuda/bin
+	set -x PATH /usr/local/cuda/bin $PATH
+end
 
 #--------------------------------------
 # エディターはVim

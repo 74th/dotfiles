@@ -56,6 +56,7 @@ C="$C docker"
 P="$P bazel"
 P="$P gpp"
 P="$P pyenv"
+P="$P pyenv-virtualenv"
 
 # wine
 P="$P wine"
@@ -69,6 +70,7 @@ C="$C font-source-code-pro"
 C="$C font-source-han-code-jp"
 C="$C font-sourcecodepro-nerd-font"
 C="$C font-fira-code"
+C="$C font-hasklig"
 
 # hosts manager
 C="$C hosts"
@@ -88,12 +90,15 @@ C="$C qr-journal"
 # ディスク領域可視化
 C="$C Caskroom/cask/disk-inventory-x"
 
+# Caffeine
+C="$C caskroom/cask/caffeine"
+
 # MacVim
-C="$C macvim"
+#C="$C macvim"
 
 echo $P
 brew install $P
 
-#brew cask install $C
+brew cask install $C
 
 brew cleanup
