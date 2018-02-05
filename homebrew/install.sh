@@ -42,6 +42,7 @@ P="$P sqlite"
 P="$P jq"
 P="$P gnuplot"
 P="$P protobuf"
+P="$P gcc"
 
 # Golang
 P="$P go"
@@ -93,6 +94,9 @@ C="$C Caskroom/cask/disk-inventory-x"
 
 # Caffeine
 C="$C caskroom/cask/caffeine"
+
+# Libre Office
+C="$C caskroom/cask/libreoffice"
 
 # MacVim
 #C="$C macvim"

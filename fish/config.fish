@@ -146,6 +146,10 @@ function ShowCheatSheets --description 'show my cheat sheets'
 	less ~/mycheatsheets/$sheet
 end
 
+function OpenTarxz --description 'open .tar.xz'
+	xz -dc $argv | tar xfv -
+end
+
 #--------------------------------------
 # Javacの文字コード
 alias javac='javac -J-Dfile.encoding=utf-8'
