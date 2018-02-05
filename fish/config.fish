@@ -114,9 +114,13 @@ if test -e $HOME/bin
 	set -x PATH $HOME/bin $PATH
 end
 set PATH $HOME/dotfiles/bin $PATH
-if test -e ~/dotfiles/dotfile/bin
-	set -x PATH ~/dotfiles/dotfile/bin $PATH
+if test -e $HOME/dotfiles/dotfile/bin
+	set -x PATH $HOME/dotfiles/dotfile/bin $PATH
 end
+if test -e $HOME/go/src/github.com/uber/go-torch/FlameGraph
+	set -x PATH $HOME/go/src/github.com/uber/go-torch/FlameGraph $PATH
+end
+
 
 #--------------------------------------
 # エディターはVim
