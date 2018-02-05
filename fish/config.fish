@@ -264,6 +264,9 @@ function fish_user_key_bindings
 	bind -M insert \cr 'peco_ls'
 	# 第一候補を確定
 	bind -M insert \ck forward-char
+	# 履歴
+	bind -M insert \cp up-or-search
+	bind -M insert \cn down-or-search
 end
 
 #--------------------------------------
