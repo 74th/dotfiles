@@ -48,6 +48,9 @@ P="$P gcc"
 P="$P go"
 #P="$P go-delve/delve/delve"
 
+# メモリーのビジュアル化
+P="$P graphviz qt qcachegrind"
+
 # docker
 P="$P docker"
 P="$P docker-compose"

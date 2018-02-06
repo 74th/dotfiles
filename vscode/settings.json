@@ -48,7 +48,6 @@
     "go.formatOnSave": true,
     "go.buildOnSave": "package",
     "go.vetOnSave": "package",
-    "go.gopath": "/Users/nnyn/go",
     // typescript
     "editor.codeLens": true,
     // vimStyle
