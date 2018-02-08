@@ -169,14 +169,11 @@ function pushpush --description 'git commit and push'
 end
 alias g=git
 alias commit='git commit -v'
-alias commita='git commit -av'
+alias cm='git commit -v'
 alias add='git add'
 alias push='git push'
 alias pull='git pull'
 alias gt='git status'
-alias checkout='git checkout'
-alias branch='git branch'
-
 
 #--------------------------------------
 # systemctl の簡略化
