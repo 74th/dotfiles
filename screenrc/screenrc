@@ -18,6 +18,6 @@ bind j eval 'focus down'
 bind k eval 'focus up'
 
 # バッファのスクロール行数
-defscrollback 10000
+defscrollback 1000000
 
 shell -$SHELL

@@ -114,9 +114,13 @@ if test -e $HOME/bin
 	set -x PATH $HOME/bin $PATH
 end
 set PATH $HOME/dotfiles/bin $PATH
-if test -e ~/dotfiles/dotfile/bin
-	set -x PATH ~/dotfiles/dotfile/bin $PATH
+if test -e $HOME/dotfiles/dotfile/bin
+	set -x PATH $HOME/dotfiles/dotfile/bin $PATH
 end
+if test -e $HOME/go/src/github.com/uber/go-torch/FlameGraph
+	set -x PATH $HOME/go/src/github.com/uber/go-torch/FlameGraph $PATH
+end
+
 # CUDA https://developer.nvidia.com/cuda-toolkit
 if test -e /usr/local/cuda/bin
 	set -x PATH /usr/local/cuda/bin $PATH
@@ -265,6 +269,9 @@ function fish_user_key_bindings
 	bind -M insert \cr 'peco_ls'
 	# 第一候補を確定
 	bind -M insert \ck forward-char
+	# 履歴
+	bind -M insert \cp up-or-search
+	bind -M insert \cn down-or-search
 end
 
 #--------------------------------------
