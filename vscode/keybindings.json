@@ -1,9 +1,21 @@
 [
 	// for VimStyle
 	{
-		"key": "ctrl+]",
+		"key": "ctrl+[",
 		"command": "vim.Esc",
 		"when": "editorTextFocus"
+	},
+	{
+		// Ctrl-w : delete word
+		"key": "ctrl+w ctrl+w",
+		"command": "deleteWordLeft",
+		"when": "vim.inInsertMode"
+	},
+	{
+		// Ctrl-w : delete word
+		"key": "ctrl+w",
+		"command": "deleteWordLeft",
+		"when": "vim.inInsertMode"
 	},
 	// C-d/u : for scroll key
 	{
@@ -88,11 +100,13 @@
 	// C-W -> hl: タブの移動
 	{
 		"key": "ctrl+w ctrl+w",
-		"command": "workbench.action.closeActiveEditor"
+		"command": "workbench.action.closeActiveEditor & vim.inNormalMode",
+		"when": "vim.inNormalMode"
 	},
 	{
 		"key": "ctrl+w w",
-		"command": "workbench.action.closeActiveEditor"
+		"command": "workbench.action.closeActiveEditor",
+		"when": "vim.inNormalMode"
 	},
 	{
 		"key": "ctrl+w ctrl+l",
