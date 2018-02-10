@@ -58,7 +58,7 @@ P="$P docker-machine"
 C="$C docker"
 
 # tensorflow関連
-P="$P bazel"
+#P="$P bazel" # バージョンが古いものが必要なため自前で入れる必要がある
 P="$P gpp"
 P="$P pyenv"
 P="$P pyenv-virtualenv"
@@ -68,6 +68,9 @@ P="$P wine"
 
 # plantuml
 P="$P plantuml"
+
+# plantuml
+P="$P rbenv"
 
 # font
 brew tap caskroom/fonts
