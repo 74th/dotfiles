@@ -282,7 +282,7 @@ if test -e $HOME/mycheatsheets
 		vim $HOME/mycheatsheets/$sheet
 	end
 	balias ShowCheatSheets OpenCheatSheets
-	balias ocOpenCheatSheets
+	balias oc OpenCheatSheets
 	function EditCheatSheets
 		cd ~/mycheatsheets/
 		git pull origin master

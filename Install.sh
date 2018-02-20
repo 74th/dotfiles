@@ -124,9 +124,9 @@ ln -s ~/dotfiles/fish/fishd.784f4359182f ~/.config/fish/
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
 if type fish >/dev/null 2>&1; then
 	# balias
-	fish -c 'fisher install oh-my-fish/plugin-balias'
+	fish -c 'fisher oh-my-fish/plugin-balias'
 	# bass
-	fish -c 'fisher install edc/bass'
+	fish -c 'fisher edc/bass'
 fi
 
 # Macの環境設定
