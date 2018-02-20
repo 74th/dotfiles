@@ -81,7 +81,7 @@ set __fish_git_prompt_color_branch yellow
 set __fish_git_prompt_color_upstream_ahead green
 set __fish_git_prompt_color_upstream_behind red
 
-alias UpdateFishCompletions='fish_update_completions'
+balias UpdateFishCompletions 'fish_update_completions'
 #--------------------------------------
 # 文字コードの標準設定
 set -x LESSCHARSET UTF-8
@@ -132,18 +132,18 @@ set -x EDITOR vi
 
 #--------------------------------------
 # コマンド簡単化
-alias FreezeTargz='tar zcvf'
-alias OpenTargz='tar zxvf'
-alias FreezeTarbz2='tar jcvf'
-alias OpenTarbz2='tar jxvf'
-alias ShowListenPorts='netstat -lnptua'
-alias df='df -h'
-alias ":q"=exit
-alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
-alias m=make
-alias s7l='sudo systemctl'
-alias sl=ls
-alias du='du -h'
+balias FreezeTargz 'tar zcvf'
+balias OpenTargz 'tar zxvf'
+balias FreezeTarbz2 'tar jcvf'
+balias OpenTarbz2 'tar jxvf'
+balias ShowListenPorts 'netstat -lnptua'
+balias df 'df -h'
+balias ":q" exit
+balias ConvertLfAll 'find . -type f | xargs -n 10 nkf -Lu --overwrite'
+balias m make
+balias s7l 'sudo systemctl'
+balias sl ls
+balias du 'du -h'
 
 function ShowCheatSheets --description 'show my cheat sheets'
 	ls ~/mycheatsheets/ | peco | read sheet
@@ -156,13 +156,13 @@ end
 
 #--------------------------------------
 # Javacの文字コード
-alias javac='javac -J-Dfile.encoding=utf-8'
-alias java='java -Dfile.encoding=UTF-8'
+balias javac 'javac -J-Dfile.encoding=utf-8'
+balias java 'java -Dfile.encoding=UTF-8'
 
 #--------------------------------------
 # ImageMagic関連
-alias ConvertToJpg='mogrify -format jpg'
-alias ConvertToPng='mogrify -format png'
+balias ConvertToJpg 'mogrify -format jpg'
+balias ConvertToPng 'mogrify -format png'
 
 #--------------------------------------
 # git周り
@@ -171,22 +171,22 @@ function pushpush --description 'git commit and push'
 	git commit -m "at $HOSTNAME"
 	git push origin master
 end
-alias g=git
-alias commit='git commit -v'
-alias cm='git commit -v'
-alias add='git add'
-alias push='git push'
-alias pull='git pull'
-alias gt='git status'
+balias g git
+balias commit 'git commit -v'
+balias cm 'git commit -v'
+balias add 'git add'
+balias push 'git push'
+balias pull 'git pull'
+balias gt 'git status'
 
 #--------------------------------------
 # systemctl の簡略化
 if test $OSNAME = 'Linux'
-       alias st='sudo systemctl status'
-       alias start='sudo systemctl start'
-       alias stop='sudo systemctl stop'
-       alias restart='sudo systemctl restart'
-       alias log='sudo journalctl'
+       balias st 'sudo systemctl status'
+       balias start 'sudo systemctl start'
+       balias stop 'sudo systemctl stop'
+       balias restart 'sudo systemctl restart'
+       balias log 'sudo journalctl'
 end
 
 #--------------------------------------
@@ -203,10 +203,10 @@ else if test -e $HOME/lib/go/bin
 	set -x GOROOT $HOME/lib/go
 	set -x PATH $HOME/lib/go/bin $PATH
 end
-alias golinux='env GOOS=linux GOARCH=amd64 go'
-alias goarm='env GOOS=linux GOARCH=arm go'
-alias gowindows='env GOOS=windows GOARCH=amd64 go'
-alias gomac='env GOOS=darwin GOARCH=amd64 go'
+balias golinux 'env GOOS=linux GOARCH=amd64 go'
+balias goarm 'env GOOS=linux GOARCH=arm go'
+balias gowindows 'env GOOS=windows GOARCH=amd64 go'
+balias gomac 'env GOOS=darwin GOARCH=amd64 go'
 
 # デバッグ
 if type dlv 2>/dev/null 1>/dev/null
@@ -257,7 +257,7 @@ function OpenBookmark
 		cd $DIR
 	end
 end
-alias bk=OpenBookmark
+balias bk OpenBookmark
 function AddBookmark
 	pwd >> ~/bookmark
 end
@@ -281,8 +281,8 @@ if test -e $HOME/mycheatsheets
 		ls $HOME/mycheatsheets|peco|read sheet
 		vim $HOME/mycheatsheets/$sheet
 	end
-	alias ShowCheatSheets=OpenCheatSheets
-	alias oc=OpenCheatSheets
+	balias ShowCheatSheets OpenCheatSheets
+	balias ocOpenCheatSheets
 	function EditCheatSheets
 		cd ~/mycheatsheets/
 		git pull origin master
@@ -293,7 +293,7 @@ if test -e $HOME/mycheatsheets
 		git push origin master
 		cd -
 	end
-	alias ec=EditCheatSheets
+	balias ec EditCheatSheets
 end
 
 #--------------------------------------

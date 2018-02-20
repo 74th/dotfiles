@@ -122,7 +122,12 @@ rm -rf ~/.config/fish/fishd.*; true
 ln -s ~/dotfiles/fish/fishd.784f4359182f ~/.config/fish/
 # fisherman
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
-# balias
+if type fish >/dev/null 2>&1; then
+	# balias
+	fish -c 'fisher install oh-my-fish/plugin-balias'
+	# bass
+	fish -c 'fisher install edc/bass'
+fi
 
 # Macの環境設定
 if [ $OSNAME = 'Mac' ]; then
