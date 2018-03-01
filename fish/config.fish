@@ -144,6 +144,7 @@ balias m make
 balias s7l 'sudo systemctl'
 balias sl ls
 balias du 'du -h'
+balias gotestnoopt 'go test -gcflags "-N -l"'
 
 function ShowCheatSheets --description 'show my cheat sheets'
 	ls ~/mycheatsheets/ | peco | read sheet
