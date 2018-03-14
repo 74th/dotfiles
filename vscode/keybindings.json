@@ -217,6 +217,11 @@
 		"command": "editor.action.rename",
 		"when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
 	},
+	{
+		"key": "f3",
+		"command": "go.import.add",
+		"when": "editorTextFocus && editorLangId == 'go' && !inDebugMode"
+	},
 	// dummy command
 	{
 		"key": "ctrl+shift+w",

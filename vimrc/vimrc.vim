@@ -84,7 +84,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'tomasr/molokai'
 
 " Re:View
-Plug 'moro/vim-review'
+Plug '74th/vim-review'
 
 call plug#end()
 
