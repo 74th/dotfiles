@@ -34878,13 +34878,13 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 144 606 469 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>396 417 918 381 0 0 1440 877 </string>
+	<string>396 229 1016 512 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-617 900 1920 1080 -617 900 1920 1057 </string>
+	<string>0 0 1440 877 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>-163 1004 1290 877 -313 900 1920 1080 </string>
+	<string>-2233 900 1920 1057 -2233 900 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>-1603 900 1290 1057 -2233 900 1920 1057 </string>
+	<string>3 0 786 877 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -35876,7 +35876,7 @@
 				<real>1</real>
 			</dict>
 			<key>Blend</key>
-			<real>0.30000001192092896</real>
+			<real>0.22403345352564102</real>
 			<key>Blink Allowed</key>
 			<true/>
 			<key>Blinking Cursor</key>
@@ -35884,7 +35884,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>10.013912259615383</real>
+			<real>5.3143579473350249</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -35968,20 +35968,26 @@
 			<false/>
 			<key>Horizontal Spacing</key>
 			<real>0.90000000000000002</real>
+			<key>HotKey Activated By Modifier</key>
+			<true/>
+			<key>HotKey Alternate Shortcuts</key>
+			<array/>
 			<key>HotKey Characters</key>
 			<string></string>
 			<key>HotKey Characters Ignoring Modifiers</key>
 			<string></string>
 			<key>HotKey Key Code</key>
 			<integer>120</integer>
+			<key>HotKey Modifier Activation</key>
+			<integer>3</integer>
 			<key>HotKey Modifier Flags</key>
-			<integer>9437448</integer>
+			<integer>1048576</integer>
 			<key>HotKey Window Animates</key>
-			<true/>
+			<false/>
 			<key>HotKey Window AutoHides</key>
 			<false/>
 			<key>HotKey Window Dock Click Action</key>
-			<integer>0</integer>
+			<integer>1</integer>
 			<key>HotKey Window Floats</key>
 			<false/>
 			<key>HotKey Window Reopens On Activation</key>
@@ -36321,7 +36327,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>47</integer>
+			<integer>100</integer>
 			<key>Screen</key>
 			<integer>0</integer>
 			<key>Scrollback Lines</key>
@@ -36466,8 +36472,10 @@
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Thin Strokes</key>
+			<integer>4</integer>
 			<key>Transparency</key>
-			<real>0.17008136094674559</real>
+			<real>0.17783351840101522</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -36487,7 +36495,7 @@
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
-			<integer>1</integer>
+			<integer>2</integer>
 			<key>Working Directory</key>
 			<string>/Users/atsushi</string>
 		</dict>
@@ -36562,7 +36570,7 @@
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
-	<true/>
+	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<false/>
 	<key>RightCommand</key>
@@ -36578,7 +36586,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-02-05T00:19:21Z</date>
+	<date>2018-03-15T04:30:53Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
