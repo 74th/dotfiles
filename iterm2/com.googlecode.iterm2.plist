@@ -34634,7 +34634,7 @@
 		</dict>
 	</dict>
 	<key>Default Bookmark Guid</key>
-	<string>D56F00D7-7661-4AB9-AA45-CF072939688C</string>
+	<string>4A97D21E-8C25-46DB-B250-8632A7A2421E</string>
 	<key>DimBackgroundWindows</key>
 	<false/>
 	<key>DimInactiveSplitPanes</key>
@@ -34829,8 +34829,6 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/dotfiles/iterm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -34872,19 +34870,11 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>677 113 697 401 0 0 1440 877 </string>
-	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>33 1416 620 392 -617 900 1920 1080 </string>
-	<key>NSWindow Frame SessionsPreferences</key>
-	<string>269 144 606 469 0 0 1440 877 </string>
+	<string>449 110 925 294 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>396 229 1016 512 0 0 1440 877 </string>
+	<string>269 156 1016 512 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 877 0 0 1440 877 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>-2233 900 1920 1057 -2233 900 1920 1057 </string>
-	<key>NSWindow Frame iTerm Window 2</key>
-	<string>3 0 786 877 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -34956,16 +34946,12 @@
 			</dict>
 			<key>Ansi 14 Color</key>
 			<dict>
-				<key>Alpha Component</key>
-				<real>1</real>
 				<key>Blue Component</key>
 				<real>1</real>
-				<key>Color Space</key>
-				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.49803921568627452</real>
+				<real>0.38724252581596375</real>
 				<key>Red Component</key>
-				<real>0.6470588235294118</real>
+				<real>0.57401758432388306</real>
 			</dict>
 			<key>Ansi 15 Color</key>
 			<dict>
@@ -35014,16 +35000,12 @@
 			</dict>
 			<key>Ansi 6 Color</key>
 			<dict>
-				<key>Alpha Component</key>
-				<real>1</real>
 				<key>Blue Component</key>
 				<real>1</real>
-				<key>Color Space</key>
-				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.49803921568627452</real>
+				<real>0.38724252581596375</real>
 				<key>Red Component</key>
-				<real>0.6470588235294118</real>
+				<real>0.57401758432388306</real>
 			</dict>
 			<key>Ansi 7 Color</key>
 			<dict>
@@ -35036,16 +35018,12 @@
 			</dict>
 			<key>Ansi 8 Color</key>
 			<dict>
-				<key>Alpha Component</key>
-				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.5607843137254902</real>
-				<key>Color Space</key>
-				<string>sRGB</string>
+				<real>0.48771023750305176</real>
 				<key>Green Component</key>
-				<real>0.5607843137254902</real>
+				<real>0.48781105875968933</real>
 				<key>Red Component</key>
-				<real>0.5607843137254902</real>
+				<real>0.48775118589401245</real>
 			</dict>
 			<key>Ansi 9 Color</key>
 			<dict>
@@ -35091,7 +35069,7 @@
 				<real>1</real>
 			</dict>
 			<key>Blend</key>
-			<real>0.30000001192092896</real>
+			<real>0.22403345352564102</real>
 			<key>Blink Allowed</key>
 			<true/>
 			<key>Blinking Cursor</key>
@@ -35099,7 +35077,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>10.347716346153845</real>
+			<real>10.398282836294415</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -35116,7 +35094,7 @@
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>160</integer>
+			<integer>200</integer>
 			<key>Command</key>
 			<string>/usr/local/bin/fish</string>
 			<key>Cursor Color</key>
@@ -35176,11 +35154,37 @@
 				<real>0.93353170156478882</real>
 			</dict>
 			<key>Guid</key>
-			<string>D56F00D7-7661-4AB9-AA45-CF072939688C</string>
+			<string>4A97D21E-8C25-46DB-B250-8632A7A2421E</string>
+			<key>Has Hotkey</key>
+			<false/>
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>
 			<real>0.90000000000000002</real>
+			<key>HotKey Activated By Modifier</key>
+			<true/>
+			<key>HotKey Alternate Shortcuts</key>
+			<array/>
+			<key>HotKey Characters</key>
+			<string></string>
+			<key>HotKey Characters Ignoring Modifiers</key>
+			<string></string>
+			<key>HotKey Key Code</key>
+			<integer>120</integer>
+			<key>HotKey Modifier Activation</key>
+			<integer>3</integer>
+			<key>HotKey Modifier Flags</key>
+			<integer>1048576</integer>
+			<key>HotKey Window Animates</key>
+			<false/>
+			<key>HotKey Window AutoHides</key>
+			<false/>
+			<key>HotKey Window Dock Click Action</key>
+			<integer>1</integer>
+			<key>HotKey Window Floats</key>
+			<false/>
+			<key>HotKey Window Reopens On Activation</key>
+			<false/>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
@@ -35504,7 +35508,7 @@
 			<key>Name</key>
 			<string>fish</string>
 			<key>Non Ascii Font</key>
-			<string>HiraginoSans-W4 14</string>
+			<string>HiraginoSans-W3 14</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
@@ -35516,7 +35520,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>80</integer>
+			<integer>100</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -35559,7 +35563,7 @@
 			<key>Shortcut</key>
 			<string></string>
 			<key>Silence Bell</key>
-			<false/>
+			<true/>
 			<key>Smart Cursor Color</key>
 			<true/>
 			<key>Smart Selection Rules</key>
@@ -35661,8 +35665,10 @@
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Thin Strokes</key>
+			<integer>4</integer>
 			<key>Transparency</key>
-			<real>0.16775147928994083</real>
+			<real>0.16502022525380711</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -35884,7 +35890,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>5.3143579473350249</real>
+			<real>10.398282836294415</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -36475,7 +36481,7 @@
 			<key>Thin Strokes</key>
 			<integer>4</integer>
 			<key>Transparency</key>
-			<real>0.17783351840101522</real>
+			<real>0.16502022525380711</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -36503,15 +36509,11 @@
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>FF3466C7-29ED-4DBB-94D4-B3E8899A71E1</string>
-	<key>NoSyncNeverAskAboutSettingAlternateMouseScroll</key>
-	<true/>
+	<string>24547FC3-3A79-414C-ABB4-168B552DC1A5</string>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>512537875.54699099</real>
-	<key>NoSyncTurnOffBracketedPasteOnHostChange</key>
-	<true/>
+	<real>537529662.26356196</real>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
 	<key>OpenArrangementAtStartup</key>
@@ -36564,7 +36566,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>~/dotfiles/iterm2</string>
+	<string>/Users/nnyn/dotfiles/iterm2</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnClose</key>
@@ -36582,11 +36584,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml?shard=26</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=69</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-03-15T04:30:53Z</date>
+	<date>2018-03-18T06:04:50Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>

@@ -86,6 +86,9 @@ Plug 'tomasr/molokai'
 " Re:View
 Plug '74th/vim-review'
 
+" Plantuml
+Plug 'aklt/plantuml-syntax'
+
 call plug#end()
 
 " CUIでも256colorならmolokaiを使う

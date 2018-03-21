@@ -298,6 +298,12 @@ if test -e $HOME/mycheatsheets
 	end
 	balias ec EditCheatSheets
 end
+#--------------------------------------
+# google cloud sdk
+if test -e $HOME/google-cloud-sdk
+	bass source $HOME/google-cloud-sdk/path.bash.inc
+	bass source $HOME/google-cloud-sdk/completion.bash.inc
+end
 
 #--------------------------------------
 # ローカル設定
