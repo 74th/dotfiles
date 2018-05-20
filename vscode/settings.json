@@ -76,5 +76,8 @@
     "workbench.iconTheme": null,
     "workbench.colorTheme": "monokai-chacoral(HC)",
     "workbench.startupEditor": "newUntitledFile",
-    "java.errors.incompleteClasspath.severity": "ignore"
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "[cuda]": {
+		"editor.formatOnSave": true
+	}
 }

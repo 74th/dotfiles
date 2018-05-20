@@ -145,6 +145,8 @@ balias s7l 'sudo systemctl'
 balias sl ls
 balias du 'du -h'
 balias gotestnoopt 'go test -gcflags "-N -l"'
+balias switch-old-xcode 'sudo xcode-select -s /Applications/Xcode8.2.app'
+balias switch-latest-xcode 'sudo xcode-select -s /Applications/Xcode.app'
 
 function ShowCheatSheets --description 'show my cheat sheets'
 	ls ~/mycheatsheets/ | peco | read sheet
