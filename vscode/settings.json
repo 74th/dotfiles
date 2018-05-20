@@ -45,9 +45,10 @@
     // golang
     "go.lintOnSave": "package",
     "go.formatTool": "goreturns",
-    "go.formatOnSave": true,
     "go.buildOnSave": "package",
     "go.vetOnSave": "package",
+    "go.testTimeout": "60s",
+    "go.toolsGopath": "~/go",
     // typescript
     "editor.codeLens": true,
     // vimStyle
