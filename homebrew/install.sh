@@ -48,7 +48,6 @@ P="$P gcc"
 
 # Golang
 P="$P go"
-#P="$P go-delve/delve/delve"
 
 # メモリーのビジュアル化
 P="$P graphviz qt qcachegrind"
@@ -60,7 +59,7 @@ P="$P docker-machine"
 C="$C docker"
 
 # tensorflow関連
-#P="$P bazel" # バージョンが古いものが必要なため自前で入れる必要がある
+P="$P bazel" # バージョンが古いものが必要なため自前で入れる必要がある
 P="$P gpp"
 P="$P pyenv"
 P="$P pyenv-virtualenv"
@@ -69,7 +68,7 @@ P="$P pyenv-virtualenv"
 #P="$P wine"
 
 # plantuml
-#P="$P plantuml"
+P="$P plantuml"
 
 # rbenv
 P="$P rbenv"
@@ -82,20 +81,17 @@ C="$C font-sourcecodepro-nerd-font"
 C="$C font-fira-code"
 C="$C font-hasklig"
 
-# vs code
-#C="$C visual-studio-code"
-
 # gimp
-#C="$C gimp"
+C="$C gimp"
 
 # QE
 #C="$C qr-journal"
 
 # ディスク領域可視化
-#C="$C Caskroom/cask/disk-inventory-x"
+C="$C Caskroom/cask/disk-inventory-x"
 
 # Caffeine
-#C="$C caskroom/cask/caffeine"
+C="$C caskroom/cask/caffeine"
 
 # Libre Office
 #C="$C caskroom/cask/libreoffice"
