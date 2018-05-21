@@ -13,6 +13,8 @@ C=
 brew update
 brew upgrade
 
+brew install caskroom/cask/java
+
 #brew cask install xquartz
 
 # bash
@@ -69,7 +71,7 @@ P="$P pyenv-virtualenv"
 # plantuml
 #P="$P plantuml"
 
-# plantuml
+# rbenv
 P="$P rbenv"
 
 # font
@@ -79,12 +81,6 @@ C="$C font-source-han-code-jp"
 C="$C font-sourcecodepro-nerd-font"
 C="$C font-fira-code"
 C="$C font-hasklig"
-
-# hosts manager
-#C="$C hosts"
-
-# veertu
-#C="$C veertu-desktop"
 
 # vs code
 #C="$C visual-studio-code"
