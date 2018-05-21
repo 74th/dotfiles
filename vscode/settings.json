@@ -29,6 +29,9 @@
     "editor.renderLineHighlight": "all",
     // 表示周り
     "window.zoomLevel": 0,
+    "workbench.colorCustomizations": {
+        "editorIndentGuide.activeBackground": "#505050"
+    },
     // git
     "git.confirmSync": false, // Syncボタンで尋ねない
     // auto format
@@ -47,8 +50,9 @@
     "go.formatTool": "goreturns",
     "go.buildOnSave": "package",
     "go.vetOnSave": "package",
-    "go.testTimeout": "60s",
+    "go.testTimeout": "180s",
     "go.toolsGopath": "~/go",
+    "go.coverOnTestPackage": true,
     // typescript
     "editor.codeLens": true,
     // vimStyle
@@ -77,5 +81,9 @@
     "workbench.iconTheme": null,
     "workbench.colorTheme": "monokai-chacoral(HC)",
     "workbench.startupEditor": "newUntitledFile",
-    "java.errors.incompleteClasspath.severity": "ignore"
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true
+    },
+    "gitlens.defaultDateStyle": "absolute"
 }

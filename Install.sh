@@ -127,6 +127,8 @@ if type fish >/dev/null 2>&1; then
 	fish -c 'fisher oh-my-fish/plugin-balias'
 	# bass
 	fish -c 'fisher edc/bass'
+	# aws
+	fish -c 'fisher oh-my-fish/plugin-aws'
 fi
 
 # Macの環境設定
