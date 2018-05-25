@@ -34865,9 +34865,9 @@
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>269 103 918 512 0 0 1440 877 </string>
+	<string>276 291 918 452 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1440 877 0 0 1440 877 </string>
+	<string>0 0 1920 1177 0 0 1920 1177 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -36328,7 +36328,7 @@
 			<key>Rows</key>
 			<integer>100</integer>
 			<key>Screen</key>
-			<integer>0</integer>
+			<integer>1</integer>
 			<key>Scrollback Lines</key>
 			<integer>1000</integer>
 			<key>Scrollback With Status Bar</key>
@@ -37315,11 +37315,11 @@
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>EC2BAD56-9717-4D95-9F11-C105077606C0</string>
+	<string>126719AD-C2F1-4F92-BF16-66802BCEAF83</string>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>547274355.858181</real>
+	<real>546859509.116732</real>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
 	<key>OpenArrangementAtStartup</key>
@@ -37372,7 +37372,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/nnyn/dotfiles/iterm2</string>
+	<string>/Users/atsushi.morimoto/dotfiles/iterm2</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnClose</key>
@@ -37390,11 +37390,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml?shard=18</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=52</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-05-19T02:31:08Z</date>
+	<date>2018-05-25T00:21:54Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>

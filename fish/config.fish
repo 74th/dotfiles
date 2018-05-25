@@ -242,7 +242,7 @@ function peco_ls
 	commandline|read CMD
 	if test $CMD = ""
 		# なにもないときはhistory
-		history --max 10000|peco $peco_flags|read foo
+		history |peco $peco_flags|read foo
 		if [ $foo ]
 			commandline $foo
 		else
