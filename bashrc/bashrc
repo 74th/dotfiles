@@ -422,25 +422,10 @@ function find_cd() {
 }
 alias fc="find_cd"
 
-function peco-select-history() {
-	# 過去コマンド参照
-	declare l=$(HISTTIMEFORMAT= history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$READLINE_LINE")
-	READLINE_LINE="$l"
-	READLINE_POINT=${#l}
-}
-bind -x '"\C-t": peco-select-history'
-
-function peco-ls() {
-	# ファイル指定の補完
-	array=( `echo $READLINE_LINE | tr -s ' '`)
-	last_index=`expr ${#array[@]} - 1`
-	currentdir=${array[${last_index}]}
-	declare l=$(ls $currentdir --color=never | peco)
-	# ディレクトリを判定して、入れる
-	READLINE_LINE="$READLINE_LINE$l/"
-	READLINE_POINT=${#READLINE_LINE}
-}
-bind -x '"\C-r": peco-ls'
-bind -x '"\C-r": READLINE=$(pecols)'
-
+fi
+#--------------------
+# AWSの補完
+if type aws_completer 2>/dev/null 1>/dev/null
+then
+	complete -C $(which aws_completer) aws
 fi
