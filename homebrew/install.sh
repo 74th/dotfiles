@@ -59,7 +59,8 @@ P="$P docker-machine"
 C="$C docker"
 
 # tensorflow関連
-P="$P bazel" # バージョンが古いものが必要なため自前で入れる必要がある
+# Java1.8がいるとかイケてないこと言うので、一旦排除
+#P="$P bazel"
 P="$P gpp"
 P="$P pyenv"
 P="$P pyenv-virtualenv"
@@ -92,6 +93,9 @@ C="$C Caskroom/cask/disk-inventory-x"
 
 # Caffeine
 C="$C caskroom/cask/caffeine"
+
+# 小さいカレンダー
+C="$C caskroom/cask/day-o"
 
 # Libre Office
 #C="$C caskroom/cask/libreoffice"

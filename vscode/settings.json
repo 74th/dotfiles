@@ -17,6 +17,8 @@
     "editor.wordWrap": "on",
     "editor.wrappingIndent": "indent",
     "editor.glyphMargin": true,
+    "editor.formatOnPaste": true,
+    "python.linting.lintOnSave": true,
     // tab等の表示
     "editor.tabSize": 4,
     "editor.insertSpaces": false,
@@ -77,7 +79,6 @@
 
     // mykeyscroll
     "scrollkey.line1": 30,
-    "typescript.check.tscVersion": false,
     "workbench.iconTheme": null,
     "workbench.colorTheme": "monokai-chacoral(HC)",
     "workbench.startupEditor": "newUntitledFile",
@@ -85,7 +86,7 @@
     "gitlens.advanced.messages": {
         "suppressShowKeyBindingsNotice": true
     },
-    "gitlens.defaultDateStyle": "absolute"
+    "gitlens.defaultDateStyle": "absolute",
     "[cuda]": {
 		"editor.formatOnSave": true
 	}
