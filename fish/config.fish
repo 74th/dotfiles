@@ -181,6 +181,10 @@ balias add 'git add'
 balias push 'git push'
 balias pull 'git pull'
 balias gt 'git status'
+function SetGitUser --description 'set git config my handle name'
+	git config --local user.name 74th
+	git config --local user.email site@j74th.com
+end
 
 #--------------------------------------
 # systemctl の簡略化
