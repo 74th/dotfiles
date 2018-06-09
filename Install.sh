@@ -20,45 +20,47 @@ else
 	OSDISTRO='unknown'
 fi
 
-# コマンドのチェック
+# need curl, git
 if ! type curl >/dev/null 2>&1; then
 	if [ $OSDISTRO = "Debian" ]; then
-		sudo apt -y install curl
+		sudo apt -y install curl git
 	elif [ $OSDISTRO = "Redhat" ]; then
-		sudo yum -y install curl
+		sudo yum -y install curl git
 	else
 		echo "please install curl"
 		exit 1
 	fi
 fi
 
-# fish shell のインストール
-#if ! type fish >/dev/null 2>&1; then
-#	if [ $OSDISTRO = "Debian" ]; then
-#		sudo bash -c "echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' > /etc/apt/sources.list.d/fish.list "
-#		sudo apt-get update
-#		sudo apt-get install -y fish
-#	elif [ $OSDISTRO = "Redhat" ]; then
-#		sudo bash -c "cd /etc/yum.repos.d/;wget http://download.opensuse.org/repositories/shells:fish:release:2/CentOS_7/shells:fish:release:2.repo"
-#		sudo yum install -y fish
-#	fi
-#fi
+# --------------------------------------------
+# install software
 
+if [ $OSDISTRO = "Debian" ]; then
+	# fish
+	if ! type fish >/dev/null 2>&1; then
+		sudo bash -c "echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' > /etc/apt/sources.list.d/fish.list "
+		sudo apt-get update
+		sudo apt-get install -y fish
+	fi
+fi
+if [ $OSDISTRO = "Redhat" ]; then
+	# fish
+	if ! type fish >/dev/null 2>&1; then
+		sudo bash -c "cd /etc/yum.repos.d/;wget http://download.opensuse.org/repositories/shells:fish:release:2/CentOS_7/shells:fish:release:2.repo"
+		sudo yum install -y fish
+	fi
+fi
+
+if [ $OSNAME = 'Mac' ]; then
+	# homebrew
+	~/dotfiles/homebrew/install.sh
+fi
+
+# ----------------------------------------
 # bashrc
 if [ $(grep dotfiles ~/.bashrc | wc -l ) -eq 0 ]; then
 	echo "source ~/dotfiles/bashrc/bashrc" >> ~/.bashrc
 fi
-
-# vimrc
-if [ $(grep dotfiles ~/.vimrc | wc -l ) -eq 0 ]; then
-	echo "source ~/dotfiles/vimrc/vimrc.vim" >>~/.vimrc
-fi
-if [ $(grep dotfiles ~/.gvimrc | wc -l ) -eq 0 ]; then
-	echo "source ~/dotfiles/vimrc/gvimrc.vim" >>~/.gvimrc
-fi
-# vim-plug
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 
 # tmux
 if [ -e ~/.tmux.conf ]; then
@@ -106,6 +108,52 @@ if [ -e ~/.config/xfce4/terminal/terminalrc ];then
 	ln -s ~/dotfiles/xfce4terminal/terminalrc ~/.config/xfce4/terminal/terminalrc
 fi
 
+# Mac
+if [ $OSNAME = 'Mac' ]; then
+	if [ ! -e ~/.config ]; then
+		mkdir ~/.config
+	fi
+
+	# キーリピート
+	defaults write -g ApplePressAndHoldEnabled -bool false
+
+	if [ ! -e ~/bin ]; then
+		mkdir ~/bin
+	fi
+	# macvim-kaoriya用のmvim
+	if [ -e /Applications/MacVim.app/Contents/bin/ ]; then
+		ln -sf /Applications/MacVim.app/Contents/bin/* ~/bin/
+	fi
+
+	# karabiner-elements
+	if [ -e ~/.config/karabiner ]; then
+		rm -rf ~/.config/karabiner
+	fi
+	ln -s ~/dotfiles/karabiner-elements ~/.config/karabiner
+
+	# 環境変数
+	if [ ! -e ~/Library/LaunchAgents ]; then
+		mkdir ~/Library/LaunchAgents
+	fi
+	if [ ! -e ~/Library/LaunchAgents/setenv.plist ]; then
+		ln -s ~/dotfiles/mac_env/setenv.plist ~/Library/LaunchAgents/setenv.plist
+	else
+		launchctl unload ~/Library/LaunchAgents/setenv.plist
+	fi
+	launchctl load ~/Library/LaunchAgents/setenv.plist
+fi
+
+# vimrc
+if [ $(grep dotfiles ~/.vimrc | wc -l ) -eq 0 ]; then
+	echo "source ~/dotfiles/vimrc/vimrc.vim" >>~/.vimrc
+fi
+if [ $(grep dotfiles ~/.gvimrc | wc -l ) -eq 0 ]; then
+	echo "source ~/dotfiles/vimrc/gvimrc.vim" >>~/.gvimrc
+fi
+# vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vi +PlugInstall +qall
+
 # fish
 if [ ! -e ~/.config/fish ]; then
 	mkdir -p ~/.config/fish
@@ -131,44 +179,13 @@ if type fish >/dev/null 2>&1; then
 	fish -c 'fisher oh-my-fish/plugin-aws'
 fi
 
-# Macの環境設定
-if [ $OSNAME = 'Mac' ]; then
-	if [ ! -e ~/.config ]; then
-		mkdir ~/.config
-	fi
-
-	# キーリピート
-	defaults write -g ApplePressAndHoldEnabled -bool false
-
-	# homebrew
-	~/dotfiles/homebrew/install.sh
-
-	# macvim-kaoriya用のmvim
-	if [ ! -e ~/bin ]; then
-		mkdir ~/bin
-	fi
-	curl https://raw.githubusercontent.com/splhack/macvim/master/src/MacVim/mvim > ~/bin/mvim
-	chmod 755 ~/bin/mvim
-
-	# karabiner-elements
-	if [ -e ~/.config/karabiner ]; then
-		rm -rf ~/.config/karabiner
-	fi
-	ln -s ~/dotfiles/karabiner-elements ~/.config/karabiner
-
-	# 環境変数
-	if [ ! -e ~/Library/LaunchAgents ]; then
-		mkdir ~/Library/LaunchAgents
-	fi
-	if [ ! -e ~/Library/LaunchAgents/setenv.plist ]; then
-		ln -s ~/dotfiles/mac_env/setenv.plist ~/Library/LaunchAgents/setenv.plist
-	else
-		launchctl unload ~/Library/LaunchAgents/setenv.plist
-	fi
-	launchctl load ~/Library/LaunchAgents/setenv.plist
-fi
-
 # golang
 if type go >/dev/null 2>&1; then
 	./golang/goget.sh
+fi
+
+# ----------------------------------------
+# aws cli
+if type pip >/dev/null 2>&1; then
+	sudo pip install awscli
 fi

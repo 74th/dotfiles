@@ -8,14 +8,11 @@ fi
 
 
 P=
-C=
 
 brew update
 brew upgrade
 
-brew install caskroom/cask/java
-
-#brew cask install xquartz
+brew install homebrew/cask/java
 
 # bash
 P="$P bash bash-completion"
@@ -56,7 +53,6 @@ P="$P graphviz qt qcachegrind"
 P="$P docker"
 P="$P docker-compose"
 P="$P docker-machine"
-C="$C docker"
 
 # tensorflow関連
 # Java1.8がいるとかイケてないこと言うので、一旦排除
@@ -75,27 +71,23 @@ P="$P plantuml"
 P="$P rbenv"
 
 # font
-brew tap caskroom/fonts
-C="$C font-source-code-pro"
-C="$C font-source-han-code-jp"
-C="$C font-sourcecodepro-nerd-font"
-C="$C font-fira-code"
-C="$C font-hasklig"
+P="$P homebrew/cask-fonts/font-source-code-pro"
+P="$P homebrew/cask-fonts/font-source-han-code-jp"
+P="$P homebrew/cask-fonts/font-sourcecodepro-nerd-font"
+P="$P homebrew/cask-fonts/font-fira-code"
+P="$P homebrew/cask-fonts/font-hasklig"
 
 # gimp
-C="$C gimp"
-
-# QE
-#C="$C qr-journal"
+P="$P homebrew/cask/gimp"
 
 # ディスク領域可視化
-C="$C Caskroom/cask/disk-inventory-x"
+P="$P homebrew/cask/disk-inventory-x"
 
 # Caffeine
-C="$C caskroom/cask/caffeine"
+P="$P homebrew/cask/caffeine"
 
 # 小さいカレンダー
-C="$C caskroom/cask/day-o"
+P="$P homebrew/cask/day-o"
 
 # Libre Office
 #C="$C caskroom/cask/libreoffice"
@@ -105,7 +97,5 @@ C="$C caskroom/cask/day-o"
 
 echo $P
 brew install $P
-
-brew cask install $C
 
 brew cleanup
