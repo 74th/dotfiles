@@ -9,6 +9,9 @@ elif [ "$(uname -o)" == 'Cygwin' ]; then
 elif [ "$(uname -o)" == 'Msys' ]; then
 	OSNAME='Windows'
 	OSDISTRO='Msys'
+elif [ -e "/etc/lsb-release" ]; then
+	OSNAME='Linux'
+	OSDISTRO='Ubuntu'
 elif [ -e "/etc/debian_version" ]; then
 	OSNAME='Linux'
 	OSDISTRO='Debian'
@@ -22,7 +25,7 @@ fi
 
 # need curl, git
 if ! type curl >/dev/null 2>&1; then
-	if [ $OSDISTRO = "Debian" ]; then
+	if [ $OSDISTRO = "Debian" -o $OSDISTRO = "Ubuntu" ]; then
 		sudo apt -y install curl git
 	elif [ $OSDISTRO = "Redhat" ]; then
 		sudo yum -y install curl git
@@ -39,6 +42,14 @@ if [ $OSDISTRO = "Debian" ]; then
 	# fish
 	if ! type fish >/dev/null 2>&1; then
 		sudo bash -c "echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' > /etc/apt/sources.list.d/fish.list "
+		sudo apt-get update
+		sudo apt-get install -y fish
+	fi
+fi
+if [ $OSDISTRO = "Ubuntu" ]; then
+	# fish
+	if ! type fish >/dev/null 2>&1; then
+		sudo apt-add-repository ppa:fish-shell/release-2
 		sudo apt-get update
 		sudo apt-get install -y fish
 	fi
@@ -176,7 +187,9 @@ if type fish >/dev/null 2>&1; then
 	# bass
 	fish -c 'fisher edc/bass'
 	# aws
-	fish -c 'fisher oh-my-fish/plugin-aws'
+	if type aws >/dev/null 2>&1; then
+		fish -c 'fisher oh-my-fish/plugin-aws'
+	fi
 fi
 
 # golang
