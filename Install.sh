@@ -36,7 +36,7 @@ if ! type curl >/dev/null 2>&1; then
 fi
 
 # --------------------------------------------
-# install software
+# install softwares
 
 if [ $OSDISTRO = "Debian" ]; then
 	# fish
@@ -155,10 +155,10 @@ if [ $OSNAME = 'Mac' ]; then
 fi
 
 # vimrc
-if [ $(grep dotfiles ~/.vimrc | wc -l ) -eq 0 ]; then
+if [ $(grep "dotfiles" ~/.vimrc | wc -l ) -eq 0 ]; then
 	echo "source ~/dotfiles/vimrc/vimrc.vim" >>~/.vimrc
 fi
-if [ $(grep dotfiles ~/.gvimrc | wc -l ) -eq 0 ]; then
+if [ $(grep "dotfiles" ~/.gvimrc | wc -l ) -eq 0 ]; then
 	echo "source ~/dotfiles/vimrc/gvimrc.vim" >>~/.gvimrc
 fi
 # vim-plug
@@ -189,6 +189,9 @@ if type fish >/dev/null 2>&1; then
 	# aws
 	if type aws >/dev/null 2>&1; then
 		fish -c 'fisher oh-my-fish/plugin-aws'
+	fi
+	if type docker >/dev/null 2>&1; then
+		fish -c 'fisher install barnybug/docker-fish-completion'
 	fi
 fi
 

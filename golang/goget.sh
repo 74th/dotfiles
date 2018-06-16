@@ -1,9 +1,10 @@
 #!/bin/bash
 set -Ceux
-go get -u sourcegraph.com/sqs/goreturns
-go get -u github.com/golang/lint/golint
-go get -u github.com/jessevdk/go-assets
-go get -u github.com/jessevdk/go-assets-builder
-go get -u github.com/peco/peco/cmd/peco
-go get -u github.com/golang/dep/cmd/dep
-go get -u github.com/derekparker/delve/cmd/dlv
+go get -u \
+	sourcegraph.com/sqs/goreturns\
+	github.com/golang/lint/golint\
+	github.com/jessevdk/go-assets\
+	github.com/jessevdk/go-assets-builder\
+	github.com/peco/peco/cmd/peco\
+	github.com/golang/dep/cmd/dep\
+	github.com/derekparker/delve/cmd/dlv

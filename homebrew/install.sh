@@ -42,6 +42,7 @@ P="$P jq"
 P="$P gnuplot"
 P="$P protobuf"
 P="$P gcc"
+P="$P gdb"
 
 # Golang
 P="$P go"
@@ -69,6 +70,9 @@ P="$P plantuml"
 
 # rbenv
 P="$P rbenv"
+
+# bashのデバッグ
+P="$P bashdb"
 
 # font
 P="$P homebrew/cask-fonts/font-source-code-pro"
