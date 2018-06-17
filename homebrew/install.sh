@@ -53,7 +53,6 @@ P="$P graphviz qt qcachegrind"
 # docker
 P="$P docker"
 P="$P docker-compose"
-P="$P docker-machine"
 
 # tensorflow関連
 # Java1.8がいるとかイケてないこと言うので、一旦排除
