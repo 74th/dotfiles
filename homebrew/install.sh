@@ -7,98 +7,104 @@ if ! which brew >/dev/null 2>&1; then
 fi
 
 
-P=
-
 brew update
 brew upgrade
 
 brew install homebrew/cask/java
 
+PKG_LIST=$(cat <<EOS
 # bash
-P="$P bash bash-completion"
+bash bash-completion
 
 # Linuxのツールを使う
-P="$P coreutils"
+coreutils
 
 # CUIツール
-P="$P wget"
-P="$P fish"
-P="$P direnv"
-P="$P peco"
-P="$P readline"
-P="$P imagemagick"
-P="$P ffmpeg"
-P="$P watch"
+wget
+fish
+direnv
+peco
+readline
+imagemagick
+ffmpeg
+watch
 # sftpのタブ補完が効くので入れる
-P="$P openssh"
+openssh
 
 # develop
-P="$P git"
-P="$P node"
-P="$P openssl"
-P="$P python"
-P="$P sqlite"
-P="$P jq"
-P="$P gnuplot"
-P="$P protobuf"
-P="$P gcc"
-P="$P gdb"
+git
+node
+openssl
+python
+sqlite
+jq
+gnuplot
+protobuf
+gcc
+gdb
 
 # Golang
-P="$P go"
+go
 
 # メモリーのビジュアル化
-P="$P graphviz qt qcachegrind"
+graphviz qt qcachegrind
 
 # docker
-P="$P docker"
-P="$P docker-compose"
+docker
+docker-compose
 
 # tensorflow関連
 # Java1.8がいるとかイケてないこと言うので、一旦排除
-#P="$P bazel"
-P="$P gpp"
-P="$P pyenv"
-P="$P pyenv-virtualenv"
+#bazel
+#gpp
+pyenv
+pyenv-virtualenv
 
 # wine
-#P="$P wine"
+wine
 
 # plantuml
-P="$P plantuml"
+plantuml
 
 # rbenv
-P="$P rbenv"
+rbenv
 
 # bashのデバッグ
-P="$P bashdb"
+bashdb
 
 # font
-P="$P homebrew/cask-fonts/font-source-code-pro"
-P="$P homebrew/cask-fonts/font-source-han-code-jp"
-P="$P homebrew/cask-fonts/font-sourcecodepro-nerd-font"
-P="$P homebrew/cask-fonts/font-fira-code"
-P="$P homebrew/cask-fonts/font-hasklig"
+homebrew/cask-fonts/font-source-code-pro
+homebrew/cask-fonts/font-source-han-code-jp
+homebrew/cask-fonts/font-sourcecodepro-nerd-font
+homebrew/cask-fonts/font-fira-code
+homebrew/cask-fonts/font-hasklig
 
 # gimp
-P="$P homebrew/cask/gimp"
+homebrew/cask/gimp
 
 # ディスク領域可視化
-P="$P homebrew/cask/disk-inventory-x"
+homebrew/cask/disk-inventory-x
 
 # Caffeine
-P="$P homebrew/cask/caffeine"
+homebrew/cask/caffeine
 
 # 小さいカレンダー
-P="$P homebrew/cask/day-o"
+homebrew/cask/day-o
+
+# terraform
+# https://github.com/hashicorp/terraform
+terraform
 
 # Libre Office
-#C="$C caskroom/cask/libreoffice"
+caskroom/cask/libreoffice
 
 # MacVim
-#C="$C macvim"
+macvim
+EOS
+)
+PKG_LIST=$(echo "$PKG_LIST" | perl -pe 's/^#.*$//g')
+PKG_LIST=$(echo "$PKG_LIST" | perl -pe 's/\n/ /g')
 
-echo $P
-brew install $P
+brew install $PKG_LIST
 
 brew cleanup
