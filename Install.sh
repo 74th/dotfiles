@@ -193,6 +193,9 @@ if type fish >/dev/null 2>&1; then
 	if type docker >/dev/null 2>&1; then
 		fish -c 'fisher install barnybug/docker-fish-completion'
 	fi
+	if type gcloud >/dev/null 2>&1; then
+		fish -c 'fisher github.com/Doctusoft/google-cloud-sdk-fish-completion'
+	fi
 fi
 
 # golang
