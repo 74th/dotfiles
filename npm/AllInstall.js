@@ -1,11 +1,6 @@
 #!/usr/local/bin/node
 var p = [];
 
-// Titanium関連
-p.push("titanium");
-p.push("alloy");
-p.push("acs");
-
 // jasmin-node
 p.push("jasmine-node");
 
