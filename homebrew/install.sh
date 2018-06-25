@@ -100,8 +100,8 @@ terraform
 # Libre Office
 caskroom/cask/libreoffice
 
-# MacVim
-macvim
+# MacVimはkaoriyaのエディションを入れるので、
+# homebrewからは外す
 EOS
 )
 PKG_LIST=$(echo "$PKG_LIST" | perl -pe 's/^#.*$//g')
