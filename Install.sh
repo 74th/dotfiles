@@ -166,22 +166,24 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 vi +PlugInstall +qall
 
 # fish
-if [ ! -e ~/.config/fish ]; then
-	mkdir -p ~/.config/fish
-fi
-if [ -e ~/.config/fish/config.fish ]; then
-	rm ~/.config/fish/config.fish
-fi
-ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
-if [ -e ~/.config/fish/functions ]; then
-	rm -rf ~/.config/fish/functions
-fi
-ln -s ~/dotfiles/fish/functions ~/.config/fish/functions
-rm -rf ~/.config/fish/fishd.*; true
-ln -s ~/dotfiles/fish/fishd.784f4359182f ~/.config/fish/
-# fisherman
-curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
 if type fish >/dev/null 2>&1; then
+	
+	if [ ! -e ~/.config/fish ]; then
+		mkdir -p ~/.config/fish
+	fi
+	if [ -e ~/.config/fish/config.fish ]; then
+		rm ~/.config/fish/config.fish
+	fi
+	ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
+	if [ -e ~/.config/fish/functions ]; then
+		rm -rf ~/.config/fish/functions
+	fi
+	ln -s ~/dotfiles/fish/functions ~/.config/fish/functions
+	rm -rf ~/.config/fish/fishd.*; true
+	ln -s ~/dotfiles/fish/fishd.784f4359182f ~/.config/fish/
+
+	# fisherman
+	curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
 	# balias
 	fish -c 'fisher oh-my-fish/plugin-balias'
 	# bass

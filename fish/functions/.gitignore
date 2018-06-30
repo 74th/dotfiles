@@ -3,3 +3,7 @@ balias.fish
 __bass.py
 bass.fish
 aws.fish
+docker-compose.fish
+docker.fish
+gcloud_sdk_argcomplete.fish
+gen_docker_fish_completions.py
