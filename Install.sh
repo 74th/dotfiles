@@ -67,6 +67,14 @@ if [ $OSNAME = 'Mac' ]; then
 	~/dotfiles/homebrew/install.sh
 fi
 
+
+# ----------------------------------------
+# pyenv
+if type pyenv >/dev/null 2>&1; then
+	# https://qiita.com/74th/items/f7620dc3882656719ab4
+	pyenv rehash
+fi
+
 # ----------------------------------------
 # bashrc
 if [ $(grep dotfiles ~/.bashrc | wc -l ) -eq 0 ]; then
@@ -134,6 +142,7 @@ if [ $OSNAME = 'Mac' ]; then
 	# macvim-kaoriya用のmvim
 	if [ -e /Applications/MacVim.app/Contents/bin/ ]; then
 		ln -sf /Applications/MacVim.app/Contents/bin/* ~/bin/
+		ln -sf /Applications/MacVim.app/Contents/bin/vim ~/bin/vi
 	fi
 
 	# karabiner-elements
@@ -167,37 +176,7 @@ vi +PlugInstall +qall
 
 # fish
 if type fish >/dev/null 2>&1; then
-	
-	if [ ! -e ~/.config/fish ]; then
-		mkdir -p ~/.config/fish
-	fi
-	if [ -e ~/.config/fish/config.fish ]; then
-		rm ~/.config/fish/config.fish
-	fi
-	ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
-	if [ -e ~/.config/fish/functions ]; then
-		rm -rf ~/.config/fish/functions
-	fi
-	ln -s ~/dotfiles/fish/functions ~/.config/fish/functions
-	rm -rf ~/.config/fish/fishd.*; true
-	ln -s ~/dotfiles/fish/fishd.784f4359182f ~/.config/fish/
-
-	# fisherman
-	curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
-	# balias
-	fish -c 'fisher oh-my-fish/plugin-balias'
-	# bass
-	fish -c 'fisher edc/bass'
-	# aws
-	if type aws >/dev/null 2>&1; then
-		fish -c 'fisher oh-my-fish/plugin-aws'
-	fi
-	if type docker >/dev/null 2>&1; then
-		fish -c 'fisher install barnybug/docker-fish-completion'
-	fi
-	if type gcloud >/dev/null 2>&1; then
-		fish -c 'fisher github.com/Doctusoft/google-cloud-sdk-fish-completion'
-	fi
+	./fish/Install.sh
 fi
 
 # golang
