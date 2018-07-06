@@ -316,7 +316,7 @@ if test -e $HOME/mycheatsheets
 		cd ~/mycheatsheets/CodeSpellChecker/
 		git pull origin master
 		ls $HOME/mycheatsheets/CodeSpellChecker/|peco|read sheet
-		vim ~/mycheatsheets/$sheet
+		vim ~/mycheatsheets/CodeSpellChecker/$sheet
 		git add -A
 		git commit -m "at $HOSTNAME"
 		git push origin master
