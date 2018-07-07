@@ -150,5 +150,11 @@
         "my_work",
         "my_it",
         "my_abbreviation",
-    ]
+    ],
+    "[python]": {
+        "editor.detectIndentation": false,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+    }
+
 }

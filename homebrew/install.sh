@@ -28,6 +28,8 @@ readline
 imagemagick
 ffmpeg
 watch
+rsync
+
 # Windowsで作ったzipのファイル名でも文字化けを防ぐ
 unar
 # sftpのタブ補完が効くので入れる

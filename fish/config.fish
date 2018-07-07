@@ -1,6 +1,13 @@
 # config.fish
 
 #--------------------------------------
+# google cloud sdk
+# 勝手に色々いじられるので、最初に入れておく
+if test -e $HOME/google-cloud-sdk
+	bass source $HOME/google-cloud-sdk/path.bash.inc
+	bass source $HOME/google-cloud-sdk/completion.bash.inc
+end
+#--------------------------------------
 # OS判定
 if test (uname) = 'Darwin'
 	set OSNAME 'Mac'
@@ -68,8 +75,6 @@ if test $OSNAME = 'Linux'
 	end
 end
 
-
-
 # 特に挨拶はいらない
 set fish_greeting ""
 
@@ -130,6 +135,10 @@ if test -e $HOME/go/src/github.com/uber/go-torch/FlameGraph
 end
 if test -e $HOME/Library/Android/sdk
 	set -x PATH $HOME/Library/Android/sdk/platform-tools $PATH
+end
+
+if test -e $HOME/google-cloud-sdk/platform/google_appengine
+	set -x PATH $HOME/google-cloud-sdk/platform/google_appengine $PATH
 end
 
 # CUDA https://developer.nvidia.com/cuda-toolkit
@@ -209,9 +218,9 @@ end
 
 #--------------------------------------
 # golang
-if test -e $HOME/go
-	set -x GOPATH $HOME/go
-end
+#if test -e $HOME/go
+#	set -x GOPATH $HOME/go
+#end
 if test -e /usr/local/opt/go/libexec
 	set -x GOROOT /usr/local/opt/go/libexec
 else if test $OSNAME = "Windows"
@@ -314,6 +323,17 @@ if test -e $HOME/mycheatsheets
 		cd -
 	end
 	balias ec EditCheatSheets
+	function EditSpellCheckerDictionary
+		cd ~/mycheatsheets/CodeSpellChecker/
+		git pull origin master
+		ls $HOME/mycheatsheets/CodeSpellChecker/|peco|read sheet
+		vim ~/mycheatsheets/CodeSpellChecker/$sheet
+		git add -A
+		git commit -m "at $HOSTNAME"
+		git push origin master
+		cd -
+	end
+	balias ed EditSpellCheckerDictionary
 end
 
 #--------------------------------------
