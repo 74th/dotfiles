@@ -22,6 +22,7 @@ else
 	set OSDISTRO 'unknown'
 end
 
+
 #--------------------------------------
 # fish
 # viキーバインド
@@ -90,9 +91,16 @@ set -x LC_CTYPE en_US.UTF-8
 set -x LC_ALL en_US.UTF-8
 
 #--------------------------------------
+# google cloud sdk
+# PATHに/usr/local/binを勝手に追加するため、先に実行する
+if test -e $HOME/google-cloud-sdk
+	bass source $HOME/google-cloud-sdk/path.bash.inc
+	bass source $HOME/google-cloud-sdk/completion.bash.inc
+end
+#--------------------------------------
 # PATH
 if test $OSNAME = 'Mac'
-	set -x PATH /usr/local/bin ~/dotfiles/bin/darwin $PATH
+	set -x PATH ~/dotfiles/bin/darwin $PATH
 end
 if test $OSNAME = 'Linux'
 	set -x PATH ~/dotfiles/bin/linux $PATH
@@ -119,6 +127,9 @@ if test -e $HOME/dotfiles/dotfile/bin
 end
 if test -e $HOME/go/src/github.com/uber/go-torch/FlameGraph
 	set -x PATH $HOME/go/src/github.com/uber/go-torch/FlameGraph $PATH
+end
+if test -e $HOME/Library/Android/sdk
+	set -x PATH $HOME/Library/Android/sdk/platform-tools $PATH
 end
 
 # CUDA https://developer.nvidia.com/cuda-toolkit
@@ -303,12 +314,6 @@ if test -e $HOME/mycheatsheets
 		cd -
 	end
 	balias ec EditCheatSheets
-end
-#--------------------------------------
-# google cloud sdk
-if test -e $HOME/google-cloud-sdk
-	bass source $HOME/google-cloud-sdk/path.bash.inc
-	bass source $HOME/google-cloud-sdk/completion.bash.inc
 end
 
 #--------------------------------------
