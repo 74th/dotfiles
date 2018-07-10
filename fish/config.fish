@@ -326,6 +326,16 @@ if test -e $HOME/mycheatsheets
 end
 
 #--------------------------------------
+# pyenv 環境でgcloudを動かために、python2を設定する
+if builtin command -v  gcloud >/dev/null;
+	if test -e /bin/python
+		set -x CLOUDSDK_PYTHON /bin/python
+	else if test -e /usr/bin/python
+		set -x CLOUDSDK_PYTHON /usr/bin/python
+	end
+end
+
+#--------------------------------------
 # ローカル設定
 if test -e $HOME/.config.fish
 	source $HOME/.config.fish
