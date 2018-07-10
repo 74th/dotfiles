@@ -23,7 +23,7 @@ fish -c 'fisher omf/balias'
 # balias
 fish -c 'fisher omf/balias'
 # bass
-fish -c 'fisher kedc/bass'
+fish -c 'fisher edc/bass'
 # aws
 if type aws >/dev/null 2>&1; then
 	fish -c 'fisher omf/aws'
