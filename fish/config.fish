@@ -113,7 +113,7 @@ end
 if test -e $HOME/go
 	set -x PATH $HOME/go/bin $PATH
 end
-if test -e $HOME/npm
+if test -e $HOME/npm/bin
 	set -x PATH $HOME/npm/bin $PATH
 end
 # pyenv https://github.com/pyenv/pyenv
