@@ -1,29 +1,30 @@
+#!/bin/bash
 sudo apt update
 
-# vim
-if [ $# = 0 ] || [ $1 = "vim" ];then
-	sudo apt install -y vim
-fi
-
-# git
-if [ $# = 0 ] || [ $1 = "git" ];then
-	sudo apt install -y git git-flow bash-completion
-	sudo curl -o /etc/bash_completion.d/git-flow-completion.bash https://raw.githubusercontent.com/bobthecow/git-flow-completion/master/git-flow-completion.bash
-fi
-
 # fish
-if [ $# = 0 ] || [ $1 = "fish" ];then
+if [ type fish 2>/dev/null 1>/dev/null ]; then
 	# https://launchpad.net/~fish-shell/+archive/ubuntu/release-2
 	sudo apt-add-repository ppa:fish-shell/release-2
 	sudo apt-get update
-	sudo apt-get install fish
-fi
-
-# go-1.8
-if [ $# = 0 ] || [ $1 = "go" ];then
-	sudo apt install -y golang-1.8
-	sudo ln -s /usr/share/go-1.8/bin/* /usr/local/bin/
+	sudo apt-get -y install fish
 fi
 
 # dotnet need
-sudo apt install apt-transport-https
+PKG_LIST=$(cat <<EOS
+# dotnetのインストールに必要だったりする
+apt-transport-https
+
+vim
+peco
+
+gcc
+make
+automake
+gdb
+
+EOS
+)
+PKG_LIST=$(echo "$PKG_LIST" | perl -pe 's/^#.*$//g')
+PKG_LIST=$(echo "$PKG_LIST" | perl -pe 's/\n/ /g')
+
+sudo apt install -y $PKG_LIST

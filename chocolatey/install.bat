@@ -6,3 +6,4 @@ choco install -y ^
  python ^
  golang ^
  bitnami-xampp ^
+ nodejs ^
