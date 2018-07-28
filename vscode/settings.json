@@ -4,7 +4,7 @@
     // Windows,Linuxの場合、スペースを入れて、ウェイトもスペースで区切る
     // For Mac, Windows
     // "editor.fontFamily": "SourceCodePro-Light,Source Code Pro Light,SourceHanCodeJP-Light,Source Han Code JP Light,TakaoGothic",
-    "editor.fontFamily": "Hasklig-Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
+    "editor.fontFamily": "Hasklig-Light,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
     "editor.fontLigatures": true,
     // For Linux
     //"editor.fontFamily": "Source Code Pro Medium,Source Han Code JP Medium,TakaoGothic",
