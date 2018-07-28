@@ -1,4 +1,5 @@
 {
+    "terminal.external.osxExec": "Terminal.app",
     // font
     // Macの場合、スペースを詰めて、ウェイトをハイフンで区切る
     // Windows,Linuxの場合、スペースを入れて、ウェイトもスペースで区切る
@@ -68,8 +69,8 @@
     "python.formatting.yapfArgs": [
         "--style={COLUMN_LIMIT: 120}"
     ],
-    "terminal.integrated.shell.osx": "/usr/local/bin/fish",
-    "terminal.integrated.shell.linux": "fish",
+    "terminal.integrated.shell.osx": "/usr/local/bin/bash",
+    "terminal.integrated.shell.linux": "bash",
     // minimap
     "editor.minimap.enabled": false,
     // plantuml
@@ -155,6 +156,6 @@
         "editor.detectIndentation": false,
         "editor.insertSpaces": true,
         "editor.tabSize": 4,
-    }
-
+    },
+    "git.autofetch": true
 }

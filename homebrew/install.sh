@@ -19,6 +19,9 @@ bash bash-completion
 # Linuxのツールを使う
 coreutils
 
+# Java
+maven
+
 # CUIツール
 wget
 fish
