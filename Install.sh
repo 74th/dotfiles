@@ -183,7 +183,11 @@ fi
 if type go >/dev/null 2>&1; then
 	./golang/goget.sh
 fi
-
+# ----------------------------------------
+# UbuntuのEditor設定
+if [ -e /usr/bin/update-alternatives && -e /usr/bin/vim.basic ]; then
+	sudo update-alternatives --set editor /usr/bin/vim.basic
+fi
 # ----------------------------------------
 # aws cli
 if type pip >/dev/null 2>&1; then
