@@ -113,7 +113,7 @@ end
 if test -e $HOME/go
 	set -x PATH $HOME/go/bin $PATH
 end
-if test -e $HOME/npm
+if test -e $HOME/npm/bin
 	set -x PATH $HOME/npm/bin $PATH
 end
 # pyenv https://github.com/pyenv/pyenv
@@ -334,6 +334,16 @@ if test -e $HOME/mycheatsheets
 		cd -
 	end
 	balias ed EditSpellCheckerDictionary
+end
+
+#--------------------------------------
+# pyenv 環境でgcloudを動かために、python2を設定する
+if builtin command -v  gcloud >/dev/null;
+	if test -e /bin/python
+		set -x CLOUDSDK_PYTHON /bin/python
+	else if test -e /usr/bin/python
+		set -x CLOUDSDK_PYTHON /usr/bin/python
+	end
 end
 
 #--------------------------------------

@@ -1,4 +1,5 @@
 {
+    "terminal.external.osxExec": "Terminal.app",
     // font
     // Macの場合、スペースを詰めて、ウェイトをハイフンで区切る
     // Windows,Linuxの場合、スペースを入れて、ウェイトもスペースで区切る
@@ -30,7 +31,7 @@
     "editor.cursorBlinking": "smooth",
     "editor.renderLineHighlight": "all",
     // 表示周り
-    "window.zoomLevel": 0,
+    "window.zoomLevel": -1,
     "workbench.colorCustomizations": {
         "editorIndentGuide.activeBackground": "#505050"
     },
@@ -45,8 +46,6 @@
     // file
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
-    // Terminal
-    "terminal.integrated.shell.windows": "C:\\cygwin64\\Cygwin.bat",
     // golang
     "go.lintOnSave": "package",
     "go.formatTool": "goreturns",
@@ -68,8 +67,8 @@
     "python.formatting.yapfArgs": [
         "--style={COLUMN_LIMIT: 120}"
     ],
-    "terminal.integrated.shell.osx": "/usr/local/bin/fish",
-    "terminal.integrated.shell.linux": "fish",
+    "terminal.integrated.shell.osx": "/usr/local/bin/bash",
+    "terminal.integrated.shell.linux": "bash",
     // minimap
     "editor.minimap.enabled": false,
     // plantuml
@@ -144,6 +143,18 @@
         {
             "name": "my_abbreviation",
             "path": "/Users/nnyn/mycheatsheets/CodeSpellChecker/abbreviation.txt"
+        },
+        {
+            "name": "my_work_win",
+            "path": "c:\\\\Users\\nnyn\\mycheatsheets\\CodeSpellChecker\\work.txt",
+        },
+        {
+            "name": "my_it_win",
+            "path": "c;\\\\Users\\nnyn\\mycheatsheets\\CodeSpellChecker\\it.txt"
+        },
+        {
+            "name": "my_abbreviation_win",
+            "path": "c:\\\\Users\\nnyn\\mycheatsheets\\CodeSpellChecker\\abbreviation.txt"
         }
     ],
     "cSpell.dictionaries": [
@@ -155,6 +166,6 @@
         "editor.detectIndentation": false,
         "editor.insertSpaces": true,
         "editor.tabSize": 4,
-    }
-
+    },
+    "git.autofetch": true
 }
