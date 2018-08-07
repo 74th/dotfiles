@@ -46,6 +46,7 @@ gnuplot
 protobuf
 gcc
 gdb
+geos
 
 # Golang
 go
@@ -56,6 +57,7 @@ graphviz qt qcachegrind
 # docker
 docker
 docker-compose
+kubectl
 
 # tensorflow関連
 # Java1.8がいるとかイケてないこと言うので、一旦排除
