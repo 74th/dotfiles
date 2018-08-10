@@ -30,7 +30,7 @@
     "editor.cursorBlinking": "smooth",
     "editor.renderLineHighlight": "all",
     // 表示周り
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     "workbench.colorCustomizations": {
         "editorIndentGuide.activeBackground": "#505050"
     },
@@ -165,6 +165,9 @@
         "editor.detectIndentation": false,
         "editor.insertSpaces": true,
         "editor.tabSize": 4,
+    },
+    "gitlens.mode.active": "zen",
+    "files.associations": {
+        "*.jinja": "yaml"
     }
-
 }
