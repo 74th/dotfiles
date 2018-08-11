@@ -116,6 +116,13 @@ end
 if test -e $HOME/npm/bin
 	set -x PATH $HOME/npm/bin $PATH
 end
+
+# Macデフォルトのpipのインストール先のbin
+# pyenvより優先度低めにbinをセットしておく
+if test -e $HOME/Library/Python/2.7/bin
+	set -x PATH $HOME/Library/Python/2.7/bin $PATH
+end
+
 # pyenv https://github.com/pyenv/pyenv
 if test -e $HOME/.pyenv
 	set -x PATH $HOME/.pyenv/shims $PATH
