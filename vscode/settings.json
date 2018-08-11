@@ -31,7 +31,7 @@
     "editor.cursorBlinking": "smooth",
     "editor.renderLineHighlight": "all",
     // 表示周り
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     "workbench.colorCustomizations": {
         "editorIndentGuide.activeBackground": "#505050"
     },
@@ -72,8 +72,8 @@
     // minimap
     "editor.minimap.enabled": false,
     // plantuml
-    "plantuml.server": "http://nagisa:18080/",
-    "plantuml.render": "PlantUMLServer",
+    // "plantuml.server": "http://nagisa:18080/",
+    // "plantuml.render": "PlantUMLServer",
     // cordova
 
     // mykeyscroll
