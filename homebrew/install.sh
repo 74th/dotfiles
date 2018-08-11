@@ -33,6 +33,7 @@ ffmpeg
 watch
 rsync
 
+
 # Windowsで作ったzipのファイル名でも文字化けを防ぐ
 unar
 # sftpのタブ補完が効くので入れる
@@ -106,6 +107,9 @@ terraform
 
 # Libre Office
 caskroom/cask/libreoffice
+
+# redis
+redis
 
 # MacVimはkaoriyaのエディションを入れるので、
 # homebrewからは外す
