@@ -1,18 +1,8 @@
-#!/bin/bash
-set -Ceu
+# -*- coding: utf-8 -*-
+from fabric2 import task
+import invoke
 
-# homebrew https://brew.sh/index_ja.html
-if ! which brew >/dev/null 2>&1; then
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-
-
-brew update
-brew upgrade
-
-brew install homebrew/cask/java
-
-PKG_LIST=$(cat <<EOS
+my_list = """
 # bash
 bash bash-completion
 
@@ -110,14 +100,36 @@ caskroom/cask/libreoffice
 
 # redis
 redis
+""" # type:str
 
-# MacVimはkaoriyaのエディションを入れるので、
-# homebrewからは外す
-EOS
-)
-PKG_LIST=$(echo "$PKG_LIST" | perl -pe 's/^#.*$//g')
-PKG_LIST=$(echo "$PKG_LIST" | perl -pe 's/\n/ /g')
 
-brew install $PKG_LIST
+@task(default=True)
+def default(c):
+    install_java(c)
+    update(c)
+    install(c)
 
-brew cleanup
+
+@task
+def install_java(c):
+    c.run("brew install homebrew/cask/java")
+
+
+@task
+def update(c):
+    c.run("brew update")
+    c.run("brew upgrade")
+
+
+@task
+def install(c):
+    c: invoke.Context
+    lines = my_list.split("\n")
+    install_list = ""
+    for l in lines:
+        if len(l) == 0:
+            continue
+        if l.startswith("#"):
+            continue
+        install_list += " " + l
+    c.run("brew install" + install_list)
