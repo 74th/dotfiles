@@ -167,6 +167,7 @@
         "editor.insertSpaces": true,
         "editor.tabSize": 4,
     },
+    "python.linting.mypyEnabled": true,
     "gitlens.mode.active": "zen",
     "files.associations": {
         "*.jinja": "yaml"
