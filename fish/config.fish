@@ -243,6 +243,7 @@ balias gowindows 'env GOOS=windows GOARCH=amd64 go'
 balias gomac 'env GOOS=darwin GOARCH=amd64 go'
 balias gonoopttest 'go test -gcflags "-N -l"'
 balias gonooptbuild 'go build -gcflags "-N -l"'
+balias pipinstall 'pip install -r ./requirements.txt'
 
 # デバッグ
 if type dlv 2>/dev/null 1>/dev/null

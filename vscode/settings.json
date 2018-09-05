@@ -166,6 +166,7 @@
         "editor.detectIndentation": false,
         "editor.insertSpaces": true,
         "editor.tabSize": 4,
+        "editor.formatOnSave": false
     },
     "python.linting.mypyEnabled": true,
     "gitlens.mode.active": "zen",
