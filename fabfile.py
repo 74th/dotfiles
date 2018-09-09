@@ -80,7 +80,7 @@ def curl(c):
 @task
 def rehash_pyenv(c):
     c: invoke.Context
-    if c.run("which pyenv", warn=True, shell="/bin/bash").ok:
+    if c.run("test -e .pyenv", warn=True).ok:
         print("## rehash pyenv")
         c.run("pyenv rehash")
 
@@ -168,7 +168,8 @@ def vimrc(c):
         c.run('echo "source ~/dotfiles/vimrc/gvimrc.vim" >>~/.gvimrc')
 
     c.run("mkdir -p .vim")
-    # TODO: ubuntu の場合 vim-huge をインストールする
+    if c.run("vi --version").stdout.find("Huge version") == -1 :
+        install_from_package_manager(c, "vim")
 
     c.run(
         "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -224,7 +225,7 @@ def install(c):
     git_config.set_config(c)
     if os == "macos":
         macos(c)
-    # vimrc(c)
+    vimrc(c)
     fish(c)
     # TODO: golang
     # TODO: aws cli
