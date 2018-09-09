@@ -103,6 +103,13 @@ redis
 """ # type:str
 
 
+def setHome(c: invoke.Context) -> dict:
+    env = {}
+    if len(c.run("echo $HOME", hide=True).stdout.strip()) == 0:
+        env["HOME"] = c.run("cd ~;pwd", hide=True).stdout.strip()
+    return env
+
+
 @task(default=True)
 def default(c):
     install_java(c)
@@ -112,18 +119,22 @@ def default(c):
 
 @task
 def install_java(c):
-    c.run("brew install homebrew/cask/java")
+    env = setHome(c)
+    c.run("brew install homebrew/cask/java", env=env)
 
 
 @task
 def update(c):
-    c.run("brew update")
-    c.run("brew upgrade")
+    c: invoke.Context
+    env = setHome(c)
+    c.run("brew update", env=env)
+    c.run("brew upgrade", env=env)
 
 
 @task
 def install(c):
     c: invoke.Context
+    env = setHome(c)
     lines = my_list.split("\n")
     install_list = ""
     for l in lines:
@@ -132,4 +143,4 @@ def install(c):
         if l.startswith("#"):
             continue
         install_list += " " + l
-    c.run("brew install" + install_list)
+    c.run("brew install" + install_list, env=env)
