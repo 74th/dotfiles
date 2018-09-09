@@ -169,6 +169,7 @@
         "editor.formatOnSave": false
     },
     "python.linting.mypyEnabled": true,
+    "python.linting.mypyPath": "/usr/local/bin/mypy",
     "gitlens.mode.active": "zen",
     "files.associations": {
         "*.jinja": "yaml"
