@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from fabric2 import task
+from fabric import task
 import invoke
 
 my_list = """
