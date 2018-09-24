@@ -89,6 +89,9 @@ Plug '74th/vim-review'
 " Plantuml
 Plug 'aklt/plantuml-syntax'
 
+" python
+Plug 'davidhalter/jedi-vim'
+
 call plug#end()
 
 " CUIでも256colorならmolokaiを使う
