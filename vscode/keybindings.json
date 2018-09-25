@@ -229,6 +229,6 @@
 	},
 	{
 		"key": "f4",
-		"command": "workbench.action.tasks.runTask"
+		"command": "editor.action.formatDocument"
 	}
 ]

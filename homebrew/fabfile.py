@@ -72,6 +72,9 @@ rbenv
 # bashのデバッグ
 bashdb
 
+# python ベースの Shell
+xonsh
+
 # font
 homebrew/cask-fonts/font-source-code-pro
 homebrew/cask-fonts/font-source-han-code-jp
