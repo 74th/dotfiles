@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from fabric2 import task
+from fabric import task
 import invoke
 
 my_list = """
@@ -71,6 +71,9 @@ rbenv
 
 # bashのデバッグ
 bashdb
+
+# python ベースの Shell
+xonsh
 
 # font
 homebrew/cask-fonts/font-source-code-pro

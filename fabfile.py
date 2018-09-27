@@ -1,7 +1,7 @@
 import invoke
 import git as git_config
 import homebrew
-from fabric2 import task, Connection, runners
+from fabric import task, Connection, runners
 
 
 def detect_os(c: invoke.Context):
@@ -206,6 +206,17 @@ def mypy(c, os):
     if os == "macos":
         c.run("/usr/local/bin/pip3 install mypy", env={"PYTHONPATH": "/usr/local/bin/python3"})
 
+@task
+def xonsh(c):
+    c: invoke.Context
+    os: str = detect_os(c)
+    print("## xonsh")
+    if os == "macos":
+        c.run("brew install xonsh")
+    else:
+        c.run("pip3 install xonsh prompt_toolkit")
+    c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
+
 
 @task(default=True)
 def install(c):
@@ -227,6 +238,7 @@ def install(c):
         macos(c)
     vimrc(c)
     fish(c)
+    xonsh(c)
     # TODO: golang
     # TODO: aws cli
     # TODO: gcloud

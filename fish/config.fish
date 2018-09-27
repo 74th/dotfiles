@@ -116,6 +116,9 @@ end
 if test -e $HOME/npm/bin
 	set -x PATH $HOME/npm/bin $PATH
 end
+if test -e $HOME/.local/bin
+	set -x PATH $HOME/.local/bin $PATH
+end
 
 # Macデフォルトのpipのインストール先のbin
 # pyenvより優先度低めにbinをセットしておく

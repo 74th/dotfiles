@@ -47,6 +47,9 @@ fi
 if [ -e $HOME/bin ];then
 	export PATH=~/bin:$PATH
 fi
+if [ -e $HOME/.local/bin ];then
+	export PATH=~/.local/bin:$PATH
+fi
 export PATH=~/dotfiles/bin:$PATH
 if [ $OSNAME = "Mac" ];then
 	export PATH=~/dotfiles/bin/darwin:$PATH

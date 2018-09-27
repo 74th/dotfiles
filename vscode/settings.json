@@ -175,5 +175,11 @@
         "*.jinja": "yaml"
     },
     "git.autofetch": true,
-    "python.pythonPath": "~/.pyenv/versions/3.6.5/bin/python"
+    "python.pythonPath": "~/.pyenv/versions/3.6.5/bin/python",
+    "search.exclude": {
+        "**/.mypy_cache": true,
+        "**/.vscode": true,
+        "**/*.pyc": true,
+        "**/tmp": true
+    }
 }
