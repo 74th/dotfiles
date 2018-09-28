@@ -170,12 +170,12 @@
     },
     "python.linting.mypyEnabled": true,
     "python.linting.mypyPath": "/usr/local/bin/mypy",
+    "python.linting.pylintPath": "/usr/local/bin/pylint",
     "gitlens.mode.active": "zen",
     "files.associations": {
         "*.jinja": "yaml"
     },
     "git.autofetch": true,
-    "python.pythonPath": "~/.pyenv/versions/3.6.5/bin/python",
     "search.exclude": {
         "**/.mypy_cache": true,
         "**/.vscode": true,

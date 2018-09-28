@@ -4,7 +4,7 @@ import re
 import json
 import tempfile
 import builtins
-import invoke
+import invoke as _invoke
 from collections import OrderedDict
 from operator import itemgetter
 import prompt_toolkit
@@ -20,13 +20,13 @@ ENV["XONSH_SHOW_TRACEBACK"] = True
 execer = builtins.__xonsh_execer__ # type: Execer
 
 def silent_run(command: str) -> str:
-    return invoke.run(command, warn=True, hide=True).stdout.strip()
+    return _invoke.run(command, warn=True, hide=True).stdout.strip()
 
 def run(command: str)->HiddenCommandPipeline:
     return execer.eval(command)
 
 
-c = invoke.Context({
+c = _invoke.Context({
     "run": {
         "echo": True,
         "warn": True,
@@ -108,10 +108,8 @@ def __add_paths():
     _add_path_if_exists('/Library/Frameworks/Mono.framework/Versions/Current/Commands')
     _add_path_if_exists('/Library/TeX/texbin')
     if os.path.exists(f'{HOME}/Library/Python/2.7/bin'):
-        # OS 標準の Python は優先度低めに
         ENV["PATH"].append(f'{HOME}/Library/Python/2.7/bin')
     if os.path.exists(f'{HOME}/Library/Python/3.7/bin'):
-        # OS 標準の Python は優先度低めに
         ENV["PATH"].append(f'{HOME}/Library/Python/3.7/bin')
 
     _add_path_if_exists(f'{HOME}/google-cloud-sdk/bin')
@@ -174,8 +172,16 @@ def _gcloud_config():
         return
 _gcloud_config()
 
-# https://qiita.com/riktor/items/4a90b4e125cd091a9d07
+def _add_syntax_suger():
+    aliases["al"] = ["ls", "-al"]
+    aliases["ll"] = ["ls", "-al"]
+_add_syntax_suger()
+
 def _get_history(session_history=None, return_list=False):
+    '''
+    https://qiita.com/riktor/items/4a90b4e125cd091a9d07
+    TODO: 時々お掃除いる？
+    '''
     hist_dir = __xonsh_env__['XONSH_DATA_DIR']
     files = [ os.path.join(hist_dir,f) for f in os.listdir(hist_dir)
               if f.startswith('xonsh-') and f.endswith('.json') ]
@@ -186,14 +192,12 @@ def _get_history(session_history=None, return_list=False):
     cmds = [ c[0] for c in cmds[::-1] ]
     if session_history:
         cmds.extend(session_history)
-    # dedupe
     zip_with_dummy = list(zip(cmds, [0] * len(cmds)))[::-1]
     cmds = list(OrderedDict(zip_with_dummy).keys())[::-1]
     if return_list:
         return cmds
     else:
         return '\n'.join(cmds)
-
 
 @events.on_ptk_create
 def custom_keybindings(bindings, **kw):
