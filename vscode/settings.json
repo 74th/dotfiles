@@ -181,5 +181,6 @@
         "**/.vscode": true,
         "**/*.pyc": true,
         "**/tmp": true
-    }
+    },
+    "python.formatting.yapfPath": "/usr/local/bin/yapf"
 }

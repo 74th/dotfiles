@@ -34867,7 +34867,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>970 768 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>269 168 918 452 0 0 3008 1669 </string>
+	<string>910 -811 796 486 832 -900 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>832 -900 1440 877 832 -900 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
@@ -37590,7 +37590,7 @@
 			<key>Guid</key>
 			<string>8EEF7D77-095B-4CF2-91C1-F1A8DEB5B674</string>
 			<key>Has Hotkey</key>
-			<true/>
+			<false/>
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>

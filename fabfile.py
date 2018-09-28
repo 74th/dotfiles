@@ -198,25 +198,30 @@ def fish(c):
         c.sudo("sudo yum install -y fish")
 
 
-@task
-def mypy(c, os):
+def install_pip3(c, pkg):
     c: invoke.Context
-    os: str
-    print("## mypy")
+    os: str = detect_os(c)
     if os == "macos":
-        c.run("/usr/local/bin/pip3 install mypy", env={"PYTHONPATH": "/usr/local/bin/python3"})
+        c.run(f"/usr/local/bin/pip3 install --upgrade {pkg}", env={"PYTHONPATH": "/usr/local/bin/python3"})
+    else:
+        c.run(f"pip3 install {pkg}")
+
+
+@task
+def mypy(c):
+    print(f"## mypy")
+    install_pip3("mypy")
 
 @task
 def xonsh(c):
-    c: invoke.Context
-    os: str = detect_os(c)
     print("## xonsh")
-    if os == "macos":
-        c.run("brew install xonsh")
-    else:
-        c.run("pip3 install xonsh prompt_toolkit")
+    install_pip3("xonsh")
     c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
 
+@task
+def fabric(c):
+    print("## fabric")
+    install_pip3("fabric")
 
 @task(default=True)
 def install(c):
@@ -239,7 +244,8 @@ def install(c):
     vimrc(c)
     fish(c)
     xonsh(c)
+    fabric(c)
+    mypy(c)
     # TODO: golang
     # TODO: aws cli
     # TODO: gcloud
-    mypy(c, os)

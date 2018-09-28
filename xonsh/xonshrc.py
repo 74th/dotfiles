@@ -2,24 +2,28 @@
 import os
 import re
 import json
+import tempfile
 import builtins
 import invoke
 from collections import OrderedDict
 from operator import itemgetter
 import prompt_toolkit
 from xonsh.environ import Env
+from xonsh.execer import Execer
+from xonsh.proc import HiddenCommandPipeline
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import Condition, ViInsertMode
 
 ENV = builtins.__xonsh_env__  # type: Env
 ENV["XONSH_SHOW_TRACEBACK"] = True
 
+execer = builtins.__xonsh_execer__ # type: Execer
 
 def silent_run(command: str) -> str:
     return invoke.run(command, warn=True, hide=True).stdout.strip()
 
-def run(command: str) ->str:
-    return invoke.run(command, warn=True, hide=False, echo=True).stdout.strip()
+def run(command: str)->HiddenCommandPipeline:
+    return execer.eval(command)
 
 
 c = invoke.Context({
@@ -106,9 +110,13 @@ def __add_paths():
     if os.path.exists(f'{HOME}/Library/Python/2.7/bin'):
         # OS 標準の Python は優先度低めに
         ENV["PATH"].append(f'{HOME}/Library/Python/2.7/bin')
+    if os.path.exists(f'{HOME}/Library/Python/3.7/bin'):
+        # OS 標準の Python は優先度低めに
+        ENV["PATH"].append(f'{HOME}/Library/Python/3.7/bin')
 
     _add_path_if_exists(f'{HOME}/google-cloud-sdk/bin')
     _add_path_if_exists(f'{HOME}/google-cloud-sdk/platform/google_appengine')
+
     # TODO: gcloud completion
 
     _add_path_if_exists(f'{HOME}/bin')
@@ -135,19 +143,19 @@ def _xonsh_config():
 _xonsh_config()
 
 def __edit_cheatsheets():
-    cd ~/mycheatsheets/
+    run("cd ~/mycheatsheets/")
     run("git pull origin master")
-    name = $(ls | peco).strip()
-    vim @(name)
+    name = run("ls | peco").lines[0].strip()
+    run(f"vim {name}")
     run("git add -A")
     run("git commit -m \"at (uname -s)\"")
     run("git push origin master")
-    cd -
+    run("cd -")
 aliases["ec"] = __edit_cheatsheets
 
 def __bookmark():
-    name = $(cat ~/bookmark | peco).strip()
-    cd @(name)
+    name = run("cat ~/bookmark | peco").lines[0].strip()
+    run(f"cd {name}")
 aliases["bk"] = __bookmark
 
 
@@ -209,9 +217,13 @@ def custom_keybindings(bindings, **kw):
 
     @handler(Keys.ControlR, filter=insert_mode)
     def select_history(event):
-        sess_history = $(history).split('\n')
+        sess_history = run("history").lines
+        sess_history = [h.strip() for h in sess_history]
         hist = _get_history(sess_history)
-        selected = $(echo @(hist) | peco)
-        event.current_buffer.insert_text(selected.strip())
+        with tempfile.NamedTemporaryFile() as tmp:
+            with open(tmp.name,"w") as f:
+                f.write(hist)
+            selected = run(f"cat {tmp.name} | peco").lines[0].strip()
+        event.current_buffer.insert_text(selected)
 
 # vim: expandtab ts=4 sw=4 :
