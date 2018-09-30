@@ -210,18 +210,18 @@ def install_pip3(c, pkg):
 @task
 def mypy(c):
     print(f"## mypy")
-    install_pip3("mypy")
+    install_pip3(c, "mypy")
 
 @task
 def xonsh(c):
     print("## xonsh")
-    install_pip3("xonsh")
+    install_pip3(c, "xonsh[ptk]")
     c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
 
 @task
 def fabric(c):
     print("## fabric")
-    install_pip3("fabric")
+    install_pip3(c, "fabric")
 
 @task(default=True)
 def install(c):
@@ -244,7 +244,7 @@ def install(c):
     vimrc(c)
     fish(c)
     xonsh(c)
-    fabric(c)
+    #fabric(c)
     mypy(c)
     # TODO: golang
     # TODO: aws cli
