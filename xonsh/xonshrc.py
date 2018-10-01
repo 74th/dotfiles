@@ -141,6 +141,7 @@ def _xonsh_config():
 _xonsh_config()
 
 def __edit_cheatsheets():
+    d = run("pwd").lines[0].strip()
     run("cd ~/mycheatsheets/")
     run("git pull origin master")
     name = run("ls | peco").lines[0].strip()
@@ -148,7 +149,7 @@ def __edit_cheatsheets():
     run("git add -A")
     run("git commit -m \"at (uname -s)\"")
     run("git push origin master")
-    run("cd -")
+    run(f"cd {d}")
 aliases["ec"] = __edit_cheatsheets
 
 def __bookmark():
