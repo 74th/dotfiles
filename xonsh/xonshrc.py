@@ -97,6 +97,7 @@ def __add_paths():
         # 追加されてなかった時用
         _add_path_if_exists('/usr/local/bin')
     _add_path_if_exists('/usr/local/cuda/bin')
+    _add_path_if_exists(f'{HOME}/npm/bin')
     _add_path_if_exists(f'{HOME}/Library/Android/sdk/platform-tools')
     _add_path_if_exists(f'{HOME}/.rbenv/shims')
     _add_path_if_exists(f'{HOME}/.pyenv/shims')
@@ -217,8 +218,8 @@ def custom_keybindings(bindings, **kw):
 
     @handler(Keys.ControlK)
     def ctrl_k(event):
-        buf = event.current_buffer # type: prompt_toolkit.buffer.Buffer
-        buf.apply_completion()
+        if event.current_buffer.suggestion:
+            event.current_buffer.insert_text(event.current_buffer.suggestion.text)
 
     @handler(Keys.ControlR, filter=insert_mode)
     def select_history(event):
