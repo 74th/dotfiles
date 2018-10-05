@@ -179,6 +179,11 @@ def _add_syntax_suger():
     aliases["ll"] = ["ls", "-al"]
 _add_syntax_suger()
 
+def _new_uuid():
+    import uuid
+    print(uuid.uuid1())
+aliases["uuid"] = _new_uuid
+
 def _get_history(session_history=None, return_list=False):
     '''
     https://qiita.com/riktor/items/4a90b4e125cd091a9d07
@@ -231,5 +236,8 @@ def custom_keybindings(bindings, **kw):
                 f.write(hist)
             selected = run(f"cat {tmp.name} | peco").lines[0].strip()
         event.current_buffer.insert_text(selected)
+
+xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z
+#xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda avox z powerline prompt_vi_mode click_tabcomplete
 
 # vim: expandtab ts=4 sw=4 :
