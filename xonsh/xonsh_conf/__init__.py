@@ -25,6 +25,7 @@ def silent_run(command: str) -> str:
 def run(command: str)->HiddenCommandPipeline:
     return execer.eval(command)
 
+HOSTNAME = silent_run("hostname -s") # type: str
 
 c = _invoke.Context({
     "run": {
@@ -63,10 +64,9 @@ def _set_prompt():
         prompt += "{GREEN}"
     prompt += "{user}{WHITE}@"
 
-    hostname = silent_run("hostname -s")
-    if hostname in ["nagisa", "methyl", "mini", "patty"]:
+    if HOSTNAME in ["nagisa", "methyl", "mini", "patty"]:
         prompt += "{CYAN}"
-    elif hostname in ["mbp"]:
+    elif HOSTNAME in ["mbp"]:
         prompt += "{YELLOW}"
     else:
         prompt += "{WHITE}"
@@ -157,6 +157,14 @@ def __bookmark():
     name = run("cat ~/bookmark | peco").lines[0].strip()
     run(f"cd {name}")
 aliases["bk"] = __bookmark
+
+def __command_bookamrk():
+    if HOSTNAME.startswith("o-"):
+        r = run("cat ~/mycheatsheets/CmdBookmark/work | peco")
+    if len(r.lines) > 0:
+        name = r.lines[0].strip()
+        run(name)
+aliases["cb"] = __command_bookamrk
 
 
 def _gcloud_config():
