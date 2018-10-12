@@ -238,4 +238,3 @@ def custom_keybindings(bindings, **kw):
         event.current_buffer.insert_text(selected)
 
 run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z")
-#xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda avox z powerline prompt_vi_mode click_tabcomplete

@@ -101,44 +101,44 @@
 	{
 		"key": "ctrl+w ctrl+w",
 		"command": "workbench.action.closeActiveEditor & vim.inNormalMode",
-		"when": "vim.inNormalMode"
+		"when": "!vim.inInsertMode"
 	},
 	{
 		"key": "ctrl+w w",
 		"command": "workbench.action.closeActiveEditor",
-		"when": "vim.inNormalMode"
+		"when": "!vim.inInsertMode"
 	},
 	{
 		"key": "ctrl+w ctrl+l",
-		"command": "workbench.action.focusNextGroup"
+		"command": "workbench.action.focusRightGroup"
 	},
 	{
 		"key": "ctrl+w l",
-		"command": "workbench.action.focusNextGroup"
+		"command": "workbench.action.focusRightGroup"
 	},
 	{
 		"key": "ctrl+w ctrl+h",
-		"command": "workbench.action.focusPreviousGroup"
+		"command": "workbench.action.focusLeftGroup"
 	},
 	{
 		"key": "ctrl+w h",
-		"command": "workbench.action.focusPreviousGroup"
+		"command": "workbench.action.focusLeftGroup"
 	},
 	{
 		"key": "ctrl+w ctrl+j",
-		"command": "workbench.action.focusPanel"
+		"command": "workbench.action.focusBelowGroup"
 	},
 	{
 		"key": "ctrl+w j",
-		"command": "workbench.action.focusPanel"
+		"command": "workbench.action.focusBelowGroup"
 	},
 	{
 		"key": "ctrl+w ctrl+k",
-		"command": "workbench.action.focusActiveEditorGroup"
+		"command": "workbench.action.focusAboveGroup"
 	},
 	{
 		"key": "ctrl+w k",
-		"command": "workbench.action.focusActiveEditorGroup"
+		"command": "workbench.action.focusAboveGroup"
 	},
 	{
 		"key": "cmd+w",

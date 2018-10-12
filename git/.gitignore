@@ -3,3 +3,4 @@
 debug.test
 .mypy_cache
 .pyc
+__pycache__
