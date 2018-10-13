@@ -13,6 +13,7 @@ from xonsh.execer import Execer
 from xonsh.proc import HiddenCommandPipeline
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import Condition, ViInsertMode
+from . import ctrl_r
 
 ENV = builtins.__xonsh_env__  # type: Env
 ENV["XONSH_SHOW_TRACEBACK"] = True
@@ -96,6 +97,8 @@ def __add_paths():
     if '/usr/local/bin' not in paths:
         # 追加されてなかった時用
         _add_path_if_exists('/usr/local/bin')
+    if '/usr/local/sbin' not in paths:
+        _add_path_if_exists('/usr/local/sbin')
     _add_path_if_exists('/usr/local/cuda/bin')
     _add_path_if_exists(f'{HOME}/npm/bin')
     _add_path_if_exists(f'{HOME}/Library/Android/sdk/platform-tools')
@@ -227,14 +230,7 @@ def custom_keybindings(bindings, **kw):
             event.current_buffer.insert_text(event.current_buffer.suggestion.text)
 
     @handler(Keys.ControlR, filter=insert_mode)
-    def select_history(event):
-        sess_history = run("history").lines
-        sess_history = [h.strip() for h in sess_history]
-        hist = _get_history(sess_history)
-        with tempfile.NamedTemporaryFile() as tmp:
-            with open(tmp.name,"w") as f:
-                f.write(hist)
-            selected = run(f"cat {tmp.name} | peco").lines[0].strip()
-        event.current_buffer.insert_text(selected)
+    def ctrl_r_event(event):
+        ctrl_r.select(event.current_buffer)
 
 run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z")
