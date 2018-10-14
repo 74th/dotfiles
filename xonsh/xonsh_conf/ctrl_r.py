@@ -56,14 +56,23 @@ def select_history(buf: prompt_toolkit.buffer.Buffer):
 def select_git(buf):
     line :str = buf.document.current_line
     if line.startswith("git checkout"):
-        with tempfile.NamedTemporaryFile() as tmp:
-            run(f"git branch -a --no-color | peco > {tmp.name}")
-            with open(tmp.name) as f:
-                peco: str = f.readline().strip()
+        '''
+        git status と ブランチを表示
+        '''
+        with tempfile.NamedTemporaryFile() as inputs:
+            run(f"git branch -a --no-color > {inputs.name}")
+            run(f"git status --short >> {inputs.name}")
+            with tempfile.NamedTemporaryFile() as tmp:
+                run(f"cat {inputs.name} | peco > {tmp.name}")
+                with open(tmp.name) as f:
+                    peco: str = f.readline().strip()
         if len(peco) > 0:
             branch = peco.split(" ")[-1]
             buf.insert_text(" "+branch)
-    if line.startswith("git add"):
+    if line.startswith("git add") or line.startswith("git reset"):
+        '''
+        git status で表示されるファイルを選択
+        '''
         selected = ""
         with tempfile.NamedTemporaryFile() as tmp:
             run(f"git status --short | peco > {tmp.name}")
