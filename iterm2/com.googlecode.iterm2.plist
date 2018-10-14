@@ -34864,12 +34864,17 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>970 768 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>910 -811 796 486 832 -900 1440 877 </string>
+	<string>268 114 918 452 0 0 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>832 -900 1440 877 832 -900 1440 877 </string>
+	<string>0 0 1440 877 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -35653,7 +35658,7 @@
 				</dict>
 			</array>
 			<key>Space</key>
-			<integer>2</integer>
+			<integer>1</integer>
 			<key>Sync Title</key>
 			<false/>
 			<key>Tags</key>
@@ -39022,7 +39027,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-09-23T03:48:18Z</date>
+	<date>2018-09-24T03:48:19Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
