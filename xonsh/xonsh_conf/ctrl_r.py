@@ -86,6 +86,36 @@ def select_git(buf):
         if len(selected) > 0:
             buf.insert_text(selected)
 
+def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
+    with tempfile.NamedTemporaryFile() as tmp:
+        run(f"cat  ~/mycheatsheets/CmdBookmark/work | peco > {tmp.name}")
+        with open(tmp.name) as f:
+            line = f.readline()
+            if not line:
+                return
+    buf.reset()
+    buf.insert_text(line.strip())
+
+def select_invoke(buf: prompt_toolkit.buffer.Buffer):
+    commands = []
+    with tempfile.NamedTemporaryFile() as tmp:
+        run(f"invoke --complete | peco > {tmp.name}")
+        with open(tmp.name) as f:
+            line = f.readline()
+            if not line:
+                return
+    buf.insert_text(" " + line.strip())
+
+def select_fabric(buf: prompt_toolkit.buffer.Buffer):
+    commands = []
+    with tempfile.NamedTemporaryFile() as tmp:
+        run(f"fabric --complete | peco > {tmp.name}")
+        with open(tmp.name) as f:
+            line = f.readline()
+            if not line:
+                return
+    buf.insert_text(" " + line.strip())
+
 
 def select(buf: prompt_toolkit.buffer.Buffer):
     line :str = buf.document.current_line
@@ -93,3 +123,9 @@ def select(buf: prompt_toolkit.buffer.Buffer):
         select_history(buf)
     if line.startswith("git"):
         select_git(buf)
+    if line.startswith("cb"):
+        select_command_bookmark(buf)
+    if line.startswith("inv"):
+        select_invoke_command(buf)
+    if line.startswith("fab"):
+        select_invoke_command(buf)
