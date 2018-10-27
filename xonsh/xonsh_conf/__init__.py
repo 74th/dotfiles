@@ -4,31 +4,21 @@ import re
 import json
 import tempfile
 import builtins
-import invoke as _invoke
+import invoke
 from collections import OrderedDict
 from operator import itemgetter
 import prompt_toolkit
-from xonsh.environ import Env
+from .lib import HOSTNAME, run, silent_run
+from .xonsh_builtin import x_env, x_aliases, x_events
 from xonsh.execer import Execer
 from xonsh.proc import HiddenCommandPipeline
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import Condition, ViInsertMode
 from . import ctrl_r
 
-ENV = builtins.__xonsh_env__  # type: Env
-ENV["XONSH_SHOW_TRACEBACK"] = True
+x_env["XONSH_SHOW_TRACEBACK"] = True
 
-execer = builtins.__xonsh_execer__ # type: Execer
-
-def silent_run(command: str) -> str:
-    return _invoke.run(command, warn=True, hide=True).stdout.strip()
-
-def run(command: str)->HiddenCommandPipeline:
-    return execer.eval(command)
-
-HOSTNAME = os.uname().nodename
-
-c = _invoke.Context({
+c = invoke.Context({
     "run": {
         "echo": True,
         "warn": True,
@@ -36,8 +26,7 @@ c = _invoke.Context({
     }
 })
 
-
-paths = ENV["PATH"]
+paths = x_env["PATH"]
 
 
 def _add_path_if_exists(path: str, if_path: str = None):
@@ -49,7 +38,7 @@ def _add_path_if_exists(path: str, if_path: str = None):
         paths.insert(0, path)
 
 
-HOME = ENV["HOME"]
+HOME = x_env["HOME"]
 
 
 def _set_prompt():
@@ -58,7 +47,7 @@ def _set_prompt():
 
     # user
     root = False
-    if "USER" in ENV and ENV["USER"] == "root":
+    if "USER" in x_env and x_env["USER"] == "root":
         root = True
         prompt += "{RED}"
     else:
@@ -77,7 +66,7 @@ def _set_prompt():
 
     prompt += "{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}\n$"
 
-    ENV["PROMPT"] = prompt
+    x_env["PROMPT"] = prompt
 
 
 _set_prompt()
@@ -87,11 +76,14 @@ def _default_charsets():
     '''
     文字コードの標準設定
     '''
-    ENV["LESSCHARSET"] = "UTF-8"
-    ENV["LANG"] = "en_US.UTF-8"
-    ENV["LC_CTYPE"] = "en_US.UTF-8"
-    ENV["LC_ALL"] = "en_US.UTF-8"
+    x_env["LESSCHARSET"] = "UTF-8"
+    x_env["LANG"] = "en_US.UTF-8"
+    x_env["LC_CTYPE"] = "en_US.UTF-8"
+    x_env["LC_ALL"] = "en_US.UTF-8"
+
+
 _default_charsets()
+
 
 def __add_paths():
     if '/usr/local/bin' not in paths:
@@ -102,8 +94,8 @@ def __add_paths():
     _add_path_if_exists('/usr/local/cuda/bin')
     _add_path_if_exists(f'{HOME}/npm/bin')
     _add_path_if_exists(f'{HOME}/Library/Android/sdk/platform-tools')
-    _add_path_if_exists(f'{HOME}/.rbenv/shims')
-    _add_path_if_exists(f'{HOME}/.pyenv/shims')
+    _add_path_if_exists(f'{HOME}/.rbx_env/shims')
+    _add_path_if_exists(f'{HOME}/.pyx_env/shims')
     _add_path_if_exists(f'{HOME}/go/bin')
     _add_path_if_exists(f'{HOME}/dotfiles/bin/darwin')
     _add_path_if_exists(f'{HOME}/go/src/github.com/uber/go-torch/FlameGraph')
@@ -112,9 +104,9 @@ def __add_paths():
     _add_path_if_exists('/Library/Frameworks/Mono.framework/Versions/Current/Commands')
     _add_path_if_exists('/Library/TeX/texbin')
     if os.path.exists(f'{HOME}/Library/Python/2.7/bin'):
-        ENV["PATH"].append(f'{HOME}/Library/Python/2.7/bin')
+        x_env["PATH"].append(f'{HOME}/Library/Python/2.7/bin')
     if os.path.exists(f'{HOME}/Library/Python/3.7/bin'):
-        ENV["PATH"].append(f'{HOME}/Library/Python/3.7/bin')
+        x_env["PATH"].append(f'{HOME}/Library/Python/3.7/bin')
 
     _add_path_if_exists(f'{HOME}/google-cloud-sdk/bin')
     _add_path_if_exists(f'{HOME}/google-cloud-sdk/platform/google_appengine')
@@ -124,25 +116,31 @@ def __add_paths():
     _add_path_if_exists(f'{HOME}/bin')
     _add_path_if_exists(f'{HOME}/dotfiles/bin')
 
+
 __add_paths()
 
+
 def _set_gitalias():
-    aliases["gt"] = ["git", "status"]
-    aliases["commit"] = ["git", "commit", "-v"]
-    aliases["add"] = ["git", "add"]
-    aliases["push"] = ["git", "push"]
-    aliases["pull"] = ["git", "pull"]
+    x_aliases["gt"] = ["git", "status"]
+    x_aliases["commit"] = ["git", "commit", "-v"]
+    x_aliases["add"] = ["git", "add"]
+    x_aliases["push"] = ["git", "push"]
+    x_aliases["pull"] = ["git", "pull"]
+
+
 _set_gitalias()
 
 
 def _xonsh_config():
-    ENV["VI_MODE"] = True
+    x_env["VI_MODE"] = True
     # 補完中に Enter を押すと決定のみ
-    ENV["COMPLETIONS_CONFIRM"] = True
+    x_env["COMPLETIONS_CONFIRM"] = True
     # ディレクトリ名を入力すればcdできる
-    ENV["AUTO_CD"] = True
+    x_env["AUTO_CD"] = True
+
 
 _xonsh_config()
+
 
 def __edit_cheatsheets():
     d = run("pwd").lines[0].strip()
@@ -154,14 +152,20 @@ def __edit_cheatsheets():
     run("git commit -m \"at (uname -s)\"")
     run("git push origin master")
     run(f"cd {d}")
-aliases["ec"] = __edit_cheatsheets
+
+
+x_aliases["ec"] = __edit_cheatsheets
+
 
 def __bookmark():
     name = run("cat ~/bookmark | peco").lines[0].strip()
     run(f"cd {name}")
-aliases["bk"] = __bookmark
 
-def __command_bookamrk():
+
+x_aliases["bk"] = __bookmark
+
+
+def __command_bookmark():
     if HOSTNAME.startswith("o-"):
         filename = "work"
     else:
@@ -170,9 +174,11 @@ def __command_bookamrk():
     if len(r.lines) > 0:
         name = r.lines[0].strip()
         if name[0] == "[":
-            name = name[name.find("]")+1:]
+            name = name[name.find("]") + 1:]
         run(name)
-aliases["cb"] = __command_bookamrk
+
+
+x_aliases["cb"] = __command_bookmark
 
 
 def _gcloud_config():
@@ -186,33 +192,40 @@ def _gcloud_config():
     ]
     for path in paths:
         if os.path.exists(path):
-            ENV["CLOUDSDK_PYTHON"] = path
+            x_env["CLOUDSDK_PYTHON"] = path
         return
+
+
 _gcloud_config()
 
-def _add_syntax_suger():
-    aliases["al"] = ["ls", "-al"]
-    aliases["ll"] = ["ls", "-al"]
-_add_syntax_suger()
+
+def _add_syntax_sugar():
+    x_aliases["al"] = ["ls", "-al"]
+    x_aliases["ll"] = ["ls", "-al"]
+
+
+_add_syntax_sugar()
+
 
 def _new_uuid():
     import uuid
     print(uuid.uuid1())
-aliases["uuid"] = _new_uuid
+
+
+x_aliases["uuid"] = _new_uuid
+
 
 def _get_history(session_history=None, return_list=False):
     '''
     https://qiita.com/riktor/items/4a90b4e125cd091a9d07
     TODO: 時々お掃除いる？
     '''
-    hist_dir = __xonsh_env__['XONSH_DATA_DIR']
-    files = [ os.path.join(hist_dir,f) for f in os.listdir(hist_dir)
-              if f.startswith('xonsh-') and f.endswith('.json') ]
-    file_hist = [ json.load(open(f))['data']['cmds'] for f in files ]
-    cmds = [ ( c['inp'].replace('\n', ''), c['ts'][0] )
-                 for cmds in file_hist for c in cmds if c]
+    hist_dir = x_env['XONSH_DATA_DIR']
+    files = [os.path.join(hist_dir, f) for f in os.listdir(hist_dir) if f.startswith('xonsh-') and f.endswith('.json')]
+    file_hist = [json.load(open(f))['data']['cmds'] for f in files]
+    cmds = [(c['inp'].replace('\n', ''), c['ts'][0]) for cmds in file_hist for c in cmds if c]
     cmds.sort(key=itemgetter(1))
-    cmds = [ c[0] for c in cmds[::-1] ]
+    cmds = [c[0] for c in cmds[::-1]]
     if session_history:
         cmds.extend(session_history)
     zip_with_dummy = list(zip(cmds, [0] * len(cmds)))[::-1]
@@ -222,16 +235,17 @@ def _get_history(session_history=None, return_list=False):
     else:
         return '\n'.join(cmds)
 
-@events.on_ptk_create
+
+@x_events.on_ptk_create
 def custom_keybindings(bindings, **kw):
     handler = bindings.add
     insert_mode = ViInsertMode()
 
     @handler(Keys.ControlW)
     def ctrl_w(event):
-        buf = event.current_buffer # type: prompt_toolkit.buffer.Buffer
-        text = buf.text[:buf.cursor_position] # type:str
-        m = re.search("[/\s][^/\s]+[/\s]?$", text)
+        buf = event.current_buffer  # type: prompt_toolkit.buffer.Buffer
+        text = buf.text[:buf.cursor_position]  # type: str
+        m = re.search(r"[/,.\s][^/,.\s]+[/,.\s]?$", text)
         if m is not None:
             buf.delete_before_cursor(len(text) - m.start() - 1)
             return
@@ -246,4 +260,6 @@ def custom_keybindings(bindings, **kw):
     def ctrl_r_event(event):
         ctrl_r.select(event.current_buffer)
 
-run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z")
+
+run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z"
+    )

@@ -2,25 +2,19 @@
 import os
 import json
 import tempfile
-import builtins
 import prompt_toolkit
+from .lib import run, HOSTNAME
+from .xonsh_builtin import x_env
 from collections import OrderedDict
 from operator import itemgetter
-from xonsh.proc import HiddenCommandPipeline
 
-execer = builtins.__xonsh_execer__ # type: Execer
-
-def run(command: str)->HiddenCommandPipeline:
-    return execer.eval(command)
-
-HOSTNAME = os.uname().nodename
 
 def _get_history(session_history=None, return_list=False):
     '''
     https://qiita.com/riktor/items/4a90b4e125cd091a9d07
     TODO: 時々お掃除いる？
     '''
-    hist_dir = __xonsh_env__['XONSH_DATA_DIR']
+    hist_dir = x_env['XONSH_DATA_DIR']
     files = [ os.path.join(hist_dir,f) for f in os.listdir(hist_dir)
             if f.startswith('xonsh-') and f.endswith('.json') ]
     file_hist = [ json.load(open(f))['data']['cmds'] for f in files ]

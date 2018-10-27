@@ -128,9 +128,6 @@
         ".vscode",
         "typings"
     ],
-    "cSpell.import": [
-        "~/.cspell.json"
-    ],
     "cSpell.dictionaryDefinitions": [
         {
             "name": "my_work",
@@ -145,22 +142,15 @@
             "path": "/Users/nnyn/mycheatsheets/CodeSpellChecker/abbreviation.txt"
         },
         {
-            "name": "my_work_win",
-            "path": "c:\\\\Users\\nnyn\\mycheatsheets\\CodeSpellChecker\\work.txt",
-        },
-        {
-            "name": "my_it_win",
-            "path": "c;\\\\Users\\nnyn\\mycheatsheets\\CodeSpellChecker\\it.txt"
-        },
-        {
-            "name": "my_abbreviation_win",
-            "path": "c:\\\\Users\\nnyn\\mycheatsheets\\CodeSpellChecker\\abbreviation.txt"
+            "name": "my_word",
+            "path": "/Users/nnyn/mycheatsheets/CodeSpellChecker/me.txt"
         }
     ],
     "cSpell.dictionaries": [
         "my_work",
         "my_it",
         "my_abbreviation",
+        "my_word"
     ],
     "[python]": {
         "editor.detectIndentation": false,
