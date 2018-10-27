@@ -47,7 +47,7 @@ def _set_prompt():
 
     # user
     root = False
-    if "USER" in x_env and x_env["USER"] == "root":
+    if x_env.get("USER", "nnyn") == "root":
         root = True
         prompt += "{RED}"
     else:
