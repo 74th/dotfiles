@@ -13,6 +13,8 @@ execer = builtins.__xonsh_execer__ # type: Execer
 def run(command: str)->HiddenCommandPipeline:
     return execer.eval(command)
 
+HOSTNAME = os.uname().nodename
+
 def _get_history(session_history=None, return_list=False):
     '''
     https://qiita.com/riktor/items/4a90b4e125cd091a9d07
@@ -20,10 +22,10 @@ def _get_history(session_history=None, return_list=False):
     '''
     hist_dir = __xonsh_env__['XONSH_DATA_DIR']
     files = [ os.path.join(hist_dir,f) for f in os.listdir(hist_dir)
-              if f.startswith('xonsh-') and f.endswith('.json') ]
+            if f.startswith('xonsh-') and f.endswith('.json') ]
     file_hist = [ json.load(open(f))['data']['cmds'] for f in files ]
     cmds = [ ( c['inp'].replace('\n', ''), c['ts'][0] )
-                 for cmds in file_hist for c in cmds if c]
+            for cmds in file_hist for c in cmds if c]
     cmds.sort(key=itemgetter(1))
     cmds = [ c[0] for c in cmds[::-1] ]
     if session_history:
@@ -87,17 +89,23 @@ def select_git(buf):
             buf.insert_text(selected)
 
 def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
+    if HOSTNAME.startswith("o-"):
+        filename = "work"
+    else:
+        filename = "home"
     with tempfile.NamedTemporaryFile() as tmp:
-        run(f"cat  ~/mycheatsheets/CmdBookmark/work | peco > {tmp.name}")
+        run(f"cat  ~/mycheatsheets/CmdBookmark/{filename} | peco > {tmp.name}")
         with open(tmp.name) as f:
             line = f.readline()
-            if not line:
-                return
+    if not line:
+        return
+    name = line.strip()
+    if name[0] == "[":
+        name = name[name.find("]")+1:]
     buf.reset()
-    buf.insert_text(line.strip())
+    buf.insert_text(name)
 
-def select_invoke(buf: prompt_toolkit.buffer.Buffer):
-    commands = []
+def select_invoke_command(buf: prompt_toolkit.buffer.Buffer):
     with tempfile.NamedTemporaryFile() as tmp:
         run(f"invoke --complete | peco > {tmp.name}")
         with open(tmp.name) as f:
@@ -107,7 +115,6 @@ def select_invoke(buf: prompt_toolkit.buffer.Buffer):
     buf.insert_text(" " + line.strip())
 
 def select_fabric(buf: prompt_toolkit.buffer.Buffer):
-    commands = []
     with tempfile.NamedTemporaryFile() as tmp:
         run(f"fabric --complete | peco > {tmp.name}")
         with open(tmp.name) as f:

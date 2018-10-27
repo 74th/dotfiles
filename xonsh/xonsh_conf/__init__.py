@@ -26,7 +26,7 @@ def silent_run(command: str) -> str:
 def run(command: str)->HiddenCommandPipeline:
     return execer.eval(command)
 
-HOSTNAME = silent_run("hostname -s") # type: str
+HOSTNAME = os.uname().nodename
 
 c = _invoke.Context({
     "run": {
@@ -163,9 +163,14 @@ aliases["bk"] = __bookmark
 
 def __command_bookamrk():
     if HOSTNAME.startswith("o-"):
-        r = run("cat ~/mycheatsheets/CmdBookmark/work | peco")
+        filename = "work"
+    else:
+        filename = "home"
+    r = run(f"cat ~/mycheatsheets/CmdBookmark/{filename} | peco")
     if len(r.lines) > 0:
         name = r.lines[0].strip()
+        if name[0] == "[":
+            name = name[name.find("]")+1:]
         run(name)
 aliases["cb"] = __command_bookamrk
 
