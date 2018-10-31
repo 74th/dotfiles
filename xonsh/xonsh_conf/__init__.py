@@ -10,8 +10,6 @@ from operator import itemgetter
 import prompt_toolkit
 from .lib import HOSTNAME, run, silent_run
 from .xonsh_builtin import x_env, x_aliases, x_events
-from xonsh.execer import Execer
-from xonsh.proc import HiddenCommandPipeline
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import Condition, ViInsertMode
 from . import ctrl_r
@@ -95,7 +93,7 @@ def __add_paths():
     _add_path_if_exists(f'{HOME}/npm/bin')
     _add_path_if_exists(f'{HOME}/Library/Android/sdk/platform-tools')
     _add_path_if_exists(f'{HOME}/.rbx_env/shims')
-    _add_path_if_exists(f'{HOME}/.pyx_env/shims')
+    _add_path_if_exists(f'{HOME}/.pyenv/shims')
     _add_path_if_exists(f'{HOME}/go/bin')
     _add_path_if_exists(f'{HOME}/dotfiles/bin/darwin')
     _add_path_if_exists(f'{HOME}/go/src/github.com/uber/go-torch/FlameGraph')
@@ -201,7 +199,9 @@ _gcloud_config()
 
 def _add_syntax_sugar():
     x_aliases["al"] = ["ls", "-al"]
+    x_aliases["la"] = ["ls", "-al"]
     x_aliases["ll"] = ["ls", "-al"]
+    x_aliases["lt"] = ["ls", "-alt"]
 
 
 _add_syntax_sugar()
@@ -261,5 +261,5 @@ def custom_keybindings(bindings, **kw):
         ctrl_r.select(event.current_buffer)
 
 
-run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z"
-    )
+#run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z")
+run("xontrib load autoxsh bashisms coreutils distributed jedi mpl prompt_ret_code free_cwd vox vox_tabcomplete xo xonda z")
