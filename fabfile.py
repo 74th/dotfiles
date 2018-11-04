@@ -1,7 +1,22 @@
+import glob
+import os
+from pathlib import Path
 import invoke
+from invoke import Context,task
 import git as git_config
 import homebrew
-from fabric import task, Connection, runners
+from fabric import Connection, runners
+
+def get_home():
+    home = os.environ.get("HOME", None)
+    if home is not None:
+        return home
+    os_name = detect_os()
+    if os_name == "macos":
+        return "/Users/nnyn"
+    return "/home/nnyn"
+
+HOME = get_home()
 
 
 def detect_os(c: invoke.Context):
@@ -215,13 +230,30 @@ def mypy(c):
 @task
 def xonsh(c):
     print("## xonsh")
-    install_pip3(c, "xonsh[ptk]")
+    os: str = detect_os(c)
+    if os == "macos":
+        install_pip3(c, "xonsh[ptk,macos]")
+    else:
+        install_pip3(c, "xonsh[ptk,linux]")
     c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
 
 @task
 def fabric(c):
     print("## fabric")
     install_pip3(c, "fabric")
+
+@task
+def istio(c):
+    print("## istio")
+    d = f"{HOME}/OSS/istio"
+    if not os.path.exists(d):
+        c.run(f"mkdir -p {d}")
+    with c.cd(d):
+        c.run("rm -rf istio-*")
+        c.run("curl -L https://git.io/getLatestIstio | sh -")
+        ds = glob.glob(f"{d}/istio-*")
+        d = ds[0]
+        c.run(f"ln -s {d}/bin/* {HOME}/bin/")
 
 @task(default=True)
 def install(c):
@@ -244,8 +276,9 @@ def install(c):
     vimrc(c)
     fish(c)
     xonsh(c)
-    #fabric(c)
+    fabric(c)
     mypy(c)
+    istio(c)
     # TODO: golang
     # TODO: aws cli
     # TODO: gcloud
