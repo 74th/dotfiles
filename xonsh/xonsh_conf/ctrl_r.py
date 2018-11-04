@@ -99,18 +99,9 @@ def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
     buf.reset()
     buf.insert_text(name)
 
-def select_invoke_command(buf: prompt_toolkit.buffer.Buffer):
+def select_invoke_command(buf: prompt_toolkit.buffer.Buffer, command: str):
     with tempfile.NamedTemporaryFile() as tmp:
-        run(f"invoke --complete | peco > {tmp.name}")
-        with open(tmp.name) as f:
-            line = f.readline()
-            if not line:
-                return
-    buf.insert_text(" " + line.strip())
-
-def select_fabric(buf: prompt_toolkit.buffer.Buffer):
-    with tempfile.NamedTemporaryFile() as tmp:
-        run(f"fabric --complete | peco > {tmp.name}")
+        run(f"{command} --complete | peco > {tmp.name}")
         with open(tmp.name) as f:
             line = f.readline()
             if not line:
@@ -127,6 +118,6 @@ def select(buf: prompt_toolkit.buffer.Buffer):
     if line.startswith("cb"):
         select_command_bookmark(buf)
     if line.startswith("inv"):
-        select_invoke_command(buf)
+        select_invoke_command(buf, "inv")
     if line.startswith("fab"):
-        select_invoke_command(buf)
+        select_invoke_command(buf, "fab")
