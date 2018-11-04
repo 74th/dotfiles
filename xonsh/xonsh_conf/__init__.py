@@ -261,5 +261,5 @@ def custom_keybindings(bindings, **kw):
         ctrl_r.select(event.current_buffer)
 
 
-run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z"
-    )
+#run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z")
+run("xontrib load autoxsh bashisms coreutils distributed jedi mpl prompt_ret_code free_cwd vox xo xonda z")
