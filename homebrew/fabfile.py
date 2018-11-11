@@ -18,8 +18,8 @@ fish
 direnv
 peco
 readline
-imagemagick
-ffmpeg
+# imagemagick
+# ffmpeg
 watch
 rsync
 
@@ -51,6 +51,7 @@ graphviz qt qcachegrind
 docker
 docker-compose
 kubectl
+kubernetes-helm
 
 # tensorflow関連
 # Java1.8がいるとかイケてないこと言うので、一旦排除

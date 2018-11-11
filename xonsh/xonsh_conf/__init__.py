@@ -91,6 +91,7 @@ def __add_paths():
         _add_path_if_exists('/usr/local/sbin')
     _add_path_if_exists('/usr/local/cuda/bin')
     _add_path_if_exists(f'{HOME}/npm/bin')
+    _add_path_if_exists(f'{HOME}/npm/node_modules/.bin')
     _add_path_if_exists(f'{HOME}/Library/Android/sdk/platform-tools')
     _add_path_if_exists(f'{HOME}/.rbx_env/shims')
     _add_path_if_exists(f'{HOME}/.pyenv/shims')

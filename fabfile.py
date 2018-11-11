@@ -6,6 +6,7 @@ from invoke import Context,task
 import git as git_config
 import homebrew
 from fabric import Connection, runners
+import invoke
 
 def get_home():
     home = os.environ.get("HOME", None)
@@ -20,11 +21,11 @@ HOME = get_home()
 
 
 def detect_os(c: invoke.Context):
-    if c.run("test -e /etc/lsb-release", warn=True, hide=True).ok:
+    if invoke.run("test -e /etc/lsb-release", warn=True, hide=True).ok:
         return "ubuntu"
-    if c.run("test -e /etc/debian_version", warn=True).ok:
+    if invoke.run("test -e /etc/debian_version", warn=True).ok:
         return "debian"
-    if c.run("test -e /etc/redhat-release", warn=True).ok:
+    if invoke.run("test -e /etc/redhat-release", warn=True).ok:
         return "redhat"
     r: invoke.Result = c.run("uname -o", warn=True, hide="both")
     if r.ok and r.stdout.find("Linux") >= 0:
@@ -282,3 +283,6 @@ def install(c):
     # TODO: golang
     # TODO: aws cli
     # TODO: gcloud
+
+nc = invoke.Collection()
+nc.add_collection(invoke.Collection.from_module(homebrew.fabfile))
