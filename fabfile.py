@@ -6,7 +6,6 @@ from invoke import Context,task
 import git as git_config
 import homebrew
 from fabric import Connection, runners
-import invoke
 
 def get_home():
     home = os.environ.get("HOME", None)
@@ -20,17 +19,17 @@ def get_home():
 HOME = get_home()
 
 
-def detect_os(c: invoke.Context):
-    if invoke.run("test -e /etc/lsb-release", warn=True, hide=True).ok:
+def detect_os():
+    if os.path.exists("/etc/lsb-release"):
         return "ubuntu"
-    if invoke.run("test -e /etc/debian_version", warn=True).ok:
+    if os.path.exists("/etc/debian_version"):
         return "debian"
-    if invoke.run("test -e /etc/redhat-release", warn=True).ok:
+    if os.path.exists("/etc/redhat-release"):
         return "redhat"
-    r: invoke.Result = c.run("uname -o", warn=True, hide="both")
+    r: invoke.Result = invoke.run("uname -o", warn=True, hide="both")
     if r.ok and r.stdout.find("Linux") >= 0:
             return "linux"
-    r = c.run("uname", warn=True, hide="both")
+    r = invoke.run("uname", warn=True, hide="both")
     if r.ok and r.stdout.find("Darwin") >= 0:
         return "macos"
     return "unknown"
@@ -54,7 +53,7 @@ def update_package_manager(c: invoke.Context, os: str):
 
 
 def install_from_package_manager(c: invoke.Context, package: str):
-    os = detect_os(c)
+    os = detect_os()
     print(f"## install {package}")
     if os == "debian" or os == "ubuntu":
         c.sudo(f"apt-get install -y {package}")
@@ -121,7 +120,7 @@ def tmux(c):
 def vscode(c):
     c: invoke.Context
     print("## vscode")
-    os = detect_os(c)
+    os = detect_os()
     if is_linux(os):
         vscode_dir = "~/.config/Code/User"
     else:
@@ -196,7 +195,7 @@ def vimrc(c):
 @task
 def fish(c):
     c: invoke.Context
-    os = detect_os(c)
+    os = detect_os()
     print("## fish shell")
     if os == "ubuntu" or os == "debian":
         if os == "ubuntu":
@@ -216,7 +215,7 @@ def fish(c):
 
 def install_pip3(c, pkg):
     c: invoke.Context
-    os: str = detect_os(c)
+    os: str = detect_os()
     if os == "macos":
         c.run(f"/usr/local/bin/pip3 install --upgrade {pkg}", env={"PYTHONPATH": "/usr/local/bin/python3"})
     else:
@@ -231,9 +230,9 @@ def mypy(c):
 @task
 def xonsh(c):
     print("## xonsh")
-    os: str = detect_os(c)
+    os: str = detect_os()
     if os == "macos":
-        install_pip3(c, "xonsh[ptk,macos]")
+        install_pip3(c, "xonsh[ptk,mac]")
     else:
         install_pip3(c, "xonsh[ptk,linux]")
     c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
@@ -259,7 +258,7 @@ def istio(c):
 @task(default=True)
 def install(c):
     c: invoke.Context
-    os = detect_os(c)
+    os = detect_os()
     print(f"## detected os: {os}")
     update_package_manager(c, os)
     if os == "macos":
