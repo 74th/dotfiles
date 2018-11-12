@@ -9,7 +9,7 @@ from collections import OrderedDict
 from operator import itemgetter
 import prompt_toolkit
 from .lib import HOSTNAME, run, silent_run
-from .xonsh_builtin import x_env, x_aliases, x_events
+from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import Condition, ViInsertMode
 from . import ctrl_r
@@ -62,9 +62,10 @@ def _set_prompt():
 
     prompt += " "
 
-    prompt += "{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}\n$"
+    prompt += "{exit}{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}\n$"
 
     x_env["PROMPT"] = prompt
+    x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() > 0 else str(x_exitcode())
 
 
 _set_prompt()
