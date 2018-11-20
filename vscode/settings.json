@@ -172,5 +172,6 @@
         "**/*.pyc": true,
         "**/tmp": true
     },
-    "python.formatting.yapfPath": "/usr/local/bin/yapf"
+    "python.formatting.yapfPath": "/usr/local/bin/yapf",
+    "diffEditor.ignoreTrimWhitespace": false
 }
