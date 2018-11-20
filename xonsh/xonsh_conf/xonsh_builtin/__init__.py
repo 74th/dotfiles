@@ -10,4 +10,6 @@ x_events: xonsh.events.EventManager = builtins.events
 def x_exitcode():
     if builtins.__xonsh__.history.rtns is None:
         return 0
-    return builtins.__xonsh__.history.rtns[-1]
+    if len(builtins.__xonsh__.history.rtns) > 0:
+        return builtins.__xonsh__.history.rtns[-1]
+    return 0

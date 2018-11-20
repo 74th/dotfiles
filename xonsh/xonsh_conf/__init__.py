@@ -62,10 +62,10 @@ def _set_prompt():
 
     prompt += " "
 
-    prompt += "{exit}{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}\n$"
+    prompt += "{RED}{exit}{WHITE}{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}\n$"
 
     x_env["PROMPT"] = prompt
-    x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() > 0 else str(x_exitcode())
+    x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode())
 
 
 _set_prompt()
