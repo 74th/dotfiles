@@ -41,7 +41,7 @@ HOME = x_env["HOME"]
 
 def _set_prompt():
 
-    prompt = ""
+    prompt = "{RED}{exit}{WHITE}"
 
     # user
     root = False
@@ -62,10 +62,14 @@ def _set_prompt():
 
     prompt += " "
 
-    prompt += "{RED}{exit}{WHITE}{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}\n$"
+    prompt += "{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}\n"
+    if x_env.get("USER", "nnyn") == "root":
+        prompt += "#"
+    else:
+        prompt += "$"
 
     x_env["PROMPT"] = prompt
-    x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode())
+    x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
 
 
 _set_prompt()
