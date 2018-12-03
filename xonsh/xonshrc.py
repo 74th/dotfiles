@@ -8,3 +8,4 @@ def __append_xonshrc_path():
 __append_xonshrc_path()
 
 import xonsh_conf
+xonsh_conf.load()

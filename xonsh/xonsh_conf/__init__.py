@@ -72,7 +72,22 @@ def _set_prompt():
     x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
 
 
-_set_prompt()
+def set_direnv():
+    @x_events.on_chdir
+    def direnv(olddir, newdir, **kw):
+        # $(direnv export bash)
+        # r = run("direnv export bash") # type: str
+        r = run(f"!(direnv export bash)")
+        r.end()
+        r = r.output
+        if len(r) > 0:
+            cmds = r.split(";")
+            for cmd in cmds:
+                if cmd.startswith("export"):
+                    c = cmd.find("=")
+                    x_env[cmd[7:c]] = cmd[c+3:-1]
+                if cmd.startswith("unset"):
+                    del(x_env[cmd[6:]])
 
 
 def _default_charsets():
@@ -85,7 +100,6 @@ def _default_charsets():
     x_env["LC_ALL"] = "en_US.UTF-8"
 
 
-_default_charsets()
 
 
 def __add_paths():
@@ -121,7 +135,6 @@ def __add_paths():
     _add_path_if_exists(f'{HOME}/dotfiles/bin')
 
 
-__add_paths()
 
 
 def _set_gitalias():
@@ -132,7 +145,6 @@ def _set_gitalias():
     x_aliases["pull"] = ["git", "pull"]
 
 
-_set_gitalias()
 
 
 def _xonsh_config():
@@ -143,7 +155,6 @@ def _xonsh_config():
     x_env["AUTO_CD"] = True
 
 
-_xonsh_config()
 
 
 def __edit_cheatsheets():
@@ -158,7 +169,6 @@ def __edit_cheatsheets():
     run(f"cd {d}")
 
 
-x_aliases["ec"] = __edit_cheatsheets
 
 
 def __bookmark():
@@ -166,7 +176,6 @@ def __bookmark():
     run(f"cd {name}")
 
 
-x_aliases["bk"] = __bookmark
 
 
 def __command_bookmark():
@@ -182,7 +191,6 @@ def __command_bookmark():
         run(name)
 
 
-x_aliases["cb"] = __command_bookmark
 
 
 def _gcloud_config():
@@ -200,7 +208,6 @@ def _gcloud_config():
         return
 
 
-_gcloud_config()
 
 
 def _add_syntax_sugar():
@@ -210,7 +217,6 @@ def _add_syntax_sugar():
     x_aliases["lt"] = ["ls", "-alt"]
 
 
-_add_syntax_sugar()
 
 
 def _new_uuid():
@@ -218,7 +224,6 @@ def _new_uuid():
     print(uuid.uuid1())
 
 
-x_aliases["uuid"] = _new_uuid
 
 
 def _get_history(session_history=None, return_list=False):
@@ -242,30 +247,49 @@ def _get_history(session_history=None, return_list=False):
         return '\n'.join(cmds)
 
 
-@x_events.on_ptk_create
-def custom_keybindings(bindings, **kw):
-    handler = bindings.add
-    insert_mode = ViInsertMode()
+def set_keybind():
+    @x_events.on_ptk_create
+    def custom_keybindings(bindings, **kw):
+        handler = bindings.add
+        insert_mode = ViInsertMode()
 
-    @handler(Keys.ControlW)
-    def ctrl_w(event):
-        buf = event.current_buffer  # type: prompt_toolkit.buffer.Buffer
-        text = buf.text[:buf.cursor_position]  # type: str
-        m = re.search(r"[/,.\s][^/,.\s]+[/,.\s]?$", text)
-        if m is not None:
-            buf.delete_before_cursor(len(text) - m.start() - 1)
-            return
-        buf.delete_before_cursor(len(text))
+        @handler(Keys.ControlW)
+        def ctrl_w(event):
+            buf = event.current_buffer  # type: prompt_toolkit.buffer.Buffer
+            text = buf.text[:buf.cursor_position]  # type: str
+            m = re.search(r"[/,.\s][^/,.\s]+[/,.\s]?$", text)
+            if m is not None:
+                buf.delete_before_cursor(len(text) - m.start() - 1)
+                return
+            buf.delete_before_cursor(len(text))
 
-    @handler(Keys.ControlK)
-    def ctrl_k(event):
-        if event.current_buffer.suggestion:
-            event.current_buffer.insert_text(event.current_buffer.suggestion.text)
+        @handler(Keys.ControlK)
+        def ctrl_k(event):
+            if event.current_buffer.suggestion:
+                event.current_buffer.insert_text(event.current_buffer.suggestion.text)
 
-    @handler(Keys.ControlR, filter=insert_mode)
-    def ctrl_r_event(event):
-        ctrl_r.select(event.current_buffer)
+        @handler(Keys.ControlR, filter=insert_mode)
+        def ctrl_r_event(event):
+            ctrl_r.select(event.current_buffer)
 
 
-#run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z")
-run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd vox xo xonda z")
+def load_xontrib():
+    #run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z")
+    run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd vox xo xonda z")
+
+def load():
+    _set_prompt()
+    _default_charsets()
+    __add_paths()
+    _set_gitalias()
+    _xonsh_config()
+    x_aliases["ec"] = __edit_cheatsheets
+    x_aliases["bk"] = __bookmark
+    x_aliases["cb"] = __command_bookmark
+    _gcloud_config()
+    _add_syntax_sugar()
+    x_aliases["uuid"] = _new_uuid
+    set_keybind()
+    load_xontrib()
+
+    set_direnv()
