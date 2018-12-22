@@ -44,9 +44,7 @@ def _set_prompt():
     prompt = "{RED}{exit}{WHITE}"
 
     # user
-    root = False
     if x_env.get("USER", "nnyn") == "root":
-        root = True
         prompt += "{RED}"
     else:
         prompt += "{GREEN}"
@@ -59,14 +57,11 @@ def _set_prompt():
     else:
         prompt += "{WHITE}"
     prompt += "{hostname}"
-
     prompt += " "
-
-    prompt += "{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}\n"
-    if x_env.get("USER", "nnyn") == "root":
-        prompt += "#"
-    else:
-        prompt += "$"
+    prompt += "{cwd} "
+    prompt += "{gitstatus}{NO_COLOR}"
+    prompt += "\n"
+    prompt += "{prompt_end}"
 
     x_env["PROMPT"] = prompt
     x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
@@ -74,7 +69,7 @@ def _set_prompt():
 
 def set_direnv():
     @x_events.on_chdir
-    def direnv(olddir, newdir, **kw):
+    def __direnv(olddir, newdir, **kw):
         # $(direnv export bash)
         # r = run("direnv export bash") # type: str
         r = run(f"!(direnv export bash)")
@@ -85,9 +80,9 @@ def set_direnv():
             for cmd in cmds:
                 if cmd.startswith("export"):
                     c = cmd.find("=")
-                    x_env[cmd[7:c]] = cmd[c+3:-1]
+                    x_env[cmd[7:c]] = cmd[c + 3:-1]
                 if cmd.startswith("unset"):
-                    del(x_env[cmd[6:]])
+                    del (x_env[cmd[6:]])
 
 
 def _default_charsets():
@@ -98,8 +93,6 @@ def _default_charsets():
     x_env["LANG"] = "en_US.UTF-8"
     x_env["LC_CTYPE"] = "en_US.UTF-8"
     x_env["LC_ALL"] = "en_US.UTF-8"
-
-
 
 
 def __add_paths():
@@ -136,8 +129,6 @@ def __add_paths():
     _add_path_if_exists(f'{HOME}/dotfiles/bin')
 
 
-
-
 def _set_git_alias():
     x_aliases["gt"] = ["git", "status"]
     x_aliases["commit"] = ["git", "commit", "-v"]
@@ -146,16 +137,12 @@ def _set_git_alias():
     x_aliases["pull"] = ["git", "pull"]
 
 
-
-
 def _xonsh_config():
     x_env["VI_MODE"] = True
     # 補完中に Enter を押すと決定のみ
     x_env["COMPLETIONS_CONFIRM"] = True
     # ディレクトリ名を入力すればcdできる
     x_env["AUTO_CD"] = True
-
-
 
 
 def __edit_cheatsheets():
@@ -168,8 +155,6 @@ def __edit_cheatsheets():
     run("git commit -m \"at (uname -s)\"")
     run("git push origin master")
     run(f"cd {d}")
-
-
 
 
 def __bookmark():
@@ -194,8 +179,6 @@ def __command_bookmark():
         run(name)
 
 
-
-
 def _gcloud_config():
     paths = [
         "/usr/local/bin/python2.7",
@@ -211,8 +194,6 @@ def _gcloud_config():
         return
 
 
-
-
 def _set_syntax_sugar():
     x_aliases["al"] = ["ls", "-al"]
     x_aliases["la"] = ["ls", "-al"]
@@ -220,18 +201,14 @@ def _set_syntax_sugar():
     x_aliases["lt"] = ["ls", "-alt"]
 
 
-
 def _set_java_alias():
     x_aliases['javac'] = ['javac', '-J-Dfile.encoding=utf-8']
     x_aliases['java'] = ['java', '-Dfile.encoding=UTF-8']
 
 
-
 def _new_uuid():
     import uuid
     print(uuid.uuid1())
-
-
 
 
 def _get_history(session_history=None, return_list=False):
@@ -257,12 +234,12 @@ def _get_history(session_history=None, return_list=False):
 
 def set_keybind():
     @x_events.on_ptk_create
-    def custom_keybindings(bindings, **kw):
+    def __custom_keybindings(bindings, **kw):
         handler = bindings.add
         insert_mode = ViInsertMode()
 
         @handler(Keys.ControlW)
-        def ctrl_w(event):
+        def __ctrl_w(event):
             buf = event.current_buffer  # type: prompt_toolkit.buffer.Buffer
             text = buf.text[:buf.cursor_position]  # type: str
             m = re.search(r"[/,.\s][^/,.\s]+[/,.\s]?$", text)
@@ -272,17 +249,18 @@ def set_keybind():
             buf.delete_before_cursor(len(text))
 
         @handler(Keys.ControlK)
-        def ctrl_k(event):
+        def __ctrl_k(event):
             if event.current_buffer.suggestion:
                 event.current_buffer.insert_text(event.current_buffer.suggestion.text)
 
         @handler(Keys.ControlR, filter=insert_mode)
-        def ctrl_r_event(event):
+        def __ctrl_r_event(event):
             ctrl_r.select(event.current_buffer)
 
 
 def load_xontrib():
     run("xontrib load coreutils docker_tabcomplete jedi z readable-traceback")
+
 
 def load():
 
