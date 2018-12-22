@@ -121,6 +121,7 @@ def __add_paths():
     _add_path_if_exists('/usr/local/share/dotnet')
     _add_path_if_exists('/Library/Frameworks/Mono.framework/Versions/Current/Commands')
     _add_path_if_exists('/Library/TeX/texbin')
+    _add_path_if_exists('/Applications/MacVim.app/Contents/bin')
     if os.path.exists(f'{HOME}/Library/Python/2.7/bin'):
         x_env["PATH"].append(f'{HOME}/Library/Python/2.7/bin')
     if os.path.exists(f'{HOME}/Library/Python/3.7/bin'):
@@ -137,7 +138,7 @@ def __add_paths():
 
 
 
-def _set_gitalias():
+def _set_git_alias():
     x_aliases["gt"] = ["git", "status"]
     x_aliases["commit"] = ["git", "commit", "-v"]
     x_aliases["add"] = ["git", "add"]
@@ -176,6 +177,8 @@ def __bookmark():
     run(f"cd {name}")
 
 
+def __add_bookmark():
+    run(f"pwd >> ~/bookmark")
 
 
 def __command_bookmark():
@@ -210,12 +213,17 @@ def _gcloud_config():
 
 
 
-def _add_syntax_sugar():
+def _set_syntax_sugar():
     x_aliases["al"] = ["ls", "-al"]
     x_aliases["la"] = ["ls", "-al"]
     x_aliases["ll"] = ["ls", "-al"]
     x_aliases["lt"] = ["ls", "-alt"]
 
+
+
+def _set_java_alias():
+    x_aliases['javac'] = ['javac', '-J-Dfile.encoding=utf-8']
+    x_aliases['java'] = ['java', '-Dfile.encoding=UTF-8']
 
 
 
@@ -274,22 +282,28 @@ def set_keybind():
 
 
 def load_xontrib():
-    #run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z")
-    run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd vox xo xonda z")
+    run("xontrib load coreutils docker_tabcomplete jedi z readable-traceback")
 
 def load():
+
     _set_prompt()
+
     _default_charsets()
+
     __add_paths()
-    _set_gitalias()
+    load_xontrib()
     _xonsh_config()
     x_aliases["ec"] = __edit_cheatsheets
     x_aliases["bk"] = __bookmark
+    x_aliases["AddBookmark"] = __add_bookmark
     x_aliases["cb"] = __command_bookmark
+
     _gcloud_config()
-    _add_syntax_sugar()
+
+    _set_syntax_sugar()
+    _set_git_alias()
+    _set_java_alias()
     x_aliases["uuid"] = _new_uuid
     set_keybind()
-    load_xontrib()
 
     set_direnv()
