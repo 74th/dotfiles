@@ -66,6 +66,18 @@ def _set_prompt():
     x_env["PROMPT"] = prompt
     x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
 
+    x_env["XONSH_GITSTATUS_HASH"] = ":"
+    x_env["XONSH_GITSTATUS_BRANCH"] = "{CYAN}"
+    x_env["XONSH_GITSTATUS_OPERATION"] = "{CYAN}"
+    x_env["XONSH_GITSTATUS_STAGED"] = "{GREEN}"
+    x_env["XONSH_GITSTATUS_CONFLICTS"] = "{BOLD_RED}×"
+    x_env["XONSH_GITSTATUS_CHANGED"] = "{RED}+"
+    x_env["XONSH_GITSTATUS_UNTRACKED"] = "{YELLOW}+"
+    x_env["XONSH_GITSTATUS_STASHED"] = "s"
+    x_env["XONSH_GITSTATUS_CLEAN"] = "{BOLD_GREEN}✓"
+    x_env["XONSH_GITSTATUS_AHEAD"] = '>'
+    x_env["XONSH_GITSTATUS_BEHIND"] = '<'
+
 
 def set_direnv():
     @x_events.on_chdir
