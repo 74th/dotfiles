@@ -35,11 +35,12 @@ source ~/dotfiles/bashrc/completion/git-flow-completion.bash
 function __show_exitcode {
 	_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo -e "\e[31m$_EXITCODE\e[m "; fi
 }
+PS1='$(__show_exitcode)'
 
 if [ $OSNAME = "Mac" ];then
 	col=37
 else
-	col=31
+	col=34
 fi
 if [ $USER = "root" ];then
 	PS1=$PS1'\[\e[31m\]\u\e[${col}m\]'
@@ -52,7 +53,7 @@ GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM=auto
 PS1=$PS1'\[\e[33m$(__git_ps1)\e[m\]'
-PS1=$PS1'\r\n\$'
+PS1=$PS1'\$'
 
 # 非表示の文字は\[ \]で囲うこと
 if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
@@ -62,6 +63,7 @@ fi
 alias sl='ls'
 alias ll='ls -al'
 alias al='ls -al'
+alias x='xonsh'
 
 alias javac='javac -J-Dfile.encoding=utf-8'
 alias java='java -Dfile.encoding=UTF-8'
