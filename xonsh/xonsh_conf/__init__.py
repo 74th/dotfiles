@@ -67,7 +67,7 @@ def _set_prompt():
     x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
 
     x_env["XONSH_GITSTATUS_HASH"] = ":"
-    x_env["XONSH_GITSTATUS_BRANCH"] = "{CYAN}"
+    x_env["XONSH_GITSTATUS_BRANCH"] = "{YELLOW}"
     x_env["XONSH_GITSTATUS_OPERATION"] = "{CYAN}"
     x_env["XONSH_GITSTATUS_STAGED"] = "{GREEN}"
     x_env["XONSH_GITSTATUS_CONFLICTS"] = "{BOLD_RED}×"
@@ -75,8 +75,8 @@ def _set_prompt():
     x_env["XONSH_GITSTATUS_UNTRACKED"] = "{YELLOW}+"
     x_env["XONSH_GITSTATUS_STASHED"] = "s"
     x_env["XONSH_GITSTATUS_CLEAN"] = "{BOLD_GREEN}✓"
-    x_env["XONSH_GITSTATUS_AHEAD"] = '>'
-    x_env["XONSH_GITSTATUS_BEHIND"] = '<'
+    x_env["XONSH_GITSTATUS_AHEAD"] = '{GREEN}>'
+    x_env["XONSH_GITSTATUS_BEHIND"] = '{RED}<'
 
 
 def set_direnv():
