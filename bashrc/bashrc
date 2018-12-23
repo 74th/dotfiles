@@ -25,6 +25,9 @@ if [ $OSNAME = "Mac" ];then
 	export PATH=~/dotfiles/bin/darwin:$PATH
 	export PATH=/usr/local/bin:$PATH
 fi
+if [ -e $HOME/.local/bin ];then
+	export PATH=$HOME/.local/bin:$PATH
+fi
 export EDITOR=vi
 export CLICOLOR=1
 
