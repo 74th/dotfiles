@@ -50,8 +50,11 @@ def set_config(c):
     # やっぱり楽なコマンドが良い
     c.run('git config --global alias.st "status"', env=env)
 
-    # やっぱり楽なコマンドが良い
+    # masterを追う
     c.run('git config --global alias.upstreamtomaster "branch --set-upstream-to=origin/master master"', env=env)
+
+    # 最初の空コミット
+    c.run('git config --global alias.firstcommit "commit --allow-empty -m \'first commit\'"', env=env)
 
     # vimを使用
     c.run('git config --global core.editor "vi"', env=env)
@@ -62,3 +65,13 @@ def set_config(c):
     # Windowsの場合、以下も追加する
     # ファイルモードを無視
     # git config --global core.filemode false
+
+@task
+def set_username(c):
+
+    env = {}
+    if len(c.run("echo $HOME", hide=True).stdout.strip()) == 0:
+        env["HOME"] = c.run("cd ~;pwd", hide=True).stdout.strip()
+
+    c.run('git config --global user.name 74th', env=env)
+    c.run('git config --global user.email site@74th.tech', env=env)

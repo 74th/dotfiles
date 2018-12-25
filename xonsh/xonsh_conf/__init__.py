@@ -44,9 +44,7 @@ def _set_prompt():
     prompt = "{RED}{exit}{WHITE}"
 
     # user
-    root = False
     if x_env.get("USER", "nnyn") == "root":
-        root = True
         prompt += "{RED}"
     else:
         prompt += "{GREEN}"
@@ -59,22 +57,31 @@ def _set_prompt():
     else:
         prompt += "{WHITE}"
     prompt += "{hostname}"
-
     prompt += " "
-
-    prompt += "{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}\n"
-    if x_env.get("USER", "nnyn") == "root":
-        prompt += "#"
-    else:
-        prompt += "$"
+    prompt += "{cwd} "
+    prompt += "{gitstatus}{NO_COLOR}"
+    prompt += "\n"
+    prompt += "{prompt_end}"
 
     x_env["PROMPT"] = prompt
     x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
 
+    x_env["XONSH_GITSTATUS_HASH"] = ":"
+    x_env["XONSH_GITSTATUS_BRANCH"] = "{YELLOW}"
+    x_env["XONSH_GITSTATUS_OPERATION"] = "{CYAN}"
+    x_env["XONSH_GITSTATUS_STAGED"] = "{GREEN}"
+    x_env["XONSH_GITSTATUS_CONFLICTS"] = "{BOLD_RED}×"
+    x_env["XONSH_GITSTATUS_CHANGED"] = "{RED}+"
+    x_env["XONSH_GITSTATUS_UNTRACKED"] = "{YELLOW}+"
+    x_env["XONSH_GITSTATUS_STASHED"] = "s"
+    x_env["XONSH_GITSTATUS_CLEAN"] = "{BOLD_GREEN}✓"
+    x_env["XONSH_GITSTATUS_AHEAD"] = '{GREEN}>'
+    x_env["XONSH_GITSTATUS_BEHIND"] = '{RED}<'
+
 
 def set_direnv():
     @x_events.on_chdir
-    def direnv(olddir, newdir, **kw):
+    def __direnv(olddir, newdir, **kw):
         # $(direnv export bash)
         # r = run("direnv export bash") # type: str
         r = run(f"!(direnv export bash)")
@@ -85,9 +92,9 @@ def set_direnv():
             for cmd in cmds:
                 if cmd.startswith("export"):
                     c = cmd.find("=")
-                    x_env[cmd[7:c]] = cmd[c+3:-1]
+                    x_env[cmd[7:c]] = cmd[c + 3:-1]
                 if cmd.startswith("unset"):
-                    del(x_env[cmd[6:]])
+                    del (x_env[cmd[6:]])
 
 
 def _default_charsets():
@@ -98,8 +105,6 @@ def _default_charsets():
     x_env["LANG"] = "en_US.UTF-8"
     x_env["LC_CTYPE"] = "en_US.UTF-8"
     x_env["LC_ALL"] = "en_US.UTF-8"
-
-
 
 
 def __add_paths():
@@ -121,6 +126,7 @@ def __add_paths():
     _add_path_if_exists('/usr/local/share/dotnet')
     _add_path_if_exists('/Library/Frameworks/Mono.framework/Versions/Current/Commands')
     _add_path_if_exists('/Library/TeX/texbin')
+    _add_path_if_exists('/Applications/MacVim.app/Contents/bin')
     if os.path.exists(f'{HOME}/Library/Python/2.7/bin'):
         x_env["PATH"].append(f'{HOME}/Library/Python/2.7/bin')
     if os.path.exists(f'{HOME}/Library/Python/3.7/bin'):
@@ -135,16 +141,12 @@ def __add_paths():
     _add_path_if_exists(f'{HOME}/dotfiles/bin')
 
 
-
-
-def _set_gitalias():
+def _set_git_alias():
     x_aliases["gt"] = ["git", "status"]
     x_aliases["commit"] = ["git", "commit", "-v"]
     x_aliases["add"] = ["git", "add"]
     x_aliases["push"] = ["git", "push"]
     x_aliases["pull"] = ["git", "pull"]
-
-
 
 
 def _xonsh_config():
@@ -153,8 +155,6 @@ def _xonsh_config():
     x_env["COMPLETIONS_CONFIRM"] = True
     # ディレクトリ名を入力すればcdできる
     x_env["AUTO_CD"] = True
-
-
 
 
 def __edit_cheatsheets():
@@ -169,13 +169,13 @@ def __edit_cheatsheets():
     run(f"cd {d}")
 
 
-
-
 def __bookmark():
     name = run("cat ~/bookmark | peco").lines[0].strip()
     run(f"cd {name}")
 
 
+def __add_bookmark():
+    run(f"pwd >> ~/bookmark")
 
 
 def __command_bookmark():
@@ -189,8 +189,6 @@ def __command_bookmark():
         if name[0] == "[":
             name = name[name.find("]") + 1:]
         run(name)
-
-
 
 
 def _gcloud_config():
@@ -208,22 +206,21 @@ def _gcloud_config():
         return
 
 
-
-
-def _add_syntax_sugar():
+def _set_syntax_sugar():
     x_aliases["al"] = ["ls", "-al"]
     x_aliases["la"] = ["ls", "-al"]
     x_aliases["ll"] = ["ls", "-al"]
     x_aliases["lt"] = ["ls", "-alt"]
 
 
+def _set_java_alias():
+    x_aliases['javac'] = ['javac', '-J-Dfile.encoding=utf-8']
+    x_aliases['java'] = ['java', '-Dfile.encoding=UTF-8']
 
 
 def _new_uuid():
     import uuid
     print(uuid.uuid1())
-
-
 
 
 def _get_history(session_history=None, return_list=False):
@@ -249,12 +246,12 @@ def _get_history(session_history=None, return_list=False):
 
 def set_keybind():
     @x_events.on_ptk_create
-    def custom_keybindings(bindings, **kw):
+    def __custom_keybindings(bindings, **kw):
         handler = bindings.add
         insert_mode = ViInsertMode()
 
         @handler(Keys.ControlW)
-        def ctrl_w(event):
+        def __ctrl_w(event):
             buf = event.current_buffer  # type: prompt_toolkit.buffer.Buffer
             text = buf.text[:buf.cursor_position]  # type: str
             m = re.search(r"[/,.\s][^/,.\s]+[/,.\s]?$", text)
@@ -264,32 +261,39 @@ def set_keybind():
             buf.delete_before_cursor(len(text))
 
         @handler(Keys.ControlK)
-        def ctrl_k(event):
+        def __ctrl_k(event):
             if event.current_buffer.suggestion:
                 event.current_buffer.insert_text(event.current_buffer.suggestion.text)
 
         @handler(Keys.ControlR, filter=insert_mode)
-        def ctrl_r_event(event):
+        def __ctrl_r_event(event):
             ctrl_r.select(event.current_buffer)
 
 
 def load_xontrib():
-    #run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd scrapy_tabcomplete vox vox_tabcomplete xo xonda z")
-    run("xontrib load autoxsh bashisms coreutils distributed docker_tabcomplete jedi mpl prompt_ret_code free_cwd vox xo xonda z")
+    run("xontrib load coreutils docker_tabcomplete jedi z readable-traceback")
+
 
 def load():
+
     _set_prompt()
+
     _default_charsets()
+
     __add_paths()
-    _set_gitalias()
+    load_xontrib()
     _xonsh_config()
     x_aliases["ec"] = __edit_cheatsheets
     x_aliases["bk"] = __bookmark
+    x_aliases["AddBookmark"] = __add_bookmark
     x_aliases["cb"] = __command_bookmark
+
     _gcloud_config()
-    _add_syntax_sugar()
+
+    _set_syntax_sugar()
+    _set_git_alias()
+    _set_java_alias()
     x_aliases["uuid"] = _new_uuid
     set_keybind()
-    load_xontrib()
 
     set_direnv()

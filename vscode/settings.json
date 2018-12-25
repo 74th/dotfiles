@@ -1,4 +1,7 @@
 {
+    "workbench.colorCustomizations": {
+        "editorIndentGuide.activeBackground": "#505050"
+    },
     "terminal.external.osxExec": "Terminal.app",
     // font
     // Macの場合、スペースを詰めて、ウェイトをハイフンで区切る
@@ -32,9 +35,6 @@
     "editor.renderLineHighlight": "all",
     // 表示周り
     "window.zoomLevel": 0,
-    "workbench.colorCustomizations": {
-        "editorIndentGuide.activeBackground": "#505050"
-    },
     // git
     "git.confirmSync": false, // Syncボタンで尋ねない
     // auto format
@@ -55,7 +55,7 @@
     "go.toolsGopath": "~/go",
     "go.coverOnTestPackage": true,
     // typescript
-    "editor.codeLens": true,
+    "editor.codeLens": false,
     // vimStyle
     "vimStyle.defaultMode": "normal",
     "vimStyle.enabled": true,
@@ -70,6 +70,7 @@
     "python.linting.mypyEnabled": true,
     "python.linting.mypyPath": "/usr/local/bin/mypy",
     "python.formatting.yapfPath": "/usr/local/bin/yapf",
+    "python.linting.pylintPath": "/usr/local/bin/pylint",
     "[python]": {
         "editor.detectIndentation": false,
         "editor.insertSpaces": true,
@@ -162,7 +163,6 @@
         "my_abbreviation",
         "my_word"
     ],
-    "gitlens.mode.active": "zen",
     "files.associations": {
         "*.jinja": "yaml"
     },
@@ -174,5 +174,6 @@
         "**/tmp": true
     },
     "diffEditor.ignoreTrimWhitespace": false,
-    "breadcrumbs.enabled": false
+    "breadcrumbs.enabled": false,
+    "gitlens.mode.active": "zen"
 }

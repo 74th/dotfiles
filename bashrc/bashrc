@@ -1,43 +1,16 @@
 #.bashrc
 
-#--------------------------------------
-# OS判定
 if [ "$(uname)" == 'Darwin' ]; then
 	OSNAME='Mac'
-	OSDISTRO='Mac'
-elif [ "$(uname -o)" == 'Cygwin' ]; then
-	OSNAME='Windows'
-	OSDISTRO='Cygwin'
-elif [ "$(uname -o)" == 'Msys' ]; then
-	OSNAME='Windows'
-	OSDISTRO='Msys'
-elif [ -e "/etc/debian_version" ]; then
-	OSNAME='Linux'
-	OSDISTRO='Debian'
-elif [ -e "/etc/redhat-release" ]; then
-	OSNAME='Linux'
-	OSDISTRO='Redhat'
 else
 	OSNAME='Linux'
-	OSDISTRO='unknown'
 fi
-#--------------------------------------
-# 文字コードの標準設定
+
 export LESSCHARSET=UTF-8
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-#--------------------------------------
-# MacのPATH
-if [ $OSNAME = "Mac" ];then
-	export PATH=/usr/local/bin:$PATH
-fi
-# 個人コマンドのパスを通す
-if [ -n "$PATH_SYSDEF" ];then
-	export PATH=$PATH_SYSDEF
-else
-	export PATH_SYSDEF=$PATH
-fi
+
 if [ -e $HOME/go ];then
 	export PATH=~/go/bin:$PATH
 fi
@@ -47,388 +20,80 @@ fi
 if [ -e $HOME/bin ];then
 	export PATH=~/bin:$PATH
 fi
-if [ -e $HOME/.local/bin ];then
-	export PATH=~/.local/bin:$PATH
-fi
 export PATH=~/dotfiles/bin:$PATH
 if [ $OSNAME = "Mac" ];then
 	export PATH=~/dotfiles/bin/darwin:$PATH
+	export PATH=/usr/local/bin:$PATH
 fi
-# npmのパスをす
-if [ -e $HOME/npm/bin ];then
-	export PATH=$HOME/npm/bin:$PATH
+if [ -e $HOME/.local/bin ];then
+	export PATH=$HOME/.local/bin:$PATH
 fi
-#--------------------------------------
-# MacVim
-if [ $OSNAME = "Mac" ];then
-	alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-	alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-	alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/gvim "$@"'
-	alias vimless='/Applications/MacVim.app/Contents/Resources/vim/runtime/macros/less.sh'
-fi
-#--------------------------------------
-# エディターはVim
-if [ $OSNAME = "Mac" ];then
-	export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-else
-	export EDITOR=vi
-fi
-#--------------------------------------
-# Bashの補完 bash-completion
-# https://github.com/git/git/tree/master/contrib/completion
-# http://d.hatena.ne.jp/youhey/20120501/1335855775
+export EDITOR=vi
+export CLICOLOR=1
 
-# make(mで保管するように)
-source ~/dotfiles/bashrc/completion/make
-
-if [ $OSNAME = "Mac" ];then
-	# まずbrew bundleすること
-	if [ -f /usr/local/etc/bash_completion ]; then
-		source /usr/local/etc/bash_completion
-	fi
-else
-	if [ -f /usr/share/bash-completion ]; then
-		source /usr/share/bash-completion/bash_completion
-	elif [ -f /etc/bash_completion ]; then
-		source /etc/bash_completion
-	fi
-fi
-# gitの補完
 source ~/dotfiles/bashrc/completion/git-prompt.sh
 source ~/dotfiles/bashrc/completion/git-completion.bash
 source ~/dotfiles/bashrc/completion/git-flow-completion.bash
-#--------------------------------------
-#bashに着色する
-export CLICOLOR=1
-#--------------------------------------
-# 端末・プロンプトの設定
-
-# PS1='user@host 1 /full/path master\r\n[$/#]"
 
 function __show_exitcode {
 	_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo -e "\e[31m$_EXITCODE\e[m "; fi
 }
-# 直前のコマンドの終了コードが0以外なら赤色で表示
 PS1='$(__show_exitcode)'
 
-# 現在のホストによってプロンプトの色を変える。
-# 30Black 31Red 32Green 33Yellow 34Blue 35Magenta 36Cyan 37White
 if [ $OSNAME = "Mac" ];then
-	# MacOSは白
 	col=37
-elif [ $OSNAME = "Windows" ];then
-	# Windowsは緑
-	col=32
-elif [ $OSDISTRO = "Redhat" ];then
-	# RedhatはCentOSなのでシアン
-	col=36
-elif [ $OSDISTRO = "Debian" ];then
-	# Debianはオレンジ
-	col=35
 else
-	# その他は赤色
-	col=31
+	col=34
 fi
-
-# ユーザの$は白、rootを示す#は赤
 if [ $USER = "root" ];then
 	PS1=$PS1'\[\e[31m\]\u\e[${col}m\]'
 else
 	PS1=$PS1'\[\e[${col}m\]\u'
 fi
-PS1=$PS1'@\H\[\e[33m\]\[\e[m\] '
+PS1=$PS1'@\H\[\e[33m\]\[\e[m\] \w'
 
-if [ $OSDISTRO = "Cygwin" ];then
-	# Windowsのユーザディレクトリは簡易表示
-	function __cygwin_pwd {
-		pwd | sed -e 's/\/cygdrive\/c\/Users\/'$USER'/w~/g' -e 's/\/home\/'$USER'/~/g'
-	}
-	PS1=$PS1'$(__cygwin_pwd) '
-else
-	PS1=$PS1'\w'
-fi
-if [ $OSNAME = "Windows" -o -f /mnt/c ];then
-	# Windowsだけなんか遅いのでブランチだけ
-	# Gitのブランチを表示
-	# 参考 http://qiita.com/caad1229/items/6d71d84933c8a87af0c4
-	function parse_git_branch {
-		_GITBRANCH=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-		if [ "$_GITBRANCH" != "" ];then echo -e "\e[33m$_GITBRANCH\e[m "; fi
-	}
-	PS1=$PS1'\[\e[33m$(parse_git_branch)\e[m\]'
-else
-	#   * ステージングにない変更
-	#   + ステージングにある状態
-	GIT_PS1_SHOWDIRTYSTATE=true
-	#   % ステージングにない新規ファイル
-	GIT_PS1_SHOWUNTRACKEDFILES=true
-	GIT_PS1_SHOWUPSTREAM=auto
-	PS1=$PS1'\[\e[33m$(__git_ps1)\e[m\]'
-fi
-PS1=$PS1'\r\n\$'
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM=auto
+PS1=$PS1'\[\e[33m$(__git_ps1)\e[m\]'
+PS1=$PS1'\$'
 
 # 非表示の文字は\[ \]で囲うこと
 if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
 	PS1=$PS1'\[\033k`expr $HOSTNAME : "\(...\).*"`@\W\033\\\]'
 fi
 
-#--------------------------------------
-# 簡単化
-alias FreezeTargz='tar zcvf'
-alias OpenTargz='tar zxvf'
-alias FreezeTarbz2='tar jcvf'
-alias OpenTarbz2='tar jxvf'
-alias EditBashrc="vi ~/dotfiles/bashrc/bashrc"
-alias EditMemo="gvim ~/memo.mkd"
-alias ReloadBashrc="source ~/dotfiles/bashrc/bashrc"
-alias ShowListenPorts='netstat -lnptua'
-alias df='df -h'
-alias ":q"='exit'
-alias ConvertLfAll='find . -type f | xargs -n 10 nkf -Lu --overwrite'
-alias m="make"
-alias g="git"
-alias s7l="sudo systemctl"
-#--------------------------------------
-# パッケージアップデート
-if [ $OSNAME = "Mac" ];then
-	function UpdatePackage() {
-		sh -x -c 'brew update'
-		sh -x -c 'brew outdated'
-	}
-	function UpdatePackageDone() {
-		sh -x -c 'brew upgrade all'
-	}
-elif [ $OSDISTRO = "Msys" ];then
-	function UpdatePackage() {
-		sh -x -c 'pacman -Syup'
-	}
-	function UpdatePackageDone() {
-		sh -x -c 'pacman -Syu --noconfirm'
-	}
-elif [ $OSDISTRO = "Debian" ];then
-	# debian,ubuntu
-	function UpdatePackage() {
-		sh -x -c 'sudo apt update'
-		sh -x -c 'sudo apt list --upgradable'
-	}
-	function UpdatePackageDone() {
-		sh -x -c 'sudo apt upgrade -y'
-	}
-fi
-#--------------------------------------
-# コマンドにいろいろ色を付ける
-function __SetGnuColor() {
-	# Linux一般
-	alias ls='ls --color'
-	alias ll='ls -alh --color'
-}
-function __SetBsdColor() {
-	# BSD
-	alias ls='ls -G'
-	alias ll='ls -G -alh'
-}
-#--------------------------------------
-# 誤入力対策コマンド
 alias sl='ls'
-#--------------------------------------
-# Javacの文字コード
+alias ll='ls -al'
+alias al='ls -al'
+
+alias x='xonsh'
+
 alias javac='javac -J-Dfile.encoding=utf-8'
 alias java='java -Dfile.encoding=UTF-8'
-#--------------------------------------
-# bashをvim風に
+
+# pyenv
+if type pyenv >/dev/null 2>&1; then
+	eval "$(pyenv init -)"
+fi
+
+# direnv
+if type direnv >/dev/null 2>&1; then
+	eval "$(direnv hook bash)"
+fi
+
 set -o vi
-#--------------------------------------
-# bashでCtrl-wで、スラッシュまでを消す
+
 stty werase undef
 bind '\C-w:unix-filename-rubout'
-#--------------------------------------
-# Androidのスクリーンショットを取る
-function TakeAndroidScreenshot() {
-DATE=`date '+%y%m%d%H%M%S'`
-adb shell mkdir /sdcard/screen_cap  
-adb shell screencap -p /sdcard/screen_cap/screen-${DATE}.png
-adb pull /sdcard/screen_cap/screen-${DATE}.png
-adb shell rm /sdcard/screen_cap/screen-${DATE}.png
-}
 
-#--------------------------------------
-# ImageMagic関連
-alias ConvertToJpg='mogrify -format jpg'
-alias ConvertToPng='mogrify -format png'
-#--------------------------------------
-# 色々更新
-function UpdateDotfilesModule() {
-	# git-completion.bash
-	curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/dotfiles/bashrc/git-completion/git-completion.bash
-}
-#--------------------------------------
-# Git簡単化
-function pushpush() {
-	git add -A
-	git commit -m "at $HOSTNAME"
-	git push origin master
-}
-alias commit='git commit -v'
-alias commita='git commit -av'
-alias add='git add'
-alias push='git push'
-alias pull='git pull'
-alias gt='git status'
-function checkout() {
-	if [ $# -gt 0 ];then
-		git checkout $*
-	else
-		git checkout `git branch | peco | sed -e "s/\* //g" | awk "{print \$1}"`
-	fi
-}
-#--------------------------------------
-# golang
-if [ -e $HOME/go ];then
-	export GOPATH=$HOME/go
-	export PATH=$GOPATH/bin:$PATH
-fi
-function ResetGopath() {
-	export GOPATH=$GOPATH_DEF
-}
-
-if [ $OSNAME = "Windows" ];then
-	export GOROOT=C:\\tools\\go
-	export GOPATH=C:\\Users\\$USERNAME\\go
-elif [ -e $HOME/goroot/go/bin ];then
-	export GOROOT=$HOME/goroot/go
-elif [ -e $HOME/goroot/bin ];then
-	export GOROOT=$HOME/goroot
-fi
-if [ -n "${GOROOT}" ];then
-	export PATH=$GOROOT/bin:$PATH
-fi
-if [ -n "${GOPATH}" ];then
-	export PATH=$GOPATH/bin:$PATH
-fi
-if [ "${GOPATH}" == "" ];then
-	alias CDGOPATH='cd ~/go/src/github.com/74th/'
-else
-	alias CDGOPATH='cd $GOPATH/src/github.com/74th/'
-fi
-alias golinux='GOOS=linux GOARCH=amd64 go'
-alias goarm='GOOS=linux GOARCH=arm go'
-alias gowindows='GOOS=windows GOARCH=amd64 go'
-alias gomac='GOOS=darwin GOARCH=amd64 go'
-#--------------------------------------
-# vscode
-if [ $OSNAME = "Mac" ];then
-	code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
-fi
-#--------------------------------------
-# docker
-function DeleteStoppedDocker() {
-	docker rm `docker ps -a | grep Exited | cut -c 1-12`
-}
-alias d='docker'
-#--------------------------------------
 # vimのエラー対策
 # E437: terminal capability "cm" required
 if [ "$TERM" == 'screen-bce' ]; then
 	export TERM=screen
 fi
-#--------------------------------------
-# MSYS2用の設定
-if [ $OSNAME = "Msys" ];then
-	source ~/dotfiles/bashrc/msys.sh
-fi
-#--------------------------------------
-# 便利ディレクトリ
-if [ $OSNAME = "Mac" ];then
-	export HOMEBREW_FORMULA_DIR=/usr/local/Library/Formula
-fi
-#--------------------------------------
-# 自分のチートシートディレクトリをpecoで開く
-function OpenCheatSheets() {
-	FILE=$(ls ~/mycheatsheets/ | peco)
-	vimless -c "set syntax=markdown" ~/mycheatsheets/$FILE
-}
-alias ShowCheatSheets="OpenCheatSheets"
-function EditCheatSheets() {
-	cd ~/mycheatsheets/
-	git pull origin master
-	FILE=$(ls ~/mycheatsheets/ | peco)
-	vim ~/mycheatsheets/$FILE
-	git add -A
-	git commit -m "at $HOSTNAME"
-	git push origin master
-	cd -
-}
-#--------------------------------------
-# MacでGNUツール群へのパスを通す
-if [ $OSNAME = "Mac" ];then
-	# brew install coreutils
-	if [ -e /usr/local/opt/coreutils/libexec/gnubin ];then
-		export PATH_NOGNU=$PATH
-		export PATH_USEGNU=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-		export PATH=$PATH_USEGNU
 
-		function UseBsd() {
-			export PATH=$PATH_NOGNU
-			__SetBsdColor
-		}
-
-		function UseGnu() {
-			export PATH=$PATH_USEGNU
-			__SetGnuColor
-		}
-		__SetGnuColor
-	else
-		__SetBsdColor
-	fi
-else
-	__SetGnuColor
-fi
-#--------------------------------------
-# cdを打たなくてもcdになる
-shopt -s autocd
-# cdのミスをしても移動する
-shopt -s cdspell
-#--------------------------------------
-if [ $OSDISTRO = "Cygwin" ];then
-	# CygwinからWindowsアプリを呼び出すと、Cygwinの環境変数が引き継がれる対策
-	# http://tagussan.rdy.jp/blog/archives/686
-
-	# /etc/profileでunset TMP TEMPしているところで、WindowsのTMP、TEMPをORIGINAL_TMPに格納する
-	# ORIGINAL_TMP=$TMP
-	# ORIGINAL_TEMP=$TEMP
-
-	# winenv xx で呼び出したものはWindowsの環境変数になる
-	alias winenv='HOME= SHELL= PATH=$ORIGINAL_PATH TMP=$ORIGINAL_TEMP TEMP=$ORIGINAL_TMP'
-	alias gvim='winenv gvim'
-fi
-#--------------------------------------
 # Macで.ssh/id_rsaの鍵をkeychainから使うようにする
 if [ $OSNAME = "Mac" ];then
 	ssh-add -K ~/.ssh/id_rsa 2>/dev/null
-fi
-#--------------------------------------
-# Golangでデバッグ
-if type dlv 2>/dev/null 1>/dev/null
-then
-function dlv_test() {
-	dlv test --headless --listen "0.0.0.0:2345" --log=true
-	$GOPATH/bin/dlv test --headless --listen "0.0.0.0:2345" --log=true
-}
-fi
-#--------------------------------------
-# peco
-if type peco 2>/dev/null 1>/dev/null ;then
-
-function find_cd() {
-	# ディレクトリを検索して移動
-	cd "$(find . -type d | peco)"
-}
-alias fc="find_cd"
-
-fi
-#--------------------
-# AWSの補完
-if type aws_completer 2>/dev/null 1>/dev/null
-then
-	complete -C $(which aws_completer) aws
 fi

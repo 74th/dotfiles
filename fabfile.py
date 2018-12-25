@@ -236,6 +236,7 @@ def xonsh(c):
     else:
         install_pip3(c, "xonsh[ptk,linux]")
     c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
+    install_pip3(c, "xontrib-readable-traceback")
 
 @task
 def fabric(c):
