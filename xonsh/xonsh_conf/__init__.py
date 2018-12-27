@@ -74,7 +74,7 @@ def _set_prompt():
     x_env["XONSH_GITSTATUS_CHANGED"] = "{RED}+"
     x_env["XONSH_GITSTATUS_UNTRACKED"] = "{YELLOW}+"
     x_env["XONSH_GITSTATUS_STASHED"] = "s"
-    x_env["XONSH_GITSTATUS_CLEAN"] = "{BOLD_GREEN}✓"
+    x_env["XONSH_GITSTATUS_CLEAN"] = "{BOLD_GREEN}🦉CLEAN!"
     x_env["XONSH_GITSTATUS_AHEAD"] = '{GREEN}>'
     x_env["XONSH_GITSTATUS_BEHIND"] = '{RED}<'
 

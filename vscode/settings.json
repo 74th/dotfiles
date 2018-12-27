@@ -26,7 +26,7 @@
     // tab等の表示
     "editor.tabSize": 4,
     "editor.insertSpaces": false,
-    "editor.renderWhitespace": "none",
+    "editor.renderWhitespace": "all",
     "editor.renderIndentGuides": true,
     "editor.renderControlCharacters": true,
     // カーソル
@@ -67,6 +67,17 @@
     "python.formatting.yapfArgs": [
         "--style={COLUMN_LIMIT: 120}"
     ],
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyPath": "/usr/local/bin/mypy",
+    "python.formatting.yapfPath": "/usr/local/bin/yapf",
+    "python.linting.pylintPath": "/usr/local/bin/pylint",
+    "[python]": {
+        "editor.detectIndentation": false,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "editor.formatOnSave": false
+    },
+    // terminal -------------------
     "terminal.integrated.shell.osx": "/usr/local/bin/bash",
     "terminal.integrated.shell.linux": "bash",
     // minimap
@@ -131,7 +142,7 @@
     "cSpell.dictionaryDefinitions": [
         {
             "name": "my_work",
-            "path": "/Users/nnyn/mycheatsheets/CodeSpellChecker/work.txt",
+            "path": "/Users/nnyn/mycheatsheets/CodeSpellChecker/work.txt"
         },
         {
             "name": "my_it",
@@ -152,15 +163,6 @@
         "my_abbreviation",
         "my_word"
     ],
-    "[python]": {
-        "editor.detectIndentation": false,
-        "editor.insertSpaces": true,
-        "editor.tabSize": 4,
-        "editor.formatOnSave": false
-    },
-    "python.linting.mypyEnabled": true,
-    "python.linting.mypyPath": "/usr/local/bin/mypy",
-    "python.linting.pylintPath": "/usr/local/bin/pylint",
     "files.associations": {
         "*.jinja": "yaml"
     },
@@ -171,8 +173,8 @@
         "**/*.pyc": true,
         "**/tmp": true
     },
-    "python.formatting.yapfPath": "/usr/local/bin/yapf",
     "diffEditor.ignoreTrimWhitespace": false,
     "gitlens.mode.active": "zen",
-    "cfnLint.path": "/usr/local/bin/cfn-lint"
+    "cfnLint.path": "/usr/local/bin/cfn-lint",
+    "breadcrumbs.enabled": false
 }
