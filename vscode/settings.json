@@ -173,5 +173,6 @@
     },
     "python.formatting.yapfPath": "/usr/local/bin/yapf",
     "diffEditor.ignoreTrimWhitespace": false,
-    "gitlens.mode.active": "zen"
+    "gitlens.mode.active": "zen",
+    "cfnLint.path": "/usr/local/bin/cfn-lint"
 }
