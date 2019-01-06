@@ -142,7 +142,7 @@
     "cSpell.dictionaryDefinitions": [
         {
             "name": "my_work",
-            "path": "/Users/nnyn/mycheatsheets/CodeSpellChecker/work.txt",
+            "path": "/Users/nnyn/mycheatsheets/CodeSpellChecker/work.txt"
         },
         {
             "name": "my_it",
@@ -174,5 +174,6 @@
         "**/tmp": true
     },
     "diffEditor.ignoreTrimWhitespace": false,
+    "cfnLint.path": "/usr/local/bin/cfn-lint",
     "breadcrumbs.enabled": false
 }
