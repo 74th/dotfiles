@@ -272,6 +272,7 @@ def set_keybind():
 
 def load_xontrib():
     run("xontrib load coreutils docker_tabcomplete jedi z readable-traceback")
+    run("xontrib load direnv")
 
 
 def load():
@@ -296,4 +297,4 @@ def load():
     x_aliases["uuid"] = _new_uuid
     set_keybind()
 
-    set_direnv()
+    #set_direnv()
