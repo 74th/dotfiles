@@ -62,6 +62,12 @@ def set_config(c):
     # 日本語の文字化けを治す
     c.run('git config --global core.quotepath false', env=env)
 
+    # オープンソース用の名前を適用する
+    c.run('git config --global alias.setnnyn "!git config --local user.name 74th && git config --local user.email site@74th.tech"', env=env)
+
+    # オープンソース用の名前を適用する
+    c.run('git config --global alias.submodule_update "submodule update -i"', env=env)
+
     # Windowsの場合、以下も追加する
     # ファイルモードを無視
     # git config --global core.filemode false
