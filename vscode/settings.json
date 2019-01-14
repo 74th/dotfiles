@@ -64,6 +64,8 @@
     // Lintは有効にする
     "python.linting.enabled": true,
     "python.formatting.provider": "yapf",
+    // 標準はpython3.7に設定する
+    "python.pythonPath": "/usr/local/bin/python3.7",
     "python.formatting.yapfArgs": [
         "--style={COLUMN_LIMIT: 120}"
     ],

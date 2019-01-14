@@ -79,24 +79,6 @@ def _set_prompt():
     x_env["XONSH_GITSTATUS_BEHIND"] = '{RED}<'
 
 
-def set_direnv():
-    @x_events.on_chdir
-    def __direnv(olddir, newdir, **kw):
-        # $(direnv export bash)
-        # r = run("direnv export bash") # type: str
-        r = run(f"!(direnv export bash)")
-        r.end()
-        r = r.output
-        if len(r) > 0:
-            cmds = r.split(";")
-            for cmd in cmds:
-                if cmd.startswith("export"):
-                    c = cmd.find("=")
-                    x_env[cmd[7:c]] = cmd[c + 3:-1]
-                if cmd.startswith("unset"):
-                    del (x_env[cmd[6:]])
-
-
 def _default_charsets():
     '''
     文字コードの標準設定
@@ -272,6 +254,7 @@ def set_keybind():
 
 def load_xontrib():
     run("xontrib load coreutils docker_tabcomplete jedi z readable-traceback")
+    run("xontrib load direnv")
 
 
 def load():
@@ -295,5 +278,3 @@ def load():
     _set_java_alias()
     x_aliases["uuid"] = _new_uuid
     set_keybind()
-
-    set_direnv()
