@@ -70,9 +70,9 @@
         "--style={COLUMN_LIMIT: 120}"
     ],
     "python.linting.mypyEnabled": true,
-    "python.linting.mypyPath": "/usr/local/bin/mypy",
-    "python.formatting.yapfPath": "/usr/local/bin/yapf",
-    "python.linting.pylintPath": "/usr/local/bin/pylint",
+    // "python.linting.mypyPath": "/usr/local/bin/mypy",
+    // "python.formatting.yapfPath": "/usr/local/bin/yapf",
+    // "python.linting.pylintPath": "/usr/local/bin/pylint",
     "[python]": {
         "editor.detectIndentation": false,
         "editor.insertSpaces": true,
@@ -176,7 +176,6 @@
         "**/tmp": true
     },
     "diffEditor.ignoreTrimWhitespace": false,
-    "gitlens.mode.active": "zen",
     "cfnLint.path": "/usr/local/bin/cfn-lint",
     "breadcrumbs.enabled": false
 }
