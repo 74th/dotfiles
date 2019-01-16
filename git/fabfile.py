@@ -40,6 +40,7 @@ def set_config(c):
     c.run('git config --global alias.discard "checkout --"', env=env)
     c.run('git config --global alias.uncommit "reset --mixed HEAD~"', env=env)
     c.run('git config --global alias.amend "commit --amend"', env=env)
+    c.run('git config --global alias.branchcheckout "branch -b"', env=env)
     c.run(
         "git config --global alias.graph \"log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative\"",
         env=env)
@@ -66,7 +67,7 @@ def set_config(c):
     c.run('git config --global alias.setnnyn "!git config --local user.name 74th && git config --local user.email site@74th.tech"', env=env)
 
     # オープンソース用の名前を適用する
-    c.run('git config --global alias.submodule_update "submodule update -i"', env=env)
+    c.run('git config --global alias.submoduleupdate "submodule update -i"', env=env)
 
     # Windowsの場合、以下も追加する
     # ファイルモードを無視
