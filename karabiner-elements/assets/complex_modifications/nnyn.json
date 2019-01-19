@@ -2,7 +2,7 @@
   "title": "空打ち",
   "rules": [
     {
-      "description": "左Optionを単体で押したときに、ESCを送信する。",
+      "description": "左Optionを単体で押したときに、英数、ESCを送信する。",
       "manipulators": [
         {
           "type": "basic",
@@ -23,6 +23,9 @@
           "to_if_alone": [
             {
               "key_code": "escape"
+            },
+            {
+              "key_code": "japanese_eisuu"
             }
           ]
         }
@@ -56,7 +59,7 @@
       ]
     },
     {
-      "description": "左Ctrlを単体で押したときに、ESCを送信する。",
+      "description": "左Ctrlを単体で押したときに、英数、ESCを送信する。",
       "manipulators": [
         {
           "type": "basic",
@@ -77,13 +80,16 @@
           "to_if_alone": [
             {
               "key_code": "escape"
+            },
+            {
+              "key_code": "japanese_eisuu"
             }
           ]
         }
       ]
     },
     {
-      "description": "左Shiftを単体で押したときに、ESCを送信する。",
+      "description": "左Shiftを単体で押したときに、英数、ESCを送信する。",
       "manipulators": [
         {
           "type": "basic",
@@ -104,6 +110,9 @@
           "to_if_alone": [
             {
               "key_code": "escape"
+            },
+            {
+              "key_code": "japanese_eisuu"
             }
           ]
         }

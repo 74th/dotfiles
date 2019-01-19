@@ -211,7 +211,7 @@
                         ]
                     },
                     {
-                        "description": "左Optionを単体で押したときに、ESCを送信する。",
+                        "description": "左Optionを単体で押したときに、英数、ESCを送信する。",
                         "manipulators": [
                             {
                                 "from": {
@@ -231,6 +231,9 @@
                                 "to_if_alone": [
                                     {
                                         "key_code": "escape"
+                                    },
+                                    {
+                                        "key_code": "japanese_eisuu"
                                     }
                                 ],
                                 "type": "basic"
@@ -265,7 +268,7 @@
                         ]
                     },
                     {
-                        "description": "左Ctrlを単体で押したときに、ESCを送信する。",
+                        "description": "左Ctrlを単体で押したときに、英数、ESCを送信する。",
                         "manipulators": [
                             {
                                 "from": {
@@ -285,6 +288,9 @@
                                 "to_if_alone": [
                                     {
                                         "key_code": "escape"
+                                    },
+                                    {
+                                        "key_code": "japanese_eisuu"
                                     }
                                 ],
                                 "type": "basic"
@@ -292,7 +298,7 @@
                         ]
                     },
                     {
-                        "description": "左Shiftを単体で押したときに、ESCを送信する。",
+                        "description": "左Shiftを単体で押したときに、英数、ESCを送信する。",
                         "manipulators": [
                             {
                                 "from": {
@@ -312,6 +318,9 @@
                                 "to_if_alone": [
                                     {
                                         "key_code": "escape"
+                                    },
+                                    {
+                                        "key_code": "japanese_eisuu"
                                     }
                                 ],
                                 "type": "basic"
@@ -358,6 +367,19 @@
                     },
                     "ignore": false,
                     "manipulate_caps_lock_led": true,
+                    "simple_modifications": []
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 88,
+                        "vendor_id": 64593
+                    },
+                    "ignore": true,
+                    "manipulate_caps_lock_led": false,
                     "simple_modifications": []
                 }
             ],
@@ -459,8 +481,8 @@
                     }
                 }
             ],
-            "name": "Default profile",
-            "selected": true,
+            "name": "MBP",
+            "selected": false,
             "simple_modifications": [
                 {
                     "from": {
@@ -485,7 +507,27 @@
                     "basic.to_if_alone_timeout_milliseconds": 1000,
                     "basic.to_if_held_down_threshold_milliseconds": 500
                 },
-                "rules": []
+                "rules": [
+                    {
+                        "description": "escキーを押したときに、英数キーも送信する（vim用）",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "escape"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "escape"
+                                    },
+                                    {
+                                        "key_code": "japanese_eisuu"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
             },
             "devices": [],
             "fn_function_keys": [
@@ -586,8 +628,8 @@
                     }
                 }
             ],
-            "name": "KeySwitcher",
-            "selected": false,
+            "name": "Lily58",
+            "selected": true,
             "simple_modifications": [
                 {
                     "from": {
