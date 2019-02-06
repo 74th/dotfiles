@@ -1,6 +1,5 @@
 {
     "workbench.colorCustomizations": {
-        "editorIndentGuide.activeBackground": "#505050"
     },
     "terminal.external.osxExec": "Terminal.app",
     // font
@@ -39,7 +38,6 @@
     "git.confirmSync": false, // Syncボタンで尋ねない
     // auto format
     "editor.formatOnType": true,
-    "editor.formatOnSave": false,
     "editor.lineNumbers": "on",
     "editor.selectionHighlight": false,
     "editor.autoClosingBrackets": false,
@@ -175,7 +173,7 @@
         "**/*.pyc": true,
         "**/tmp": true
     },
-    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.ignoreTrimWhitespace": true,
     "cfnLint.path": "/usr/local/bin/cfn-lint",
-    "breadcrumbs.enabled": false
+    "breadcrumbs.enabled": true
 }
