@@ -254,7 +254,7 @@ def istio(c):
         c.run("curl -L https://git.io/getLatestIstio | sh -")
         ds = glob.glob(f"{d}/istio-*")
         d = ds[0]
-        c.run(f"ln -s {d}/bin/* {HOME}/bin/")
+        c.run(f"ln -fs {d}/bin/* {HOME}/bin/")
 
 @task(default=True)
 def install(c):

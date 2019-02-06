@@ -18,11 +18,8 @@ fish
 direnv
 peco
 readline
-# imagemagick
-# ffmpeg
 watch
 rsync
-
 
 # Windowsで作ったzipのファイル名でも文字化けを防ぐ
 unar
@@ -47,16 +44,14 @@ go
 # メモリーのビジュアル化
 graphviz qt qcachegrind
 
-# docker
-docker
-docker-compose
-kubectl
+# docker & kubernetes
+homebrew/cask/docker
 kubernetes-helm
+kubectx
+stern
+kubespy
 
-# tensorflow関連
-# Java1.8がいるとかイケてないこと言うので、一旦排除
-#bazel
-#gpp
+# python
 pyenv
 pyenv-virtualenv
 
@@ -90,10 +85,6 @@ homebrew/cask/caffeine
 
 # 小さいカレンダー
 homebrew/cask/day-o
-
-# terraform
-# https://github.com/hashicorp/terraform
-terraform
 
 # Libre Office
 caskroom/cask/libreoffice

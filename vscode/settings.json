@@ -53,7 +53,9 @@
     "go.toolsGopath": "~/go",
     "go.coverOnTestPackage": true,
     // typescript
-    "editor.codeLens": false,
+    "[typescript]":{
+        "editor.codeLens": false,
+    },
     // vimStyle
     "vimStyle.defaultMode": "normal",
     "vimStyle.enabled": true,
@@ -89,14 +91,9 @@
 
     // mykeyscroll
     "scrollkey.line1": 30,
-    "workbench.iconTheme": null,
+    "workbench.iconTheme": "Monokai Pro Icons",
     "workbench.colorTheme": "monokai-chacoral(HC)",
     "workbench.startupEditor": "newUntitledFile",
-    "java.errors.incompleteClasspath.severity": "ignore",
-    "gitlens.advanced.messages": {
-        "suppressShowKeyBindingsNotice": true
-    },
-    "gitlens.defaultDateStyle": "absolute",
     "[cuda]": {
 		"editor.formatOnSave": true
     },
@@ -164,16 +161,23 @@
         "my_word"
     ],
     "files.associations": {
-        "*.jinja": "yaml"
+        "*.jinja": "yaml",
+        "*.md": "markdown"
     },
     "git.autofetch": true,
     "search.exclude": {
         "**/.mypy_cache": true,
         "**/.vscode": true,
         "**/*.pyc": true,
-        "**/tmp": true
+        "**/tmp": true,
     },
     "diffEditor.ignoreTrimWhitespace": true,
     "cfnLint.path": "/usr/local/bin/cfn-lint",
-    "breadcrumbs.enabled": true
+    "breadcrumbs.enabled": true,
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.swp": true
+    },
+    "scm.alwaysShowProviders": true,
+    "scm.alwaysShowActions": true
 }
