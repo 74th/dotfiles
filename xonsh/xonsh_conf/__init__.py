@@ -70,12 +70,12 @@ def _set_prompt():
     x_env["XONSH_GITSTATUS_BRANCH"] = "{YELLOW}"
     x_env["XONSH_GITSTATUS_OPERATION"] = "{CYAN}"
     x_env["XONSH_GITSTATUS_STAGED"] = "{GREEN}"
-    x_env["XONSH_GITSTATUS_CONFLICTS"] = "{BOLD_RED}×"
-    x_env["XONSH_GITSTATUS_CHANGED"] = "{RED}+"
-    x_env["XONSH_GITSTATUS_UNTRACKED"] = "{YELLOW}+"
+    x_env["XONSH_GITSTATUS_CONFLICTS"] = "{BOLD_RED}x"
+    x_env["XONSH_GITSTATUS_CHANGED"] = "🐥{RED}+"
+    x_env["XONSH_GITSTATUS_UNTRACKED"] = "🐥{YELLOW}+"
     x_env["XONSH_GITSTATUS_STASHED"] = "s"
-    x_env["XONSH_GITSTATUS_CLEAN"] = "{BOLD_GREEN}🦉CLEAN!"
-    x_env["XONSH_GITSTATUS_AHEAD"] = '{GREEN}>'
+    x_env["XONSH_GITSTATUS_CLEAN"] = "🦉{BOLD_GREEN}CLEAN!"
+    x_env["XONSH_GITSTATUS_AHEAD"] = '🚀{GREEN}>'
     x_env["XONSH_GITSTATUS_BEHIND"] = '{RED}<'
 
 
@@ -236,7 +236,7 @@ def set_keybind():
         def __ctrl_w(event):
             buf = event.current_buffer  # type: prompt_toolkit.buffer.Buffer
             text = buf.text[:buf.cursor_position]  # type: str
-            m = re.search(r"[/,.\s][^/,.\s]+[/,.\s]?$", text)
+            m = re.search(r"[/,.=\s][^/,.=\s]+[/,.=\s]?$", text)
             if m is not None:
                 buf.delete_before_cursor(len(text) - m.start() - 1)
                 return
