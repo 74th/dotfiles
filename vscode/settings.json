@@ -176,6 +176,7 @@
     "breadcrumbs.enabled": true,
     "files.exclude": {
         "**/__pycache__": true,
+        "**/.mypy_cache": true,
         "**/*.swp": true
     },
     "scm.alwaysShowProviders": true,
