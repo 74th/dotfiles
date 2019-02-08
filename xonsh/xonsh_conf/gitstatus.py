@@ -150,9 +150,10 @@ def gitstatus_prompt():
     except subprocess.SubprocessError:
         return None
 
-    ret = "{YELLOW}" + s.branch
+    ret = ""
     if s.branch == "master":
         ret += "🌟"
+    ret += "{YELLOW}" + s.branch
     if s.num_ahead > 0:
         ret += "{GREEN}>" + str(s.num_ahead)
     if s.num_behind > 0:
