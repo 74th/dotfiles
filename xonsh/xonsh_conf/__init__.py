@@ -12,6 +12,7 @@ from .lib import HOSTNAME, run, silent_run
 from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import Condition, ViInsertMode
+from .gitstatus import gitstatus_prompt
 from . import ctrl_r
 
 x_env["XONSH_SHOW_TRACEBACK"] = True
@@ -59,24 +60,13 @@ def _set_prompt():
     prompt += "{hostname}"
     prompt += " "
     prompt += "{cwd} "
-    prompt += "{gitstatus}{NO_COLOR}"
+    prompt += "{git} "
     prompt += "\n"
     prompt += "{prompt_end}"
 
     x_env["PROMPT"] = prompt
     x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
-
-    x_env["XONSH_GITSTATUS_HASH"] = ":"
-    x_env["XONSH_GITSTATUS_BRANCH"] = "{YELLOW}"
-    x_env["XONSH_GITSTATUS_OPERATION"] = "{CYAN}"
-    x_env["XONSH_GITSTATUS_STAGED"] = "{GREEN}"
-    x_env["XONSH_GITSTATUS_CONFLICTS"] = "{BOLD_RED}x"
-    x_env["XONSH_GITSTATUS_CHANGED"] = "🐥{RED}+"
-    x_env["XONSH_GITSTATUS_UNTRACKED"] = "🐥{YELLOW}+"
-    x_env["XONSH_GITSTATUS_STASHED"] = "s"
-    x_env["XONSH_GITSTATUS_CLEAN"] = "🦉{BOLD_GREEN}CLEAN!"
-    x_env["XONSH_GITSTATUS_AHEAD"] = '🚀{GREEN}>'
-    x_env["XONSH_GITSTATUS_BEHIND"] = '{RED}<'
+    x_env["PROMPT_FIELDS"]["git"] = gitstatus_prompt
 
 
 def _default_charsets():
