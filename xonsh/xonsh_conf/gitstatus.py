@@ -162,17 +162,20 @@ def gitstatus_prompt():
         ret += "{CYAN}" + "|" + "|".join(s.operations)
     ret += " "
     if s.staged > 0:
-        ret += "{GREEN}" + str(s.staged) + "{NO_COLOR}"
+        ret += "{GREEN}" + str(s.staged)
     if s.conflicts > 1:
-        ret += "{BOLD_RED}" + str(s.conflicts) + "{NO_COLOR}"
+        ret += "{BOLD_RED}" + str(s.conflicts)
     if s.changed > 0:
-        ret += "{RED}+" + str(s.changed) + "{NO_COLOR}"
+        ret += "{RED}+" + str(s.changed)
     if s.untracked > 0:
-        ret += "{YELLOW}+" + str(s.untracked) + "{NO_COLOR}"
+        ret += "{YELLOW}+" + str(s.untracked)
+    if s.staged + s.conflicts + s.changed + s.untracked == 0:
+        if s.stashed == 0:
+            ret += "🦉{BOLD_GREEN}CLEAN!"
+        else:
+            ret += "🦉{GREEN}CLEAN?"
     if s.stashed > 0:
-        ret += "s" + str(s.stashed) + "{NO_COLOR}"
-    if s.staged + s.conflicts + s.changed + s.untracked + s.stashed == 0:
-        ret += "🦉{BOLD_GREEN}CLEAN!{NO_COLOR}"
+        ret += " " + "🌵"* s.stashed
     ret += "{NO_COLOR}"
 
     return ret
