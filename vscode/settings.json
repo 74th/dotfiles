@@ -91,7 +91,6 @@
 
     // mykeyscroll
     "scrollkey.line1": 30,
-    "workbench.iconTheme": "Monokai Pro Icons",
     "workbench.colorTheme": "monokai-chacoral(HC)",
     "workbench.startupEditor": "newUntitledFile",
     "[cuda]": {
@@ -180,5 +179,6 @@
         "**/*.swp": true
     },
     "scm.alwaysShowProviders": true,
-    "scm.alwaysShowActions": true
+    "scm.alwaysShowActions": true,
+    "workbench.iconTheme": "Monokai Pro Icons"
 }
