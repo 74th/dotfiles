@@ -35,8 +35,9 @@ def current_kubernetes_context() -> str:
         if context["name"] == context_name:
             namespace_display_name = context["context"].get("namespace", "default")
             break
+    kubeclient_current_context = f"{context_display_name}:{namespace_display_name}"
 
-    return f"{context_display_name}:{namespace_display_name}"
+    return kubeclient_current_context
 
 
 def set_prompt():
