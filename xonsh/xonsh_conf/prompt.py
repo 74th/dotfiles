@@ -4,24 +4,24 @@ from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode
 from .lib import HOSTNAME, HOME, run, silent_run
 import os
 
-kubeconf_mttime = 0.0
+kubeconf_ctime = 0.0
 kubeclient_current_context = ""
 
 def current_kubernetes_context() -> str:
-    global kubeconf_mttime
+    global kubeconf_ctime
     global kubeclient_current_context
 
     config_path = os.path.join(HOME, ".kube", "config")
     if not os.path.exists(config_path):
         return ""
 
-    current_kubeconf_mttime = os.stat(config_path).st_atime
-    if current_kubeconf_mttime == kubeconf_mttime:
+    current_kubeconf_ctime = os.stat(config_path).st_ctime
+    if current_kubeconf_ctime == kubeconf_ctime:
         return kubeclient_current_context
+    kubeconf_ctime = current_kubeconf_ctime
 
     with open(config_path) as f:
         kubeconf = yaml.load(f.read().strip())
-    kubeconf_mttime = os.stat(config_path).st_mtime
     context_name = kubeconf.get("current-context", "")
 
     namespace_display_name = ""
