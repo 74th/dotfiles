@@ -72,9 +72,9 @@ def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
     buf.reset()
     buf.insert_text(name)
 
-def select_invoke_command(buf: prompt_toolkit.buffer.Buffer, command: str):
+def select_peco(buf: prompt_toolkit.buffer.Buffer, command:str):
     with tempfile.NamedTemporaryFile() as tmp:
-        run(f"{command} --complete | peco > {tmp.name}")
+        run(f"{command} | peco > {tmp.name}")
         with open(tmp.name) as f:
             line = f.readline()
             if not line:
@@ -88,9 +88,13 @@ def select(buf: prompt_toolkit.buffer.Buffer):
         select_history(buf)
     if line.startswith("git"):
         select_git(buf)
+    if line.startswith("kubectx"):
+        select_peco(buf, "kubectx")
+    if line.startswith("kubens"):
+        select_peco(buf, "kubens")
     if line.startswith("cb"):
         select_command_bookmark(buf)
     if line.startswith("inv"):
-        select_invoke_command(buf, "inv")
+        select_peco(buf, "inv --complete")
     if line.startswith("fab"):
-        select_invoke_command(buf, "fab")
+        select_peco(buf, "fab --complete")

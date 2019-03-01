@@ -64,7 +64,7 @@ def _get_tag_or_hash():
     tag_or_hash = _check_output(["git", "describe", "--always"]).strip()
     hash_ = _check_output(["git", "rev-parse", "--short", "HEAD"]).strip()
     have_tag_name = tag_or_hash != hash_
-    return tag_or_hash if have_tag_name else _get_def("HASH") + hash_
+    return tag_or_hash if have_tag_name else hash_
 
 
 def _get_stash(gitdir):

@@ -40,35 +40,6 @@ def _add_path_if_exists(path: str, if_path: str = None):
 HOME = x_env["HOME"]
 
 
-def _set_prompt():
-
-    prompt = "{RED}{exit}{WHITE}"
-
-    # user
-    if x_env.get("USER", "nnyn") == "root":
-        prompt += "{RED}"
-    else:
-        prompt += "{GREEN}"
-    prompt += "{user}{WHITE}@"
-
-    if HOSTNAME in ["nagisa", "methyl", "mini", "patty"]:
-        prompt += "{CYAN}"
-    elif HOSTNAME in ["mbp"]:
-        prompt += "{YELLOW}"
-    else:
-        prompt += "{WHITE}"
-    prompt += "{hostname}"
-    prompt += " "
-    prompt += "{cwd} "
-    prompt += "{git} "
-    prompt += "\n"
-    prompt += "{prompt_end}"
-
-    x_env["PROMPT"] = prompt
-    x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
-    x_env["PROMPT_FIELDS"]["git"] = gitstatus_prompt
-
-
 def _default_charsets():
     '''
     文字コードの標準設定
@@ -249,7 +220,8 @@ def load_xontrib():
 
 def load():
 
-    _set_prompt()
+    from .prompt import set_prompt
+    set_prompt()
 
     _default_charsets()
 
