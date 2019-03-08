@@ -70,6 +70,7 @@
         "--style={COLUMN_LIMIT: 120}"
     ],
     "python.linting.mypyEnabled": true,
+    "python.jediEnabled": false,
     // "python.linting.mypyPath": "/usr/local/bin/mypy",
     // "python.formatting.yapfPath": "/usr/local/bin/yapf",
     // "python.linting.pylintPath": "/usr/local/bin/pylint",
@@ -180,5 +181,7 @@
     },
     "scm.alwaysShowProviders": true,
     "scm.alwaysShowActions": true,
-    "workbench.iconTheme": "Monokai Pro Icons"
+    "workbench.iconTheme": "Monokai Pro Icons",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
 }
