@@ -9,7 +9,7 @@ from collections import OrderedDict
 from operator import itemgetter
 import prompt_toolkit
 from .lib import HOSTNAME, run, silent_run
-from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode
+from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode,x_completers
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import Condition, ViInsertMode
 from .gitstatus import gitstatus_prompt
@@ -212,6 +212,20 @@ def set_keybind():
         def __ctrl_r_event(event):
             ctrl_r.select(event.current_buffer)
 
+def invoke_completer(prefix:str, line:str, begidx:int, endidx:int, ctx:dict):
+    if not line.startswith("inv"):
+        return set()
+    args = line.split(" ")
+    if len(args)>1 and args[-2] == "-f":
+        from xonsh.completers.path import complete_path
+        return complete_path(prefix, line, begidx, endidx, ctx)
+    tasks = silent_run("/usr/local/bin/invoke --complete")
+    return set(tasks.split("\n"))
+
+def set_inv_completer():
+    x_completers["inv"] = invoke_completer
+    x_completers.move_to_end("inv", False)
+    pass
 
 def load_xontrib():
     run("xontrib load coreutils docker_tabcomplete jedi z readable-traceback")
@@ -240,3 +254,4 @@ def load():
     _set_java_alias()
     x_aliases["uuid"] = _new_uuid
     set_keybind()
+    set_inv_completer()
