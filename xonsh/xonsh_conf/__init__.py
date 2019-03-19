@@ -5,6 +5,7 @@ import json
 import tempfile
 import builtins
 import invoke
+from . import git
 from collections import OrderedDict
 from operator import itemgetter
 import prompt_toolkit
@@ -233,7 +234,6 @@ def load_xontrib():
 
 
 def load():
-
     from .prompt import set_prompt
     set_prompt()
 
@@ -255,3 +255,5 @@ def load():
     x_aliases["uuid"] = _new_uuid
     set_keybind()
     set_inv_completer()
+
+    git.set_aliases()
