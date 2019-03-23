@@ -86,9 +86,6 @@ homebrew/cask/caffeine
 # 小さいカレンダー
 homebrew/cask/day-o
 
-# Libre Office
-caskroom/cask/libreoffice
-
 # redis
 redis
 """ # type:str

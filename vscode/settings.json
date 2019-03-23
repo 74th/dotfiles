@@ -7,11 +7,11 @@
     // Windows,Linuxの場合、スペースを入れて、ウェイトもスペースで区切る
     // For Mac, Windows
     // "editor.fontFamily": "SourceCodePro-Light,Source Code Pro Light,SourceHanCodeJP-Light,Source Han Code JP Light,TakaoGothic",
-    "editor.fontFamily": "Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
+    "editor.fontFamily": "Input,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
     "editor.fontLigatures": true,
     // For Linux
     //"editor.fontFamily": "Source Code Pro Medium,Source Han Code JP Medium,TakaoGothic",
-    "editor.fontSize": 13,
+    "editor.fontSize": 14,
     // java
     "java.referencesCodeLens.enabled": false,
     // svg
@@ -92,7 +92,7 @@
 
     // mykeyscroll
     "scrollkey.line1": 30,
-    "workbench.colorTheme": "monokai-chacoral(HC)",
+    "workbench.colorTheme": "Slack Theme Dark Mode",
     "workbench.startupEditor": "newUntitledFile",
     "[cuda]": {
 		"editor.formatOnSave": true
@@ -184,4 +184,6 @@
     "workbench.iconTheme": "Monokai Pro Icons",
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "extensions.autoCheckUpdates": false,
+    "extensions.autoUpdate": false,
 }
