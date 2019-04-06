@@ -52,6 +52,11 @@ else
 fi
 PS1=$PS1'@\H\[\e[33m\]\[\e[m\] \w'
 
+# 非表示の文字は\[ \]で囲うこと
+if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
+	PS1=$PS1'\[\033k`expr $HOSTNAME : "\(...\).*"`@\W\033\\\]'
+fi
+
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM=auto
