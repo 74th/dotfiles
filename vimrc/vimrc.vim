@@ -11,7 +11,8 @@ set noundofile
 set tabstop=4
 set shiftwidth=4
 set autoindent
-set noexpandtab
+set expandtab
+autocmd BufRead,BufNewFile *.go setlocal noexpandtab
 
 " 自動改行を抑制
 set textwidth=0

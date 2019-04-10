@@ -34875,11 +34875,11 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>982 -774 606 469 713 -900 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>973 -827 916 514 713 -900 1440 877 </string>
+	<string>1057 -855 916 514 797 -900 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 143 1270 713 0 0 1440 877 </string>
+	<string>0 0 1440 877 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>137 83 1440 877 0 0 3008 1669 </string>
+	<string>0 0 1440 877 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>1121 0 1810 645 0 0 3008 1669 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -34890,6 +34890,8 @@
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
+			<true/>
+			<key>ASCII Ligatures</key>
 			<true/>
 			<key>Allow Title Reporting</key>
 			<false/>
@@ -35521,7 +35523,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>InputMono-ExtraLight 14</string>
+			<string>LigaInputMonoLight-Light 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -35703,6 +35705,8 @@
 		</dict>
 		<dict>
 			<key>ASCII Anti Aliased</key>
+			<true/>
+			<key>ASCII Ligatures</key>
 			<true/>
 			<key>Allow Title Reporting</key>
 			<false/>
@@ -36334,7 +36338,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>InputMono-ExtraLight 14</string>
+			<string>LigaInputMonoLight-Light 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -39040,7 +39044,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-03-28T09:50:03Z</date>
+	<date>2019-04-03T07:01:43Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
