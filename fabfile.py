@@ -117,14 +117,20 @@ def tmux(c):
 
 
 @task
-def vscode(c):
+def vscode(c, insider=False):
     c: invoke.Context
     print("## vscode")
     os = detect_os()
     if is_linux(os):
-        vscode_dir = "~/.config/Code/User"
+        if insider:
+            vscode_dir = "~/.config/Code\\ -\\ Insiders/User"
+        else:
+            vscode_dir = "~/.config/Code/User"
     else:
-        vscode_dir = "~/Library/Application\\ Support/Code/User"
+        if insider:
+            vscode_dir = "~/Library/Application\\ Support/Code\\ -\\ Insiders/User"
+        else:
+            vscode_dir = "~/Library/Application\\ Support/Code/User"
 
     c.run(f"mkdir -p {vscode_dir}")
 

@@ -8,7 +8,7 @@
     "editor.fontWeight": "400",
     // For Linux
     //"editor.fontFamily": "Source Code Pro Medium,Source Han Code JP Medium,TakaoGothic",
-    "editor.fontSize": 13,
+    "editor.fontSize": 14,
     // java
     "java.referencesCodeLens.enabled": false,
     // svg
@@ -87,7 +87,7 @@
 
     // mykeyscroll
     "scrollkey.line1": 30,
-    "workbench.colorTheme": "monokai-chacoral(HC)",
+    "workbench.colorTheme": "Slack Theme Dark Mode",
     "workbench.startupEditor": "newUntitledFile",
     "[cuda]": {
 		"editor.formatOnSave": true
@@ -179,4 +179,6 @@
     "workbench.iconTheme": "Monokai Pro Icons",
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "extensions.autoCheckUpdates": false,
+    "extensions.autoUpdate": false,
 }
