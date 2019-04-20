@@ -2,12 +2,9 @@
     "workbench.colorCustomizations": {
     },
     "terminal.external.osxExec": "Terminal.app",
-    // "editor.fontFamily": "SF Mono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
-    "editor.fontFamily": "Liga InputMono,Input Mono,SF Mono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
-    // "editor.fontFamily": "Input Mono,SF Mono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
-    // "editor.fontFamily": "SF Mono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
-    "editor.fontWeight": "400",
+    "editor.fontFamily": "Liga InputMono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
     "editor.fontLigatures": true,
+    "editor.fontWeight": "400",
     // For Linux
     //"editor.fontFamily": "Source Code Pro Medium,Source Han Code JP Medium,TakaoGothic",
     "editor.fontSize": 14,
@@ -59,25 +56,23 @@
     "vimStyle.defaultMode": "normal",
     "vimStyle.enabled": true,
     "vimStyle.imapEsc": "jj",
-    // python -----------------------------
-    // Lintは有効にする
-    "python.linting.enabled": true,
-    "python.formatting.provider": "yapf",
-    // 標準はpython3.7に設定する
-    "python.pythonPath": "/usr/local/bin/python3.7",
-    "python.formatting.yapfArgs": [
-        "--style={COLUMN_LIMIT: 120}"
-    ],
-    "python.linting.mypyEnabled": true,
-    "python.jediEnabled": false,
-    // "python.linting.mypyPath": "/usr/local/bin/mypy",
-    // "python.formatting.yapfPath": "/usr/local/bin/yapf",
-    // "python.linting.pylintPath": "/usr/local/bin/pylint",
+
     "[python]": {
         "editor.detectIndentation": false,
         "editor.insertSpaces": true,
         "editor.tabSize": 4,
-        "editor.formatOnSave": false
+        "editor.formatOnSave": false,
+        "python.unitTest.pyTestEnabled": true,
+        "python.jediEnabled": false,
+        // Lintは有効にする
+        "python.linting.enabled": true,
+        "python.formatting.provider": "yapf",
+        // 標準はpython3.7に設定する
+        "python.pythonPath": "/usr/local/bin/python3.7",
+        "python.formatting.yapfArgs": [
+            "--style={COLUMN_LIMIT: 120}"
+        ],
+        "python.linting.mypyEnabled": true,
     },
     // terminal -------------------
     "terminal.integrated.shell.osx": "/usr/local/bin/bash",
@@ -161,8 +156,8 @@
     ],
     "files.associations": {
         "*.jinja": "yaml",
-        "*.md": "markdown"
-    },
+        "*.md": "markdown",
+
     "git.autofetch": true,
     "search.exclude": {
         "**/.mypy_cache": true,
@@ -170,7 +165,7 @@
         "**/*.pyc": true,
         "**/tmp": true,
     },
-    "diffEditor.ignoreTrimWhitespace": true,
+    "diffEditor.ignoreTrimWhitespace": false,
     "cfnLint.path": "/usr/local/bin/cfn-lint",
     "breadcrumbs.enabled": true,
     "files.exclude": {
