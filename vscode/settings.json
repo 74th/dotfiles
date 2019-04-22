@@ -2,7 +2,6 @@
     "workbench.colorCustomizations": {
     },
     "terminal.external.osxExec": "Terminal.app",
-    // font
     "editor.fontFamily": "Liga InputMono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
     "editor.fontLigatures": true,
     "editor.fontWeight": "400",
@@ -51,7 +50,7 @@
     "go.coverOnTestPackage": true,
     // typescript
     "[typescript]":{
-        "editor.codeLens": false,
+        "editor.codeLens": true,
     },
     // vimStyle
     "vimStyle.defaultMode": "normal",
@@ -190,5 +189,12 @@
         "projectIds": [
             "dena-auto-taxifms-datadev-gcp"
         ]
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "debug.console.fontSize": 13,
+    "terminal.integrated.fontSize": 14,
+    "javascript.referencesCodeLens.enabled": true,
+    "typescript.implementationsCodeLens.enabled": true,
+    "[jsonc]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
     },
 }
