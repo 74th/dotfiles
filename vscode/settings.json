@@ -87,7 +87,7 @@
 
     // mykeyscroll
     "scrollkey.line1": 30,
-    "workbench.colorTheme": "Slack Theme Dark Mode",
+    "workbench.colorTheme": "monokai-chacoral(HC)",
     "workbench.startupEditor": "newUntitledFile",
     "[cuda]": {
 		"editor.formatOnSave": true
@@ -158,7 +158,7 @@
     "files.associations": {
         "*.jinja": "yaml",
         "*.md": "markdown",
-
+    },
     "git.autofetch": true,
     "search.exclude": {
         "**/.mypy_cache": true,
@@ -172,7 +172,11 @@
     "files.exclude": {
         "**/__pycache__": true,
         "**/.mypy_cache": true,
-        "**/*.swp": true
+        "**/*.swp": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
     },
     "scm.alwaysShowProviders": true,
     "scm.alwaysShowActions": true,
@@ -181,4 +185,10 @@
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "extensions.autoCheckUpdates": false,
     "extensions.autoUpdate": false,
+    "python.jediEnabled": false,
+    "cloudcode.gke": {
+        "projectIds": [
+            "dena-auto-taxifms-datadev-gcp"
+        ]
+    },
 }
