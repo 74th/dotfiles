@@ -4,3 +4,5 @@ debug.test
 .mypy_cache
 .pyc
 __pycache__
+.pytest_cache
+no_commit

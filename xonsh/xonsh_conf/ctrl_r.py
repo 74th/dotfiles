@@ -3,50 +3,23 @@ import os
 import json
 import tempfile
 import prompt_toolkit
-from .lib import run, HOSTNAME
+from .lib import run, x_execer, HOSTNAME
 from .xonsh_builtin import x_env
 from collections import OrderedDict
 from operator import itemgetter
 
 
-def _get_history(session_history=None, return_list=False):
-    '''
-    https://qiita.com/riktor/items/4a90b4e125cd091a9d07
-    TODO: 時々お掃除いる？
-    '''
-    hist_dir = x_env['XONSH_DATA_DIR']
-    files = [ os.path.join(hist_dir,f) for f in os.listdir(hist_dir)
-            if f.startswith('xonsh-') and f.endswith('.json') ]
-    file_hist = [ json.load(open(f))['data']['cmds'] for f in files ]
-    cmds = [ ( c['inp'].replace('\n', ''), c['ts'][0] )
-            for cmds in file_hist for c in cmds if c]
-    cmds.sort(key=itemgetter(1))
-    cmds = [ c[0] for c in cmds[::-1] ]
-    if session_history:
-        cmds.extend(session_history)
-    zip_with_dummy = list(zip(cmds, [0] * len(cmds)))[::-1]
-    cmds = list(OrderedDict(zip_with_dummy).keys())[::-1]
-    if return_list:
-        return cmds
-    else:
-        return '\n'.join(cmds)
-
 def select_history(buf: prompt_toolkit.buffer.Buffer):
     '''
     履歴検索
     '''
-    sess_history = run("history").lines
-    sess_history = [h.strip() for h in sess_history]
-    hist = _get_history(sess_history)
-    with tempfile.NamedTemporaryFile() as input_tmp:
-        with tempfile.NamedTemporaryFile() as output_tmp:
-            with open(input_tmp.name,"w") as f:
-                f.write(hist)
-            run(f"cat {input_tmp.name} | peco > {output_tmp.name}")
-            with open(output_tmp.name) as f:
-                peco = f.readline().strip()
-            if len(peco) > 0:
-                buf.insert_text(peco)
+    with tempfile.NamedTemporaryFile() as tmp:
+        o = x_execer.eval(f"history show all -r | peco > {tmp.name}")
+        o.end()
+        with open(tmp.name) as f:
+            cmd = f.read().strip()
+    buf.insert_text(cmd)
+
 
 
 def select_git(buf):
@@ -99,9 +72,9 @@ def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
     buf.reset()
     buf.insert_text(name)
 
-def select_invoke_command(buf: prompt_toolkit.buffer.Buffer, command: str):
+def select_peco(buf: prompt_toolkit.buffer.Buffer, command:str):
     with tempfile.NamedTemporaryFile() as tmp:
-        run(f"{command} --complete | peco > {tmp.name}")
+        run(f"{command} | peco > {tmp.name}")
         with open(tmp.name) as f:
             line = f.readline()
             if not line:
@@ -115,9 +88,13 @@ def select(buf: prompt_toolkit.buffer.Buffer):
         select_history(buf)
     if line.startswith("git"):
         select_git(buf)
+    if line.startswith("kubectx"):
+        select_peco(buf, "kubectx")
+    if line.startswith("kubens"):
+        select_peco(buf, "kubens")
     if line.startswith("cb"):
         select_command_bookmark(buf)
     if line.startswith("inv"):
-        select_invoke_command(buf, "inv")
+        select_peco(buf, "inv --complete")
     if line.startswith("fab"):
-        select_invoke_command(buf, "fab")
+        select_peco(buf, "fab --complete")

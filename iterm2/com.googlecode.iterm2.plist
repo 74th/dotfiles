@@ -34830,8 +34830,10 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dotfiles/iterm2</string>
+	<string>~/Documents</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
+	<string>{712, 448}</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
@@ -34864,23 +34866,32 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
-	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
-	<dict>
-		<key>TB Is Shown</key>
-		<integer>1</integer>
-	</dict>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>1095 -793 861 251 713 -900 1440 877 </string>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>1780 -794 400 129 797 -900 1440 877 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>970 768 620 392 0 0 2560 1417 </string>
+	<string>1207 -537 620 392 797 -900 1440 877 </string>
+	<key>NSWindow Frame SessionsPreferences</key>
+	<string>982 -774 606 469 713 -900 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>268 114 918 452 0 0 3008 1669 </string>
+	<string>1057 -855 916 514 797 -900 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1440 877 0 0 1440 877 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>0 0 1440 877 0 0 1440 877 </string>
+	<key>NSWindow Frame iTerm Window 2</key>
+	<string>1121 0 1810 645 0 0 3008 1669 </string>
+	<key>NSWindow Frame iTerm Window 3</key>
+	<string>1060 0 1765 1546 0 0 3008 1669 </string>
 	<key>NeverWarnAboutShortLivedSessions_A460F4CB-292C-4761-9BCB-7D104B80033A</key>
 	<true/>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
+			<true/>
+			<key>ASCII Ligatures</key>
 			<true/>
 			<key>Allow Title Reporting</key>
 			<false/>
@@ -35504,7 +35515,7 @@
 			<key>Minimum Contrast</key>
 			<real>0.0</real>
 			<key>Mouse Reporting</key>
-			<true/>
+			<false/>
 			<key>Name</key>
 			<string>xonsh</string>
 			<key>Non Ascii Font</key>
@@ -35512,7 +35523,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Hasklig-Regular 14</string>
+			<string>LigaInputMonoLight-Light 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -35694,6 +35705,8 @@
 		</dict>
 		<dict>
 			<key>ASCII Anti Aliased</key>
+			<true/>
+			<key>ASCII Ligatures</key>
 			<true/>
 			<key>Allow Title Reporting</key>
 			<false/>
@@ -36325,7 +36338,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Hasklig-Regular 14</string>
+			<string>LigaInputMonoLight-Light 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -38945,14 +38958,18 @@
 			<string>/Users/atsushi</string>
 		</dict>
 	</array>
+	<key>NoSyncHaveRequestedFullDiskAccess</key>
+	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>EC2BAD56-9717-4D95-9F11-C105077606C0</string>
+	<string>499D82F1-96BA-4D96-A415-83F8CE56C1C5</string>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
+	<key>NoSyncSaveDocumentAsPathSet_saveDocumentAs:</key>
+	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>547274355.858181</real>
+	<real>550118062.83921599</real>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
 	<key>OpenArrangementAtStartup</key>
@@ -39005,7 +39022,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/nnyn/dotfiles/iterm2</string>
+	<string>/Users/atsushi.morimoto/dotfiles/iterm2</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnClose</key>
@@ -39023,11 +39040,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml?shard=18</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=50</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-09-24T03:48:19Z</date>
+	<date>2019-04-03T07:01:43Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -39081,7 +39098,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.2.0</string>
+	<string>3.2.8</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>1</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

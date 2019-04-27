@@ -5,13 +5,15 @@ import json
 import tempfile
 import builtins
 import invoke
+from . import git
 from collections import OrderedDict
 from operator import itemgetter
 import prompt_toolkit
 from .lib import HOSTNAME, run, silent_run
-from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode
+from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode,x_completers
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import Condition, ViInsertMode
+from .gitstatus import gitstatus_prompt
 from . import ctrl_r
 
 x_env["XONSH_SHOW_TRACEBACK"] = True
@@ -37,46 +39,6 @@ def _add_path_if_exists(path: str, if_path: str = None):
 
 
 HOME = x_env["HOME"]
-
-
-def _set_prompt():
-
-    prompt = "{RED}{exit}{WHITE}"
-
-    # user
-    if x_env.get("USER", "nnyn") == "root":
-        prompt += "{RED}"
-    else:
-        prompt += "{GREEN}"
-    prompt += "{user}{WHITE}@"
-
-    if HOSTNAME in ["nagisa", "methyl", "mini", "patty"]:
-        prompt += "{CYAN}"
-    elif HOSTNAME in ["mbp"]:
-        prompt += "{YELLOW}"
-    else:
-        prompt += "{WHITE}"
-    prompt += "{hostname}"
-    prompt += " "
-    prompt += "{cwd} "
-    prompt += "{gitstatus}{NO_COLOR}"
-    prompt += "\n"
-    prompt += "{prompt_end}"
-
-    x_env["PROMPT"] = prompt
-    x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
-
-    x_env["XONSH_GITSTATUS_HASH"] = ":"
-    x_env["XONSH_GITSTATUS_BRANCH"] = "{YELLOW}"
-    x_env["XONSH_GITSTATUS_OPERATION"] = "{CYAN}"
-    x_env["XONSH_GITSTATUS_STAGED"] = "{GREEN}"
-    x_env["XONSH_GITSTATUS_CONFLICTS"] = "{BOLD_RED}×"
-    x_env["XONSH_GITSTATUS_CHANGED"] = "{RED}+"
-    x_env["XONSH_GITSTATUS_UNTRACKED"] = "{YELLOW}+"
-    x_env["XONSH_GITSTATUS_STASHED"] = "s"
-    x_env["XONSH_GITSTATUS_CLEAN"] = "{BOLD_GREEN}🦉CLEAN!"
-    x_env["XONSH_GITSTATUS_AHEAD"] = '{GREEN}>'
-    x_env["XONSH_GITSTATUS_BEHIND"] = '{RED}<'
 
 
 def _default_charsets():
@@ -237,7 +199,7 @@ def set_keybind():
         def __ctrl_w(event):
             buf = event.current_buffer  # type: prompt_toolkit.buffer.Buffer
             text = buf.text[:buf.cursor_position]  # type: str
-            m = re.search(r"[/,.\s][^/,.\s]+[/,.\s]?$", text)
+            m = re.search(r"[/,.=\s][^/,.=\s]+[/,.=\s]?$", text)
             if m is not None:
                 buf.delete_before_cursor(len(text) - m.start() - 1)
                 return
@@ -252,6 +214,20 @@ def set_keybind():
         def __ctrl_r_event(event):
             ctrl_r.select(event.current_buffer)
 
+def invoke_completer(prefix:str, line:str, begidx:int, endidx:int, ctx:dict):
+    if not line.startswith("inv"):
+        return set()
+    args = line.split(" ")
+    if len(args)>1 and args[-2] == "-f":
+        from xonsh.completers.path import complete_path
+        return complete_path(prefix, line, begidx, endidx, ctx)
+    tasks = silent_run("/usr/local/bin/invoke --complete")
+    return set(tasks.split("\n"))
+
+def set_inv_completer():
+    x_completers["inv"] = invoke_completer
+    x_completers.move_to_end("inv", False)
+    pass
 
 def load_xontrib():
     run("xontrib load coreutils docker_tabcomplete jedi z readable-traceback")
@@ -259,8 +235,8 @@ def load_xontrib():
 
 
 def load():
-
-    _set_prompt()
+    from .prompt import set_prompt
+    set_prompt()
 
     _default_charsets()
 
@@ -279,3 +255,6 @@ def load():
     _set_java_alias()
     x_aliases["uuid"] = _new_uuid
     set_keybind()
+    set_inv_completer()
+
+    git.set_aliases()

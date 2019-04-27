@@ -55,16 +55,21 @@ else
 fi
 PS1=$PS1'@\H\[\e[33m\]\[\e[m\] \w'
 
+# 非表示の文字は\[ \]で囲うこと
+if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
+	PS1=$PS1'\[\033k`expr $HOSTNAME : "\(...\).*"`@\W\033\\\]'
+fi
+
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM=auto
 PS1=$PS1'\[\e[33m$(__git_ps1)\e[m\]'
-PS1=$PS1'\$'
 
 # 非表示の文字は\[ \]で囲うこと
 if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
 	PS1=$PS1'\[\033k`expr $HOSTNAME : "\(...\).*"`@\W\033\\\]'
 fi
+PS1=$PS1'\n\$'
 
 alias sl='ls'
 alias ll='ls -al'
@@ -96,7 +101,7 @@ if [ "$TERM" == 'screen-bce' ]; then
 	export TERM=screen
 fi
 
-# Macで.ssh/id_rsaの鍵をkeychainから使うようにする
-if [ $OSNAME = "Mac" ];then
-	ssh-add -K ~/.ssh/id_rsa 2>/dev/null
-fi
+## Macで.ssh/id_rsaの鍵をkeychainから使うようにする
+#if [ $OSNAME = "Mac" ];then
+#	ssh-add -k ~/.ssh/id_rsa 2>/dev/null
+#fi

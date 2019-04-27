@@ -11,7 +11,8 @@ set noundofile
 set tabstop=4
 set shiftwidth=4
 set autoindent
-set noexpandtab
+set expandtab
+autocmd BufRead,BufNewFile *.go setlocal noexpandtab
 
 " 自動改行を抑制
 set textwidth=0
@@ -64,9 +65,9 @@ endif
 Plug 'fatih/vim-go'
 
 " markdown
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-let g:vim_markdown_folding_disabled = 2
+"Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
+"let g:vim_markdown_folding_disabled = 2
 
 " ティラノスクリプト
 Plug 'bellflower2015/vim-syntax-tyranoscript'
