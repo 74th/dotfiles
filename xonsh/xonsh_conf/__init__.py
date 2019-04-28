@@ -92,6 +92,9 @@ def _set_git_alias():
     x_aliases["push"] = ["git", "push"]
     x_aliases["pull"] = ["git", "pull"]
 
+def _set_kubenetes_alias():
+    x_aliases["k"] = ["kubectl"]
+    x_aliases["kube-get-pods"] = ["kubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
 
 def _xonsh_config():
     x_env["VI_MODE"] = True
@@ -251,6 +254,7 @@ def load():
 
     _set_syntax_sugar()
     _set_git_alias()
+    _set_kubenetes_alias()
     _set_java_alias()
     x_aliases["uuid"] = _new_uuid
     set_keybind()
