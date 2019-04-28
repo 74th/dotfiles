@@ -66,6 +66,7 @@ def __add_paths():
     _add_path_if_exists(f'{HOME}/go/bin')
     _add_path_if_exists(f'{HOME}/dotfiles/bin/darwin')
     _add_path_if_exists(f'{HOME}/go/src/github.com/uber/go-torch/FlameGraph')
+    _add_path_if_exists(f'{HOME}/.linuxbrew/bin')
     _add_path_if_exists('/opt/X11/bin')
     _add_path_if_exists('/usr/local/share/dotnet')
     _add_path_if_exists('/Library/Frameworks/Mono.framework/Versions/Current/Commands')

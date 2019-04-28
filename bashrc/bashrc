@@ -28,6 +28,9 @@ fi
 if [ -e $HOME/.local/bin ];then
 	export PATH=$HOME/.local/bin:$PATH
 fi
+if [ -e $HOME/.linuxbrew/bin ];then
+	export PATH=$HOME/.linuxbrew/bin:$PATH
+fi
 export EDITOR=vi
 export CLICOLOR=1
 
