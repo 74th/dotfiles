@@ -69,6 +69,10 @@ def delete_file(c: invoke.Context, path: str):
     if has_file(c, path):
         c.run(f"rm {path}")
 
+def create_basic_dir(c):
+    if not os.path.exists(f"{HOME}/bin"):
+        os.mkdir(f"{HOME}/bin")
+
 @task
 def git(c):
     c: invoke.Context
@@ -188,7 +192,7 @@ def vimrc(c):
     if not has:
         c.run('echo "source ~/dotfiles/vimrc/gvimrc.vim" >>~/.gvimrc')
 
-    c.run("mkdir -p .vim")
+    c.run("mkdir -p ~/.vim/autoload")
     if c.run("vi --version").stdout.find("Huge version") == -1 :
         install_from_package_manager(c, "vim")
 
@@ -196,27 +200,6 @@ def vimrc(c):
         "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
     )
     c.run("vi +PlugInstall +qall")
-
-
-@task
-def fish(c):
-    c: invoke.Context
-    os = detect_os()
-    print("## fish shell")
-    if os == "ubuntu" or os == "debian":
-        if os == "ubuntu":
-            c.sudo("apt-add-repository ppa:fish-shell/release-2")
-        else:
-            c.sudo(
-                "echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' > /etc/apt/sources.list.d/fish.list"
-            )
-        c.sudo("apt-get update")
-        c.sudo("apt-get install -y fish")
-    if os == "redhat":
-        c.sudo(
-            'bash -c "cd /etc/yum.repos.d/;wget http://download.opensuse.org/repositories/shells:fish:release:2/CentOS_7/shells:fish:release:2.repo"'
-        )
-        c.sudo("sudo yum install -y fish")
 
 
 def install_pip3(c, pkg):
@@ -245,11 +228,6 @@ def xonsh(c):
     install_pip3(c, "xontrib-readable-traceback")
 
 @task
-def fabric(c):
-    print("## fabric")
-    install_pip3(c, "fabric")
-
-@task
 def istio(c):
     print("## istio")
     d = f"{HOME}/OSS/istio"
@@ -268,6 +246,7 @@ def install(c):
     os = detect_os()
     print(f"## detected os: {os}")
     update_package_manager(c, os)
+    create_basic_dir(c)
     if os == "macos":
         homebrew.default(c)
     git(c)
@@ -275,17 +254,15 @@ def install(c):
     curl(c)
     rehash_pyenv(c)
     bashrc(c)
-    tmux(c)
+    # tmux(c)
     vscode(c)
     git_config.set_config(c)
     if os == "macos":
         macos(c)
     vimrc(c)
-    fish(c)
     xonsh(c)
-    fabric(c)
     mypy(c)
-    istio(c)
+    # istio(c)
     # TODO: golang
     # TODO: aws cli
     # TODO: gcloud
