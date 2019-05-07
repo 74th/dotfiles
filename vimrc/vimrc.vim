@@ -84,9 +84,6 @@ Plug 'leafgarland/typescript-vim'
 " molokai
 Plug 'tomasr/molokai'
 
-" Re:View
-Plug '74th/vim-review'
-
 " Plantuml
 Plug 'aklt/plantuml-syntax'
 
