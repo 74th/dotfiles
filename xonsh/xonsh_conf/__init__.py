@@ -244,7 +244,6 @@ def load():
 
     __add_paths()
     load_xontrib()
-    _xonsh_config()
     x_aliases["ec"] = __edit_cheatsheets
     x_aliases["bk"] = __bookmark
     x_aliases["AddBookmark"] = __add_bookmark
