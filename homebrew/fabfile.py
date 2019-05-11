@@ -35,6 +35,15 @@ def _list_packages(c):
         "gcc",
         "gdb",
         "go",
+        "pyenv",
+        "pyenv-virtualenv",
+        "vim",
+    ]
+
+    # cloud
+    pkgs += [
+        "google-cloud-sdk",
+        "awscli",
     ]
     if detect.osx:
         pkgs += [
@@ -48,7 +57,7 @@ def _list_packages(c):
 
     # kubernetes
     pkgs += [
-        "kubernetes-helm",
+        #"kubernetes-helm",
         "kubectx",
         "stern",
         "kubespy",

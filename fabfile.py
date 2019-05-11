@@ -22,7 +22,7 @@ HOME = get_home()
 def update_package_manager(c: invoke.Context):
     print("update package manager")
     if detect.linux:
-        c.run("apt-get update", echo=True)
+        c.run("sudo apt-get update", echo=True)
     if detect.mac:
         c.run("brew update", echo=True)
 
@@ -160,6 +160,10 @@ def pypi(c):
     pkgs += ["xonsh[ptk]", "xontrib-readable-traceback", "xonsh-docker-tabcomplete", "xontrib-z", "xonsh-direnv"]
 
     _install(c, pkgs)
+
+@task
+def xonsh(c):
+    c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
 
 @task
 def istio(c):
