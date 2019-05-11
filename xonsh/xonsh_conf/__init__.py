@@ -259,4 +259,6 @@ def load():
     set_keybind()
     set_inv_completer()
 
+    x_env["VI_MODE"] = True
+
     git.set_aliases()
