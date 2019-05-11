@@ -97,12 +97,11 @@ def _set_kubenetes_alias():
     x_aliases["k"] = ["kubectl"]
     x_aliases["kube-get-pods"] = ["kubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
 
-def _xonsh_config():
-    x_env["VI_MODE"] = True
-    # 補完中に Enter を押すと決定のみ
-    x_env["COMPLETIONS_CONFIRM"] = True
-    # ディレクトリ名を入力すればcdできる
-    x_env["AUTO_CD"] = True
+def _set_xonsh_alias():
+    x_aliases["gt"] = ["git", "status"]
+
+def _xonsh_alias():
+    x_aliases["xssh"] = ["ssh", "-t", "-c", "xonsh"]
 
 
 def __edit_cheatsheets():
@@ -202,7 +201,7 @@ def set_keybind():
         def __ctrl_w(event):
             buf = event.current_buffer  # type: prompt_toolkit.buffer.Buffer
             text = buf.text[:buf.cursor_position]  # type: str
-            m = re.search(r"[/,.=\s][^/,.=\s]+[/,.=\s]?$", text)
+            m = re.search(r"[/,.=\-\s][^/,.=\-\s]+[/,.=\-\s]?$", text)
             if m is not None:
                 buf.delete_before_cursor(len(text) - m.start() - 1)
                 return
