@@ -237,4 +237,14 @@
 		"key": "ctrl+shift+w",
 		"command": "workbench.action.closeWindow",
 	},
+	{
+		"key": "f4",
+		"command": "editor.action.formatDocument",
+		"when": "editorHasDocumentFormattingProvider && editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+	},
+	{
+		"key": "shift+alt+f",
+		"command": "-editor.action.formatDocument",
+		"when": "editorHasDocumentFormattingProvider && editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+	},
 ]
