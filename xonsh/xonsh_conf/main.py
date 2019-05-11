@@ -210,7 +210,7 @@ def set_inv_completer():
     pass
 
 def load_xontrib():
-    run("xontrib load coreutils docker_tabcomplete jedi z readable-traceback")
+    run("xontrib load coreutils docker_tabcomplete jedi readable-traceback")
     run("xontrib load direnv")
 
 
