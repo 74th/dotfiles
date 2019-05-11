@@ -5,60 +5,26 @@ import invoke
 from invoke import Context,task
 import git as git_config
 import homebrew
+import detect
 from fabric import Connection, runners
 
 def get_home():
     home = os.environ.get("HOME", None)
     if home is not None:
         return home
-    os_name = detect_os()
-    if os_name == "macos":
+    if detect.mac:
         return "/Users/nnyn"
     return "/home/nnyn"
 
 HOME = get_home()
 
 
-def detect_os():
-    if os.path.exists("/etc/lsb-release"):
-        return "ubuntu"
-    if os.path.exists("/etc/debian_version"):
-        return "debian"
-    if os.path.exists("/etc/redhat-release"):
-        return "redhat"
-    r: invoke.Result = invoke.run("uname -o", warn=True, hide="both")
-    if r.ok and r.stdout.find("Linux") >= 0:
-            return "linux"
-    r = invoke.run("uname", warn=True, hide="both")
-    if r.ok and r.stdout.find("Darwin") >= 0:
-        return "macos"
-    return "unknown"
-
-
-def is_linux(os: str) -> bool:
-    return os == "ubuntu" or \
-        os == "debian" or \
-        os == "redhat" or \
-        os == "linux"
-
-
-def update_package_manager(c: invoke.Context, os: str):
+def update_package_manager(c: invoke.Context):
     print("update package manager")
-    if os == "ubuntu" or os == "debian":
-        c.sudo("apt-get update")
-    elif os == "redhat":
-        c.sudo("yum update")
-    elif os == "macos":
+    if detect.linux:
+        c.run("apt-get update", echo=True)
+    if detect.mac:
         c.run("brew update", echo=True)
-
-
-def install_from_package_manager(c: invoke.Context, package: str):
-    os = detect_os()
-    print(f"## install {package}")
-    if os == "debian" or os == "ubuntu":
-        c.sudo(f"apt-get install -y {package}")
-    elif os == "redhat":
-        c.sudo(f"yum install -y {package}")
 
 
 def has_file(c: invoke.Context, path: str):
@@ -73,13 +39,6 @@ def create_basic_dir(c):
     if not os.path.exists(f"{HOME}/bin"):
         os.mkdir(f"{HOME}/bin")
 
-@task
-def git(c):
-    c: invoke.Context
-    if c.run("which git", warn=True).failed:
-        install_from_package_manager(c, "git")
-
-
 def checkout_dotfiles(c: invoke.Context):
     print("checkout and update dotfiles")
     if c.run("test -e ~/dotfiles", warn=True, hide="both").failed:
@@ -87,13 +46,6 @@ def checkout_dotfiles(c: invoke.Context):
         return
     with c.cd("~/dotfiles"):
         c.run("git pull")
-
-
-@task
-def curl(c):
-    c: invoke.Context
-    if c.run("which curl", warn=True).failed:
-        install_from_package_manager(c, "curl")
 
 
 @task
@@ -113,19 +65,10 @@ def bashrc(c):
 
 
 @task
-def tmux(c):
-    c: invoke.Context
-    print("## ~/.tmux.conf")
-    delete_file(c, "~/.tmux.conf")
-    c.run("ln -s ~/dotfiles/tmux/.tmux.conf ~/.tmux.conf")
-
-
-@task
 def vscode(c, insider=False):
     c: invoke.Context
     print("## vscode")
-    os = detect_os()
-    if is_linux(os):
+    if detect.linux:
         if insider:
             vscode_dir = "~/.config/Code\\ -\\ Insiders/User"
         else:
@@ -193,8 +136,6 @@ def vimrc(c):
         c.run('echo "source ~/dotfiles/vimrc/gvimrc.vim" >>~/.gvimrc')
 
     c.run("mkdir -p ~/.vim/autoload")
-    if c.run("vi --version").stdout.find("Huge version") == -1 :
-        install_from_package_manager(c, "vim")
 
     c.run(
         "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -202,30 +143,23 @@ def vimrc(c):
     c.run("vi +PlugInstall +qall")
 
 
-def install_pip3(c, pkg):
-    c: invoke.Context
-    os: str = detect_os()
-    if os == "macos":
-        c.run(f"/usr/local/bin/pip3 install --upgrade {pkg}", env={"PYTHONPATH": "/usr/local/bin/python3"})
-    else:
-        c.run(f"pip3 install {pkg}")
-
-
 @task
-def mypy(c):
-    print(f"## mypy")
-    install_pip3(c, "mypy")
+def pypi(c):
 
-@task
-def xonsh(c):
-    print("## xonsh")
-    os: str = detect_os()
-    if os == "macos":
-        install_pip3(c, "xonsh[ptk,mac]")
-    else:
-        install_pip3(c, "xonsh[ptk,linux]")
-    c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
-    install_pip3(c, "xontrib-readable-traceback")
+    def _install(c, pkgs):
+        pkgs_str: str = " ".join(pkgs)
+        if detect.mac:
+            c.run(f"/usr/local/bin/pip3 install --upgrade {pkgs_str}", env={"PYTHONPATH": "/usr/local/bin/python3"})
+        else:
+            c.run(f"pip3 install --upgrade {pkgs_str}")
+
+    # must packages
+    pkgs = ["fabric", "invoke", "pyyaml", "black", "mypy"]
+
+    # xonsh
+    pkgs += ["xonsh[ptk]", "xontrib-readable-traceback", "xonsh-docker-tabcomplete", "xontrib-z", "xonsh-direnv"]
+
+    _install(c, pkgs)
 
 @task
 def istio(c):
@@ -243,29 +177,19 @@ def istio(c):
 @task(default=True)
 def install(c):
     c: invoke.Context
-    os = detect_os()
-    print(f"## detected os: {os}")
-    update_package_manager(c, os)
+    update_package_manager(c)
     create_basic_dir(c)
-    if os == "macos":
-        homebrew.default(c)
-    git(c)
+    homebrew.default(c)
     checkout_dotfiles(c)
-    curl(c)
     rehash_pyenv(c)
     bashrc(c)
-    # tmux(c)
     vscode(c)
     git_config.set_config(c)
     if os == "macos":
         macos(c)
     vimrc(c)
-    xonsh(c)
-    mypy(c)
+    pypi(c)
     # istio(c)
     # TODO: golang
     # TODO: aws cli
     # TODO: gcloud
-
-nc = invoke.Collection()
-nc.add_collection(invoke.Collection.from_module(homebrew.fabfile))

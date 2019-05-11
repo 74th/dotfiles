@@ -1,95 +1,76 @@
 # -*- coding: utf-8 -*-
 from fabric import task
 import invoke
+import detect
 
-my_list = """
-# bash
-bash bash-completion
+def _list_packages(c):
+    pkgs = []
 
-# Linuxのツールを使う
-coreutils
+    # bash
+    pkgs += ["bash", "bash-completion"]
 
-# Java
-maven
+    if detect.osx:
+        pkgs += ["coreutils"]
 
-# CUIツール
-wget
-fish
-direnv
-peco
-readline
-watch
-rsync
+    # CLI toolset
+    pkgs += [
+        "wget",
+        "direnv",
+        "peco",
+        "readline",
+        "watch",
+        "rsync",
+        "openssh",
+        "redis",
+    ]
 
-# Windowsで作ったzipのファイル名でも文字化けを防ぐ
-unar
-# sftpのタブ補完が効くので入れる
-openssh
+    # develop
+    pkgs += [
+        "git",
+        "node",
+        "openssl",
+        "sqlite",
+        "jq",
+        "protobuf",
+        "gcc",
+        "gdb",
+        "go",
+    ]
+    if detect.osx:
+        pkgs += [
+            "gnuplot",
+        ]
 
-# develop
-git
-node
-openssl
-sqlite
-jq
-gnuplot
-protobuf
-gcc
-gdb
-geos
+    if detect.osx:
+        pkgs += [
+             "homebrew/cask/docker"
+        ]
 
-# Golang
-go
+    # kubernetes
+    pkgs += [
+        "kubernetes-helm",
+        "kubectx",
+        "stern",
+        "kubespy",
+        ]
 
-# メモリーのビジュアル化
-graphviz qt qcachegrind
-
-# docker & kubernetes
-homebrew/cask/docker
-kubernetes-helm
-kubectx
-stern
-kubespy
-
-# python
-pyenv
-pyenv-virtualenv
-
-# wine
-wine
-
-# plantuml
-plantuml
-
-# rbenv
-rbenv
-
-# bashのデバッグ
-bashdb
-
-# font
-homebrew/cask-fonts/font-source-code-pro
-homebrew/cask-fonts/font-source-han-code-jp
-homebrew/cask-fonts/font-sourcecodepro-nerd-font
-homebrew/cask-fonts/font-fira-code
-homebrew/cask-fonts/font-hasklig
-
-# gimp
-homebrew/cask/gimp
-
-# ディスク領域可視化
-homebrew/cask/disk-inventory-x
-
-# Caffeine
-homebrew/cask/caffeine
-
-# 小さいカレンダー
-homebrew/cask/day-o
-
-# redis
-redis
-""" # type:str
-
+    if detect.osx:
+        # fonts
+        pkgs += [
+            "homebrew/cask-fonts/font-source-code-pro",
+            "homebrew/cask-fonts/font-source-han-code-jp",
+            "homebrew/cask-fonts/font-sourcecodepro-nerd-font",
+            "homebrew/cask-fonts/font-fira-code",
+            "homebrew/cask-fonts/font-hasklig",
+            "homebrew/cask/gimp",
+        ]
+        pkgs += [
+            # ディスク領域可視化
+            "homebrew/cask/disk-inventory-x",
+            # 小さいカレンダー
+            "homebrew/cask/day-o",
+        ]
+    return pkgs
 
 def setHome(c: invoke.Context) -> dict:
     env = {}
@@ -100,15 +81,8 @@ def setHome(c: invoke.Context) -> dict:
 
 @task(default=True)
 def default(c):
-    install_java(c)
     update(c)
     install(c)
-
-
-@task
-def install_java(c):
-    env = setHome(c)
-    c.run("brew install homebrew/cask/java", env=env)
 
 
 @task
@@ -122,13 +96,6 @@ def update(c):
 @task
 def install(c):
     c: invoke.Context
+    pkgs = _list_packages(c)
     env = setHome(c)
-    lines = my_list.split("\n")
-    install_list = ""
-    for l in lines:
-        if len(l) == 0:
-            continue
-        if l.startswith("#"):
-            continue
-        install_list += " " + l
-    c.run("brew install" + install_list, env=env)
+    c.run("brew install " + " ".join(pkgs) , env=env)

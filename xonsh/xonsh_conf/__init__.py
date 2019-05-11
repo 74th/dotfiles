@@ -52,6 +52,9 @@ def _default_charsets():
 
 
 def __add_paths():
+    if '/snap/bin' not in paths:
+        # for Ubuntu
+        _add_path_if_exists('/snap/bin')
     if '/usr/local/bin' not in paths:
         # 追加されてなかった時用
         _add_path_if_exists('/usr/local/bin')
