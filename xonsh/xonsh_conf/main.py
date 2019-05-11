@@ -10,10 +10,11 @@ from collections import OrderedDict
 from operator import itemgetter
 import prompt_toolkit
 from .lib import HOSTNAME, run, silent_run
-from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode,x_completers
+from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode, x_completers
 from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import Condition, ViInsertMode
 from .gitstatus import gitstatus_prompt
+from .commands import load_commands
 from . import ctrl_r
 
 x_env["XONSH_SHOW_TRACEBACK"] = True
@@ -107,38 +108,12 @@ def _xonsh_alias():
     x_aliases["xssh"] = ["ssh", "-t", "-c", "xonsh"]
 
 
-def __edit_cheatsheets():
-    d = run("pwd").lines[0].strip()
-    run("cd ~/mycheatsheets/")
-    run("git pull origin master")
-    name = run("ls | peco").lines[0].strip()
-    run(f"vim {name}")
-    run("git add -A")
-    run("git commit -m \"at (uname -s)\"")
-    run("git push origin master")
-    run(f"cd {d}")
-
-
-def __bookmark():
-    name = run("cat ~/bookmark | peco").lines[0].strip()
-    run(f"cd {name}")
 
 
 def __add_bookmark():
     run(f"pwd >> ~/bookmark")
 
 
-def __command_bookmark():
-    if HOSTNAME.startswith("o-"):
-        filename = "work"
-    else:
-        filename = "home"
-    r = run(f"cat ~/mycheatsheets/CmdBookmark/{filename} | peco")
-    if len(r.lines) > 0:
-        name = r.lines[0].strip()
-        if name[0] == "[":
-            name = name[name.find("]") + 1:]
-        run(name)
 
 
 def _gcloud_config():
@@ -247,10 +222,6 @@ def load():
 
     __add_paths()
     load_xontrib()
-    x_aliases["ec"] = __edit_cheatsheets
-    x_aliases["bk"] = __bookmark
-    x_aliases["AddBookmark"] = __add_bookmark
-    x_aliases["cb"] = __command_bookmark
 
     _gcloud_config()
 
@@ -258,6 +229,7 @@ def load():
     _set_git_alias()
     _set_kubenetes_alias()
     _set_java_alias()
+    load_commands()
     x_aliases["uuid"] = _new_uuid
     set_keybind()
     set_inv_completer()
