@@ -235,5 +235,6 @@ def load():
     set_inv_completer()
 
     x_env["VI_MODE"] = True
+    del(x_env["PYENV_VERSION"])
 
     git.set_aliases()
