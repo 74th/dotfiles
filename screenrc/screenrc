@@ -1,23 +1,2 @@
-# ビープの代わりに画面表示
 vbell on
-# ステータスバー
-hardstatus alwayslastline '%{= dW}%L=%-w%45L>%{= Wk}%n%{-}%{=u dW} %t%{-}%+w %-17<%='
-caption splitonly "%{= kw}   %{= dW}%n %t%{-} %=%{-}"
-sorendition '+r .b'
-# 別画面サポート。Vimやless使うときに便利
-#altscreen on
-# 背景色消去
-defbce "on"
-# 起動メッセージ
 startup_message off
-
-# タブの移動
-bind h eval 'focus left'
-bind l eval 'focus right'
-bind j eval 'focus down'
-bind k eval 'focus up'
-
-# バッファのスクロール行数
-defscrollback 1000000
-
-shell -$SHELL
