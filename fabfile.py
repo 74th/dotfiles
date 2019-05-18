@@ -166,6 +166,10 @@ def xonsh(c):
     c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
 
 @task
+def screenrc(c):
+    c.run("cp ~/dotfiles/screenrc/screenrc ~/.screenrc")
+
+@task
 def istio(c):
     print("## istio")
     d = f"{HOME}/OSS/istio"
