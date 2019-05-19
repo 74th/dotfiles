@@ -10,7 +10,7 @@ def load_commands():
 
     def edit_cheatsheets():
         d = run("pwd").lines[0].strip()
-        run("cd ~/mycheatsheets/")
+        run("cd ~/mycheatsheets/sheets/")
         run("git pull origin master")
         name = run("ls | peco").lines[0].strip()
         run(f"vim {name}")

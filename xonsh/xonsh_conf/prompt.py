@@ -21,7 +21,10 @@ def current_kubernetes_context() -> str:
     kubeconf_ctime = current_kubeconf_ctime
 
     with open(config_path) as f:
-        kubeconf = yaml.load(f.read().strip())
+        if hasattr(yaml, "CLoader"):
+            kubeconf = yaml.load(f.read().strip(), Loader=yaml.CLoader)
+        else:
+            kubeconf = yaml.load(f.read().strip(), Loader=yaml.Loader)
     context_name = kubeconf.get("current-context", "")
 
     namespace_display_name = ""

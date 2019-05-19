@@ -42,7 +42,6 @@ def _list_packages(c):
 
     # cloud
     pkgs += [
-        "google-cloud-sdk",
         "awscli",
     ]
     if detect.osx:
