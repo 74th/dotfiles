@@ -1,4 +1,4 @@
-from .lib import run
+from .lib import run, HOSTNAME
 from .xonsh_builtin import x_env, x_aliases
 
 def load_commands():
