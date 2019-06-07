@@ -59,6 +59,7 @@ def __add_paths():
     if '/usr/local/bin' not in paths:
         # 追加されてなかった時用
         _add_path_if_exists('/usr/local/bin')
+    _add_path_if_exists(f'/home/linuxbrew/.linuxbrew/bin')
     if '/usr/local/sbin' not in paths:
         _add_path_if_exists('/usr/local/sbin')
     _add_path_if_exists('/usr/local/cuda/bin')
@@ -70,7 +71,6 @@ def __add_paths():
     _add_path_if_exists(f'{HOME}/go/bin')
     _add_path_if_exists(f'{HOME}/dotfiles/bin/darwin')
     _add_path_if_exists(f'{HOME}/go/src/github.com/uber/go-torch/FlameGraph')
-    _add_path_if_exists(f'/home/linuxbrew/.linuxbrew/bin')
     _add_path_if_exists('/opt/X11/bin')
     _add_path_if_exists('/usr/local/share/dotnet')
     _add_path_if_exists('/Library/Frameworks/Mono.framework/Versions/Current/Commands')
@@ -97,7 +97,7 @@ def _set_git_alias():
     x_aliases["push"] = ["git", "push"]
     x_aliases["pull"] = ["git", "pull"]
 
-def _set_kubenetes_alias():
+def _set_kubernetes_alias():
     x_aliases["k"] = ["kubectl"]
     x_aliases["kube-get-pods"] = ["kubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
 
@@ -213,6 +213,15 @@ def load_xontrib():
     run("xontrib load coreutils docker_tabcomplete jedi readable-traceback")
     run("xontrib load direnv")
 
+def detect_vscode_remote_env():
+    info_file = os.path.join(HOME, ".vscode-remote", "latest-info.json")
+    if not os.path.exists(info_file):
+        return
+    with open(info_file) as f:
+        j = json.load(f)
+    x_env["VSCODE_IPC_HOOK_CLI"] = j["hock"]
+    x_env["PATH"].insert(0, j["code"])
+
 
 def load():
     from .prompt import set_prompt
@@ -227,7 +236,7 @@ def load():
 
     _set_syntax_sugar()
     _set_git_alias()
-    _set_kubenetes_alias()
+    _set_kubernetes_alias()
     _set_java_alias()
     load_commands()
     x_aliases["uuid"] = _new_uuid
@@ -239,3 +248,5 @@ def load():
         del(x_env["PYENV_VERSION"])
 
     git.set_aliases()
+
+    detect_vscode_remote_env()

@@ -41,7 +41,7 @@ def _check_output(*args, **kwargs):
             if proc.returncode != 0:
                 raise subprocess.CalledProcessError(
                     proc.returncode, proc.args, output=out,
-                    stderr=err)  # note err will always be empty as we redirect stderr to DEVNULL abvoe
+                    stderr=err)
             return out
         except subprocess.TimeoutExpired:
             # We use `.terminate()` (SIGTERM) instead of `.kill()` (SIGKILL) here
