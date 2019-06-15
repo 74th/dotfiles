@@ -222,6 +222,12 @@ def detect_vscode_remote_env():
     x_env["VSCODE_IPC_HOOK_CLI"] = j["hock"]
     x_env["PATH"].insert(0, j["code"])
 
+def detect_user_docker():
+    uid = silent_run("id -u")
+    info_file = os.path.join(f"/run/user/{uid}/docker.sock")
+    if not os.path.exists(info_file):
+        return
+    x_env["DOCKER_HOST"] = f"unix:///run/user/{uid}/docker.sock"
 
 def load():
     from .prompt import set_prompt
@@ -250,3 +256,4 @@ def load():
     git.set_aliases()
 
     detect_vscode_remote_env()
+    detect_user_docker()
