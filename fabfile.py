@@ -118,7 +118,7 @@ def macos(c):
 
 
 @task
-def vimrc(c):
+def vimrc(c, no_extension=False):
     c: invoke.Context
     print("## vimrc")
     has = False
@@ -135,12 +135,12 @@ def vimrc(c):
     if not has:
         c.run('echo "source ~/dotfiles/vimrc/gvimrc.vim" >>~/.gvimrc')
 
-    c.run("mkdir -p ~/.vim/autoload")
-
-    c.run(
-        "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    )
-    c.run("vi +PlugInstall +qall")
+    if not no_extension:
+        c.run("mkdir -p ~/.vim/autoload")
+        c.run(
+            "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+        )
+        c.run("vi +PlugInstall +qall")
 
 
 @task
@@ -201,3 +201,10 @@ def install(c):
     # TODO: golang
     # TODO: aws cli
     # TODO: gcloud
+
+@task(default=True)
+def install_small(c):
+    c: invoke.Context
+    create_basic_dir(c)
+    bashrc(c)
+    vimrc(c)
