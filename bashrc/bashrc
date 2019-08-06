@@ -31,8 +31,8 @@ fi
 if [ -e /home/linuxbrew/.linuxbrew/bin ];then
 	export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 fi
-if [ -e $HOME/.linuxbrew/bin ];then
-	export PATH=$HOME/.linuxbrew/bin:$PATH
+if [ -e $HOME/google-cloud-sdk/bin ];then
+	export PATH=$HOME/google-cloud-sdk/bin:$PATH
 fi
 export EDITOR=vi
 export CLICOLOR=1
