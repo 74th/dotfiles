@@ -197,12 +197,13 @@ def install(c):
         macos(c)
     vimrc(c)
     pypi(c)
+    xonsh(c)
     # istio(c)
     # TODO: golang
     # TODO: aws cli
     # TODO: gcloud
 
-@task(default=True)
+@task()
 def install_small(c):
     c: invoke.Context
     create_basic_dir(c)

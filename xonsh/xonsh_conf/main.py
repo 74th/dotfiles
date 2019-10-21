@@ -222,10 +222,12 @@ def detect_vscode_remote_env():
     x_env["PATH"].insert(0, j["code"])
 
 def detect_user_docker():
+    rootless_docker = os.path.expanduser("~/bin/dockerd-rootless.sh")
+    if not os.path.exists(rootless_docker):
+        return
+    run("systemctl --user start docker")
     uid = silent_run("id -u")
     info_file = os.path.join(f"/run/user/{uid}/docker.sock")
-    if not os.path.exists(info_file):
-        return
     x_env["DOCKER_HOST"] = f"unix:///run/user/{uid}/docker.sock"
 
 def load():
