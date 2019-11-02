@@ -99,7 +99,9 @@ def _set_git_alias():
 
 def _set_kubernetes_alias():
     x_aliases["k"] = ["kubectl"]
-    x_aliases["kube-get-pods"] = ["kubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
+    x_aliases["kg-pods"] = ["kubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
+    x_aliases["kg"] = ["kubectl", "get"]
+    x_aliases["kd"] = ["kubectl", "delete"]
 
 def _set_xonsh_alias():
     x_aliases["gt"] = ["git", "status"]
