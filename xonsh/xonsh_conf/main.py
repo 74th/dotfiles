@@ -75,7 +75,6 @@ def __add_paths():
     _add_path_if_exists('/usr/local/share/dotnet')
     _add_path_if_exists('/Library/Frameworks/Mono.framework/Versions/Current/Commands')
     _add_path_if_exists('/Library/TeX/texbin')
-    _add_path_if_exists('/Applications/MacVim.app/Contents/bin')
     if os.path.exists(f'{HOME}/Library/Python/2.7/bin'):
         x_env["PATH"].append(f'{HOME}/Library/Python/2.7/bin')
     if os.path.exists(f'{HOME}/Library/Python/3.7/bin'):
