@@ -11,28 +11,8 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-if [ -e $HOME/go ];then
-	export PATH=~/go/bin:$PATH
-fi
-if [ -e $HOME/npm ];then
-	export PATH=~/npm/bin:$PATH
-fi
-if [ -e $HOME/bin ];then
-	export PATH=~/bin:$PATH
-fi
-export PATH=~/dotfiles/bin:$PATH
-if [ $OSNAME = "Mac" ];then
-	export PATH=~/dotfiles/bin/darwin:$PATH
-	export PATH=/usr/local/bin:$PATH
-fi
-if [ -e $HOME/.local/bin ];then
-	export PATH=$HOME/.local/bin:$PATH
-fi
-if [ -e /home/linuxbrew/.linuxbrew/bin ];then
-	export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
-fi
-if [ -e $HOME/google-cloud-sdk/bin ];then
-	export PATH=$HOME/google-cloud-sdk/bin:$PATH
+if type python3 >/dev/null 2>&1; then
+	eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/path.py)"
 fi
 export EDITOR=vi
 export CLICOLOR=1
@@ -74,14 +54,10 @@ if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
 fi
 PS1=$PS1'\n\$'
 
-alias sl='ls'
-alias ll='ls -al'
-alias al='ls -al'
-
-alias x='xonsh'
-
-alias javac='javac -J-Dfile.encoding=utf-8'
-alias java='java -Dfile.encoding=UTF-8'
+# alias
+if type python3 >/dev/null 2>&1; then
+	eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/path.py)"
+fi
 
 # pyenv
 if type pyenv >/dev/null 2>&1; then

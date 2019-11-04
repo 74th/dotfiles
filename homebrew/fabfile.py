@@ -27,7 +27,7 @@ def _list_packages(c):
     # develop
     pkgs += [
         "git",
-        "node",
+        "hub",
         "openssl",
         "sqlite",
         "jq",
@@ -38,6 +38,8 @@ def _list_packages(c):
         "pyenv",
         "pyenv-virtualenv",
         "vim",
+        "node",
+        "yarn",
     ]
 
     # cloud

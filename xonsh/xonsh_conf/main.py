@@ -15,17 +15,13 @@ from prompt_toolkit.keys import Keys
 from prompt_toolkit.filters import Condition, ViInsertMode
 from .gitstatus import gitstatus_prompt
 from .commands import load_commands
+from .path import get_paths
+from .aliases import get_aliases
 from . import ctrl_r
 
 x_env["XONSH_SHOW_TRACEBACK"] = True
 
-c = invoke.Context({
-    "run": {
-        "echo": True,
-        "warn": True,
-        "hide": False,
-    }
-})
+c = invoke.Context({"run": {"echo": True, "warn": True, "hide": False}})
 
 paths = x_env["PATH"]
 
@@ -43,9 +39,9 @@ HOME = x_env["HOME"]
 
 
 def _default_charsets():
-    '''
+    """
     文字コードの標準設定
-    '''
+    """
     x_env["LESSCHARSET"] = "UTF-8"
     x_env["LANG"] = "en_US.UTF-8"
     x_env["LC_CTYPE"] = "en_US.UTF-8"
@@ -53,67 +49,17 @@ def _default_charsets():
 
 
 def __add_paths():
-    if '/snap/bin' not in paths:
-        # for Ubuntu
-        _add_path_if_exists('/snap/bin')
-    if '/usr/local/bin' not in paths:
-        # 追加されてなかった時用
-        _add_path_if_exists('/usr/local/bin')
-    _add_path_if_exists(f'/home/linuxbrew/.linuxbrew/bin')
-    if '/usr/local/sbin' not in paths:
-        _add_path_if_exists('/usr/local/sbin')
-    _add_path_if_exists('/usr/local/cuda/bin')
-    _add_path_if_exists(f'{HOME}/npm/bin')
-    _add_path_if_exists(f'{HOME}/npm/node_modules/.bin')
-    _add_path_if_exists(f'{HOME}/Library/Android/sdk/platform-tools')
-    _add_path_if_exists(f'{HOME}/.rbx_env/shims')
-    _add_path_if_exists(f'{HOME}/.pyenv/shims')
-    _add_path_if_exists(f'{HOME}/.tfenv/bin')
-    _add_path_if_exists(f'{HOME}/go/bin')
-    _add_path_if_exists(f'{HOME}/dotfiles/bin/darwin')
-    _add_path_if_exists(f'{HOME}/go/src/github.com/uber/go-torch/FlameGraph')
-    _add_path_if_exists('/opt/X11/bin')
-    _add_path_if_exists('/usr/local/share/dotnet')
-    _add_path_if_exists('/Library/Frameworks/Mono.framework/Versions/Current/Commands')
-    _add_path_if_exists('/Library/TeX/texbin')
-    if os.path.exists(f'{HOME}/Library/Python/2.7/bin'):
-        x_env["PATH"].append(f'{HOME}/Library/Python/2.7/bin')
-    if os.path.exists(f'{HOME}/Library/Python/3.7/bin'):
-        x_env["PATH"].append(f'{HOME}/Library/Python/3.7/bin')
-
-    _add_path_if_exists(f'{HOME}/google-cloud-sdk/bin')
-    _add_path_if_exists(f'{HOME}/google-cloud-sdk/platform/google_appengine')
-
-    # TODO: gcloud completion
-
-    _add_path_if_exists(f'{HOME}/bin')
-    _add_path_if_exists(f'{HOME}/dotfiles/bin')
+    default_paths = x_env["PATH"]
+    x_env["PATH"] += get_paths(default_paths) + default_paths
 
 
-def _set_git_alias():
-    x_aliases["gt"] = ["git", "status"]
-    x_aliases["commit"] = ["git", "commit", "-v"]
-    x_aliases["add"] = ["git", "add"]
-    x_aliases["push"] = ["git", "push"]
-    x_aliases["pull"] = ["git", "pull"]
-
-def _set_kubernetes_alias():
-    x_aliases["k"] = ["kubectl"]
-    x_aliases["kube-get-pods"] = ["kubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
-
-def _set_xonsh_alias():
-    x_aliases["gt"] = ["git", "status"]
-
-def _xonsh_alias():
-    x_aliases["xssh"] = ["ssh", "-t", "-c", "xonsh"]
-
-
+def __set_aliases():
+    for alias, cmd in get_aliases().items():
+        x_aliases[alias] = cmd
 
 
 def __add_bookmark():
     run(f"pwd >> ~/bookmark")
-
-
 
 
 def _gcloud_config():
@@ -131,32 +77,30 @@ def _gcloud_config():
         return
 
 
-def _set_syntax_sugar():
-    x_aliases["al"] = ["ls", "-al"]
-    x_aliases["la"] = ["ls", "-al"]
-    x_aliases["ll"] = ["ls", "-al"]
-    x_aliases["lt"] = ["ls", "-alt"]
-
-
-def _set_java_alias():
-    x_aliases['javac'] = ['javac', '-J-Dfile.encoding=utf-8']
-    x_aliases['java'] = ['java', '-Dfile.encoding=UTF-8']
-
-
 def _new_uuid():
     import uuid
+
     print(uuid.uuid1())
 
 
 def _get_history(session_history=None, return_list=False):
-    '''
+    """
     https://qiita.com/riktor/items/4a90b4e125cd091a9d07
     TODO: 時々お掃除いる？
-    '''
-    hist_dir = x_env['XONSH_DATA_DIR']
-    files = [os.path.join(hist_dir, f) for f in os.listdir(hist_dir) if f.startswith('xonsh-') and f.endswith('.json')]
-    file_hist = [json.load(open(f))['data']['cmds'] for f in files]
-    cmds = [(c['inp'].replace('\n', ''), c['ts'][0]) for cmds in file_hist for c in cmds if c]
+    """
+    hist_dir = x_env["XONSH_DATA_DIR"]
+    files = [
+        os.path.join(hist_dir, f)
+        for f in os.listdir(hist_dir)
+        if f.startswith("xonsh-") and f.endswith(".json")
+    ]
+    file_hist = [json.load(open(f))["data"]["cmds"] for f in files]
+    cmds = [
+        (c["inp"].replace("\n", ""), c["ts"][0])
+        for cmds in file_hist
+        for c in cmds
+        if c
+    ]
     cmds.sort(key=itemgetter(1))
     cmds = [c[0] for c in cmds[::-1]]
     if session_history:
@@ -166,7 +110,7 @@ def _get_history(session_history=None, return_list=False):
     if return_list:
         return cmds
     else:
-        return '\n'.join(cmds)
+        return "\n".join(cmds)
 
 
 def set_keybind():
@@ -178,7 +122,7 @@ def set_keybind():
         @handler(Keys.ControlW)
         def __ctrl_w(event):
             buf = event.current_buffer  # type: prompt_toolkit.buffer.Buffer
-            text = buf.text[:buf.cursor_position]  # type: str
+            text = buf.text[: buf.cursor_position]  # type: str
             m = re.search(r"[/,.=\-\s][^/,.=\-\s]+[/,.=\-\s]?$", text)
             if m is not None:
                 buf.delete_before_cursor(len(text) - m.start() - 1)
@@ -194,24 +138,29 @@ def set_keybind():
         def __ctrl_r_event(event):
             ctrl_r.select(event.current_buffer)
 
-def invoke_completer(prefix:str, line:str, begidx:int, endidx:int, ctx:dict):
+
+def invoke_completer(prefix: str, line: str, begidx: int, endidx: int, ctx: dict):
     if not line.startswith("inv"):
         return set()
     args = line.split(" ")
-    if len(args)>1 and args[-2] == "-f":
+    if len(args) > 1 and args[-2] == "-f":
         from xonsh.completers.path import complete_path
+
         return complete_path(prefix, line, begidx, endidx, ctx)
     tasks = silent_run("/usr/local/bin/invoke --complete")
     return set(tasks.split("\n"))
+
 
 def set_inv_completer():
     x_completers["inv"] = invoke_completer
     x_completers.move_to_end("inv", False)
     pass
 
+
 def load_xontrib():
     run("xontrib load coreutils docker_tabcomplete jedi readable-traceback")
     run("xontrib load direnv")
+
 
 def detect_vscode_remote_env():
     info_file = os.path.join(HOME, ".vscode-remote", "latest-info.json")
@@ -222,6 +171,7 @@ def detect_vscode_remote_env():
     x_env["VSCODE_IPC_HOOK_CLI"] = j["hock"]
     x_env["PATH"].insert(0, j["code"])
 
+
 def detect_user_docker():
     rootless_docker = os.path.expanduser("~/bin/dockerd-rootless.sh")
     if not os.path.exists(rootless_docker):
@@ -231,8 +181,10 @@ def detect_user_docker():
     info_file = os.path.join(f"/run/user/{uid}/docker.sock")
     x_env["DOCKER_HOST"] = f"unix:///run/user/{uid}/docker.sock"
 
+
 def load():
     from .prompt import set_prompt
+
     set_prompt()
 
     _default_charsets()
@@ -242,10 +194,7 @@ def load():
 
     _gcloud_config()
 
-    _set_syntax_sugar()
-    _set_git_alias()
-    _set_kubernetes_alias()
-    _set_java_alias()
+    __set_aliases()
     load_commands()
     x_aliases["uuid"] = _new_uuid
     set_keybind()
@@ -253,7 +202,7 @@ def load():
 
     x_env["VI_MODE"] = True
     if "PYENV_VERSION" in x_env:
-        del(x_env["PYENV_VERSION"])
+        del x_env["PYENV_VERSION"]
 
     git.set_aliases()
 
