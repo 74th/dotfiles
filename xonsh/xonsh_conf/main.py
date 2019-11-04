@@ -68,6 +68,7 @@ def __add_paths():
     _add_path_if_exists(f'{HOME}/Library/Android/sdk/platform-tools')
     _add_path_if_exists(f'{HOME}/.rbx_env/shims')
     _add_path_if_exists(f'{HOME}/.pyenv/shims')
+    _add_path_if_exists(f'{HOME}/.tfenv/bin')
     _add_path_if_exists(f'{HOME}/go/bin')
     _add_path_if_exists(f'{HOME}/dotfiles/bin/darwin')
     _add_path_if_exists(f'{HOME}/go/src/github.com/uber/go-torch/FlameGraph')
