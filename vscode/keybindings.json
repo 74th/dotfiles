@@ -114,9 +114,9 @@
 		"when": "!vim.inInsertMode"
 	},
 	{
-		"key": "ctrl+w w",
+		"key": "meta+w",
 		"command": "workbench.action.closeActiveEditor",
-		"when": "!vim.inInsertMode"
+		"when": "isLinux"
 	},
 	{
 		"key": "ctrl+w ctrl+l",
