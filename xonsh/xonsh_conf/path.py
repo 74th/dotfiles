@@ -33,7 +33,6 @@ def get_paths(default_paths : List[str]) -> List[str]:
     add(f"{HOME}/.pyenv/shims")
     add(f"{HOME}/.tfenv/bin")
     add(f"{HOME}/go/bin")
-    add(f"{HOME}/dotfiles/bin/darwin")
     add(f"{HOME}/go/src/github.com/uber/go-torch/FlameGraph")
     add("/opt/X11/bin")
     add("/usr/local/share/dotnet")
@@ -51,4 +50,4 @@ if __name__ == "__main__":
     current_paths = os.environ["PATH"].split(":")
     additional_paths = get_paths(current_paths)
     if additional_paths:
-        print("export PATH=$PATH:" + ":".join(additional_paths))
+        print("export PATH=" + ":".join(additional_paths) + ":$PATH")

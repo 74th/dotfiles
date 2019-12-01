@@ -50,7 +50,7 @@ def _default_charsets():
 
 def __add_paths():
     default_paths = x_env["PATH"]
-    x_env["PATH"] += get_paths(default_paths) + default_paths
+    x_env["PATH"] = get_paths(default_paths) + default_paths
 
 
 def __set_aliases():

@@ -179,7 +179,7 @@
     "python.linting.lintOnSave": true,
     "python.formatting.provider": "black",
     // 標準はpython3.7に設定する
-    "python.pythonPath": "/usr/bin/python3",
+    "python.pythonPath": "/home/linuxbrew/.linuxbrew/bin/python3",
     "python.formatting.yapfArgs": [
         "--style={COLUMN_LIMIT: 120}"
     ],
