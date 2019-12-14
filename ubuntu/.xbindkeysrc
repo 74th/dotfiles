@@ -35,9 +35,9 @@
 
 
 
-"xdotool key Super_R+comma"
-b:12+Release
 "xdotool key Super_R+m"
+b:12+Release
+"xdotool key Super_R+comma"
 b:13+Release
 "xdotool key Super_R+s"
 b:14+Release
