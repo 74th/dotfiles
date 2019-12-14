@@ -33,14 +33,21 @@
 #keystate_scrolllock = enable
 #keystate_capslock = enable
 
+# # reload
+# $xbindkeys -p
 
-
+# show previous Desktop
 "xdotool key Super_R+m"
 b:12+Release
+# show next Desktop
 "xdotool key Super_R+comma"
 b:13+Release
+# show overview
 "xdotool key Super_R+s"
 b:14+Release
+# show all application
+"xdotool key Super_R+a"
+b:15+Release
 
 #
 # End of xbindkeys configuration
