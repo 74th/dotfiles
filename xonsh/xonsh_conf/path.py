@@ -36,6 +36,8 @@ def get_paths(default_paths : List[str]) -> List[str]:
     add(f"{HOME}/go/src/github.com/uber/go-torch/FlameGraph")
     add(f"{HOME}/Android/Sdk/platform-tools")
     add(f"{HOME}/Android/Sdk/tools")
+    add(f"{HOME}/sdks/google-cloud-sdk/bin")
+    add(f"{HOME}/sdks/android-studio/bin")
     add("/opt/X11/bin")
     add("/usr/local/share/dotnet")
     add("/Library/Frameworks/Mono.framework/Versions/Current/Commands")

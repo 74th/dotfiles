@@ -58,10 +58,9 @@ def _list_packages(c):
 
     # kubernetes
     pkgs += [
-        #"kubernetes-helm",
-        #"kubectx",
+        "kubectl",
+        "kubectx",
         "stern",
-        #"kubespy",
         ]
 
     if detect.osx:

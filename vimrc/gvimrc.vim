@@ -16,8 +16,8 @@ elseif has('win32')
     set guifont=Source_Code_Pro_Light:h10:cANSI
     set guifontwide=源真ゴシック等幅_Light:h10:cSHIFTJIS
 else
-	set guifont=Source\ Code\ Pro\ Medium\ 10
-	set guifontwide=Source\ Han\ Code\ JP\ Semi-Light\ 11
+	set guifont=Source\ Code\ Variable\ Medium\ 12
+	set guifontwide=Source\ Han\ Sans\ Semi-Light\ 10.5
 endif
 
 " GVIMではマウスが使えるように

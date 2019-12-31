@@ -187,7 +187,14 @@
     // java -----------------------------
     "java.referencesCodeLens.enabled": false,
 
-    // 雑
+    // java -----------------------------
+    "[yaml]": {
+        "editor.tabSize": 2,
+        "editor.autoIndent": true,
+        "editor.insertSpaces": true,
+    },
+
+    // 雑 --------------------------------
     "[cuda]": {
         "editor.formatOnSave": true
     },
@@ -205,4 +212,5 @@
 
     // よく変わるやつ
     "diffEditor.ignoreTrimWhitespace": true,
+    "explorer.confirmDragAndDrop": false,
 }
