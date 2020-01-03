@@ -12,7 +12,7 @@ dotfiles
 * fisher : MIT
 * bass : MIT
 
-# Toos
+# よく忘れるTools
 
 - mdr https://github.com/mrchimp/mdr マークダウンをターミナル上で読みやすくする
 - bat https://github.com/sharkdp/bat catの代わりに使えるシンタックスハイライトしてくれるCUIビューア
