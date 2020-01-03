@@ -11,3 +11,9 @@ dotfiles
 * git flow completion : MIT License
 * fisher : MIT
 * bass : MIT
+
+# Toos
+
+- mdr https://github.com/mrchimp/mdr マークダウンをターミナル上で読みやすくする
+- bat https://github.com/sharkdp/bat catの代わりに使えるシンタックスハイライトしてくれるCUIビューア
+
