@@ -3,10 +3,12 @@ import os
 from pathlib import Path
 import invoke
 from invoke import Context,task
-import git as git_config
-import homebrew
 import detect
 from fabric import Connection, runners
+
+import homebrew
+import git as git_config
+from arm_ubuntu.tasks import install as install_arm_ubuntu
 
 def get_home():
     home = os.environ.get("HOME", None)
@@ -18,6 +20,8 @@ def get_home():
 
 HOME = get_home()
 
+def get_archi(c):
+    return c.run("uname -p").stdout.strip()
 
 def update_package_manager(c: invoke.Context):
     print("update package manager")
@@ -187,7 +191,11 @@ def install(c):
     c: invoke.Context
     update_package_manager(c)
     create_basic_dir(c)
-    homebrew.default(c)
+    archi = get_archi(c)
+    if archi == "x86_64":
+        homebrew.default(c)
+    if archi == "aarch64":
+        install_arm_ubuntu(c)
     checkout_dotfiles(c)
     rehash_pyenv(c)
     bashrc(c)

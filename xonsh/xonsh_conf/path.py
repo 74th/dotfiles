@@ -31,6 +31,7 @@ def get_paths(default_paths : List[str]) -> List[str]:
     add(f"{HOME}/Library/Android/sdk/platform-tools")
     add(f"{HOME}/.rbx_env/shims")
     add(f"{HOME}/.pyenv/shims")
+    add(f"{HOME}/.pyenv/bin")
     add(f"{HOME}/.tfenv/bin")
     add(f"{HOME}/go/bin")
     add(f"{HOME}/go/src/github.com/uber/go-torch/FlameGraph")
