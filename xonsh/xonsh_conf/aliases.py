@@ -17,9 +17,6 @@ def get_aliases()->Dict[str,List[str]]:
     a["kg"] = ["kubectl", "get"]
     a["kd"] = ["kubectl", "delete"]
 
-    # xonsh
-    a["xssh"] = ["ssh", "-t", "-c", "xonsh"]
-
     # syntax_sugar
     a["al"] = ["ls", "-al"]
     a["la"] = ["ls", "-al"]

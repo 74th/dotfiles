@@ -2,13 +2,15 @@ import glob
 import os
 from pathlib import Path
 import invoke
-from invoke import Context,task
+from invoke import Context, task, collection
 import detect
-from fabric import Connection, runners
 
 import homebrew
 import git as git_config
-from arm_ubuntu.tasks import install as install_arm_ubuntu
+import arm_ubuntu.tasks as arm_ubuntu
+
+ns = collection.Collection()
+ns.add_collection(ns.from_module(arm_ubuntu, "arm-ubuntu"))
 
 def get_home():
     home = os.environ.get("HOME", None)
@@ -58,7 +60,7 @@ def rehash_pyenv(c):
     if c.run("test -e .pyenv", warn=True).ok:
         print("## rehash pyenv")
         c.run("pyenv rehash")
-
+ns.add_task(rehash_pyenv)
 
 @task
 def bashrc(c):
@@ -66,6 +68,7 @@ def bashrc(c):
     print("## ~/.bashrc")
     delete_file(c, "~/.bashrc")
     c.run('echo "source ~/dotfiles/bashrc/bashrc" >> ~/.bashrc')
+ns.add_task(bashrc)
 
 
 @task
@@ -93,6 +96,7 @@ def vscode(c, insider=False):
 
     c.run(f"rm -rf {vscode_dir}/snippets")
     c.run(f"ln -s ~/dotfiles/vscode/snippets {vscode_dir}/snippets")
+ns.add_task(vscode)
 
 
 @task
@@ -119,6 +123,7 @@ def macos(c):
     else:
         c.run("ln -s ~/dotfiles/mac_env/setenv.plist ~/Library/LaunchAgents/setenv.plist")
     c.run("launchctl load ~/Library/LaunchAgents/setenv.plist")
+ns.add_task(macos)
 
 
 @task
@@ -145,6 +150,7 @@ def vimrc(c, no_extension=False):
             "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
         )
         c.run("vi +PlugInstall +qall")
+ns.add_task(vimrc)
 
 
 @task
@@ -164,27 +170,17 @@ def pypi(c):
     pkgs += ["xonsh[ptk]", "xontrib-readable-traceback", "xonsh-docker-tabcomplete", "xontrib-z", "xonsh-direnv"]
 
     _install(c, pkgs)
+ns.add_task(pypi)
 
 @task
 def xonsh(c):
     c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
+ns.add_task(xonsh)
 
 @task
 def screenrc(c):
     c.run("cp ~/dotfiles/screenrc/screenrc ~/.screenrc")
-
-@task
-def istio(c):
-    print("## istio")
-    d = f"{HOME}/OSS/istio"
-    if not os.path.exists(d):
-        c.run(f"mkdir -p {d}")
-    with c.cd(d):
-        c.run("rm -rf istio-*")
-        c.run("curl -L https://git.io/getLatestIstio | sh -")
-        ds = glob.glob(f"{d}/istio-*")
-        d = ds[0]
-        c.run(f"ln -fs {d}/bin/* {HOME}/bin/")
+ns.add_task(screenrc)
 
 @task(default=True)
 def install(c):
@@ -195,7 +191,7 @@ def install(c):
     if archi == "x86_64":
         homebrew.default(c)
     if archi == "aarch64":
-        install_arm_ubuntu(c)
+        arm_ubuntu.install(c)
     checkout_dotfiles(c)
     rehash_pyenv(c)
     bashrc(c)
@@ -210,6 +206,7 @@ def install(c):
     # TODO: golang
     # TODO: aws cli
     # TODO: gcloud
+ns.add_task(install)
 
 @task()
 def install_small(c):
@@ -217,3 +214,5 @@ def install_small(c):
     create_basic_dir(c)
     bashrc(c)
     vimrc(c)
+ns.add_task(install_small)
+
