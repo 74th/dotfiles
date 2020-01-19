@@ -227,10 +227,16 @@
 		"command": "editor.action.rename",
 		"when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
 	},
+	// Linux
 	{
-		"key": "f3",
-		"command": "go.import.add",
-		"when": "editorTextFocus && editorLangId == 'go' && !inDebugMode"
+		"key": "alt+s",
+		"command": "saveAll",
+		"when": "isLinux"
+	},
+	{
+		"key": "alt+w",
+		"command": "workbench.action.closeActiveEditor",
+		"when": "isLinux"
 	},
 	// dummy command
 	{
@@ -246,5 +252,27 @@
 		"key": "shift+alt+f",
 		"command": "-editor.action.formatDocument",
 		"when": "editorHasDocumentFormattingProvider && editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+	},
+	{
+		"key": "alt+s",
+		"command": "workbench.action.files.save"
+	},
+	{
+		"key": "ctrl+s",
+		"command": "-workbench.action.files.save"
+	},
+	{
+		"key": "ctrl+s",
+		"command": "-workbench.action.files.save"
+	},
+	{
+		"key": "f3",
+		"command": "workbench.action.terminal.focus",
+		"when": "!panelFocus"
+	},
+	{
+		"key": "f3",
+		"command": "workbench.action.focusActiveEditorGroup",
+		"when": "panelFocus"
 	},
 ]
