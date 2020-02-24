@@ -107,16 +107,24 @@ def select(buf: prompt_toolkit.buffer.Buffer):
         select_history(buf)
     if line.startswith("git"):
         select_git(buf)
+
     if line.startswith("kubectx"):
         select_peco(buf, "kubectx")
     if line.startswith("kubens"):
         select_peco(buf, "kubens")
     if line.startswith("kdp"):
-        select_k8s_list(buf, "kubectl get pods --output json", "kubectl describe ")
-    elif line.startswith("kd"):
-        select_k8s_list(buf, "kubectl get all --output json", "kubectl describe ")
-    if line.startswith("krm"):
-        select_k8s_list(buf, "kubectl get all --output json", "kubectl delete ")
+        select_k8s_list(buf, "kubectl get pods --output json", "k describe ")
+    elif line.startswith("kd") or line.startswith("k describe"):
+        select_k8s_list(buf, "kubectl get all --output json", "k describe ")
+    if line.startswith("klp"):
+        select_k8s_list(buf, "kubectl get pods --output json", "k logs ")
+    elif line.startswith("kl") or line.startswith("k logs"):
+        select_k8s_list(buf, "kubectl get all --output json", "k logs ")
+    if line.startswith("k exec"):
+        select_k8s_list(buf, "kubectl get pods --output json", "k exec ")
+    if line.startswith("krm") or line.startswith("k delete"):
+        select_k8s_list(buf, "kubectl get all --output json", "k delete ")
+
     if line.startswith("cb"):
         select_command_bookmark(buf)
     if line.startswith("inv"):
