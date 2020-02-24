@@ -32,7 +32,8 @@ def _check_output(*args, **kwargs):
             stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL,
             universal_newlines=True,
-        ))
+        )
+    )
     timeout = xonsh_builtin.__xonsh__.env["VC_BRANCH_TIMEOUT"]
     # See https://docs.python.org/3/library/subprocess.html#subprocess.Popen.communicate
     with subprocess.Popen(*args, **kwargs) as proc:
@@ -40,8 +41,8 @@ def _check_output(*args, **kwargs):
             out, err = proc.communicate(timeout=timeout)
             if proc.returncode != 0:
                 raise subprocess.CalledProcessError(
-                    proc.returncode, proc.args, output=out,
-                    stderr=err)
+                    proc.returncode, proc.args, output=out, stderr=err
+                )
             return out
         except subprocess.TimeoutExpired:
             # We use `.terminate()` (SIGTERM) instead of `.kill()` (SIGKILL) here
@@ -112,9 +113,9 @@ def gitstatus():
                     divergence = divergence.strip("[]")
                     for div in divergence.split(", "):
                         if "ahead" in div:
-                            num_ahead = int(div[len("ahead "):].strip())
+                            num_ahead = int(div[len("ahead ") :].strip())
                         elif "behind" in div:
-                            num_behind = int(div[len("behind "):].strip())
+                            num_behind = int(div[len("behind ") :].strip())
         elif line.startswith("??"):
             untracked += 1
         else:
@@ -157,7 +158,7 @@ def gitstatus_prompt():
     if s.num_ahead > 0:
         ret += "{GREEN}>" + str(s.num_ahead)
     if s.num_behind > 0:
-        ret +='{RED}<'  + str(s.num_behind)
+        ret += "{RED}<" + str(s.num_behind)
     if s.operations:
         ret += "{CYAN}" + "|" + "|".join(s.operations)
     ret += " "
@@ -175,7 +176,7 @@ def gitstatus_prompt():
         else:
             ret += "🦉{GREEN}CLEAN?"
     if s.stashed > 0:
-        ret += " " + "🌵"* s.stashed
+        ret += " " + "🌵" * s.stashed
     ret += "{NO_COLOR}"
 
     return ret
