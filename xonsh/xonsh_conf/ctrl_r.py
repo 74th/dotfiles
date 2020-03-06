@@ -114,6 +114,8 @@ def select(buf: prompt_toolkit.buffer.Buffer):
         select_peco(buf, "kubens")
     if line.startswith("kdp"):
         select_k8s_list(buf, "kubectl get pods --output json", "k describe ")
+    elif line.startswith("kd ") or line.startswith("k describe"):
+        select_k8s_list(buf, "kubectl get " + line[3:] + " --output json", "k describe ")
     elif line.startswith("kd") or line.startswith("k describe"):
         select_k8s_list(buf, "kubectl get all --output json", "k describe ")
     if line.startswith("klp"):

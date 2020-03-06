@@ -5,8 +5,8 @@ import invoke
 from invoke import Context, task, collection
 import detect
 
-import homebrew
-import git as git_config
+import homebrew.tasks as homebrew
+import git.tasks as git
 import arm_ubuntu.tasks as arm_ubuntu
 
 ns = collection.Collection()
@@ -164,7 +164,7 @@ def pypi(c):
             c.run(f"pip3 install --upgrade {pkgs_str}")
 
     # must packages
-    pkgs = ["fabric", "invoke", "pyyaml", "black", "mypy"]
+    pkgs = ["invoke", "pyyaml", "black", "mypy"]
 
     # xonsh
     pkgs += ["xonsh[ptk]", "xontrib-readable-traceback", "xonsh-docker-tabcomplete", "xontrib-z", "xonsh-direnv"]
@@ -196,7 +196,7 @@ def install(c):
     rehash_pyenv(c)
     bashrc(c)
     vscode(c)
-    git_config.set_config(c)
+    git.set_config(c)
     if os == "macos":
         macos(c)
     vimrc(c)
@@ -216,3 +216,5 @@ def install_small(c):
     vimrc(c)
 ns.add_task(install_small)
 
+ns.add_collection(ns.from_module(homebrew), "homebrew")
+ns.add_collection(ns.from_module(git), "git")
