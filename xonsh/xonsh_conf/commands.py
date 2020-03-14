@@ -23,7 +23,7 @@ def load_commands():
     x_aliases["ec"] = edit_cheatsheets
 
     def select_command_bookmark():
-        if HOSTNAME.startswith("o-") or HOSTNAME.startswith("violet-gopher"):
+        if HOSTNAME.startswith("o-") or HOSTNAME.startswith("O-") or HOSTNAME.startswith("violet-gopher"):
             filename = "work"
         else:
             filename = "home"

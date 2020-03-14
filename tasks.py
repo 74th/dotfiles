@@ -72,34 +72,6 @@ ns.add_task(bashrc)
 
 
 @task
-def vscode(c, insider=False):
-    c: invoke.Context
-    print("## vscode")
-    if detect.linux:
-        if insider:
-            vscode_dir = "~/.config/Code\\ -\\ Insiders/User"
-        else:
-            vscode_dir = "~/.config/Code/User"
-    else:
-        if insider:
-            vscode_dir = "~/Library/Application\\ Support/Code\\ -\\ Insiders/User"
-        else:
-            vscode_dir = "~/Library/Application\\ Support/Code/User"
-
-    c.run(f"mkdir -p {vscode_dir}")
-
-    delete_file(c, f"{vscode_dir}/keybindings.json")
-    c.run(f"ln -s ~/dotfiles/vscode/keybindings.json {vscode_dir}/keybindings.json")
-
-    delete_file(c, f"{vscode_dir}/settings.json")
-    c.run(f"ln -s ~/dotfiles/vscode/settings.json {vscode_dir}/settings.json")
-
-    c.run(f"rm -rf {vscode_dir}/snippets")
-    c.run(f"ln -s ~/dotfiles/vscode/snippets {vscode_dir}/snippets")
-ns.add_task(vscode)
-
-
-@task
 def macos(c):
     c: invoke.Context
     print("## MacOS")
