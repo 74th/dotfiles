@@ -1,7 +1,7 @@
 #!/bin/bash
 set -xe
-sudo apt-get update
 if [ "$(uname -p)" = "x86_64" ]; then
+    sudo apt-get update
     export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
     if ! type brew >/dev/null 2>&1; then
         sudo apt-get install -y build-essential curl file git

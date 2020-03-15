@@ -2,8 +2,9 @@
 import os
 from typing import Dict, List
 
-def get_aliases()->Dict[str,List[str]]:
-    a: Dict[str,List[str]] = {}
+
+def get_aliases() -> Dict[str, List[str]]:
+    a: Dict[str, List[str]] = {}
     a["gt"] = ["git", "status"]
     a["commit"] = ["git", "commit", "-v"]
     a["add"] = ["git", "add"]
@@ -15,7 +16,8 @@ def get_aliases()->Dict[str,List[str]]:
     a["kgp"] = ["kubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
     a["kga"] = ["kubectl", "get", "all"]
     a["kg"] = ["kubectl", "get"]
-    a["kd"] = ["kubectl", "delete"]
+    a["kd"] = ["kubectl", "describe"]
+    a["krm"] = ["kubectl", "delete"]
 
     # syntax_sugar
     a["al"] = ["ls", "-al"]
@@ -29,11 +31,13 @@ def get_aliases()->Dict[str,List[str]]:
 
     return a
 
-def export_bash(aliases: Dict[str,List[str]]):
+
+def export_bash(aliases: Dict[str, List[str]]):
     output = ""
     for alias, cmd in aliases.items():
         output += "alias " + alias + "='" + " ".join(cmd) + "';"
     print(output)
+
 
 if __name__ == "__main__":
     # for bash

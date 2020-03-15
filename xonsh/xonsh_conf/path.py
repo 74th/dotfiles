@@ -2,7 +2,8 @@
 import os
 from typing import List
 
-def get_paths(default_paths : List[str]) -> List[str]:
+
+def get_paths(default_paths: List[str]) -> List[str]:
 
     HOME = os.environ.get("HOME", "/home/nnyn/")
     _paths: List[str] = []
@@ -49,6 +50,7 @@ def get_paths(default_paths : List[str]) -> List[str]:
     add(f"{HOME}/dotfiles/bin")
 
     return _paths
+
 
 if __name__ == "__main__":
     # for bash

@@ -5,8 +5,8 @@ import invoke
 from invoke import Context, task, collection
 import detect
 
-import homebrew
-import git as git_config
+import homebrew.tasks as homebrew
+import git.tasks as git
 import arm_ubuntu.tasks as arm_ubuntu
 
 ns = collection.Collection()
@@ -69,34 +69,6 @@ def bashrc(c):
     delete_file(c, "~/.bashrc")
     c.run('echo "source ~/dotfiles/bashrc/bashrc" >> ~/.bashrc')
 ns.add_task(bashrc)
-
-
-@task
-def vscode(c, insider=False):
-    c: invoke.Context
-    print("## vscode")
-    if detect.linux:
-        if insider:
-            vscode_dir = "~/.config/Code\\ -\\ Insiders/User"
-        else:
-            vscode_dir = "~/.config/Code/User"
-    else:
-        if insider:
-            vscode_dir = "~/Library/Application\\ Support/Code\\ -\\ Insiders/User"
-        else:
-            vscode_dir = "~/Library/Application\\ Support/Code/User"
-
-    c.run(f"mkdir -p {vscode_dir}")
-
-    delete_file(c, f"{vscode_dir}/keybindings.json")
-    c.run(f"ln -s ~/dotfiles/vscode/keybindings.json {vscode_dir}/keybindings.json")
-
-    delete_file(c, f"{vscode_dir}/settings.json")
-    c.run(f"ln -s ~/dotfiles/vscode/settings.json {vscode_dir}/settings.json")
-
-    c.run(f"rm -rf {vscode_dir}/snippets")
-    c.run(f"ln -s ~/dotfiles/vscode/snippets {vscode_dir}/snippets")
-ns.add_task(vscode)
 
 
 @task
@@ -164,7 +136,7 @@ def pypi(c):
             c.run(f"pip3 install --upgrade {pkgs_str}")
 
     # must packages
-    pkgs = ["fabric", "invoke", "pyyaml", "black", "mypy"]
+    pkgs = ["invoke", "pyyaml", "black", "mypy"]
 
     # xonsh
     pkgs += ["xonsh[ptk]", "xontrib-readable-traceback", "xonsh-docker-tabcomplete", "xontrib-z", "xonsh-direnv"]
@@ -196,7 +168,7 @@ def install(c):
     rehash_pyenv(c)
     bashrc(c)
     vscode(c)
-    git_config.set_config(c)
+    git.set_config(c)
     if os == "macos":
         macos(c)
     vimrc(c)
@@ -216,3 +188,5 @@ def install_small(c):
     vimrc(c)
 ns.add_task(install_small)
 
+ns.add_collection(ns.from_module(homebrew), "homebrew")
+ns.add_collection(ns.from_module(git), "git")

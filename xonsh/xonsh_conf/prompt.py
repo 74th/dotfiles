@@ -7,6 +7,7 @@ import os
 kubeconf_ctime = 0.0
 kubeclient_current_context = ""
 
+
 def current_kubernetes_context() -> str:
     global kubeconf_ctime
     global kubeclient_current_context
@@ -54,13 +55,13 @@ def set_prompt():
         prompt += "{WHITE}"
     prompt += "{user}{WHITE}@"
 
-    if HOSTNAME in ["nagisa", "methyl", "mini", "patty"]:
+    if HOSTNAME in ["mini", "patty"]:
         prompt += "{GREEN}"
     elif HOSTNAME in ["violet", "violet-gopher", "miriam"]:
         prompt += "{CYAN}"
-    elif HOSTNAME in ["lewill"]:
+    elif HOSTNAME in ["lewill", "sirius"]:
         prompt += "{BLUE}"
-    elif HOSTNAME.count("mbp") or HOSTNAME.count("mac"):
+    elif HOSTNAME.count("mbp") or HOSTNAME.count("mac") or HOSTNAME.startswith("O-"):
         prompt += "{WHITE}"
     elif HOSTNAME.count("prod") > 0:
         prompt += "{RED}"
@@ -78,7 +79,10 @@ def set_prompt():
     prompt += "{prompt_end}"
 
     x_env["PROMPT"] = prompt
-    x_env["PROMPT_FIELDS"]["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
+    x_env["PROMPT_FIELDS"]["exit"] = (
+        lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
+    )
     from .gitstatus import gitstatus_prompt
+
     x_env["PROMPT_FIELDS"]["git"] = gitstatus_prompt
     x_env["PROMPT_FIELDS"]["kubernetes"] = current_kubernetes_context

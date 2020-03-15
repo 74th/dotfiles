@@ -1,2 +1,0 @@
-from .fabfile import default
-

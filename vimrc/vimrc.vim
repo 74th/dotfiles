@@ -64,22 +64,8 @@ endif
 " golang
 Plug 'fatih/vim-go'
 
-" markdown
-"Plug 'godlygeek/tabular'
-"Plug 'plasticboy/vim-markdown'
-"let g:vim_markdown_folding_disabled = 2
-
 " ティラノスクリプト
 Plug 'bellflower2015/vim-syntax-tyranoscript'
-
-" fish shell
-Plug 'dag/vim-fish'
-
-" type script
-" npm install -g typescript
-Plug 'Quramy/tsuquyomi'
-" syntax
-Plug 'leafgarland/typescript-vim'
 
 " molokai
 Plug 'tomasr/molokai'
@@ -87,10 +73,20 @@ Plug 'tomasr/molokai'
 " Plantuml
 Plug 'aklt/plantuml-syntax'
 
-" python
-Plug 'davidhalter/jedi-vim'
+" LSP Settings
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
 call plug#end()
+
+" LSPの補完をTabで進められるようにする
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 " CUIでも256colorならmolokaiを使う
 if &term == "xterm-256color"
