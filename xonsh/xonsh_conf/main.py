@@ -178,11 +178,12 @@ def detect_user_docker():
         return
     run("systemctl --user start docker")
     uid = os.getuid()
-    info_file = os.path.join(f"/run/user/{uid}/docker.sock")
-    if os.path.exists("/run/user/{uid}/docker.sock"):
+    if os.path.exists(f"/run/user/{uid}/docker.sock"):
         x_env["DOCKER_HOST"] = f"unix:///run/user/{uid}/docker.sock"
     if os.path.exists(f"/tmp/docker-{uid}"):
         x_env["DOCKER_HOST"] = f"unix:///tmp/docker-{uid}/docker.sock"
+    if os.path.exists(f"{HOME}/var/run/docker.sock"):
+        x_env["DOCKER_HOST"] = f"unix://{HOME}/var/run/docker.sock"
 
 
 def load():
