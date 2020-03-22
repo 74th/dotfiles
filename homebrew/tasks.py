@@ -74,6 +74,7 @@ def _list_packages(c):
         "kubernetes-cli",
         "kubectx",
         "stern",
+        "k9s",
         ]
 
     if detect.osx:
@@ -111,6 +112,7 @@ def update(c):
     env = setHome(c)
     c.run("brew update", env=env)
     c.run("brew upgrade", env=env)
+    c.run("brew cleanup", env=env)
 
 
 @task
