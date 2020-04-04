@@ -186,6 +186,11 @@ def detect_user_docker():
         x_env["DOCKER_HOST"] = f"unix://{HOME}/var/run/docker.sock"
 
 
+def add_bash_competion():
+    if os.path.exists("/home/linuxbrew/.linuxbrew/etc/bash_completion.d"):
+        x_env["BASH_COMPLETIONS"] = "/home/linuxbrew/.linuxbrew/etc/bash_completion.d"
+
+
 def load():
     from .prompt import set_prompt
 
@@ -212,3 +217,5 @@ def load():
 
     detect_vscode_remote_env()
     detect_user_docker()
+
+    add_bash_competion()
