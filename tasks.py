@@ -167,17 +167,12 @@ def install(c):
     checkout_dotfiles(c)
     rehash_pyenv(c)
     bashrc(c)
-    vscode(c)
     git.set_config(c)
     if os == "macos":
         macos(c)
     vimrc(c)
     pypi(c)
     xonsh(c)
-    # istio(c)
-    # TODO: golang
-    # TODO: aws cli
-    # TODO: gcloud
 ns.add_task(install)
 
 @task()

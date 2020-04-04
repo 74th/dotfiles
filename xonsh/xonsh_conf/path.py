@@ -33,7 +33,7 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add(f"{HOME}/.local/bin")
     add(f"{HOME}/.rbx_env/shims")
     add(f"{HOME}/.pyenv/shims")
-    add(f"{HOME}/.pyenv/bin")
+    add(f"{HOME}/.nodenv/shims")
     add(f"{HOME}/.tfenv/bin")
     add(f"{HOME}/go/bin")
     add(f"{HOME}/go/src/github.com/uber/go-torch/FlameGraph")
@@ -42,9 +42,6 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add(f"{HOME}/sdks/google-cloud-sdk/bin")
     add(f"{HOME}/sdks/android-studio/bin")
     add("/opt/X11/bin")
-    add("/usr/local/share/dotnet")
-    add("/Library/Frameworks/Mono.framework/Versions/Current/Commands")
-    add("/Library/TeX/texbin")
 
     add(f"{HOME}/bin")
     add(f"{HOME}/dotfiles/bin")
