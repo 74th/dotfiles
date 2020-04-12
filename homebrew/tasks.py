@@ -38,8 +38,6 @@ def _list_packages(c):
         "gcc",
         "gdb",
         "vim",
-        "node",
-        "yarn",
     ]
 
     # go
@@ -53,6 +51,13 @@ def _list_packages(c):
         "python",
         "pyenv",
         "pyenv-virtualenv",
+    ]
+
+    # nodejs
+    pkgs += [
+        "nodenv",
+        "node",
+        "yarn",
     ]
 
     # cloud

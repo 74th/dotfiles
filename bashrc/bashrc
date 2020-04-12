@@ -64,10 +64,6 @@ if type direnv >/dev/null 2>&1; then
 	eval "$(direnv hook bash)"
 fi
 
-if [ "$TERM_PROGRAM" == 'vscode' -a $OSNAME != "Mac" ]; then
-	python $HOME/dotfiles/vscode/remote-code.py
-fi
-
 set -o vi
 
 #stty werase undef
