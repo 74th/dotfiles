@@ -1,0 +1,4 @@
+#!/bin/sh
+set -xe
+adb shell pm disable-user --user 0 com.amazon.firelauncher
+adb shell pm enable com.teslacoilsw.launcher
