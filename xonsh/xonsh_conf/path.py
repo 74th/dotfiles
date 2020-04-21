@@ -32,6 +32,7 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add(f"{HOME}/Library/Android/sdk/platform-tools")
     add(f"{HOME}/.local/bin")
     add(f"{HOME}/.rbx_env/shims")
+    add(f"{HOME}/.nodenv/shims")
     add(f"{HOME}/.pyenv/shims")
     add(f"{HOME}/.pyenv/bin")
     add(f"{HOME}/.tfenv/bin")
