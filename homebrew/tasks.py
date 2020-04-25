@@ -79,7 +79,6 @@ def _list_packages(c):
         "kubernetes-cli",
         "kubectx",
         "stern",
-        "k9s",
         ]
 
     if detect.osx:
