@@ -49,7 +49,7 @@ if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
 fi
 PS1=$PS1'\n\$'
 
-# alias
+# paths
 if type python3 >/dev/null 2>&1; then
 	eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/path.py)"
 fi
@@ -63,6 +63,14 @@ fi
 if type direnv >/dev/null 2>&1; then
 	eval "$(direnv hook bash)"
 fi
+
+function cb {
+	if [ "$HOSTNAME" == "" ]; then
+		$(peco mycheatsheets/CmdBookmark/work)
+	else
+		$(peco mycheatsheets/CmdBookmark/home)
+	fi
+}
 
 set -o vi
 
