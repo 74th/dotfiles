@@ -69,6 +69,16 @@ set -o vi
 #stty werase undef
 bind '\C-w:unix-filename-rubout'
 
+if [ "$VSCODE_IPC_HOOK_CLI" != "" ]; then
+    if type code >/dev/null 2>&1; then
+        CODE_EXE=code
+    fi
+    if type code-insiders >/dev/null 2>&1; then
+        CODE_EXE=code-insiders
+    fi
+    echo "{\"hock\": \"$VSCODE_IPC_HOOK_CLI\", \"exe\": \"$CODE_EXE\", \"bin\": \"`which $CODE_EXE`\"}" > ~/.vscode-remote/latest-info.json
+fi
+
 # vimのエラー対策
 # E437: terminal capability "cm" required
 if [ "$TERM" == 'screen-bce' ]; then
