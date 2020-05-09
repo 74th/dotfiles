@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 from invoke import task
 import invoke
 import detect
+
 
 def _list_packages(c):
     pkgs = []
@@ -20,10 +20,9 @@ def _list_packages(c):
         "readline",
         "watch",
         "rsync",
-        #"openssh",
+        # "openssh",
         "redis",
         "sqlite",
-
         # alternate cat
         "bat",
     ]
@@ -70,16 +69,14 @@ def _list_packages(c):
         ]
 
     if detect.osx:
-        pkgs += [
-             "homebrew/cask/docker"
-        ]
+        pkgs += ["homebrew/cask/docker"]
 
     # kubernetes
     pkgs += [
         "kubernetes-cli",
         "kubectx",
         "stern",
-        ]
+    ]
 
     if detect.osx:
         # fonts
@@ -96,6 +93,7 @@ def _list_packages(c):
             "homebrew/cask/day-o",
         ]
     return pkgs
+
 
 def setHome(c: invoke.Context) -> dict:
     env = {}
@@ -125,4 +123,4 @@ def install(c):
     pkgs = set(pkgs) - set(installed)
     env = setHome(c)
     if len(pkgs) > 0:
-        c.run("brew install " + " ".join(pkgs) , env=env)
+        c.run("brew install " + " ".join(pkgs), env=env)

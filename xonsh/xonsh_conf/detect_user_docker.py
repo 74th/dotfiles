@@ -14,8 +14,8 @@ def detect_user_docker() -> Optional[str]:
 
     sock_paths = [
         "/run/user/{uid}/docker.sock".format(uid=uid),
-        f"unix:///tmp/docker-{uid}/docker.sock".format(uid=uid),
-        f"unix://{home}/var/run/docker.sock".format(home=home),
+        "unix:///tmp/docker-{uid}/docker.sock".format(uid=uid),
+        "unix://{home}/var/run/docker.sock".format(home=home),
     ]
     for sock_path in sock_paths:
         if os.path.exists(sock_path):

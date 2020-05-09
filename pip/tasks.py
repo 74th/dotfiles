@@ -3,7 +3,6 @@ import invoke
 
 @invoke.task
 def upgrade_all(c,force=False, upgrade=False):
-    c: invoke.Context
     out = c.run("pip3 list").stdout
     lines = out.split("\n")
     for line in lines[2:]:

@@ -1,4 +1,5 @@
 import glob
+import sys
 import os
 from pathlib import Path
 import invoke
@@ -138,7 +139,7 @@ ns.add_task(vimrc)
 @task
 def pypi(c):
     def _install(c, pkgs):
-        pkgs_str: str = " ".join(pkgs)
+        pkgs_str = " ".join(pkgs)
         if detect.mac:
             c.run(
                 "/usr/local/bin/pip3 install --upgrade " + pkgs_str,
@@ -148,7 +149,9 @@ def pypi(c):
             c.run("pip3 install --upgrade " + pkgs_str)
 
     # must packages
-    pkgs = ["invoke", "pyyaml", "black", "mypy"]
+    pkgs = ["invoke", "pyyaml", "mypy"]
+    if sys.version_info.minor >= 6:
+        pkgs += ["black"]
 
     # xonsh
     pkgs += [

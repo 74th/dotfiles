@@ -6,7 +6,7 @@ from typing import List
 def get_paths(default_paths: List[str]) -> List[str]:
 
     HOME = os.environ.get("HOME", "/home/nnyn/")
-    _paths: List[str] = []
+    _paths = [] # type: List[str]
 
     def add(path: str):
         if path not in default_paths and os.path.exists(path):
