@@ -85,7 +85,7 @@ def macos(c):
     c.run("mkdir -p ~/bin")
 
     # macvim-kaoriya 用の mvim
-    if os.path.exists( "/Applications/MacVim.app/Contents/bin/"):
+    if os.path.exists("/Applications/MacVim.app/Contents/bin/"):
         c.run("ln -sf /Applications/MacVim.app/Contents/bin/* ~/bin/")
         c.run("ln -sf /Applications/MacVim.app/Contents/bin/vim ~/bin/vi")
 
@@ -95,7 +95,7 @@ def macos(c):
 
     # 環境変数
     c.run("mkdir -p ~/Library/LaunchAgents")
-    if os.path.exists( "~/Library/LaunchAgents/setenv.plist"):
+    if os.path.exists("~/Library/LaunchAgents/setenv.plist"):
         c.run("launchctl unload ~/Library/LaunchAgents/setenv.plist")
     else:
         c.run(
@@ -111,14 +111,14 @@ ns.add_task(macos)
 def vimrc(c, no_extension=False):
     print("## vimrc")
     has = False
-    if os.path.exists( "~/.vimrc"):
-        r: invoke.Result = c.run("cat ~/.vimrc")
+    if os.path.exists("~/.vimrc"):
+        r = c.run("cat ~/.vimrc")
         has = r.stdout.find("dotfiles") > 0
     if not has:
         c.run('echo "source ~/dotfiles/vimrc/vimrc.vim" >>~/.vimrc')
 
     has = False
-    if os.path.exists( "~/.gvimrc"):
+    if os.path.exists("~/.gvimrc"):
         r = c.run("cat ~/.gvimrc")
         has = r.stdout.find("dotfiles") > 0
     if not has:
