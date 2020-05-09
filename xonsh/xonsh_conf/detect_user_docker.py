@@ -19,7 +19,7 @@ def detect_user_docker() -> Optional[str]:
     ]
     for sock_path in sock_paths:
         if os.path.exists(sock_path):
-        return sock_path
+            return sock_path
     return None
 
 def detect_user_docker_for_xonsh():
