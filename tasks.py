@@ -12,6 +12,7 @@ import arm_ubuntu.tasks as arm_ubuntu
 ns = collection.Collection()
 ns.add_collection(ns.from_module(arm_ubuntu, "arm-ubuntu"))
 
+
 def get_home():
     home = os.environ.get("HOME", None)
     if home is not None:
@@ -20,10 +21,13 @@ def get_home():
         return "/Users/nnyn"
     return "/home/nnyn"
 
+
 HOME = get_home()
+
 
 def get_archi(c):
     return c.run("uname -p").stdout.strip()
+
 
 def update_package_manager(c: invoke.Context):
     print("update package manager")
@@ -33,17 +37,16 @@ def update_package_manager(c: invoke.Context):
         c.run("brew update", echo=True)
 
 
-def has_file(c: invoke.Context, path: str):
-    return c.run(f"ls {path}", warn=True, hide="both").ok
+def delete_file(path: str):
+    if os.path.exists(path):
+        os.remove(path)
 
-
-def delete_file(c: invoke.Context, path: str):
-    if has_file(c, path):
-        c.run(f"rm {path}")
 
 def create_basic_dir(c):
-    if not os.path.exists(f"{HOME}/bin"):
-        os.mkdir(f"{HOME}/bin")
+    d = os.path.join(HOME, "bin")
+    if not os.path.exists(d):
+        os.mkdir(d)
+
 
 def checkout_dotfiles(c: invoke.Context):
     print("checkout and update dotfiles")
@@ -60,14 +63,19 @@ def rehash_pyenv(c):
     if c.run("test -e .pyenv", warn=True).ok:
         print("## rehash pyenv")
         c.run("pyenv rehash")
+
+
 ns.add_task(rehash_pyenv)
+
 
 @task
 def bashrc(c):
     c: invoke.Context
     print("## ~/.bashrc")
-    delete_file(c, "~/.bashrc")
+    delete_file("~/.bashrc")
     c.run('echo "source ~/dotfiles/bashrc/bashrc" >> ~/.bashrc')
+
+
 ns.add_task(bashrc)
 
 
@@ -80,7 +88,7 @@ def macos(c):
     c.run("mkdir -p ~/bin")
 
     # macvim-kaoriya 用の mvim
-    if has_file(c, "/Applications/MacVim.app/Contents/bin/"):
+    if os.path.exists( "/Applications/MacVim.app/Contents/bin/"):
         c.run("ln -sf /Applications/MacVim.app/Contents/bin/* ~/bin/")
         c.run("ln -sf /Applications/MacVim.app/Contents/bin/vim ~/bin/vi")
 
@@ -90,11 +98,15 @@ def macos(c):
 
     # 環境変数
     c.run("mkdir -p ~/Library/LaunchAgents")
-    if has_file(c, "~/Library/LaunchAgents/setenv.plist"):
+    if os.path.exists( "~/Library/LaunchAgents/setenv.plist"):
         c.run("launchctl unload ~/Library/LaunchAgents/setenv.plist")
     else:
-        c.run("ln -s ~/dotfiles/mac_env/setenv.plist ~/Library/LaunchAgents/setenv.plist")
+        c.run(
+            "ln -s ~/dotfiles/mac_env/setenv.plist ~/Library/LaunchAgents/setenv.plist"
+        )
     c.run("launchctl load ~/Library/LaunchAgents/setenv.plist")
+
+
 ns.add_task(macos)
 
 
@@ -103,14 +115,14 @@ def vimrc(c, no_extension=False):
     c: invoke.Context
     print("## vimrc")
     has = False
-    if has_file(c, "~/.vimrc"):
+    if os.path.exists( "~/.vimrc"):
         r: invoke.Result = c.run("cat ~/.vimrc")
         has = r.stdout.find("dotfiles") > 0
     if not has:
         c.run('echo "source ~/dotfiles/vimrc/vimrc.vim" >>~/.vimrc')
 
     has = False
-    if has_file(c, "~/.gvimrc"):
+    if os.path.exists( "~/.gvimrc"):
         r = c.run("cat ~/.gvimrc")
         has = r.stdout.find("dotfiles") > 0
     if not has:
@@ -122,37 +134,56 @@ def vimrc(c, no_extension=False):
             "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim",
         )
         c.run("vi +PlugInstall +qall", hide="both")
+
+
 ns.add_task(vimrc)
 
 
 @task
 def pypi(c):
-
     def _install(c, pkgs):
         pkgs_str: str = " ".join(pkgs)
         if detect.mac:
-            c.run(f"/usr/local/bin/pip3 install --upgrade {pkgs_str}", env={"PYTHONPATH": "/usr/local/bin/python3"})
+            c.run(
+                "/usr/local/bin/pip3 install --upgrade " + pkgs_str,
+                env={"PYTHONPATH": "/usr/local/bin/python3"},
+            )
         else:
-            c.run(f"pip3 install --upgrade {pkgs_str}")
+            c.run("pip3 install --upgrade " + pkgs_str)
 
     # must packages
     pkgs = ["invoke", "pyyaml", "black", "mypy"]
 
     # xonsh
-    pkgs += ["xonsh[ptk]", "xontrib-readable-traceback", "xonsh-docker-tabcomplete", "xontrib-z", "xonsh-direnv"]
+    pkgs += [
+        "xonsh[ptk]",
+        "xontrib-readable-traceback",
+        "xonsh-docker-tabcomplete",
+        "xontrib-z",
+        "xonsh-direnv",
+    ]
 
     _install(c, pkgs)
+
+
 ns.add_task(pypi)
+
 
 @task
 def xonsh(c):
     c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
+
+
 ns.add_task(xonsh)
+
 
 @task
 def screenrc(c):
     c.run("cp ~/dotfiles/screenrc/screenrc ~/.screenrc")
+
+
 ns.add_task(screenrc)
+
 
 @task(default=True)
 def install(c):
@@ -173,7 +204,10 @@ def install(c):
     vimrc(c)
     pypi(c)
     xonsh(c)
+
+
 ns.add_task(install)
+
 
 @task
 def install_small(c):
@@ -181,7 +215,10 @@ def install_small(c):
     create_basic_dir(c)
     bashrc(c)
     vimrc(c)
+    pypi(c)
     xonsh(c)
+
+
 ns.add_task(install_small)
 
 ns.add_collection(ns.from_module(homebrew), "homebrew")
