@@ -130,7 +130,7 @@ def vimrc(c, no_extension=False):
         c.run(
             "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim",
         )
-        c.run("vi +PlugInstall +qall", hide="both")
+        c.run("vi +PlugInstall +qall", hide="both", warn=True)
 
 
 ns.add_task(vimrc)

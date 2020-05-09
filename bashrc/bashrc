@@ -26,7 +26,7 @@ function __show_exitcode {
 }
 PS1='$(__show_exitcode)'
 
-if [ $OSNAME = "Mac" ];then
+if [ `id -u` == "0" ];then
 	col=37
 else
 	col=34
