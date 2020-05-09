@@ -26,12 +26,12 @@ function __show_exitcode {
 }
 PS1='$(__show_exitcode)'
 
-if [ `id -u` == "0" ];then
+if [ $OSNAME = "Mac" ];then
 	col=37
 else
 	col=34
 fi
-if [ $USER = "root" ];then
+if [ `id -u` == "0" ];then
 	PS1=$PS1'\[\e[31m\]\u\e[${col}m\]'
 else
 	PS1=$PS1'\[\e[${col}m\]\u'
