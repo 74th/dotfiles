@@ -112,7 +112,6 @@ def default(c):
 
 @task
 def update(c):
-    c: invoke.Context
     env = setHome(c)
     c.run("brew update", env=env)
     c.run("brew upgrade", env=env)
@@ -121,7 +120,6 @@ def update(c):
 
 @task
 def install(c):
-    c: invoke.Context
     pkgs = _list_packages(c)
     installed = c.run("brew list").stdout.split("\n")
     pkgs = set(pkgs) - set(installed)

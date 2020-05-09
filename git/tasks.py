@@ -5,7 +5,6 @@ from invoke import task, Context, Result
 
 @task(default=True)
 def set_config(c):
-    c: invoke.Context
     print("## git set configs")
 
     env = {}

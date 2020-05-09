@@ -59,7 +59,6 @@ def checkout_dotfiles(c: invoke.Context):
 
 @task
 def rehash_pyenv(c):
-    c: invoke.Context
     if c.run("test -e .pyenv", warn=True).ok:
         print("## rehash pyenv")
         c.run("pyenv rehash")
@@ -70,7 +69,6 @@ ns.add_task(rehash_pyenv)
 
 @task
 def bashrc(c):
-    c: invoke.Context
     print("## ~/.bashrc")
     delete_file("~/.bashrc")
     c.run('echo "source ~/dotfiles/bashrc/bashrc" >> ~/.bashrc')
@@ -81,7 +79,6 @@ ns.add_task(bashrc)
 
 @task
 def macos(c):
-    c: invoke.Context
     print("## MacOS")
     c.run("mkdir -p ~/.config")
     c.run("defaults write -g ApplePressAndHoldEnabled -bool false")
@@ -112,7 +109,6 @@ ns.add_task(macos)
 
 @task
 def vimrc(c, no_extension=False):
-    c: invoke.Context
     print("## vimrc")
     has = False
     if os.path.exists( "~/.vimrc"):
@@ -187,7 +183,6 @@ ns.add_task(screenrc)
 
 @task(default=True)
 def install(c):
-    c: invoke.Context
     update_package_manager(c)
     create_basic_dir(c)
     archi = get_archi(c)
@@ -211,7 +206,6 @@ ns.add_task(install)
 
 @task
 def install_small(c):
-    c: invoke.Context
     create_basic_dir(c)
     bashrc(c)
     vimrc(c)
