@@ -119,9 +119,9 @@ def vimrc(c, no_extension=False):
     if not no_extension:
         c.run("mkdir -p ~/.vim/autoload")
         c.run(
-            "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+            "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim",
         )
-        c.run("vi +PlugInstall +qall")
+        c.run("vi +PlugInstall +qall", hide="both")
 ns.add_task(vimrc)
 
 
@@ -175,12 +175,13 @@ def install(c):
     xonsh(c)
 ns.add_task(install)
 
-@task()
+@task
 def install_small(c):
     c: invoke.Context
     create_basic_dir(c)
     bashrc(c)
     vimrc(c)
+    xonsh(c)
 ns.add_task(install_small)
 
 ns.add_collection(ns.from_module(homebrew), "homebrew")
