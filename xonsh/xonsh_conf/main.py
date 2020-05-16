@@ -164,17 +164,6 @@ def load_xontrib():
     run("xontrib load direnv")
 
 
-def detect_vscode_remote_env():
-    if "VSCODE_IPC_HOOK_CLI" in x_env:
-        return
-    info_file = os.path.join(HOME, ".vscode-remote", "latest-info.json")
-    if not os.path.exists(info_file):
-        return
-    with open(info_file) as f:
-        j = json.load(f)
-    x_env["VSCODE_IPC_HOOK_CLI"] = j["hock"]
-    x_env["PATH"].append(os.path.dirname(j["bin"]))
-
 def add_bash_competion():
     if os.path.exists("/home/linuxbrew/.linuxbrew/etc/bash_completion.d"):
         x_env["BASH_COMPLETIONS"] = "/home/linuxbrew/.linuxbrew/etc/bash_completion.d"
@@ -204,7 +193,6 @@ def load():
 
     git.set_aliases()
 
-    detect_vscode_remote_env()
     detect_user_docker_for_xonsh()
 
     add_bash_competion()

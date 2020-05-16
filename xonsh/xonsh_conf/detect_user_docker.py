@@ -14,12 +14,12 @@ def detect_user_docker() -> Optional[str]:
 
     sock_paths = [
         "/run/user/{uid}/docker.sock".format(uid=uid),
-        "unix:///tmp/docker-{uid}/docker.sock".format(uid=uid),
-        "unix://{home}/var/run/docker.sock".format(home=home),
+        "/tmp/docker-{uid}/docker.sock".format(uid=uid),
+        "{home}/var/run/docker.sock".format(home=home),
     ]
     for sock_path in sock_paths:
         if os.path.exists(sock_path):
-            return sock_path
+            return "unix://" + sock_path
     return None
 
 def detect_user_docker_for_xonsh():
