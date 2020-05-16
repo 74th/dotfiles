@@ -1,0 +1,1 @@
+- ログイン項目に startup.command を登録する
