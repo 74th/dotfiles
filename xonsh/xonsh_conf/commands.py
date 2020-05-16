@@ -36,6 +36,16 @@ def load_commands():
 
     x_aliases["cb"] = select_command_bookmark
 
+    def select_dir_bookmark():
+        r = run(f"cat ~/mycheatsheets/DirBookmark/{HOSTNAME} | peco")
+        if len(r.lines) > 0:
+            name = r.lines[0].strip()
+            if name[0] == "[":
+                name = name[name.find("]") + 1 :]
+            run(name)
+
+    x_aliases["db"] = select_dir_bookmark
+
     def ssh_xonsh(args):
         host = args[0]
         run(f"ssh -t {host} xonsh")

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import os.path
 import re
 import json
 import tempfile
@@ -163,14 +164,15 @@ def load_xontrib():
 
 
 def detect_vscode_remote_env():
+    if "VSCODE_IPC_HOOK_CLI" in x_env:
+        return
     info_file = os.path.join(HOME, ".vscode-remote", "latest-info.json")
     if not os.path.exists(info_file):
         return
     with open(info_file) as f:
         j = json.load(f)
     x_env["VSCODE_IPC_HOOK_CLI"] = j["hock"]
-    x_env["PATH"].insert(0, j["code"])
-
+    x_env["PATH"].append(os.path.dirname(j["bin"]))
 
 def detect_user_docker():
     rootless_docker = os.path.expanduser("~/bin/dockerd-rootless.sh")
