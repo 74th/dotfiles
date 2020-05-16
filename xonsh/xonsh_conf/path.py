@@ -6,7 +6,7 @@ from typing import List
 def get_paths(default_paths: List[str]) -> List[str]:
 
     HOME = os.environ.get("HOME", "/home/nnyn/")
-    _paths: List[str] = []
+    _paths = [] # type: List[str]
 
     def add(path: str):
         if path not in default_paths and os.path.exists(path):
@@ -20,32 +20,32 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add("/snap/bin")
 
     # Homebrew for Linux
-    add(f"/home/linuxbrew/.linuxbrew/bin")
+    add("/home/linuxbrew/.linuxbrew/bin")
 
     add("/usr/local/cuda/bin")
-    add(f"{HOME}/Library/Python/2.7/bin")
-    add(f"{HOME}/Library/Python/3.7/bin")
-    add(f"{HOME}/google-cloud-sdk/bin")
-    add(f"{HOME}/google-cloud-sdk/platform/google_appengine")
-    add(f"{HOME}/npm/bin")
-    add(f"{HOME}/npm/node_modules/.bin")
-    add(f"{HOME}/Library/Android/sdk/platform-tools")
-    add(f"{HOME}/.local/bin")
-    add(f"{HOME}/.rbx_env/shims")
-    add(f"{HOME}/.nodenv/shims")
-    add(f"{HOME}/.pyenv/shims")
-    add(f"{HOME}/.nodenv/shims")
-    add(f"{HOME}/.tfenv/bin")
-    add(f"{HOME}/go/bin")
-    add(f"{HOME}/go/src/github.com/uber/go-torch/FlameGraph")
-    add(f"{HOME}/Android/Sdk/platform-tools")
-    add(f"{HOME}/Android/Sdk/tools")
-    add(f"{HOME}/sdks/google-cloud-sdk/bin")
-    add(f"{HOME}/sdks/android-studio/bin")
+    add(HOME + "/Library/Python/2.7/bin")
+    add(HOME + "/Library/Python/3.7/bin")
+    add(HOME + "/google-cloud-sdk/bin")
+    add(HOME + "/google-cloud-sdk/platform/google_appengine")
+    add(HOME + "/npm/bin")
+    add(HOME + "/npm/node_modules/.bin")
+    add(HOME + "/Library/Android/sdk/platform-tools")
+    add(HOME + "/.local/bin")
+    add(HOME + "/.rbx_env/shims")
+    add(HOME + "/.nodenv/shims")
+    add(HOME + "/.pyenv/shims")
+    add(HOME + "/.nodenv/shims")
+    add(HOME + "/.tfenv/bin")
+    add(HOME + "/go/bin")
+    add(HOME + "/go/src/github.com/uber/go-torch/FlameGraph")
+    add(HOME + "/Android/Sdk/platform-tools")
+    add(HOME + "/Android/Sdk/tools")
+    add(HOME + "/sdks/google-cloud-sdk/bin")
+    add(HOME + "/sdks/android-studio/bin")
     add("/opt/X11/bin")
 
-    add(f"{HOME}/bin")
-    add(f"{HOME}/dotfiles/bin")
+    add(HOME + "/bin")
+    add(HOME + "/dotfiles/bin")
 
     return _paths
 

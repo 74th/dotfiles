@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import invoke
 import yaml
@@ -16,4 +15,4 @@ def download_packages(c):
         packages = yaml.load(f)["packages"]
 
     for package in packages:
-        c.run(f"go get -u {package}")
+        c.run("go get -u " + package)
