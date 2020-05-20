@@ -33,16 +33,8 @@ def _list_packages(c):
         "hub",
         "openssl@1.1",
         "jq",
-        "protobuf",
-        "gcc",
         "gdb",
         "vim",
-    ]
-
-    # go
-    pkgs += [
-        "go",
-        "dep",
     ]
 
     # python
@@ -124,3 +116,7 @@ def install(c):
     env = setHome(c)
     if len(pkgs) > 0:
         c.run("brew install " + " ".join(pkgs), env=env)
+
+@task
+def show_dependency(c):
+    c.run("brew deps --tree --installed")

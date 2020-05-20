@@ -1,5 +1,7 @@
-from invoke import task
+from typing import List
 import tempfile
+
+from invoke import task
 
 
 @task
@@ -30,3 +32,15 @@ def add_snap_path(c):
         with open(tmp.name, "w") as f:
             f.write(new_text)
         c.run("sudo cp " + tmp.name + " /etc/environment")
+
+def _list_packages()->List[str]:
+    pkgs: List[str] = []
+    pkgs += [
+        "protobuf-compiler",
+    ]
+    return pkgs
+
+@task
+def install(c):
+    pkgs = _list_packages()
+    c.run("sudo apt install " + " ".join(pkgs))
