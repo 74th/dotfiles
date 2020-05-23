@@ -65,6 +65,7 @@ def _list_packages(c):
 
     # kubernetes
     pkgs += [
+        "docker-compose",
         "kubernetes-cli",
         "kubectx",
         "stern",
