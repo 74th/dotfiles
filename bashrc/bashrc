@@ -49,10 +49,6 @@ if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
 fi
 PS1=$PS1'\n\$'
 
-# paths
-if type python3 >/dev/null 2>&1; then
-    eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/path.py)"
-fi
 
 # pyenv
 if type pyenv >/dev/null 2>&1; then

@@ -53,10 +53,10 @@ def create_basic_dir(c):
 
 def checkout_dotfiles(c: invoke.Context):
     print("checkout and update dotfiles")
-    if c.run("test -e ~/dotfiles", warn=True, hide="both").failed:
+    if c.run(f"test -e {HOME}/dotfiles", warn=True, hide="both").failed:
         c.run("git clone https://github.com/74th/dotfiles.git", echo=True)
         return
-    with c.cd("~/dotfiles"):
+    with c.cd(f"{HOME}/dotfiles"):
         c.run("git pull")
 
 
@@ -72,39 +72,44 @@ ns.add_task(rehash_pyenv)
 
 @task
 def bashrc(c):
-    print("## ~/.bashrc")
-    delete_file("~/.bashrc")
-    c.run('echo "source ~/dotfiles/bashrc/bashrc" >> ~/.bashrc')
+    print(f"## {HOME}/.bashrc")
+    bashrc = f"{HOME}/.bashrc"
+    if os.path.exists(bashrc):
+        with open(bashrc, "r") as f:
+            body: str = f.read()
+        if body.find(f"source {HOME}/dotfiles/bashrc/bashrc") > -1:
+            return
+    c.run(f'echo "source {HOME}/dotfiles/bashrc/bashrc" >> {HOME}/.bashrc')
 
 
 ns.add_task(bashrc)
-
+HOME
 
 @task
 def macos(c):
     print("## MacOS")
-    c.run("mkdir -p ~/.config")
+    c.run(f"mkdir -p {HOME}/.config")
     c.run("defaults write -g ApplePressAndHoldEnabled -bool false")
-    c.run("mkdir -p ~/bin")
+    c.run(f"mkdir -p {HOME}/bin")
 
     # macvim-kaoriya 用の mvim
     if os.path.exists("/Applications/MacVim.app/Contents/bin/"):
-        c.run("ln -sf /Applications/MacVim.app/Contents/bin/* ~/bin/")
-        c.run("ln -sf /Applications/MacVim.app/Contents/bin/vim ~/bin/vi")
+        c.run(f"ln -sf /Applications/MacVim.app/Contents/bin/* {HOME}/bin/")
+        c.run(f"ln -sf /Applications/MacVim.app/Contents/bin/vim {HOME}/bin/vi")
 
     # karabiner-elements
-    c.run("rm -rf ~/.config/karabiner")
-    c.run("ln -s ~/dotfiles/karabiner-elements ~/.config/karabiner")
+    c.run(f"rm -rf {HOME}/.config/karabiner")
+    c.run(f"ln -s {HOME}/dotfiles/karabiner-elements {HOME}/.config/karabiner")
 
     # 環境変数
-    c.run("mkdir -p ~/Library/LaunchAgents")
-    if os.path.exists("~/Library/LaunchAgents/setenv.plist"):
-        c.run("launchctl unload ~/Library/LaunchAgents/setenv.plist")
+    c.run(f"mkdir -p {HOME}/Library/LaunchAgents")
+    if os.path.exists(f"{HOME}/Library/LaunchAgents/setenv.plist"):
+        c.run(f"launchctl unload {HOME}/Library/LaunchAgents/setenv.plist")
     else:
         c.run(
-            "ln -s ~/dotfiles/mac_env/setenv.plist ~/Library/LaunchAgents/setenv.plist"
+            f"ln -s {HOME}/dotfiles/mac_env/setenv.plist {HOME}/Library/LaunchAgents/setenv.plist"
         )
-    c.run("launchctl load ~/Library/LaunchAgents/setenv.plist")
+    c.run(f"launchctl load {HOME}/Library/LaunchAgents/setenv.plist")
 
 
 ns.add_task(macos)
@@ -114,23 +119,23 @@ ns.add_task(macos)
 def vimrc(c, no_extension=False):
     print("## vimrc")
     has = False
-    if os.path.exists("~/.vimrc"):
-        r = c.run("cat ~/.vimrc")
+    if os.path.exists(f"{HOME}/.vimrc"):
+        r = c.run(f"cat {HOME}/.vimrc")
         has = r.stdout.find("dotfiles") > 0
     if not has:
-        c.run('echo "source ~/dotfiles/vimrc/vimrc.vim" >>~/.vimrc')
+        c.run(f'echo "source {HOME}/dotfiles/vimrc/vimrc.vim" >>{HOME}/.vimrc')
 
     has = False
-    if os.path.exists("~/.gvimrc"):
-        r = c.run("cat ~/.gvimrc")
+    if os.path.exists(f"{HOME}/.gvimrc"):
+        r = c.run(f"cat {HOME}/.gvimrc")
         has = r.stdout.find("dotfiles") > 0
     if not has:
-        c.run('echo "source ~/dotfiles/vimrc/gvimrc.vim" >>~/.gvimrc')
+        c.run(f'echo "source {HOME}/dotfiles/vimrc/gvimrc.vim" >>{HOME}/.gvimrc')
 
     if not no_extension:
-        c.run("mkdir -p ~/.vim/autoload")
+        c.run(f"mkdir -p {HOME}/.vim/autoload")
         c.run(
-            "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim",
+            f"curl -fLo {HOME}/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim",
         )
         c.run("vi +PlugInstall +qall", hide="both", warn=True)
 
@@ -172,7 +177,7 @@ ns.add_task(pypi)
 
 @task
 def xonsh(c):
-    c.run("ln -fs ~/dotfiles/xonsh/xonshrc.py ~/.xonshrc")
+    c.run(f"ln -fs {HOME}/dotfiles/xonsh/xonshrc.py {HOME}/.xonshrc")
 
 
 ns.add_task(xonsh)
@@ -180,7 +185,7 @@ ns.add_task(xonsh)
 
 @task
 def screenrc(c):
-    c.run("cp ~/dotfiles/screenrc/screenrc ~/.screenrc")
+    c.run(f"cp {HOME}/dotfiles/screenrc/screenrc {HOME}/.screenrc")
 
 
 ns.add_task(screenrc)

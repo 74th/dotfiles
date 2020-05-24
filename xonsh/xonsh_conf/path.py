@@ -1,12 +1,14 @@
 #!/usr/local/bin/python3
 import os
 from typing import List
+import sys
 
 
 def get_paths(default_paths: List[str]) -> List[str]:
 
     HOME = os.environ.get("HOME", "/home/nnyn/")
     _paths = [] # type: List[str]
+
 
     def add(path: str):
         if path not in default_paths and os.path.exists(path):
@@ -53,7 +55,10 @@ def get_paths(default_paths: List[str]) -> List[str]:
 if __name__ == "__main__":
     # for bash
     # eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/path.py)"
-    current_paths = os.environ["PATH"].split(":")
+    if len(sys.argv) > 1:
+        current_paths = sys.argv[1].split(":")
+    else:
+        current_paths = os.environ["PATH"].split(":")
     additional_paths = get_paths(current_paths)
     if additional_paths:
         print("export PATH=" + ":".join(additional_paths) + ":$PATH")
