@@ -13,7 +13,7 @@ def get_aliases() -> Dict[str, List[str]]:
 
     # kubernetes
     a["k"] = ["kubectl"]
-    a["kgp"] = ["kubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
+    a["kgp"] = ["eubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
     a["kga"] = ["kubectl", "get", "all"]
     a["kg"] = ["kubectl", "get"]
     a["kd"] = ["kubectl", "describe"]
@@ -28,6 +28,9 @@ def get_aliases() -> Dict[str, List[str]]:
     # java
     a["javac"] = ["javac", "-J-Dfile.encoding=utf-8"]
     a["java"] = ["java", "-Dfile.encoding=UTF-8"]
+
+    # python venv
+    a["create-venv"] = ["python", "-m", "venv", ".venv"]
 
     return a
 

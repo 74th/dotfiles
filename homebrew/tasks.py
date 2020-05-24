@@ -3,46 +3,51 @@ import invoke
 import detect
 
 
-def _list_packages(c):
+def _list_minimal(c):
     pkgs = []
 
     # bash
-    pkgs += ["bash", "bash-completion"]
+    pkgs += [
+        "bash",
+        "bash-completion",
+        "wget",
+        "direnv",
+        "peco",
+        "git",
+        "jq",
+        ]
+
+    return pkgs
+
+def _list_packages(c):
+    pkgs = []
 
     if detect.osx:
         pkgs += ["coreutils"]
 
     # CLI toolset
     pkgs += [
-        "wget",
-        "direnv",
-        "peco",
         "readline",
         "watch",
         "rsync",
-        # "openssh",
         "redis",
         "sqlite",
-        # alternate cat
         "bat",
     ]
 
     # develop
     pkgs += [
-        "git",
         "hub",
         "openssl@1.1",
-        "jq",
         "gdb",
         "vim",
     ]
 
     # python
-    pkgs += [
-        "python",
-        "pyenv",
-        "pyenv-virtualenv",
-    ]
+    if detect.osx:
+        pkgs += [
+            "python",
+        ]
 
     # nodejs
     pkgs += [
@@ -112,7 +117,17 @@ def update(c):
 
 @task
 def install(c):
-    pkgs = _list_packages(c)
+    pkgs = _list_minimal(c)
+    pkgs += _list_packages(c)
+    installed = c.run("brew list").stdout.split("\n")
+    pkgs = set(pkgs) - set(installed)
+    env = setHome(c)
+    if len(pkgs) > 0:
+        c.run("brew install " + " ".join(pkgs), env=env)
+
+@task
+def install_minimal(c):
+    pkgs = _list_minimal(c)
     installed = c.run("brew list").stdout.split("\n")
     pkgs = set(pkgs) - set(installed)
     env = setHome(c)
