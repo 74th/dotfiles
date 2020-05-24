@@ -29,9 +29,6 @@ def get_aliases() -> Dict[str, List[str]]:
     a["javac"] = ["javac", "-J-Dfile.encoding=utf-8"]
     a["java"] = ["java", "-Dfile.encoding=UTF-8"]
 
-    # python venv
-    a["create-venv"] = ["python", "-m", "venv", ".venv"]
-
     return a
 
 

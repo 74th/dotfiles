@@ -2,6 +2,15 @@ from invoke import task
 import invoke
 
 @invoke.task
+def install(c):
+    pkgs += [
+        "poetry",
+        "xonsh[ptk]"
+    ]
+    pkgs_str = " ".join(pkgs)
+    c.run(f"pip3 install --user --upgrade {pkgs_str}")
+
+@invoke.task
 def upgrade_all(c,force=False, upgrade=False):
     out = c.run("pip3 list").stdout
     lines = out.split("\n")
@@ -13,4 +22,4 @@ def upgrade_all(c,force=False, upgrade=False):
             flg += " --force-reinstall"
         if upgrade:
             flg += " --upgrade"
-        c.run("pip3 install {flg} {pkg}".format(flg=flg, pkg=pkg))
+        c.run("pip3 install --user {flg} {pkg}".format(flg=flg, pkg=pkg))
