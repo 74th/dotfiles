@@ -11,7 +11,7 @@ import git.tasks as git
 import arm_ubuntu.tasks as arm_ubuntu
 import ubuntu.tasks as ubuntu
 import golang.tasks as go
-import pip.tasks as pip
+import python_pip.tasks as python_pip
 
 ns = collection.Collection()
 ns.add_collection(ns.from_module(arm_ubuntu, "arm-ubuntu"))
@@ -230,4 +230,4 @@ ns.add_collection(ns.from_module(homebrew), "homebrew")
 ns.add_collection(ns.from_module(git), "git")
 ns.add_collection(ns.from_module(ubuntu), "ubuntu")
 ns.add_collection(ns.from_module(go), "go")
-ns.add_collection(ns.from_module(pip), "pip")
+ns.add_collection(ns.from_module(python_pip), "pip")
