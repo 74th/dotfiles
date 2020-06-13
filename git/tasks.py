@@ -85,3 +85,7 @@ def set_username(c):
 
     c.run('git config --global user.name 74th', env=env)
     c.run('git config --global user.email site@74th.tech', env=env)
+
+@task
+def chmod_config(c):
+    c.run("chmod 600 ~/.gitconfig")

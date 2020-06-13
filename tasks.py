@@ -205,6 +205,7 @@ def install(c):
     rehash_pyenv(c)
     bashrc(c)
     git.set_config(c)
+    git.chmod_config(c)
     if os == "macos":
         macos(c)
     vimrc(c)
