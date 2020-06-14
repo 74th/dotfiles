@@ -197,10 +197,12 @@ def install(c):
     update_package_manager(c)
     create_basic_dir(c)
     archi = get_archi(c)
-    if archi == "x86_64":
-        homebrew.default(c)
+    #if archi == "x86_64":
+    #    homebrew.default(c)
     if archi == "aarch64":
         arm_ubuntu.install(c)
+    if detect.linux:
+        ubuntu.install(c)
     checkout_dotfiles(c)
     rehash_pyenv(c)
     bashrc(c)

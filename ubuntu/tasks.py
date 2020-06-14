@@ -37,6 +37,9 @@ def _list_packages()->List[str]:
     pkgs: List[str] = []
     pkgs += [
         "protobuf-compiler",
+        "curl",
+        "vim",
+        "direnv",
     ]
     return pkgs
 
