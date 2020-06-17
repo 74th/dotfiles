@@ -59,6 +59,7 @@ def _list_desktop_packages()->List[str]:
         "vim-gtk",
         "code",
         "code-insiders",
+        "font-manager",
     ]
     return pkgs
 
