@@ -222,6 +222,8 @@ ns.add_task(install)
 def install_small(c):
     create_basic_dir(c)
     bashrc(c)
+    if detect.osx:
+        homebrew.install_minimal(c)
     vimrc(c)
     pypi(c)
     xonsh(c)

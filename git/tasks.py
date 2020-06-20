@@ -83,7 +83,7 @@ def set_username(c):
     if len(c.run("echo $HOME", hide=True).stdout.strip()) == 0:
         env["HOME"] = c.run("cd ~;pwd", hide=True).stdout.strip()
 
-    c.run('git config --global user.name 74th', env=env)
+    c.run('git config --global user.name "Atsushi Morimoto (@74th)"', env=env)
     c.run('git config --global user.email site@74th.tech', env=env)
 
 @task

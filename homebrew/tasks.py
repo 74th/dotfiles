@@ -19,6 +19,16 @@ def _list_minimal(c):
 
     return pkgs
 
+def _list_minimal_mac(c):
+    pkgs = []
+
+    # bash
+    pkgs += [
+        "vim",
+        ]
+
+    return pkgs
+
 def _list_packages(c):
     pkgs = []
 
@@ -42,12 +52,6 @@ def _list_packages(c):
         "gdb",
         "vim",
     ]
-
-    # python
-    if detect.osx:
-        pkgs += [
-            "python",
-        ]
 
     # nodejs
     pkgs += [
@@ -128,6 +132,8 @@ def install(c):
 @task
 def install_minimal(c):
     pkgs = _list_minimal(c)
+    if detect.mac:
+        pkgs += _list_minimal_mac(c)
     installed = c.run("brew list").stdout.split("\n")
     pkgs = set(pkgs) - set(installed)
     env = setHome(c)
