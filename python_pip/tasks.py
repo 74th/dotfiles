@@ -1,14 +1,39 @@
 from invoke import task
 import invoke
 
+
+def list_small_packages():
+    l = []
+    l += [
+        "invoke",
+        "poetry",
+    ]
+    return l
+
+@invoke.task
+def install_small(c):
+    l = list_small_packages()
+    l_str = " ".join(l)
+    c.run(f"pip3 install --user --upgrade {l_str}")
+
+def list_packages():
+    l = list_small_packages()
+    l += [
+        "black",
+        "mypy",
+        "xonsh[ptk]",
+        "xontrib-readable-traceback",
+        "xonsh-docker-tabcomplete",
+        "xontrib-z",
+        "xonsh-direnv",
+    ]
+    return l
+
 @invoke.task
 def install(c):
-    pkgs += [
-        "poetry",
-        "xonsh[ptk]"
-    ]
-    pkgs_str = " ".join(pkgs)
-    c.run(f"pip3 install --user --upgrade {pkgs_str}")
+    l = list_packages()
+    l_str = " ".join(l)
+    c.run(f"pip3 install --user --upgrade {l_str}")
 
 @invoke.task
 def upgrade_all(c,force=False, upgrade=False):

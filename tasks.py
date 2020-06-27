@@ -12,6 +12,7 @@ import arm_ubuntu.tasks as arm_ubuntu
 import ubuntu.tasks as ubuntu
 import golang.tasks as go
 import python_pip.tasks as python_pip
+import vscode.tasks as vscode
 
 ns = collection.Collection()
 ns.add_collection(ns.from_module(arm_ubuntu, "arm-ubuntu"))
@@ -145,38 +146,6 @@ ns.add_task(vimrc)
 
 
 @task
-def pypi(c):
-    def _install(c, pkgs):
-        pkgs_str = " ".join(pkgs)
-        if detect.mac:
-            c.run(
-                "/usr/local/bin/pip3 install --upgrade " + pkgs_str,
-                env={"PYTHONPATH": "/usr/local/bin/python3"},
-            )
-        else:
-            c.run("pip3 install --upgrade " + pkgs_str)
-
-    # must packages
-    pkgs = ["invoke", "pyyaml", "mypy"]
-    if sys.version_info.minor >= 6:
-        pkgs += ["black"]
-
-    # xonsh
-    pkgs += [
-        "xonsh[ptk]",
-        "xontrib-readable-traceback",
-        "xonsh-docker-tabcomplete",
-        "xontrib-z",
-        "xonsh-direnv",
-    ]
-
-    _install(c, pkgs)
-
-
-ns.add_task(pypi)
-
-
-@task
 def xonsh(c):
     c.run(f"ln -fs {HOME}/dotfiles/xonsh/xonshrc.py {HOME}/.xonshrc")
 
@@ -201,7 +170,7 @@ def install(c):
     #    homebrew.default(c)
     if archi == "aarch64":
         arm_ubuntu.install(c)
-    if detect.linux:
+    if detect.linux and ubuntu.is_ubuntu():
         ubuntu.install(c)
     checkout_dotfiles(c)
     rehash_pyenv(c)
@@ -211,7 +180,8 @@ def install(c):
     if os == "macos":
         macos(c)
     vimrc(c)
-    pypi(c)
+    python_pip.install(c)
+    vscode.ln(c)
     xonsh(c)
 
 
@@ -225,7 +195,7 @@ def install_small(c):
     if detect.osx:
         homebrew.install_minimal(c)
     vimrc(c)
-    pypi(c)
+    python_pip.install_small(c)
     xonsh(c)
 
 
@@ -236,3 +206,4 @@ ns.add_collection(ns.from_module(git), "git")
 ns.add_collection(ns.from_module(ubuntu), "ubuntu")
 ns.add_collection(ns.from_module(go), "go")
 ns.add_collection(ns.from_module(python_pip), "pip")
+ns.add_collection(ns.from_module(vscode), "vscode")
