@@ -3,6 +3,8 @@ import os
 from typing import List
 import sys
 
+import detect
+
 
 def get_paths(default_paths: List[str]) -> List[str]:
 
@@ -48,6 +50,12 @@ def get_paths(default_paths: List[str]) -> List[str]:
 
     add(HOME + "/bin")
     add(HOME + "/dotfiles/bin")
+
+    if detect.linux:
+        add(HOME + "/dotfiles/bin/linux")
+    if detect.mac:
+        add(HOME + "/dotfiles/bin/macos")
+
 
     return _paths
 
