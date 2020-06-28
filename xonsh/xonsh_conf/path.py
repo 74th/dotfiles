@@ -5,12 +5,13 @@ import sys
 
 import detect
 
+from .lib import HOSTNAME
+
 
 def get_paths(default_paths: List[str]) -> List[str]:
 
     HOME = os.environ.get("HOME", "/home/nnyn/")
-    _paths = [] # type: List[str]
-
+    _paths = []  # type: List[str]
 
     def add(path: str):
         if path not in default_paths and os.path.exists(path):
@@ -50,12 +51,16 @@ def get_paths(default_paths: List[str]) -> List[str]:
 
     add(HOME + "/bin")
     add(HOME + "/dotfiles/bin")
+    add(HOME + "/mycheatsheets/bin")
 
     if detect.linux:
         add(HOME + "/dotfiles/bin/linux")
+        add(HOME + "/mycheatsheets/bin/linux")
     if detect.mac:
         add(HOME + "/dotfiles/bin/macos")
-
+        add(HOME + "/mycheatsheets/bin/macos")
+    add(HOME + "/dotfiles/bin/" + HOSTNAME)
+    add(HOME + "/mycheatsheets/bin/" + HOSTNAME)
 
     return _paths
 
