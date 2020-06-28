@@ -12,7 +12,7 @@ def get_hostname():
 
 def get_paths(default_paths: List[str]) -> List[str]:
 
-    home = os.environ.get("home", "/home/nnyn/")
+    home = os.path.expanduser("~")
     system = get_system()
     hostname = get_hostname()
     _paths = []  # type: List[str]
