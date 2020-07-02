@@ -4,6 +4,12 @@ import tempfile
 
 from invoke import task
 
+def is_ubuntu():
+    if not os.path.exists("/etc/lsb-release"):
+        return False
+    with open("/etc/lsb-release") as f:
+        body = f.read()
+    return body.count("Ubuntu") >= 0
 
 @task
 def update(c):

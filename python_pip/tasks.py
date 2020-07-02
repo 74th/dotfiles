@@ -1,14 +1,41 @@
 from invoke import task
 import invoke
 
-@invoke.task
-def install(c):
-    pkgs += [
+
+def list_small_packages():
+    l = []
+    l += [
+        "invoke",
         "poetry",
-        "xonsh[ptk]"
     ]
     pkgs_str = " ".join(pkgs)
-    c.run(f"pip3 install --user --upgrade {pkgs_str}")
+    return l
+
+@invoke.task
+def install_small(c):
+    l = list_small_packages()
+    l_str = " ".join(l)
+    c.run(f"pip3 install --user --upgrade {l_str}")
+    c.run(f"poetry config virtualenvs.create true")
+
+def list_packages():
+    l = list_small_packages()
+    l += [
+        "black",
+        "mypy",
+        "xonsh[ptk]",
+        "xontrib-readable-traceback",
+        "xonsh-docker-tabcomplete",
+        "xontrib-z",
+        "xonsh-direnv",
+    ]
+    return l
+
+@invoke.task
+def install(c):
+    l = list_packages()
+    l_str = " ".join(l)
+    c.run(f"pip3 install --user --upgrade {l_str}")
     c.run(f"poetry config virtualenvs.create true")
 
 @invoke.task

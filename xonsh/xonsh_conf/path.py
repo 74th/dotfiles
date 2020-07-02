@@ -1,14 +1,21 @@
 #!/usr/local/bin/python3
 import os
+import subprocess
 from typing import List
 import sys
 
+def get_system():
+    return subprocess.run(["uname", "-s"], stdout=subprocess.PIPE, text=True).stdout.strip()
+
+def get_hostname():
+    return subprocess.run(["hostname"], stdout=subprocess.PIPE, text=True).stdout.strip()
 
 def get_paths(default_paths: List[str]) -> List[str]:
 
-    HOME = os.environ.get("HOME", "/home/nnyn/")
-    _paths = [] # type: List[str]
-
+    home = os.path.expanduser("~")
+    system = get_system()
+    hostname = get_hostname()
+    _paths = []  # type: List[str]
 
     def add(path: str):
         if path not in default_paths and os.path.exists(path):
@@ -25,29 +32,39 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add("/home/linuxbrew/.linuxbrew/bin")
 
     add("/usr/local/cuda/bin")
-    add(HOME + "/Library/Python/2.7/bin")
-    add(HOME + "/Library/Python/3.7/bin")
-    add(HOME + "/google-cloud-sdk/bin")
-    add(HOME + "/google-cloud-sdk/platform/google_appengine")
-    add(HOME + "/npm/bin")
-    add(HOME + "/npm/node_modules/.bin")
-    add(HOME + "/Library/Android/sdk/platform-tools")
-    add(HOME + "/.local/bin")
-    add(HOME + "/.rbx_env/shims")
-    add(HOME + "/.nodenv/shims")
-    add(HOME + "/.pyenv/shims")
-    add(HOME + "/.nodenv/shims")
-    add(HOME + "/.tfenv/bin")
-    add(HOME + "/go/bin")
-    add(HOME + "/go/src/github.com/uber/go-torch/FlameGraph")
-    add(HOME + "/Android/Sdk/platform-tools")
-    add(HOME + "/Android/Sdk/tools")
-    add(HOME + "/sdks/google-cloud-sdk/bin")
-    add(HOME + "/sdks/android-studio/bin")
+    add(home + "/Library/Python/2.7/bin")
+    add(home + "/Library/Python/3.7/bin")
+    add(home + "/google-cloud-sdk/bin")
+    add(home + "/google-cloud-sdk/platform/google_appengine")
+    add(home + "/npm/bin")
+    add(home + "/npm/node_modules/.bin")
+    add(home + "/Library/Android/sdk/platform-tools")
+    add(home + "/.local/bin")
+    add(home + "/.rbx_env/shims")
+    add(home + "/.nodenv/shims")
+    add(home + "/.pyenv/shims")
+    add(home + "/.nodenv/shims")
+    add(home + "/.tfenv/bin")
+    add(home + "/go/bin")
+    add(home + "/go/src/github.com/uber/go-torch/FlameGraph")
+    add(home + "/Android/Sdk/platform-tools")
+    add(home + "/Android/Sdk/tools")
+    add(home + "/sdks/google-cloud-sdk/bin")
+    add(home + "/sdks/android-studio/bin")
     add("/opt/X11/bin")
 
-    add(HOME + "/bin")
-    add(HOME + "/dotfiles/bin")
+    add(home + "/bin")
+    add(home + "/dotfiles/bin")
+    add(home + "/mycheatsheets/bin")
+
+    if system == "Linux":
+        add(home + "/dotfiles/bin/linux")
+        add(home + "/mycheatsheets/bin/linux")
+    if system == "Darwin":
+        add(home + "/dotfiles/bin/macos")
+        add(home + "/mycheatsheets/bin/macos")
+    add(home + "/dotfiles/bin/" + hostname)
+    add(home + "/mycheatsheets/bin/" + hostname)
 
     return _paths
 
