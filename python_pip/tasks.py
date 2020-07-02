@@ -9,6 +9,7 @@ def install(c):
     ]
     pkgs_str = " ".join(pkgs)
     c.run(f"pip3 install --user --upgrade {pkgs_str}")
+    c.run(f"poetry config virtualenvs.create true")
 
 @invoke.task
 def upgrade_all(c,force=False, upgrade=False):
