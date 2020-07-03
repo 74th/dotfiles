@@ -8,7 +8,6 @@ def list_small_packages():
         "invoke",
         "poetry",
     ]
-    pkgs_str = " ".join(pkgs)
     return l
 
 @invoke.task

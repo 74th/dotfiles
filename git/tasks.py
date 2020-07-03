@@ -72,6 +72,11 @@ def set_config(c):
     # ブランチ作成と同時にチェックアウト
     c.run('git config --global alias.branchcheckout "checkout -b"', env=env)
 
+    # pull では rebase を優先する
+    c.run('git config --global pull.rebase true')
+    # rebase のときに自動で stash save pop する
+    c.run('git config --global rebase.autostash true')
+
     # Windowsの場合、以下も追加する
     # ファイルモードを無視
     # git config --global core.filemode false
