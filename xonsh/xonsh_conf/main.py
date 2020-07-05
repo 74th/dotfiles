@@ -19,7 +19,7 @@ from .commands import load_commands
 from .path import get_paths
 from .aliases import get_aliases
 from . import ctrl_r
-from .detect_user_docker import detect_user_docker_for_xonsh
+# from .detect_user_docker import detect_user_docker_for_xonsh
 
 x_env["XONSH_SHOW_TRACEBACK"] = True
 
@@ -193,6 +193,6 @@ def load():
 
     git.set_aliases()
 
-    detect_user_docker_for_xonsh()
+    #detect_user_docker_for_xonsh()
 
     add_bash_competion()

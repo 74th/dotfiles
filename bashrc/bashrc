@@ -63,11 +63,6 @@ if type direnv >/dev/null 2>&1; then
     eval "$(direnv hook bash)"
 fi
 
-# detect user docker
-if type python3 >/dev/null 2>&1; then
-	eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/detect_user_docker.py)"
-fi
-
 function cb {
     if [ "$HOSTNAME" == "violet-gopher" ]; then
         $(peco $HOME/mycheatsheets/CmdBookmark/work)
