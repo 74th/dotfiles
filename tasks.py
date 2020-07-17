@@ -177,6 +177,9 @@ def install(c):
     bashrc(c)
     git.set_config(c)
     git.chmod_config(c)
+    go.download_packages(c)
+    if detect.linux and ubuntu.is_ubuntu():
+        go.install_ubuntu(c)
     if os == "macos":
         macos(c)
     vimrc(c)

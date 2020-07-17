@@ -20,10 +20,10 @@ def download_packages(c):
 
 @task
 def install_ubuntu(c):
-    version = "1.14.3"
+    version = "1.14.6"
     with tempfile.TemporaryDirectory() as d:
         with c.cd(d):
             tar_gz = f"go{version}.linux-amd64.tar.gz"
             c.run(f"wget https://dl.google.com/go/go{version}.linux-amd64.tar.gz")
             c.run(f"sudo tar -C /usr/local -xzf go{version}.linux-amd64.tar.gz")
-            c.run(f"sudo ln -s /usr/local/go/bin/* /usr/local/bin/")
+            c.run(f"sudo ln -fs /usr/local/go/bin/* /usr/local/bin/")

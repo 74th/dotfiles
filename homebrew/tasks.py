@@ -8,13 +8,7 @@ def _list_minimal(c):
 
     # bash
     pkgs += [
-        "bash",
-        "bash-completion",
-        "wget",
-        "direnv",
         "peco",
-        "git",
-        "jq",
         ]
 
     return pkgs
@@ -24,7 +18,9 @@ def _list_minimal_mac(c):
 
     # bash
     pkgs += [
+        "git",
         "vim",
+        "python",
         ]
 
     return pkgs
@@ -37,10 +33,6 @@ def _list_packages(c):
 
     # CLI toolset
     pkgs += [
-        "readline",
-        "watch",
-        "rsync",
-        "redis",
         "sqlite",
         "bat",
     ]
@@ -48,16 +40,11 @@ def _list_packages(c):
     # develop
     pkgs += [
         "hub",
-        "openssl@1.1",
-        "gdb",
-        "vim",
     ]
 
     # nodejs
     pkgs += [
         "nodenv",
-        "node",
-        "yarn",
     ]
 
     # cloud
@@ -75,7 +62,6 @@ def _list_packages(c):
 
     # kubernetes
     pkgs += [
-        "docker-compose",
         "kubernetes-cli",
         "kubectx",
         "stern",
