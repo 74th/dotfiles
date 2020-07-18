@@ -51,22 +51,3 @@ def load_commands():
         run(f"ssh -t {host} xonsh")
 
     x_aliases["xssh"] = ssh_xonsh
-
-    def docker_delete_all_containers():
-        lines = silent_run('docker ps -a --format "{{.ID}}"').split("\n")
-        ids = [line.strip() for line in lines]
-        " ".join(ids)
-        cmd = "docker rm -f " + " ".join(ids)
-        run(cmd)
-
-    x_aliases["docker-delete-all-containers"] = docker_delete_all_containers
-
-    def docker_delete_all_images():
-        lines = silent_run('docker images --format "{{.ID}}"').split("\n")
-        ids = [line.strip() for line in lines]
-        ids = list(set(ids))
-        " ".join(ids)
-        cmd = "docker rmi " + " ".join(ids)
-        run(cmd)
-
-    x_aliases["docker-delete-all-images"] = docker_delete_all_images
