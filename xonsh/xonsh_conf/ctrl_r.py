@@ -73,6 +73,20 @@ def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
     buf.insert_text(name)
 
 
+def select_dir_bookmark(buf: prompt_toolkit.buffer.Buffer):
+    with tempfile.NamedTemporaryFile() as tmp:
+        run(f"cat  ~/mycheatsheets/DirBookmark/{HOSTNAME} | peco > {tmp.name}")
+        with open(tmp.name) as f:
+            line = f.readline()
+    if not line:
+        return
+    name = line.strip()
+    if name[0] == "[":
+        name = name[name.find("]") + 1 :]
+    buf.reset()
+    buf.insert_text(name)
+
+
 def select_peco(buf: prompt_toolkit.buffer.Buffer, command: str):
     with tempfile.NamedTemporaryFile() as tmp:
         run(f"{command} | peco > {tmp.name}")
@@ -107,28 +121,31 @@ def select(buf: prompt_toolkit.buffer.Buffer):
         select_history(buf)
     if line.startswith("git"):
         select_git(buf)
-
     if line.startswith("kubectx"):
         select_peco(buf, "kubectx")
     if line.startswith("kubens"):
         select_peco(buf, "kubens")
     if line.startswith("kdp"):
-        select_k8s_list(buf, "kubectl get pods --output json", "k describe ")
-    elif line.startswith("kd ") or line.startswith("k describe"):
-        select_k8s_list(buf, "kubectl get " + line[3:] + " --output json", "k describe ")
-    elif line.startswith("kd") or line.startswith("k describe"):
-        select_k8s_list(buf, "kubectl get all --output json", "k describe ")
+        select_k8s_list(buf, "kubectl get pods --output json", "kubectl describe ")
+    elif line.startswith("kd"):
+        tail = line[3:].strip()
+        if len(tail):
+            select_k8s_list(buf, "kubectl get " + tail + " --output json", "kubectl describe ")
+        else:
+            select_k8s_list(buf, "kubectl get all --output json", "kubectl describe ")
     if line.startswith("klp"):
-        select_k8s_list(buf, "kubectl get pods --output json", "k logs ")
+        select_k8s_list(buf, "kubectl get pods --output json", "kubectl logs ")
     elif line.startswith("kl") or line.startswith("k logs"):
-        select_k8s_list(buf, "kubectl get all --output json", "k logs ")
+        select_k8s_list(buf, "kubectl get all --output json", "kubectl logs ")
     if line.startswith("k exec"):
-        select_k8s_list(buf, "kubectl get pods --output json", "k exec ")
+        select_k8s_list(buf, "kubectl get pods --output json", "kubectl exec ")
     if line.startswith("krm") or line.startswith("k delete"):
-        select_k8s_list(buf, "kubectl get all --output json", "k delete ")
+        select_k8s_list(buf, "kubectl get all --output json", "kubectl delete ")
 
     if line.startswith("cb"):
         select_command_bookmark(buf)
+    if line.startswith("db"):
+        select_dir_bookmark(buf)
     if line.startswith("inv"):
         select_peco(buf, "inv --complete")
     if line.startswith("fab"):

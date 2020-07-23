@@ -1,0 +1,35 @@
+#!env python3
+from typing import List
+import os.path
+import invoke
+
+c = invoke.Context()
+c.config.update({"run": {"echo": True}})
+
+
+def escape(s: str):
+    return "'" + s.replace("'", "\\'") + "'"
+
+
+def has_command(c: invoke.Context, cmd: str):
+    which_cmd = c.run(f"which {cmd}", warn=True)
+    return which_cmd.ok
+
+
+if has_command(c, "apt-get"):
+    c.run("sudo apt-get update")
+    c.run("sudo apt-get upgrade -y")
+    c.run("sudo apt-get autoremove")
+
+if has_command(c, "brew"):
+    c.run("brew update")
+    c.run("brew upgrade")
+    c.run("brew cleanup")
+
+
+with c.cd(os.path.expanduser("~/dotfiles")):
+    c.run("git pull")
+
+if os.path.exists(os.path.expanduser("~/mycheatsheets")):
+    with c.cd(os.path.expanduser("~/mycheatsheets")):
+        c.run("git pull")

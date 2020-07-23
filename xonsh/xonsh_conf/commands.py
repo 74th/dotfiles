@@ -36,27 +36,18 @@ def load_commands():
 
     x_aliases["cb"] = select_command_bookmark
 
+    def select_dir_bookmark():
+        r = run(f"cat ~/mycheatsheets/DirBookmark/{HOSTNAME} | peco")
+        if len(r.lines) > 0:
+            name = r.lines[0].strip()
+            if name[0] == "[":
+                name = name[name.find("]") + 1 :]
+            run(name)
+
+    x_aliases["db"] = select_dir_bookmark
+
     def ssh_xonsh(args):
         host = args[0]
         run(f"ssh -t {host} xonsh")
 
     x_aliases["xssh"] = ssh_xonsh
-
-    def docker_delete_all_containers():
-        lines = silent_run('docker ps -a --format "{{.ID}}"').split("\n")
-        ids = [line.strip() for line in lines]
-        " ".join(ids)
-        cmd = "docker rm -f " + " ".join(ids)
-        run(cmd)
-
-    x_aliases["docker-delete-all-containers"] = docker_delete_all_containers
-
-    def docker_delete_all_images():
-        lines = silent_run('docker images --format "{{.ID}}"').split("\n")
-        ids = [line.strip() for line in lines]
-        ids = list(set(ids))
-        " ".join(ids)
-        cmd = "docker rmi " + " ".join(ids)
-        run(cmd)
-
-    x_aliases["docker-delete-all-images"] = docker_delete_all_images

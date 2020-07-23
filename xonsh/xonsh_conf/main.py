@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import os.path
 import re
 import json
 import tempfile
@@ -18,6 +19,7 @@ from .commands import load_commands
 from .path import get_paths
 from .aliases import get_aliases
 from . import ctrl_r
+# from .detect_user_docker import detect_user_docker_for_xonsh
 
 x_env["XONSH_SHOW_TRACEBACK"] = True
 
@@ -162,27 +164,9 @@ def load_xontrib():
     run("xontrib load direnv")
 
 
-def detect_vscode_remote_env():
-    info_file = os.path.join(HOME, ".vscode-remote", "latest-info.json")
-    if not os.path.exists(info_file):
-        return
-    with open(info_file) as f:
-        j = json.load(f)
-    x_env["VSCODE_IPC_HOOK_CLI"] = j["hock"]
-    x_env["PATH"].insert(0, j["code"])
-
-
-def detect_user_docker():
-    rootless_docker = os.path.expanduser("~/bin/dockerd-rootless.sh")
-    if not os.path.exists(rootless_docker):
-        return
-    run("systemctl --user start docker")
-    uid = os.getuid()
-    info_file = os.path.join(f"/run/user/{uid}/docker.sock")
-    if os.path.exists("/run/user/{uid}/docker.sock"):
-        x_env["DOCKER_HOST"] = f"unix:///run/user/{uid}/docker.sock"
-    if os.path.exists(f"/tmp/docker-{uid}"):
-        x_env["DOCKER_HOST"] = f"unix:///tmp/docker-{uid}/docker.sock"
+def add_bash_competion():
+    if os.path.exists("/home/linuxbrew/.linuxbrew/etc/bash_completion.d"):
+        x_env["BASH_COMPLETIONS"] = "/home/linuxbrew/.linuxbrew/etc/bash_completion.d"
 
 
 def load():
@@ -209,5 +193,6 @@ def load():
 
     git.set_aliases()
 
-    detect_vscode_remote_env()
-    detect_user_docker()
+    #detect_user_docker_for_xonsh()
+
+    add_bash_competion()

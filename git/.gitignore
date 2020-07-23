@@ -2,7 +2,12 @@
 .DS_Store
 debug.test
 .mypy_cache
+.pytest_cache
 .pyc
 __pycache__
 .pytest_cache
 no_commit
+.venv
+.envrc
+.ipynb_checkpoints
+node_modules
