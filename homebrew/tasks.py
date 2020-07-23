@@ -9,9 +9,10 @@ def _list_minimal(c):
     # bash
     pkgs += [
         "peco",
-        ]
+    ]
 
     return pkgs
+
 
 def _list_minimal_mac(c):
     pkgs = []
@@ -21,9 +22,10 @@ def _list_minimal_mac(c):
         "git",
         "vim",
         "python",
-        ]
+    ]
 
     return pkgs
+
 
 def _list_packages(c):
     pkgs = []
@@ -40,6 +42,7 @@ def _list_packages(c):
     # develop
     pkgs += [
         "hub",
+        "nodenv",
     ]
 
     # nodejs
@@ -115,6 +118,7 @@ def install(c):
     if len(pkgs) > 0:
         c.run("brew install " + " ".join(pkgs), env=env)
 
+
 @task
 def install_minimal(c):
     pkgs = _list_minimal(c)
@@ -125,6 +129,7 @@ def install_minimal(c):
     env = setHome(c)
     if len(pkgs) > 0:
         c.run("brew install " + " ".join(pkgs), env=env)
+
 
 @task
 def show_dependency(c):
