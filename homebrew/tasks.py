@@ -43,11 +43,7 @@ def _list_packages(c):
     pkgs += [
         "hub",
         "nodenv",
-    ]
-
-    # nodejs
-    pkgs += [
-        "nodenv",
+        "golangci/tap/golangci-lint",
     ]
 
     # cloud
