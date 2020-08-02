@@ -3,7 +3,7 @@ import sys
 import os
 from pathlib import Path
 import invoke
-from invoke import Context, task, collection
+from invoke import task, collection
 import detect
 
 import homebrew.tasks as homebrew
@@ -87,6 +87,7 @@ def bashrc(c):
 ns.add_task(bashrc)
 HOME
 
+
 @task
 def macos(c):
     print("## MacOS")
@@ -166,8 +167,8 @@ def install(c):
     update_package_manager(c)
     create_basic_dir(c)
     archi = get_archi(c)
-    #if archi == "x86_64":
-    #    homebrew.default(c)
+    if archi == "x86_64":
+        homebrew.default(c)
     if archi == "aarch64":
         arm_ubuntu.install(c)
     if detect.linux and ubuntu.is_ubuntu():

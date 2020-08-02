@@ -19,7 +19,7 @@ def has_command(c: invoke.Context, cmd: str):
 if has_command(c, "apt-get"):
     c.run("sudo apt-get update")
     c.run("sudo apt-get upgrade -y")
-    c.run("sudo apt-get autoremove")
+    c.run("sudo apt-get autoremove -y")
 
 if has_command(c, "brew"):
     c.run("brew update")

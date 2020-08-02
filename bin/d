@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+from typing import List
+import sys
+import os.path
+import invoke
+
+if len(sys.argv) <= 1:
+    print("d <something>")
+    sys.exit(1)
+
+
+c = invoke.Context()
+c.config.update({"run": {"echo": True}})
+
+
+def main(args: List[str]):
+    n = os.path.expanduser(args[0])
+    _, ext = os.path.splitext(n)
+
+    if n.endswith(".pem") or n.endswith(".crt"):
+        c.run(f"keytool -printcert -file {n}")
+        return
+
+    if n.endswith(".zip"):
+        c.run(f"unzip {n}")
+        return
+
+    if n.endswith(".tar"):
+        c.run(f"tar -cvf  {n}")
+        return
+
+    if n.endswith(".tar.gz"):
+        c.run(f"tar -zcvf {n}")
+        return
+
+    if n.endswith(".tar.xz"):
+        c.run(f"tar -Jcvf {n}")
+        return
+
+    if n.endswith(".deb"):
+        c.run(f"sudo apt install {n}")
+        return
+    c.run(f"bat {n}")
+
+
+main(sys.argv[1:])

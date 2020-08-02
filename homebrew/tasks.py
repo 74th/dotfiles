@@ -1,6 +1,7 @@
 from invoke import task
 import invoke
 import detect
+from invoke import Context
 
 
 def _list_minimal(c):
