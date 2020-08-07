@@ -13,7 +13,7 @@ def get_aliases() -> Dict[str, List[str]]:
 
     # kubernetes
     a["k"] = ["kubectl"]
-    a["kgp"] = ["kubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
+    a["kgp"] = ["eubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
     a["kga"] = ["kubectl", "get", "all"]
     a["kg"] = ["kubectl", "get"]
     a["kd"] = ["kubectl", "describe"]

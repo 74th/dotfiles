@@ -1,0 +1,4 @@
+#!/bin/sh
+# pull を merge でしたいリポジトリ用
+set -xe
+git config pull.rebase false

@@ -1,0 +1,10 @@
+#!env python3
+import invoke
+c = invoke.Context()
+c.config.run.echo = True
+servers = ["mini", "lewill", "sirius"]
+for server in servers:
+    print(f"access {server}")
+    c.run(f"ssh {server} -- sudo apt-get update")
+    c.run(f"ssh {server} -- sudo apt-get upgrade -y")
+    c.run(f"ssh {server} -- sudo reboot", warn=True)

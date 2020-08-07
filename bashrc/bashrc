@@ -1,9 +1,9 @@
 #.bashrc
 
 if [ "$(uname)" == 'Darwin' ]; then
-	OSNAME='Mac'
+    OSNAME='Mac'
 else
-	OSNAME='Linux'
+    OSNAME='Linux'
 fi
 
 export LESSCHARSET=UTF-8
@@ -12,8 +12,14 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 if type python3 >/dev/null 2>&1; then
-	eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/path.py)"
+    eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/path.py)"
 fi
+if type python3 >/dev/null 2>&1; then
+    eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/aliases.py)"
+fi
+
+alias x=xonsh
+
 export EDITOR=vi
 export CLICOLOR=1
 
@@ -22,19 +28,19 @@ source ~/dotfiles/bashrc/completion/git-completion.bash
 source ~/dotfiles/bashrc/completion/git-flow-completion.bash
 
 function __show_exitcode {
-	_EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo -e "\e[31m$_EXITCODE\e[m "; fi
+    _EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo -e "\e[31m$_EXITCODE\e[m "; fi
 }
 PS1='$(__show_exitcode)'
 
 if [ $OSNAME = "Mac" ];then
-	col=37
+    col=37
 else
-	col=34
+    col=34
 fi
-if [ $USER = "root" ];then
-	PS1=$PS1'\[\e[31m\]\u\e[${col}m\]'
+if [ `id -u` == "0" ];then
+    PS1=$PS1'\[\e[31m\]\u\e[${col}m\]'
 else
-	PS1=$PS1'\[\e[${col}m\]\u'
+    PS1=$PS1'\[\e[${col}m\]\u'
 fi
 PS1=$PS1'@\H\[\e[33m\]\[\e[m\] \w'
 
@@ -45,37 +51,54 @@ PS1=$PS1'\[\e[33m$(__git_ps1)\e[m\]'
 
 # 非表示の文字は\[ \]で囲うこと
 if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
-	PS1=$PS1'\[\033k`expr $HOSTNAME : "\(...\).*"`@\W\033\\\]'
+    PS1=$PS1'\[\033k`expr $HOSTNAME : "\(...\).*"`@\W\033\\\]'
 fi
 PS1=$PS1'\n\$'
 
-# alias
-if type python3 >/dev/null 2>&1; then
-	eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/path.py)"
-fi
 
 # pyenv
 if type pyenv >/dev/null 2>&1; then
-	eval "$(pyenv init -)"
+    eval "$(pyenv init -)"
 fi
 
 # direnv
 if type direnv >/dev/null 2>&1; then
-	eval "$(direnv hook bash)"
+    eval "$(direnv hook bash)"
 fi
+
+function cb {
+    if [ "$HOSTNAME" == "violet-gopher" ]; then
+        $(peco $HOME/mycheatsheets/CmdBookmark/work)
+    else
+        $(peco $HOME/mycheatsheets/CmdBookmark/home)
+    fi
+}
+function db {
+    $(peco $HOME/mycheatsheets/DirBookmark/$HOSTNAME)
+}
 
 set -o vi
 
 #stty werase undef
 bind '\C-w:unix-filename-rubout'
 
+if [ "$VSCODE_IPC_HOOK_CLI" != "" ]; then
+    if type code >/dev/null 2>&1; then
+        CODE_EXE=code
+    fi
+    if type code-insiders >/dev/null 2>&1; then
+        CODE_EXE=code-insiders
+    fi
+    echo "{\"hock\": \"$VSCODE_IPC_HOOK_CLI\", \"exe\": \"$CODE_EXE\", \"bin\": \"`which $CODE_EXE`\"}" > ~/.vscode-remote/latest-info.json
+fi
+
 # vimのエラー対策
 # E437: terminal capability "cm" required
 if [ "$TERM" == 'screen-bce' ]; then
-	export TERM=screen
+    export TERM=screen
 fi
 
 ## Macで.ssh/id_rsaの鍵をkeychainから使うようにする
 #if [ $OSNAME = "Mac" ];then
-#	ssh-add -k ~/.ssh/id_rsa 2>/dev/null
+#    ssh-add -k ~/.ssh/id_rsa 2>/dev/null
 #fi

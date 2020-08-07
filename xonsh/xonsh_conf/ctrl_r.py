@@ -73,6 +73,20 @@ def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
     buf.insert_text(name)
 
 
+def select_dir_bookmark(buf: prompt_toolkit.buffer.Buffer):
+    with tempfile.NamedTemporaryFile() as tmp:
+        run(f"cat  ~/mycheatsheets/DirBookmark/{HOSTNAME} | peco > {tmp.name}")
+        with open(tmp.name) as f:
+            line = f.readline()
+    if not line:
+        return
+    name = line.strip()
+    if name[0] == "[":
+        name = name[name.find("]") + 1 :]
+    buf.reset()
+    buf.insert_text(name)
+
+
 def select_peco(buf: prompt_toolkit.buffer.Buffer, command: str):
     with tempfile.NamedTemporaryFile() as tmp:
         run(f"{command} | peco > {tmp.name}")
@@ -130,6 +144,8 @@ def select(buf: prompt_toolkit.buffer.Buffer):
 
     if line.startswith("cb"):
         select_command_bookmark(buf)
+    if line.startswith("db"):
+        select_dir_bookmark(buf)
     if line.startswith("inv"):
         select_peco(buf, "inv --complete")
     if line.startswith("fab"):

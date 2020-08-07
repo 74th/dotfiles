@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 import invoke
 from invoke import task, Context, Result
 
 
 @task(default=True)
 def set_config(c):
-    c: invoke.Context
     print("## git set configs")
 
     env = {}
@@ -74,6 +72,11 @@ def set_config(c):
     # ブランチ作成と同時にチェックアウト
     c.run('git config --global alias.branchcheckout "checkout -b"', env=env)
 
+    # pull では rebase を優先する
+    c.run('git config --global pull.rebase true')
+    # rebase のときに自動で stash save pop する
+    c.run('git config --global rebase.autostash true')
+
     # Windowsの場合、以下も追加する
     # ファイルモードを無視
     # git config --global core.filemode false
@@ -85,5 +88,9 @@ def set_username(c):
     if len(c.run("echo $HOME", hide=True).stdout.strip()) == 0:
         env["HOME"] = c.run("cd ~;pwd", hide=True).stdout.strip()
 
-    c.run('git config --global user.name 74th', env=env)
+    c.run('git config --global user.name "Atsushi Morimoto (@74th)"', env=env)
     c.run('git config --global user.email site@74th.tech', env=env)
+
+@task
+def chmod_config(c):
+    c.run("chmod 600 ~/.gitconfig")

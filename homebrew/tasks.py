@@ -1,67 +1,59 @@
-# -*- coding: utf-8 -*-
 from invoke import task
 import invoke
 import detect
+from invoke import Context
 
-def _list_packages(c):
+
+def _list_minimal(c):
     pkgs = []
 
     # bash
-    pkgs += ["bash", "bash-completion"]
+    pkgs += [
+        "peco",
+
+        # alternate cat
+        "bat",
+    ]
+
+    return pkgs
+
+
+def _list_minimal_mac(c):
+    pkgs = []
+
+    # bash
+    pkgs += [
+        "git",
+        "vim",
+        "python",
+    ]
+
+    return pkgs
+
+
+def _list_packages(c):
+    pkgs = []
 
     if detect.osx:
         pkgs += ["coreutils"]
 
     # CLI toolset
     pkgs += [
-        "wget",
-        "direnv",
-        "peco",
-        "readline",
-        "watch",
-        "rsync",
-        "redis",
         "sqlite",
-
-        # alternate cat
         "bat",
     ]
 
     # develop
     pkgs += [
-        "git",
         "hub",
-        "openssl@1.1",
-        "jq",
-        "protobuf",
-        "gcc",
-        "gdb",
-        "vim",
-    ]
-
-    # go
-    pkgs += [
-        "go",
-        "dep",
-    ]
-
-    # python
-    pkgs += [
-        "python",
-        "pyenv",
-        "pyenv-virtualenv",
-    ]
-
-    # nodejs
-    pkgs += [
         "nodenv",
-        "node",
-        "yarn",
+        "golangci/tap/golangci-lint",
     ]
 
     # cloud
     pkgs += [
         "awscli",
+        "tfenv",
     ]
     if detect.osx:
         pkgs += [
@@ -69,16 +61,14 @@ def _list_packages(c):
         ]
 
     if detect.osx:
-        pkgs += [
-             "homebrew/cask/docker"
-        ]
+        pkgs += ["homebrew/cask/docker"]
 
     # kubernetes
     pkgs += [
         "kubernetes-cli",
         "kubectx",
         "stern",
-        ]
+    ]
 
     if detect.osx:
         # fonts
@@ -96,6 +86,7 @@ def _list_packages(c):
         ]
     return pkgs
 
+
 def setHome(c: invoke.Context) -> dict:
     env = {}
     if len(c.run("echo $HOME", hide=True).stdout.strip()) == 0:
@@ -111,7 +102,6 @@ def default(c):
 
 @task
 def update(c):
-    c: invoke.Context
     env = setHome(c)
     c.run("brew update", env=env)
     c.run("brew upgrade", env=env)
@@ -120,10 +110,27 @@ def update(c):
 
 @task
 def install(c):
-    c: invoke.Context
-    pkgs = _list_packages(c)
+    pkgs = _list_minimal(c)
+    pkgs += _list_packages(c)
     installed = c.run("brew list").stdout.split("\n")
     pkgs = set(pkgs) - set(installed)
     env = setHome(c)
     if len(pkgs) > 0:
-        c.run("brew install " + " ".join(pkgs) , env=env)
+        c.run("brew install " + " ".join(pkgs), env=env)
+
+
+@task
+def install_minimal(c):
+    pkgs = _list_minimal(c)
+    if detect.mac:
+        pkgs += _list_minimal_mac(c)
+    installed = c.run("brew list").stdout.split("\n")
+    pkgs = set(pkgs) - set(installed)
+    env = setHome(c)
+    if len(pkgs) > 0:
+        c.run("brew install " + " ".join(pkgs), env=env)
+
+
+@task
+def show_dependency(c):
+    c.run("brew deps --tree --installed")

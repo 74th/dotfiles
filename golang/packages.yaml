@@ -1,9 +1,3 @@
 packages:
-  - sourcegraph.com/sqs/goreturns
-  - github.com/golang/lint/golint
   - github.com/jessevdk/go-assets
   - github.com/jessevdk/go-assets-builder
-  - github.com/peco/peco/cmd/peco
-  - github.com/derekparker/delve/cmd/dlv
-  # yaml
-  - github.com/kubernetes-sigs/kustomize
