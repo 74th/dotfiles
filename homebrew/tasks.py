@@ -20,7 +20,6 @@ def _list_packages(c):
         "readline",
         "watch",
         "rsync",
-        #"openssh",
         "redis",
         "sqlite",
 
