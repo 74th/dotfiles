@@ -34,6 +34,10 @@ def get_archi(c):
     return c.run("uname -p").stdout.strip()
 
 
+def get_hostname(c):
+    return c.run("hostname").stdout.strip()
+
+
 def update_package_manager(c: invoke.Context):
     print("update package manager")
     if detect.linux:
@@ -167,12 +171,15 @@ def install(c):
     update_package_manager(c)
     create_basic_dir(c)
     archi = get_archi(c)
+    hostname = get_hostname(c)
     if archi == "x86_64":
         homebrew.default(c)
     if archi == "aarch64":
         arm_ubuntu.install(c)
     if detect.linux and ubuntu.is_ubuntu():
         ubuntu.install(c)
+        if hostname in ["miriam", "kukrushka"]:
+            ubuntu.desktop_install(c)
     checkout_dotfiles(c)
     rehash_pyenv(c)
     bashrc(c)

@@ -30,6 +30,7 @@ def _list_packages() -> List[str]:
     pkgs: List[str] = []
     pkgs += [
         "jq",
+        "xclip",
         "bat",
         "docker-compose",
         "readline-common",
@@ -55,6 +56,7 @@ def install(c):
 def _list_desktop_packages() -> List[str]:
     pkgs: List[str] = []
     pkgs += [
+        "guake",
         "fcitx",
         "fcitx-mozc",
         "vim-gtk",
