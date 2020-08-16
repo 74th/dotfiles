@@ -40,6 +40,8 @@ def _list_packages(c):
     # CLI toolset
     pkgs += [
         "sqlite",
+        "ghq",
+        "github/gh/gh",
         "bat",
     ]
 
@@ -134,3 +136,30 @@ def install_minimal(c):
 @task
 def show_dependency(c):
     c.run("brew deps --tree --installed")
+
+@task
+def unlink(c):
+    pkgs = []
+    if detect.linux:
+        pkgs = [
+            "python3",
+            "openssl@1.1",
+            "autoconf",
+            "bzip2",
+            "libbsd",
+            "libffi",
+            "libyaml",
+            "m4",
+            "ncurses",
+            "node-build",
+            "patchelf",
+            "perl",
+            "pkg-config",
+            "readline",
+            "unzip",
+            "util-linux",
+            "zlib",
+            "xz",
+        ]
+
+    c.run("brew unlink " + " ".join(pkgs))

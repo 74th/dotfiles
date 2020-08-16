@@ -77,17 +77,10 @@ def set_config(c):
     # rebase のときに自動で stash save pop する
     c.run('git config --global rebase.autostash true')
 
-    # Windowsの場合、以下も追加する
-    # ファイルモードを無視
-    # git config --global core.filemode false
+    # ghq
+    c.run('git config --global ghq.user 74th', env=env)
 
-@task
-def set_username(c):
-
-    env = {}
-    if len(c.run("echo $HOME", hide=True).stdout.strip()) == 0:
-        env["HOME"] = c.run("cd ~;pwd", hide=True).stdout.strip()
-
+    # username
     c.run('git config --global user.name "Atsushi Morimoto (@74th)"', env=env)
     c.run('git config --global user.email site@74th.tech', env=env)
 
