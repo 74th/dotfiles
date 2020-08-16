@@ -1,0 +1,30 @@
+{
+  "run_command": {
+    "prefix": "run_command",
+    "body": [
+      "import subprocess",
+      "",
+      "output = subprocess.run([\"docker\", \"ps\", \"-a\", \"--format\", \"{{.ID}}\"], check=True, capture_output=True)",
+      "lines = output.stdout.decode(\"ascii\").strip().splitlines()"
+    ],
+    "description": "run command and use"
+  },
+  "invoke_context": {
+    "prefix": "invoke_context",
+    "body": [
+      "import invoke",
+      "",
+      "c = invoke.Context()",
+      "c.config.update({\"run\": {\"echo\": True}})"
+    ],
+    "description": "invoke context with echo"
+  },
+  "invoke_escape": {
+    "prefix": "invoke_escape",
+    "body": [
+      "def escape(s: str):",
+      "    return \"'\" + s.replace(\"'\",\"\\\\'\") + \"'\""
+    ],
+    "description": "invoke escape command space"
+  }
+}

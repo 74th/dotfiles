@@ -1,0 +1,370 @@
+[
+  // for VimStyle
+  {
+    "key": "ctrl+[",
+    "command": "vim.Esc",
+    "when": "editorTextFocus"
+  },
+  {
+    // Ctrl-w : delete word
+    "key": "ctrl+w ctrl+w",
+    "command": "deleteWordLeft",
+    "when": "vim.inInsertMode"
+  },
+  {
+    // Ctrl-w : delete word
+    "key": "ctrl+w",
+    "command": "deleteWordLeft",
+    "when": "vim.inInsertMode"
+  },
+  // C-d/u : for scroll key
+  {
+    "key": "ctrl+d",
+    "command": "editorScroll",
+    "args": {
+      "to": "down",
+      "by": "halfPage",
+      "revealCursor": true,
+      "value": 0
+    }
+  },
+  {
+    "key": "ctrl+u",
+    "command": "editorScroll",
+    "args": {
+      "to": "up",
+      "by": "halfPage",
+      "revealCursor": true,
+      "value": 0
+    }
+  },
+  // F1/C-1 : メニューを開く
+  {
+    "key": "ctrl+1",
+    "command": "workbench.action.showCommands"
+  },
+  // F2/C-2 : 現在オープン済みのファイルから選択
+  {
+    "key": "f2",
+    "command": "workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+2",
+    "command": "workbench.action.quickOpen"
+  },
+  // S-F2/CS-2 : 全てから選択
+  {
+    "key": "shift+f2",
+    "command": "workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+shift+2",
+    "command": "workbench.action.quickOpen"
+  },
+  // F3/C-3 : 次の検索
+  {
+    "key": "ctrl+3",
+    "command": "editor.action.nextMatchFindAction",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+3",
+    "command": "editor.action.previousMatchFindAction",
+    "when": "editorTextFocus"
+  },
+  // F5/C-5 : デバッグ開始
+  {
+    "key": "ctrl+5",
+    "command": "workbench.action.debug.start",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+5",
+    "command": "workbench.action.debug.continue",
+    "when": "!inDebugMode"
+  },
+  // F9: Qucik fix
+  {
+    "key": "f9",
+    "command": "editor.action.quickFix",
+    "when": "!inDebugMode && editorTextFocus"
+  },
+  // C-W -> hl: タブの移動
+  {
+    "key": "ctrl+w ctrl+w",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "!vim.inInsertMode"
+  },
+  {
+    "key": "meta+w",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "isLinux"
+  },
+  {
+    "key": "ctrl+w l",
+    "command": "workbench.action.focusFirstEditorGroup",
+    "when": "sideBarFocus"
+  },
+  {
+    "key": "ctrl+w l",
+    "command": "workbench.action.focusRightGroup",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+w h",
+    "command": "workbench.action.focusLeftGroup",
+    "when": "editorFocus && activeEditorGroupIndex != 1"
+  },
+  {
+    "key": "ctrl+w h",
+    "command": "workbench.action.focusSideBar",
+    "when": "editorFocus && activeEditorGroupIndex == 1"
+  },
+  {
+    "key": "ctrl+w j",
+    "command": "workbench.action.focusBelowGroup"
+  },
+  {
+    "key": "ctrl+w k",
+    "command": "workbench.action.focusAboveGroup"
+  },
+  {
+    "key": "ctrl+w h",
+    "command": "workbench.panel.markers.view.focus",
+    "when": "panelFocus && activePanel == 'workbench.panel.output'"
+  },
+  {
+    "key": "ctrl+w ctrl+w",
+    "command": "workbench.panel.markers.view.focus",
+    "when": "panelFocus && activePanel == 'workbench.panel.terminal'"
+  },
+  {
+    "key": "cmd+w l",
+    "command": "workbench.action.positionPanelRight",
+    "when": "panelFocus"
+  },
+  // ひたすら移動系をCtrl+n,pに割り当てる
+  {
+    "key": "ctrl+p",
+    "command": "showPrevParameterHint",
+    "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "showNextParameterHint",
+    "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "selectPrevSuggestion",
+    "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "selectNextSuggestion",
+    "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpenNavigatePrevious",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.quickOpenNavigateNext",
+    "when": "inQuickOpen"
+  },
+  // vimのインサートモードの再現
+  {
+    // Ctrl-H : BackSpace
+    "key": "ctrl+h",
+    "command": "deleteLeft",
+    "when": "editorTextFocus && vim.inInsertMode"
+  },
+  {
+    // Ctrl-J : Enter
+    "key": "ctrl+j",
+    "command": "editor.action.insertCursorBelow",
+    "when": "editorTextFocus"
+  },
+  // go
+  // F10/C-0 : カーソル位置のテストを実行
+  {
+    "key": "f10",
+    "command": "go.test.cursor",
+    "when": "editorTextFocus && editorLangId == 'go' && !inDebugMode"
+  },
+  {
+    "key": "f10",
+    "command": "python.runCurrentTestFile",
+    "when": "editorTextFocus && editorLangId == 'python' && !inDebugMode"
+  },
+  {
+    "key": "ctrl+0",
+    "command": "go.test.cursor",
+    "when": "editorTextFocus && editorLangId == 'go' && !inDebugMode"
+  },
+  // リネーム
+  {
+    "key": "cmd+r",
+    "command": "editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+r",
+    "command": "editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "cmd+r",
+    "command": "renameFile",
+    "when": "filesExplorerFocus"
+  },
+  {
+    "key": "alt+r",
+    "command": "renameFile",
+    "when": "filesExplorerFocus"
+  },
+  //
+  // Linux の環境を macOS に近づかせる
+  //
+  {
+    "key": "alt+s",
+    "command": "saveAll",
+    "when": "isLinux"
+  },
+  {
+    "key": "alt+w",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "isLinux"
+  },
+  // dummy command
+  {
+    "key": "ctrl+shift+w",
+    "command": "workbench.action.closeWindow"
+  },
+  {
+    "key": "cmd+q",
+    "command": "workbench.action.closeWindow"
+  },
+  //
+  // Terminal
+  //
+  {
+    "key": "f4",
+    "command": "workbench.action.terminal.focus",
+    "when": "!panelFocus"
+  },
+  {
+    "key": "f4",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "panelFocus"
+  },
+  {
+    "key": "cmd+1",
+    "command": "workbench.action.terminal.focusAtIndex1",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+1",
+    "command": "workbench.action.terminal.focusAtIndex1",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+2",
+    "command": "workbench.action.terminal.focusAtIndex2",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+2",
+    "command": "workbench.action.terminal.focusAtIndex2",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+3",
+    "command": "workbench.action.terminal.focusAtIndex3",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+3",
+    "command": "workbench.action.terminal.focusAtIndex3",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+4",
+    "command": "workbench.action.terminal.focusAtIndex4",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+4",
+    "command": "workbench.action.terminal.focusAtIndex4",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+5",
+    "command": "workbench.action.terminal.focusAtIndex5",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+5",
+    "command": "workbench.action.terminal.focusAtIndex5",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+t",
+    "command": "shellLauncher.launch",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+t",
+    "command": "shellLauncher.launch",
+    "when": "terminalFocus"
+  },
+  {
+    // shift+enterでターミナルに書き込む機能を使わないので、Disableにしておく
+    "key": "shift+enter",
+    "command": "-python.execSelectionInTerminal",
+    "when": "editorTextFocus && !findInputFocussed && !python.datascience.ownsSelection && !replaceInputFocussed && editorLangId == 'python'"
+  },
+  //
+  // その他
+  //
+  {
+    "key": "alt+c",
+    "command": "editor.action.clipboardCopyAction",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+v",
+    "command": "editor.action.clipboardPasteAction",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+f",
+    "command": "actions.find"
+  },
+  {
+    "key": "ctrl+]",
+    "command": "workbench.files.action.focusFilesExplorer"
+  },
+  {
+    "key": "ctrl+`",
+    "command": "-workbench.action.terminal.toggleTerminal"
+  },
+  {
+    "key": "shift+f12",
+    "command": "workbench.action.navigateBack"
+  },
+  {
+    "key": "ctrl+alt+-",
+    "command": "-workbench.action.navigateBack"
+  },
+  {
+    "key": "ctrl+left",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "ctrl+right",
+    "command": "workbench.action.nextEditor"
+  }
+]

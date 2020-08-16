@@ -1,0 +1,66 @@
+{
+  "k8s-deployment": {
+    "prefix": "k8s-deployment",
+    "body": [
+      "apiVersion: apps/v1",
+      "kind: Deployment",
+      "metadata:",
+      "  name: nginx-deployment",
+      "spec:",
+      "  replicas: 3",
+      "  selector:",
+      "    matchLabels:",
+      "      app: nginx",
+      "  template:",
+      "    metadata:",
+      "      labels:",
+      "        app: nginx",
+      "    spec:",
+      "      containers:",
+      "        - name: nginx",
+      "          image: nginx:1.15.4",
+      "          ports:",
+      "            - containerPort: 80"
+    ]
+  },
+  "k8s-service": {
+    "prefix": "k8s-service",
+    "body": [
+      "apiVersion: v1",
+      "kind: Service",
+      "metadata:",
+      "  name: my-service",
+      "spec:",
+      "  selector:",
+      "    app: MyApp",
+      "  ports:",
+      "    - protocol: TCP",
+      "      port: 80",
+      "      targetPort: 9376"
+      ]
+  },
+  "docker-compose-build": {
+    "prefix": "docker-compose-build",
+    "body": [
+      "version: \"3.8\"",
+      "services:",
+      "  app:",
+      "    build:",
+      "      context: router/",
+      "    image: gcr.io/nnyn-dev/try-envoy/server:latest"
+    ]
+  },
+  "kustomize-configmapgenerator": {
+    "prefix": "kustomize-configmapgenerator",
+    "body": [
+      "configMapGenerator:",
+      "  - name: envoy-config",
+      "    files:",
+      "      - envoy-config.yaml"
+    ]
+  },
+  "test-return": {
+    "prefix": "test-return",
+    "body": "configMapGenerator:\n  - name: envoy-config\n    files:\n      - envoy-config.yaml"
+  }
+}

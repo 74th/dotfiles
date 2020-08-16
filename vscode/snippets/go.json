@@ -1,0 +1,21 @@
+{
+  "csv_reader": {
+    "prefix": "csv-reader",
+    "body": [
+      "${1:csvReader} := csv.NewReader(${2:reader})",
+      "for {",
+      "    record, err := $1.Read()",
+      "    if err != nil {",
+      "        break",
+      "    }",
+      "    $0",
+      "}"
+    ],
+    "description": "CSV reader"
+  },
+  "open_for_create": {
+    "prefix": "open-for-create",
+    "body": "os.Open(\"${1:filepath}\", ${2:os.O_RDWR${3:|os.O_CREATE}}, 0755)",
+    "description": "open for create"
+  }
+}
