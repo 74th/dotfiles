@@ -100,6 +100,7 @@ def setHome(c: invoke.Context) -> dict:
 def default(c):
     update(c)
     install(c)
+    unlink(c)
 
 
 @task
@@ -119,6 +120,7 @@ def install(c):
     env = setHome(c)
     if len(pkgs) > 0:
         c.run("brew install " + " ".join(pkgs), env=env)
+    unlink(c)
 
 
 @task
