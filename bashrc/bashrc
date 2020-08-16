@@ -27,17 +27,18 @@ source ~/dotfiles/bashrc/completion/git-prompt.sh
 source ~/dotfiles/bashrc/completion/git-completion.bash
 source ~/dotfiles/bashrc/completion/git-flow-completion.bash
 
-function __show_exitcode {
-    _EXITCODE=$?; if [ $_EXITCODE -ne 0 ];then echo -e "\e[31m$_EXITCODE\e[m "; fi
+function __show_exitcode() {
+    _EXITCODE=$?
+    if [ $_EXITCODE -ne 0 ]; then echo -e "\e[31m$_EXITCODE\e[m "; fi
 }
 PS1='$(__show_exitcode)'
 
-if [ $OSNAME = "Mac" ];then
+if [ $OSNAME = "Mac" ]; then
     col=37
 else
     col=34
 fi
-if [ `id -u` == "0" ];then
+if [ $(id -u) == "0" ]; then
     PS1=$PS1'\[\e[31m\]\u\e[${col}m\]'
 else
     PS1=$PS1'\[\e[${col}m\]\u'
@@ -55,7 +56,6 @@ if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
 fi
 PS1=$PS1'\n\$'
 
-
 # pyenv
 if type pyenv >/dev/null 2>&1; then
     eval "$(pyenv init -)"
@@ -66,15 +66,19 @@ if type direnv >/dev/null 2>&1; then
     eval "$(direnv hook bash)"
 fi
 
-function cb {
+function cb() {
     if [ "$HOSTNAME" == "violet-gopher" ]; then
         $(peco $HOME/mycheatsheets/CmdBookmark/work)
     else
         $(peco $HOME/mycheatsheets/CmdBookmark/home)
     fi
 }
-function db {
+function db() {
     $(peco $HOME/mycheatsheets/DirBookmark/$HOSTNAME)
+}
+
+function cdghq() {
+    cd $(ghq list --full-path | peco)
 }
 
 set -o vi
@@ -89,7 +93,7 @@ if [ "$VSCODE_IPC_HOOK_CLI" != "" ]; then
     if type code-insiders >/dev/null 2>&1; then
         CODE_EXE=code-insiders
     fi
-    echo "{\"hock\": \"$VSCODE_IPC_HOOK_CLI\", \"exe\": \"$CODE_EXE\", \"bin\": \"`which $CODE_EXE`\"}" > ~/.vscode-remote/latest-info.json
+    echo "{\"hock\": \"$VSCODE_IPC_HOOK_CLI\", \"exe\": \"$CODE_EXE\", \"bin\": \"$(which $CODE_EXE)\"}" >~/.vscode-remote/latest-info.json
 fi
 
 # vimのエラー対策

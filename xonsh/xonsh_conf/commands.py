@@ -23,7 +23,11 @@ def load_commands():
     x_aliases["ec"] = edit_cheatsheets
 
     def select_command_bookmark():
-        if HOSTNAME.startswith("o-") or HOSTNAME.startswith("O-") or HOSTNAME.startswith("violet-gopher"):
+        if (
+            HOSTNAME.startswith("o-")
+            or HOSTNAME.startswith("O-")
+            or HOSTNAME.startswith("violet-gopher")
+        ):
             filename = "work"
         else:
             filename = "home"
@@ -36,6 +40,14 @@ def load_commands():
 
     x_aliases["cb"] = select_command_bookmark
 
+    def cd_ghq():
+        r = run("ghq list | peco").lines[0].strip()
+        if r:
+            r = silent_run(f"ghq list --full-path {r}").strip()
+            run(f"cd {r}")
+
+    x_aliases["cdghq"] = cd_ghq
+
     def select_dir_bookmark():
         r = run(f"cat ~/mycheatsheets/DirBookmark/{HOSTNAME} | peco")
         if len(r.lines) > 0:
@@ -45,9 +57,3 @@ def load_commands():
             run(name)
 
     x_aliases["db"] = select_dir_bookmark
-
-    def ssh_xonsh(args):
-        host = args[0]
-        run(f"ssh -t {host} xonsh")
-
-    x_aliases["xssh"] = ssh_xonsh
