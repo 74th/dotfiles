@@ -31,6 +31,7 @@ def list_packages():
         "black",
         "mypy",
         "xonsh[ptk]",
+        "jedi",
         "xontrib-readable-traceback",
         "xonsh-docker-tabcomplete",
         "xontrib-z",
