@@ -1,0 +1,13 @@
+#!spython
+# ghq を使ってディレクトリを選んで code コマンドを実行
+import sys
+import invoke
+
+c = invoke.Context()
+g = c.run("ghq list | peco").stdout
+
+if not g:
+    sys.exit(1)
+
+g = c.run(f"ghq list --full-path {g}", hide=True).stdout.strip()
+c.run(f"code-insiders {g}")

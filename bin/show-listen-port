@@ -1,4 +1,4 @@
-#!env python3
+#!spython
 import argparse
 import detect
 import os

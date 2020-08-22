@@ -1,4 +1,10 @@
-#!/bin/sh
-set -xe
-python -m venv .venv
-echo "PATH_add .venv/bin" >> .envrc
+#!spython
+# Python venv を作成して、direnvに追加
+import os
+import invoke
+
+c = invoke.Context()
+c.config.update({"run": {"echo": True}})
+if not os.path.exists(".venv"):
+    c.run("python -m venv .venv")
+c.run('echo "PATH_add .venv/bin" >>.envrc')

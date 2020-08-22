@@ -1,4 +1,5 @@
-#!env python3
+#!spython
+# ポートを選んでkill
 import argparse
 import detect
 import os

@@ -1,0 +1,31 @@
+#!spython
+# VS Code の Code Spell Checker の辞書に単語を追加する
+import os.path
+import sys
+import invoke
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("words", metavar="W", type=str, nargs="+")
+parser.add_argument("-d", type=str)
+args = parser.parse_args()
+
+root = os.path.expanduser("~/mycheatsheets/CodeSpellChecker/")
+dic = args.d
+
+if args.d:
+    dic_path = f"{root}/{dic}.txt"
+else:
+    c = invoke.Context()
+    dic = c.run(f"ls -1 {root} | peco").stdout.strip()
+    dic_path = f"{root}/{dic}"
+
+with open(dic_path) as f:
+    contents = f.read()
+
+with open(dic_path, "a") as f:
+    words = " ".join(args.words)
+    if contents[-1] == "\n":
+        f.write(f"{words}\n")
+    else:
+        f.write(f"\n{words}\n")

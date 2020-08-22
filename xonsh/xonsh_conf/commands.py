@@ -46,7 +46,7 @@ def load_commands():
             r = silent_run(f"ghq list --full-path {r}").strip()
             run(f"cd {r}")
 
-    x_aliases["cdghq"] = cd_ghq
+    x_aliases["cdg"] = cd_ghq
 
     def select_dir_bookmark():
         r = run(f"cat ~/mycheatsheets/DirBookmark/{HOSTNAME} | peco")
