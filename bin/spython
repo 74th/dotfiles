@@ -1,10 +1,8 @@
 #!/bin/sh
 if type /bin/python3 >/dev/null 2>&1; then
     /bin/python3 $@
-fi
-if type /usr/local/bin/python3 >/dev/null 2>&1; then
+elif type /usr/local/bin/python3 >/dev/null 2>&1; then
     /usr/local/bin/python3 $@
-fi
-if type /usr/bin/python3 >/dev/null 2>&1; then
+elif type /usr/bin/python3 >/dev/null 2>&1; then
     /usr/bin/python3 $@
 fi
