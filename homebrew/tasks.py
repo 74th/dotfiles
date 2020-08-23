@@ -40,6 +40,7 @@ def _list_packages(c):
     # CLI toolset
     pkgs += [
         "sqlite",
+        "docker-compose",
         "ghq",
         "github/gh/gh",
         "bat",

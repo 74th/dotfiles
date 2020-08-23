@@ -160,7 +160,7 @@ def set_inv_completer():
 
 
 def load_xontrib():
-    run("xontrib load coreutils docker_tabcomplete jedi readable-traceback")
+    run("xontrib load coreutils jedi readable-traceback")
     run("xontrib load direnv")
 
 
