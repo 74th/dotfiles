@@ -1,4 +1,4 @@
-#!spython
+#!/bin/python
 from typing import List
 import os.path
 import invoke

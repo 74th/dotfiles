@@ -1,20 +1,25 @@
-#!env python3
+#!/bin/python3
 import subprocess
 import math
 
 
 def delete_containers():
-    result = subprocess.run(["docker", "ps", "-a", "--format", "{{.ID}}"], capture_output=True)
+    result = subprocess.run(
+        ["docker", "ps", "-a", "--format", "{{.ID}}"], capture_output=True
+    )
     containers = result.stdout.decode("ascii").strip().splitlines()
     print(f"remove {len(containers)} container(s)")
 
     for container in containers:
         subprocess.run(["docker", "rm", "-f", container])
 
+
 def delete_images():
     previous_images = math.inf
     while True:
-        result = subprocess.run(["docker", "images", "--format", "{{.ID}}"], capture_output=True)
+        result = subprocess.run(
+            ["docker", "images", "--format", "{{.ID}}"], capture_output=True
+        )
         images = list(set(result.stdout.decode("ascii").strip().splitlines()))
         if len(images) == 0 or len(images) == previous_images:
             break
@@ -25,13 +30,17 @@ def delete_images():
 
         previous_images = len(images)
 
+
 def delete_volumes():
-    result = subprocess.run(["docker", "volume", "ls", "-q"], check=True, capture_output=True)
+    result = subprocess.run(
+        ["docker", "volume", "ls", "-q"], check=True, capture_output=True
+    )
     volumes = result.stdout.decode("ascii").strip().splitlines()
     print(f"remove {len(volumes)} volume(s)")
 
     for volume in volumes:
         subprocess.run(["docker", "volume", "rm", "-f", volume])
+
 
 delete_containers()
 delete_images()

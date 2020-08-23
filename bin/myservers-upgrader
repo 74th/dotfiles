@@ -1,5 +1,6 @@
-#!env python3
+#!/bin/python3
 import invoke
+
 c = invoke.Context()
 c.config.run.echo = True
 servers = ["mini", "lewill", "sirius"]

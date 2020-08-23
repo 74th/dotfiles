@@ -1,4 +1,4 @@
-#!spython
+#!/bin/python3
 # ポートを選んでkill
 import argparse
 import detect

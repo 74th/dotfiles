@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/bin/python3
 # ファイルの拡張子をみて解凍する
 from typing import List
 import sys

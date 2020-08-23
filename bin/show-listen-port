@@ -1,4 +1,4 @@
-#!spython
+#!/bin/python
 import argparse
 import detect
 import os

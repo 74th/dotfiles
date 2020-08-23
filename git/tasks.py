@@ -81,7 +81,7 @@ def set_config(c):
     c.run('git config --global ghq.user 74th', env=env)
 
     # username
-    c.run('git config --global user.name "Atsushi Morimoto (@74th)"', env=env)
+    c.run('git config --global user.name "Atsushi Morimoto (74th)"', env=env)
     c.run('git config --global user.email site@74th.tech', env=env)
 
 @task
