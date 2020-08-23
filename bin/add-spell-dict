@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 # VS Code の Code Spell Checker の辞書に単語を追加する
 import os.path
 import sys
