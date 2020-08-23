@@ -3,7 +3,7 @@ import sys
 import os
 from pathlib import Path
 import invoke
-from invoke import task, collection
+from invoke import task, Collection
 import detect
 
 import homebrew.tasks as homebrew
@@ -14,8 +14,8 @@ import golang.tasks as go
 import python_pip.tasks as python_pip
 import vscode.tasks as vscode
 
-ns = collection.Collection()
-ns.add_collection(ns.from_module(arm_ubuntu, "arm-ubuntu"))
+ns = Collection()
+ns.add_collection(ns.from_module(arm_ubuntu), "arm-ubuntu")
 
 
 def get_home():
@@ -65,9 +65,9 @@ def checkout_dotfiles(c: invoke.Context):
     with c.cd(f"{HOME}/dotfiles"):
         c.run("git pull")
 
-
 @task
-def rehash_pyenv(c):
+def rehash_pyenv(c_):
+    c: invoke.Context = c_
     if c.run("test -e .pyenv", warn=True).ok:
         print("## rehash pyenv")
         c.run("pyenv rehash")

@@ -26,8 +26,8 @@ def get_aliases() -> Dict[str, List[str]]:
     a["lt"] = ["ls", "-alt"]
 
     # java
-    a["javac"] = ["javac", "-J-Dfile.encoding=utf-8"]
-    a["java"] = ["java", "-Dfile.encoding=UTF-8"]
+    #a["javac"] = ["javac", "-J-Dfile.encoding=utf-8"]
+    #a["java"] = ["java", "-Dfile.encoding=UTF-8"]
 
     return a
 

@@ -1,8 +1,10 @@
 {
   "editor.formatOnType": true,
   "editor.formatOnSave": true,
+  "python.linting.mypyEnabled": false,
   "editor.formatOnPaste": true,
   "[python]": {
     "editor.formatOnSave": true
-  }
+  },
+  "python.analysis.stubPath": "./python_stubs"
 }
