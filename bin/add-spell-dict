@@ -10,7 +10,7 @@ parser.add_argument("words", metavar="W", type=str, nargs="+")
 parser.add_argument("-d", type=str)
 args = parser.parse_args()
 
-root = os.path.expanduser("~/mycheatsheets/CodeSpellChecker/")
+root = os.path.expanduser("~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/")
 dic = args.d
 
 if args.d:

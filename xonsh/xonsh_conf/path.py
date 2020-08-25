@@ -56,16 +56,16 @@ def get_paths(default_paths: List[str]) -> List[str]:
 
     add(home + "/bin")
     add(home + "/dotfiles/bin")
-    add(home + "/mycheatsheets/bin")
+    add(home + "/ghq/github.com/74th/mycheatsheets/bin")
 
     if system == "Linux":
         add(home + "/dotfiles/bin/linux")
-        add(home + "/mycheatsheets/bin/linux")
+        add(home + "/ghq/github.com/74th/mycheatsheets/bin/linux")
     if system == "Darwin":
         add(home + "/dotfiles/bin/macos")
-        add(home + "/mycheatsheets/bin/macos")
+        add(home + "/ghq/github.com/74th/mycheatsheets/bin/macos")
     add(home + "/dotfiles/bin/" + hostname)
-    add(home + "/mycheatsheets/bin/" + hostname)
+    add(home + "/ghq/github.com/74th/mycheatsheets/bin/" + hostname)
 
     return _paths
 

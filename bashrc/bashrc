@@ -68,13 +68,13 @@ fi
 
 function cb() {
     if [ "$HOSTNAME" == "violet-gopher" ]; then
-        $(peco $HOME/mycheatsheets/CmdBookmark/work)
+        $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/work)
     else
-        $(peco $HOME/mycheatsheets/CmdBookmark/home)
+        $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/home)
     fi
 }
 function db() {
-    $(peco $HOME/mycheatsheets/DirBookmark/$HOSTNAME)
+    $(peco $HOME/ghq/github.com/74th/mycheatsheets/DirBookmark/$HOSTNAME)
 }
 
 function cdghq() {

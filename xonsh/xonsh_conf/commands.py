@@ -11,7 +11,7 @@ def load_commands():
 
     def edit_cheatsheets():
         d = run("pwd").lines[0].strip()
-        run("cd ~/mycheatsheets/sheets/")
+        run("cd ~/ghq/github.com/74th/mycheatsheets/sheets/")
         run("git pull origin master")
         name = run("ls | peco").lines[0].strip()
         run(f"vim {name}")
@@ -31,7 +31,7 @@ def load_commands():
             filename = "work"
         else:
             filename = "home"
-        r = run(f"cat ~/mycheatsheets/CmdBookmark/{filename} | peco")
+        r = run(f"cat ~/ghq/github.com/74th/mycheatsheets/CmdBookmark/{filename} | peco")
         if len(r.lines) > 0:
             name = r.lines[0].strip()
             if name[0] == "[":
@@ -49,7 +49,7 @@ def load_commands():
     x_aliases["cdg"] = cd_ghq
 
     def select_dir_bookmark():
-        r = run(f"cat ~/mycheatsheets/DirBookmark/{HOSTNAME} | peco")
+        r = run(f"cat ~/ghq/github.com/74th/mycheatsheets/DirBookmark/{HOSTNAME} | peco")
         if len(r.lines) > 0:
             name = r.lines[0].strip()
             if name[0] == "[":

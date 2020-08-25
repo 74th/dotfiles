@@ -4,7 +4,7 @@ import sys
 import invoke
 
 c = invoke.Context()
-p = os.path.expanduser("~/mycheatsheets/CodeSpellChecker/")
+p = os.path.expanduser("~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/")
 f = c.run(f"ls -1 {p} | peco").stdout.strip()
 
 if not f:

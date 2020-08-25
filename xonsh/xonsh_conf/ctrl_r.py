@@ -61,7 +61,7 @@ def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
     else:
         filename = "home"
     with tempfile.NamedTemporaryFile() as tmp:
-        run(f"cat  ~/mycheatsheets/CmdBookmark/{filename} | peco > {tmp.name}")
+        run(f"cat  ~/ghq/github.com/74th/mycheatsheets/CmdBookmark/{filename} | peco > {tmp.name}")
         with open(tmp.name) as f:
             line = f.readline()
     if not line:
@@ -75,7 +75,7 @@ def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
 
 def select_dir_bookmark(buf: prompt_toolkit.buffer.Buffer):
     with tempfile.NamedTemporaryFile() as tmp:
-        run(f"cat  ~/mycheatsheets/DirBookmark/{HOSTNAME} | peco > {tmp.name}")
+        run(f"cat  ~/ghq/github.com/74th/mycheatsheets/DirBookmark/{HOSTNAME} | peco > {tmp.name}")
         with open(tmp.name) as f:
             line = f.readline()
     if not line:

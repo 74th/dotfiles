@@ -144,19 +144,19 @@
   "cSpell.customUserDictionaries": [
     {
       "name": "my_work",
-      "path": "~/mycheatsheets/CodeSpellChecker/work.txt"
+      "path": "~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/work.txt"
     },
     {
       "name": "my_it",
-      "path": "~/mycheatsheets/CodeSpellChecker/it.txt"
+      "path": "~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/it.txt"
     },
     {
       "name": "my_abbreviation",
-      "path": "~/mycheatsheets/CodeSpellChecker/abbreviation.txt"
+      "path": "~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/abbreviation.txt"
     },
     {
       "name": "my_word",
-      "path": "~/mycheatsheets/CodeSpellChecker/me.txt"
+      "path": "~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/me.txt"
     }
   ],
   "cSpell.dictionaries": ["my_work", "my_it", "my_abbreviation", "my_word"],

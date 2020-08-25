@@ -30,6 +30,6 @@ if has_command(c, "brew"):
 with c.cd(os.path.expanduser("~/dotfiles")):
     c.run("git pull")
 
-if os.path.exists(os.path.expanduser("~/mycheatsheets")):
-    with c.cd(os.path.expanduser("~/mycheatsheets")):
+if os.path.exists(os.path.expanduser("~/ghq/github.com/74th/mycheatsheets")):
+    with c.cd(os.path.expanduser("~/ghq/github.com/74th/mycheatsheets")):
         c.run("git pull")
