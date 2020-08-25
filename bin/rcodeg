@@ -1,10 +1,10 @@
-#!/bin/python
+#!/usr/bin/python3
 # ghq を使ってディレクトリを選んで code コマンドを実行
 import sys
 import invoke
 
 c = invoke.Context()
-g = c.run("ghq list | peco", pty=True, hide=True).stdout.strip()
+g = c.run("ghq list | peco").stdout.strip()
 
 if not g:
     sys.exit(1)

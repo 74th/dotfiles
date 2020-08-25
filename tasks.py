@@ -192,7 +192,6 @@ def install(c):
         macos(c)
     vimrc(c)
     python_pip.install(c)
-    vscode.ln(c)
     xonsh(c)
 
 
