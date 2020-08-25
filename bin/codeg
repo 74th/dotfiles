@@ -2,6 +2,7 @@
 # ghq を使ってディレクトリを選んで code コマンドを実行
 import sys
 import invoke
+import platform
 
 c = invoke.Context()
 g = c.run("ghq list | peco").stdout
@@ -10,4 +11,7 @@ if not g:
     sys.exit(1)
 
 g = c.run(f"ghq list --full-path {g}", hide=True).stdout.strip()
-c.run(f"code-insiders {g}")
+if platform.node() in ["violet-gopher"]:
+    c.run(f"rcode {g}")
+else:
+    c.run(f"code-insiders {g}")
