@@ -1,2 +1,8 @@
-#!/bin/bash
-code-insiders ~/ghq/github.com/74th/mycheatsheets/sheets
+#!/usr/bin/python3
+import platform
+import invoke
+c = invoke.Context()
+if platform.node() in ["violet-gopher"]:
+    c.run("rcode ~/ghq/github.com/74th/mycheatsheets/sheets")
+else:
+    c.run("code-insiders ~/ghq/github.com/74th/mycheatsheets/sheets")
