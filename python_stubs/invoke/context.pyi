@@ -1,3 +1,4 @@
+from contextlib import contextmanager
 from typing import Union, Optional
 
 class Result:
@@ -12,4 +13,5 @@ class Context:
         echo:Optional[bool] = None,
         warn:Optional[bool] = None,
         hide:Optional[Union[str, bool]] = None)->Result:...
-    def cd(self, path: str)->Context:...
+    @contextmanager
+    def cd(self, path: str):...
