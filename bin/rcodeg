@@ -9,5 +9,5 @@ g = c.run("ghq list | peco").stdout.strip()
 if not g:
     sys.exit(1)
 
-g = c.run(f"ghq list --full-path {g}", hide=True).stdout.strip()
+g = c.run(f"ghq list --full-path {g} | head -n1", hide=True).stdout.strip()
 c.run(f"rcode {g}")
