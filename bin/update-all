@@ -1,10 +1,7 @@
 #!/usr/bin/python3
-from typing import List
+from typing import List, Any
 import os.path
 import invoke
-
-c = invoke.Context()
-c.config.update({"run": {"echo": True}})
 
 
 def escape(s: str):
@@ -16,20 +13,35 @@ def has_command(c: invoke.Context, cmd: str):
     return which_cmd.ok
 
 
-if has_command(c, "apt-get"):
+def update_aptget(c: invoke.Context):
+    if not has_command(c, "apt-get"):
+        return
     c.run("sudo apt-get update")
     c.run("sudo apt-get upgrade -y")
     c.run("sudo apt-get autoremove -y")
 
-if has_command(c, "brew"):
+
+def update_brew(c: invoke.Context):
+    if not has_command(c, "brew"):
+        return
     c.run("brew update")
     c.run("brew upgrade")
     c.run("brew cleanup")
 
 
-with c.cd(os.path.expanduser("~/dotfiles")):
-    c.run("git pull")
+def update_ghq(c: invoke.Context):
+    if not has_command(c, "ghq"):
+        return
+    c.run("ghq list | xargs ghq get -u -P")
 
-if os.path.exists(os.path.expanduser("~/ghq/github.com/74th/mycheatsheets")):
-    with c.cd(os.path.expanduser("~/ghq/github.com/74th/mycheatsheets")):
-        c.run("git pull")
+
+def update_all():
+    c = invoke.Context()
+    c.config.update({"run": {"echo": True}})
+    update_aptget(c)
+    update_brew(c)
+    update_ghq(c)
+
+
+if __name__ == "__main__":
+    update_all()

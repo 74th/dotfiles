@@ -2,6 +2,7 @@
   "editor.formatOnType": true,
   "editor.formatOnSave": true,
   "python.linting.mypyEnabled": false,
+  "python.formatting.provider": "black",
   "editor.formatOnPaste": true,
   "[python]": {
     "editor.formatOnSave": true
