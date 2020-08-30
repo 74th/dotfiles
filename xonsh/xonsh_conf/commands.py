@@ -31,7 +31,9 @@ def load_commands():
             filename = "work"
         else:
             filename = "home"
-        r = run(f"cat ~/ghq/github.com/74th/mycheatsheets/CmdBookmark/{filename} | peco")
+        r = run(
+            f"cat ~/ghq/github.com/74th/mycheatsheets/CmdBookmark/{filename} | peco"
+        )
         if len(r.lines) > 0:
             name = r.lines[0].strip()
             if name[0] == "[":
@@ -43,13 +45,15 @@ def load_commands():
     def cd_ghq():
         r = run("ghq list | peco").lines[0].strip()
         if r:
-            r = silent_run(f"ghq list --full-path {r}").strip()
+            r = silent_run(f"ghq list --exact --full-path {r}").strip()
             run(f"cd {r}")
 
     x_aliases["cdg"] = cd_ghq
 
     def select_dir_bookmark():
-        r = run(f"cat ~/ghq/github.com/74th/mycheatsheets/DirBookmark/{HOSTNAME} | peco")
+        r = run(
+            f"cat ~/ghq/github.com/74th/mycheatsheets/DirBookmark/{HOSTNAME} | peco"
+        )
         if len(r.lines) > 0:
             name = r.lines[0].strip()
             if name[0] == "[":
