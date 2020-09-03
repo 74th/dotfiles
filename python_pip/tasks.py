@@ -2,11 +2,13 @@ from typing import List
 from invoke import task
 import invoke
 
+
 def set_poetry_config(c):
     c.run(f"poetry config virtualenvs.create true")
     c.run(f"poetry config virtualenvs.in-project true")
 
-def install_packages(c, l:List[str]):
+
+def install_packages(c, l: List[str]):
     l_str = " ".join(l)
     c.run(f"pip3 install --user --upgrade {l_str}")
 
@@ -19,18 +21,20 @@ def list_small_packages():
     ]
     return l
 
+
 @invoke.task
 def install_small(c):
     l = list_small_packages()
     install_packages(c, l)
     set_poetry_config(c)
 
+
 def list_packages():
     l = list_small_packages()
     l += [
         "black",
         "mypy",
-        "xonsh[ptk]",
+        "xonsh[full]",
         "pygments",
         "jedi",
         "xontrib-readable-traceback",
@@ -40,6 +44,7 @@ def list_packages():
     ]
     return l
 
+
 @invoke.task
 def install(c):
     l = list_packages()
@@ -48,7 +53,7 @@ def install(c):
 
 
 @invoke.task
-def upgrade_all(c,force=False, upgrade=False):
+def upgrade_all(c, force=False, upgrade=True):
     out = c.run("pip3 list").stdout
     lines = out.split("\n")
     for line in lines[2:]:
