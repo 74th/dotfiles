@@ -37,7 +37,7 @@
       "    - protocol: TCP",
       "      port: 80",
       "      targetPort: 9376"
-      ]
+    ]
   },
   "docker-compose-build": {
     "prefix": "docker-compose-build",
@@ -58,9 +58,5 @@
       "    files:",
       "      - envoy-config.yaml"
     ]
-  },
-  "test-return": {
-    "prefix": "test-return",
-    "body": "configMapGenerator:\n  - name: envoy-config\n    files:\n      - envoy-config.yaml"
   }
 }

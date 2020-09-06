@@ -225,6 +225,15 @@
     "command": "renameFile",
     "when": "filesExplorerFocus"
   },
+  // Quick Fix
+  {
+    "key": "alt+q",
+    "command": "editor.action.quickFix"
+  },
+  {
+    "key": "cmd+q",
+    "command": "editor.action.quickFix"
+  },
   //
   // Linux の環境を macOS に近づかせる
   //
@@ -312,12 +321,14 @@
   },
   {
     "key": "cmd+t",
-    "command": "shellLauncher.launch",
+    "command": "workbench.action.quickOpen",
+    "args": ">Shell Launcher: Launch",
     "when": "terminalFocus"
   },
   {
     "key": "alt+t",
-    "command": "shellLauncher.launch",
+    "command": "workbench.action.quickOpen",
+    "args": ">Shell Launcher: Launch",
     "when": "terminalFocus"
   },
   {

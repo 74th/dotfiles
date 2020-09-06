@@ -2,7 +2,7 @@
   // 表示まわり
   "terminal.external.osxExec": "Terminal.app",
   "editor.fontFamily": "Liga InputMono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
-  "workbench.iconTheme": "Monokai Classic Icons",
+  "workbench.iconTheme": "Monokai Pro (Filter Machine) Icons",
   "workbench.startupEditor": "none",
   "editor.fontLigatures": true,
   "editor.fontWeight": "400",
@@ -144,19 +144,19 @@
   "cSpell.customUserDictionaries": [
     {
       "name": "my_work",
-      "path": "~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/work.txt"
+      "path": "~/mycheatsheets/CodeSpellChecker/work.txt"
     },
     {
       "name": "my_it",
-      "path": "~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/it.txt"
+      "path": "~/mycheatsheets/CodeSpellChecker/it.txt"
     },
     {
       "name": "my_abbreviation",
-      "path": "~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/abbreviation.txt"
+      "path": "~/mycheatsheets/CodeSpellChecker/abbreviation.txt"
     },
     {
       "name": "my_word",
-      "path": "~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/me.txt"
+      "path": "~/mycheatsheets/CodeSpellChecker/me.txt"
     }
   ],
   "cSpell.dictionaries": ["my_work", "my_it", "my_abbreviation", "my_word"],
@@ -211,6 +211,9 @@
     "/home/nnyn/OSS/typeshed",
     "/home/nnyn/dotfiles/pytho_typeshed/typings"
   ],
+  // 一旦 Insider は OFF
+  "python.insidersChannel": "off",
+  "python.showStartPage": false,
   // java -----------------------------
   "[yaml]": {
     "editor.tabSize": 2,
@@ -273,60 +276,6 @@
   },
   "window.titleBarStyle": "custom",
   "window.menuBarVisibility": "default",
-  "peacock.favoriteColors": [
-    {
-      "name": "Angular Red",
-      "value": "#b52e31"
-    },
-    {
-      "name": "Auth0 Orange",
-      "value": "#eb5424"
-    },
-    {
-      "name": "Azure Blue",
-      "value": "#007fff"
-    },
-    {
-      "name": "C# Purple",
-      "value": "#68217A"
-    },
-    {
-      "name": "Gatsby Purple",
-      "value": "#639"
-    },
-    {
-      "name": "Go Cyan",
-      "value": "#5dc9e2"
-    },
-    {
-      "name": "Java Blue-Gray",
-      "value": "#557c9b"
-    },
-    {
-      "name": "JavaScript Yellow",
-      "value": "#f9e64f"
-    },
-    {
-      "name": "Mandalorian Blue",
-      "value": "#1857a4"
-    },
-    {
-      "name": "Node Green",
-      "value": "#215732"
-    },
-    {
-      "name": "React Blue",
-      "value": "#00b3e6"
-    },
-    {
-      "name": "Something Different",
-      "value": "#832561"
-    },
-    {
-      "name": "Vue Green",
-      "value": "#42b883"
-    }
-  ],
   "editor.suggestSelection": "first",
   "editor.copyWithSyntaxHighlighting": false,
   "editor.renderLineHighlight": "all",
@@ -343,8 +292,6 @@
   "problems.showCurrentInStatus": true,
   "remote.SSH.enableAgentForwarding": false,
   "workbench.editor.showTabs": true,
-  "todo-tree.tree.showScanModeButton": false,
-  "python.insidersChannel": "off",
   "liveshare.showInStatusBar": "whileCollaborating",
   "liveshare.allowGuestTaskControl": true,
   "liveshare.allowGuestDebugControl": true,
@@ -358,42 +305,12 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.colorTheme": "monokai-chacoral (gray)",
+  "workbench.colorTheme": "Visual Studio Light",
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "python.showStartPage": false,
   "[dockerfile]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
   "settingsSync.keybindingsPerPlatform": false,
   "settingsSync.ignoredExtensions": ["ms-azuretools.vscode-azureterraform"],
-  "helium-icon-theme.showWelcomeMessage": false,
-  "yaml.customTags": [
-    "!And",
-    "!And sequence",
-    "!If",
-    "!If sequence",
-    "!Not",
-    "!Not sequence",
-    "!Equals",
-    "!Equals sequence",
-    "!Or",
-    "!Or sequence",
-    "!FindInMap",
-    "!FindInMap sequence",
-    "!Base64",
-    "!Join",
-    "!Join sequence",
-    "!Cidr",
-    "!Ref",
-    "!Sub",
-    "!Sub sequence",
-    "!GetAtt",
-    "!GetAZs",
-    "!ImportValue",
-    "!ImportValue sequence",
-    "!Select",
-    "!Select sequence",
-    "!Split",
-    "!Split sequence"
-  ]
+  "yaml.customTags": []
 }

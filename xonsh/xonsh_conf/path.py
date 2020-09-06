@@ -4,11 +4,24 @@ import subprocess
 from typing import List
 import sys
 
+
 def get_system():
-    return subprocess.run(["uname", "-s"], stdout=subprocess.PIPE, text=True).stdout.strip()
+    return subprocess.run(
+        ["uname", "-s"], stdout=subprocess.PIPE, text=True
+    ).stdout.strip()
+
 
 def get_hostname():
-    return subprocess.run(["hostname"], stdout=subprocess.PIPE, text=True).stdout.strip()
+    return subprocess.run(
+        ["hostname"], stdout=subprocess.PIPE, text=True
+    ).stdout.strip()
+
+
+def has_path(cmd: str):
+    return subprocess.run(
+        ["which", "-s"], stdout=subprocess.PIPE, text=True
+    ).stdout.strip()
+
 
 def get_paths(default_paths: List[str]) -> List[str]:
 

@@ -4,7 +4,7 @@ from invoke import task
 import detect
 
 
-@task
+@task(default=True)
 def backup(c, insider=True):
     home = os.path.expanduser("~")
     if detect.linux:
