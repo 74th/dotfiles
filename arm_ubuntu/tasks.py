@@ -7,6 +7,7 @@ ubuntu_pkgs = [
     "peco",
     "nodejs",
     "vim",
+    "golang-go",
 ]
 
 @task
