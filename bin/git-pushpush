@@ -1,0 +1,5 @@
+#!/bin/sh
+set -x
+git add -A
+git commit -m "up from {$HOSTNAME}"
+git push
