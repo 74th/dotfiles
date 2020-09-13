@@ -1,0 +1,43 @@
+{
+  "go": {
+    "prefix": "go",
+    "body": [
+      "FROM golang:1.14 AS build-env",
+      "WORKDIR /go/src/github.com/74th/try-envoy/router",
+      "COPY go.mod go.sum ./",
+      "RUN go mod download",
+      "COPY . ./",
+      "RUN cd server; go build -o server server.go",
+      "FROM debian",
+      "WORKDIR /app",
+      "COPY --from=build-env /go/src/github.com/74th/try-envoy/router/server/server .",
+      "EXPOSE 8080",
+      "ENTRYPOINT ./server"
+    ]
+  },
+  "python-poetry": {
+    "prefix": "python-poetry",
+    "body": [
+      "FROM python:3.8-buster",
+      "WORKDIR /app",
+      "USER app",
+      "RUN pip install poetry",
+      "ADD pyproject.toml .",
+      "ADD poetry.lock .",
+      "RUN poetry install"
+    ]
+  },
+  "debian-devcontainer": {
+    "prefix": "debian-devcontainer",
+    "body": [
+      "ARG USERNAME=app",
+      "ARG USER_UID=1000",
+      "ARG USER_GID=\\$USER_UID",
+      "RUN curl -o /tmp/common-debian.sh -L https://raw.githubusercontent.com/microsoft/vscode-dev-containers/master/script-library/common-debian.sh \\",
+      "  && /bin/bash /tmp/common-debian.sh \"false\" \"\\${USERNAME}\" \"\\${USER_UID}\" \"\\${USER_GID}\" \"false\" \\",
+      "  && rm /tmp/common-debian.sh",
+      "USER ${USERNAME}",
+      "CMD [\"sleep\", \"infinity\"]"
+    ]
+  }
+}

@@ -3,22 +3,21 @@ import os
 import os.path
 import re
 import json
-import tempfile
-import builtins
 import invoke
 from . import git
 from collections import OrderedDict
 from operator import itemgetter
 import prompt_toolkit
 from .lib import HOSTNAME, run, silent_run
-from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode, x_completers
+from .xonsh_builtin import x_env, x_aliases, x_events, x_completers
 from prompt_toolkit.keys import Keys
-from prompt_toolkit.filters import Condition, ViInsertMode
-from .gitstatus import gitstatus_prompt
+from prompt_toolkit.filters import ViInsertMode
 from .commands import load_commands
 from .path import get_paths
 from .aliases import get_aliases
+from .env import apply_envs
 from . import ctrl_r
+
 # from .detect_user_docker import detect_user_docker_for_xonsh
 
 x_env["XONSH_SHOW_TRACEBACK"] = True
@@ -58,10 +57,6 @@ def __add_paths():
 def __set_aliases():
     for alias, cmd in get_aliases().items():
         x_aliases[alias] = cmd
-
-
-def __add_bookmark():
-    run(f"pwd >> ~/bookmark")
 
 
 def _gcloud_config():
@@ -160,7 +155,7 @@ def set_inv_completer():
 
 
 def load_xontrib():
-    run("xontrib load coreutils jedi readable-traceback")
+    run("xontrib load coreutils readable-traceback")
     run("xontrib load direnv")
 
 
@@ -186,6 +181,7 @@ def load():
     x_aliases["uuid"] = _new_uuid
     set_keybind()
     set_inv_completer()
+    apply_envs()
 
     x_env["VI_MODE"] = True
     if "PYENV_VERSION" in x_env:
@@ -193,6 +189,6 @@ def load():
 
     git.set_aliases()
 
-    #detect_user_docker_for_xonsh()
+    # detect_user_docker_for_xonsh()
 
     add_bash_competion()

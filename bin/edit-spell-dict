@@ -1,0 +1,13 @@
+#!/usr/bin/python3
+import os
+import sys
+import invoke
+
+c = invoke.Context()
+p = os.path.expanduser("~/ghq/github.com/74th/mycheatsheets/CodeSpellChecker/")
+f = c.run(f"ls -1 {p} | peco").stdout.strip()
+
+if not f:
+    sys.exit(1)
+
+f = c.run(f"vi {p}/{f}", pty=True)

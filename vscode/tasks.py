@@ -1,20 +1,36 @@
+import os
 import os.path
 from invoke import task
 import detect
 
-@task
-def ln(c):
-    d = os.path.expanduser("~")
-    if detect.linux:
-        d = f"{d}/.config"
-    if detect.mac:
-        d = f"{d}/Library/Application Support"
-    c.run(f"mkdir -p '{d}/Code - Insiders/User'")
-    c.run(f"mkdir -p '{d}/Code/'")
-    c.run(f"rm -rf '{d}/Code/User'")
-    c.run(f"ln -s '{d}/Code - Insiders/User' '{d}/Code/User'")
 
-    d = os.path.expanduser("~")
-    c.run(f"mkdir -p '{d}/.vscode-insiders'")
-    c.run(f"rm -rf '{d}/.vscode'")
-    c.run(f"ln -s '{d}/.vscode-insiders' '{d}/.vscode'")
+@task(default=True)
+def backup(c, insider=True):
+    home = os.path.expanduser("~")
+    if detect.linux:
+        d = f"{home}/.config"
+    else:
+        d = f"{home}/Library/Application Support"
+    if insider:
+        d = f"{d}/Code - Insiders/User"
+        cmd = "code-insiders"
+    else:
+        d = f"{d}/Code/User"
+        cmd = "code"
+    b = f"{home}/dotfiles/vscode"
+    c.run(f"cp '{d}/keybindings.json' {b}/")
+    for s in os.listdir(f"{d}/snippets"):
+        c.run(f"cp '{d}/snippets/{s}' {b}/snippets/")
+
+    rejects = ["hediet.vscode-drawio.local-storage", "codespaces.planFilter"]
+    with open(f"{d}/settings.json") as f:
+        with open(f"{home}/dotfiles/vscode/settings.json", "w") as w:
+            for l in f.readlines():
+                rejected = False
+                for reject in rejects:
+                    if l.count(reject):
+                        rejected = True
+                if not rejected:
+                    w.write(l)
+
+    c.run(f"{cmd} --list-extensions > {b}/list-extensions.txt")

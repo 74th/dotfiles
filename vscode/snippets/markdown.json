@@ -1,0 +1,15 @@
+{
+  "insert image": {
+    "prefix": "image",
+    "body": [
+      "<figure class=\"wide\">",
+      "<img src=\"$1\"/>",
+      "<figcaption>$2</figcaption>",
+      "</figure>"
+    ]
+  },
+  "insert footnote": {
+    "prefix": "footnote",
+    "body": "<span class=\"footnote\">$0</span>"
+  }
+}

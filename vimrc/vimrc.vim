@@ -89,10 +89,4 @@ inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 " CUIでも256colorならmolokaiを使う
-if &term == "xterm-256color"
-    colorscheme molokai
-    hi Comment ctermfg=102
-    hi Visual  ctermbg=236
-endif
-
 autocmd BufRead,BufNewFile *.md set nolist

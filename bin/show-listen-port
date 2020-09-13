@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+import argparse
+import detect
+import os
+import invoke
+
+parser = argparse.ArgumentParser(description="show listen port")
+parser.add_argument("ports", metavar="port", type=int, nargs="+", help="port number")
+args = parser.parse_args()
+ports = args.ports
+
+c = invoke.Context()
+c.config.update({"run": {"echo": True}})
+
+if detect.linux:
+    for port in ports:
+        c.run(f"lsof -i:{port}", warn=True)

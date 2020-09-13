@@ -4,11 +4,24 @@ import subprocess
 from typing import List
 import sys
 
+
 def get_system():
-    return subprocess.run(["uname", "-s"], stdout=subprocess.PIPE, text=True).stdout.strip()
+    return subprocess.run(
+        ["uname", "-s"], stdout=subprocess.PIPE, text=True
+    ).stdout.strip()
+
 
 def get_hostname():
-    return subprocess.run(["hostname"], stdout=subprocess.PIPE, text=True).stdout.strip()
+    return subprocess.run(
+        ["hostname"], stdout=subprocess.PIPE, text=True
+    ).stdout.strip()
+
+
+def has_path(cmd: str):
+    return subprocess.run(
+        ["which", "-s"], stdout=subprocess.PIPE, text=True
+    ).stdout.strip()
+
 
 def get_paths(default_paths: List[str]) -> List[str]:
 
@@ -43,6 +56,7 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add(home + "/.rbx_env/shims")
     add(home + "/.nodenv/shims")
     add(home + "/.pyenv/shims")
+    add(home + "/.pyenv/bin")
     add(home + "/.nodenv/shims")
     add(home + "/.tfenv/bin")
     add(home + "/go/bin")
@@ -55,16 +69,16 @@ def get_paths(default_paths: List[str]) -> List[str]:
 
     add(home + "/bin")
     add(home + "/dotfiles/bin")
-    add(home + "/mycheatsheets/bin")
+    add(home + "/ghq/github.com/74th/mycheatsheets/bin")
 
     if system == "Linux":
         add(home + "/dotfiles/bin/linux")
-        add(home + "/mycheatsheets/bin/linux")
+        add(home + "/ghq/github.com/74th/mycheatsheets/bin/linux")
     if system == "Darwin":
         add(home + "/dotfiles/bin/macos")
-        add(home + "/mycheatsheets/bin/macos")
+        add(home + "/ghq/github.com/74th/mycheatsheets/bin/macos")
     add(home + "/dotfiles/bin/" + hostname)
-    add(home + "/mycheatsheets/bin/" + hostname)
+    add(home + "/ghq/github.com/74th/mycheatsheets/bin/" + hostname)
 
     return _paths
 

@@ -1,6 +1,7 @@
 from invoke import task
 import invoke
 import detect
+from invoke import Context
 
 
 def _list_minimal(c):
@@ -9,9 +10,13 @@ def _list_minimal(c):
     # bash
     pkgs += [
         "peco",
-        ]
+
+        # alternate cat
+        "bat",
+    ]
 
     return pkgs
+
 
 def _list_minimal_mac(c):
     pkgs = []
@@ -21,9 +26,10 @@ def _list_minimal_mac(c):
         "git",
         "vim",
         "python",
-        ]
+    ]
 
     return pkgs
+
 
 def _list_packages(c):
     pkgs = []
@@ -34,17 +40,17 @@ def _list_packages(c):
     # CLI toolset
     pkgs += [
         "sqlite",
+        "docker-compose",
+        "ghq",
+        "github/gh/gh",
         "bat",
     ]
 
     # develop
     pkgs += [
         "hub",
-    ]
-
-    # nodejs
-    pkgs += [
         "nodenv",
+        "golangci/tap/golangci-lint",
     ]
 
     # cloud
@@ -95,6 +101,7 @@ def setHome(c: invoke.Context) -> dict:
 def default(c):
     update(c)
     install(c)
+    unlink(c)
 
 
 @task
@@ -114,6 +121,8 @@ def install(c):
     env = setHome(c)
     if len(pkgs) > 0:
         c.run("brew install " + " ".join(pkgs), env=env)
+    unlink(c)
+
 
 @task
 def install_minimal(c):
@@ -126,6 +135,34 @@ def install_minimal(c):
     if len(pkgs) > 0:
         c.run("brew install " + " ".join(pkgs), env=env)
 
+
 @task
 def show_dependency(c):
     c.run("brew deps --tree --installed")
+
+@task
+def unlink(c):
+    pkgs = []
+    if detect.linux:
+        pkgs = [
+            "python3",
+            "openssl@1.1",
+            "autoconf",
+            "bzip2",
+            "libbsd",
+            "libffi",
+            "libyaml",
+            "m4",
+            "ncurses",
+            "node-build",
+            "patchelf",
+            "perl",
+            "pkg-config",
+            "readline",
+            "unzip",
+            "util-linux",
+            "zlib",
+            "xz",
+        ]
+
+    c.run("brew unlink " + " ".join(pkgs))

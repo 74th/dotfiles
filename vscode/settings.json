@@ -1,0 +1,316 @@
+{
+  // 表示まわり
+  "terminal.external.osxExec": "Terminal.app",
+  "editor.fontFamily": "Liga InputMono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
+  "workbench.iconTheme": "Monokai Pro (Filter Machine) Icons",
+  "workbench.startupEditor": "none",
+  "editor.fontLigatures": true,
+  "editor.fontWeight": "400",
+  "editor.fontSize": 13,
+  "window.zoomLevel": 0,
+  // カーソル
+  "editor.cursorStyle": "line",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorWidth": 3,
+  // wrap
+  "editor.wordWrap": "on",
+  "editor.wrappingIndent": "indent",
+  // tab等の表示
+  "editor.tabSize": 4,
+  "editor.renderControlCharacters": true,
+  // git
+  "git.confirmSync": false, // Syncボタンで尋ねない
+  "git.autofetch": true,
+  "git.autoStash": true,
+  "git.showProgress": true,
+  "git.suggestSmartCommit": false,
+  "git.branchSortOrder": "committerdate",
+  "scm.defaultViewMode": "tree",
+  // 検索の挙動
+  "editor.find.autoFindInSelection": "multiline",
+  // auto format
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true,
+  "editor.lineNumbers": "on",
+  "editor.selectionHighlight": true,
+  "editor.autoClosingBrackets": "never",
+  // file
+  "files.eol": "\n",
+  "files.encoding": "utf8",
+  "files.autoGuessEncoding": false,
+  "files.trimTrailingWhitespace": true,
+  // terminal
+  "terminal.integrated.shell.osx": "/usr/local/bin/bash",
+  "terminal.integrated.shell.linux": "/bin/bash",
+  "terminal.integrated.fontSize": 14,
+  "shellLauncher.shells.osx": [
+    {
+      "shell": "xonsh"
+    },
+    {
+      "shell": "bash"
+    }
+  ],
+  "shellLauncher.shells.linux": [
+    {
+      "label": "xonsh",
+      "launchName": "xonsh",
+      "shell": "/home/nnyn/.local/bin/xonsh"
+    },
+    {
+      "label": "bash",
+      "launchName": "bash",
+      "shell": "/usr/bin/bash",
+      "args": ["-l"]
+    }
+  ],
+  // debug console
+  "debug.console.fontSize": 14,
+  // minimap
+  "editor.minimap.enabled": false,
+  "editor.codeLens": true,
+  "breadcrumbs.enabled": true,
+  "extensions.autoCheckUpdates": true,
+  "extensions.autoUpdate": true,
+  "scm.alwaysShowProviders": false,
+  // 除外ファイル
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.mypy_cache": true,
+    "**/.vscode": true,
+    "**/*.pyc": true,
+    "**/.venv": true,
+    "**/tmp": true,
+    "**/.settings": true,
+    "**/.factorypath": true,
+    "**/.pytest_cache": true
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/.mypy_cache": true,
+    "**/*.swp": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true,
+    "**/.pytest_cache": true
+  },
+  // vimStyle -----------------------
+  "vimStyle.defaultMode": "normal",
+  "vimStyle.enabled": true,
+  "vimStyle.imapEsc": "jj",
+  // cSpell -----------------------
+  "cSpell.language": "en,en-US",
+  "cSpell.enabledLanguageIds": [
+    "asciidoc",
+    "c",
+    "cpp",
+    "csharp",
+    "css",
+    "go",
+    "handlebars",
+    "html",
+    "jade",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "latex",
+    "less",
+    "markdown",
+    "php",
+    "plaintext",
+    "pub",
+    "python",
+    "restructuredtext",
+    "rust",
+    "scss",
+    "text",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+    "yml"
+  ],
+  "cSpell.ignorePaths": [
+    "**/package-lock.json",
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    "**/.git/**",
+    ".vscode",
+    "typings"
+  ],
+  "cSpell.customUserDictionaries": [
+    {
+      "name": "my_work",
+      "path": "~/mycheatsheets/CodeSpellChecker/work.txt"
+    },
+    {
+      "name": "my_it",
+      "path": "~/mycheatsheets/CodeSpellChecker/it.txt"
+    },
+    {
+      "name": "my_abbreviation",
+      "path": "~/mycheatsheets/CodeSpellChecker/abbreviation.txt"
+    },
+    {
+      "name": "my_word",
+      "path": "~/mycheatsheets/CodeSpellChecker/me.txt"
+    }
+  ],
+  "cSpell.dictionaries": ["my_work", "my_it", "my_abbreviation", "my_word"],
+  // 拡張子との追加の紐付け
+  "files.associations": {
+    "*.jinja": "yaml",
+    "*.md": "markdown",
+    "bashrc": "shellscript"
+  },
+  // Go --------------------------
+  "go.inferGopath": false,
+  "go.lintOnSave": "package",
+  "go.lintTool": "golangci-lint",
+  "go.formatTool": "goimports",
+  "go.buildOnSave": "package",
+  "go.vetOnSave": "package",
+  "go.testTimeout": "180s",
+  "go.toolsGopath": "~/go",
+  "go.testFlags": ["-v"],
+  "go.coverOnTestPackage": true,
+  "[go]": {
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true
+  },
+  "go.useLanguageServer": true,
+  "go.languageServerExperimentalFeatures": {
+    "format": true,
+    "diagnostics": true,
+    "documentLink": true
+  },
+  // typescript --------------------------
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  // javascript --------------------------
+  "javascript.referencesCodeLens.enabled": true,
+  // python --------------------------
+  "[python]": {
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": false
+  },
+  "python.testing.pytestEnabled": true,
+  "python.linting.mypyEnabled": true,
+  // Lintは有効にする
+  "python.linting.enabled": true,
+  "python.linting.lintOnSave": true,
+  "python.formatting.provider": "black",
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.typeshedPaths": [
+    "/home/nnyn/OSS/typeshed",
+    "/home/nnyn/dotfiles/pytho_typeshed/typings"
+  ],
+  // 一旦 Insider は OFF
+  "python.insidersChannel": "off",
+  "python.showStartPage": false,
+  // java -----------------------------
+  "[yaml]": {
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.insertSpaces": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // markdown --------------------------
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": false,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  // 雑 --------------------------------
+  "[cuda]": {
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  // よく変わるやつ
+  "diffEditor.ignoreTrimWhitespace": false,
+  "explorer.confirmDragAndDrop": false,
+  "gitlens.gitCommands.closeOnFocusOut": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "triggerTaskOnSave.on": true,
+  "remote.SSH.defaultExtensions": ["74th.vimStyle", "esbenp.prettier-vscode"],
+  "remote.containers.defaultExtensions": [
+    "74th.vimStyle",
+    "esbenp.prettier-vscode"
+  ],
+  "editor.tokenColorCustomizations": {
+    "[Monokai Pro]": {
+      "comments": "#B6B6B6"
+    },
+    "[Shiro]": {
+      "comments": "#C0C0C0"
+    },
+    "[Deep Ocean Theme]": {
+      "comments": "#C0C0C0"
+    }
+  },
+  "workbench.colorCustomizations": {
+    "[Shiro]": {
+      "sideBar.foreground": "#ffffff"
+    },
+    "[Deep Ocean Theme]": {
+      "sideBar.foreground": "#C0C0C0"
+    }
+  },
+  "window.titleBarStyle": "custom",
+  "window.menuBarVisibility": "default",
+  "editor.suggestSelection": "first",
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.renderLineHighlight": "all",
+  "editor.renderWhitespace": "all",
+  "editor.folding": false,
+  "files.trimFinalNewlines": true,
+  "workbench.settings.editor": "json",
+  "window.title": "${rootPath}",
+  "explorer.confirmDelete": false,
+  "explorer.incrementalNaming": "smart",
+  "explorer.openEditors.visible": 0,
+  "search.smartCase": true,
+  "debug.openExplorerOnEnd": true,
+  "problems.showCurrentInStatus": true,
+  "remote.SSH.enableAgentForwarding": false,
+  "workbench.editor.showTabs": true,
+  "liveshare.showInStatusBar": "whileCollaborating",
+  "liveshare.allowGuestTaskControl": true,
+  "liveshare.allowGuestDebugControl": true,
+  "liveshare.joinDebugSessionOption": "Automatic",
+  "liveshare.languages.allowGuestCommandControl": true,
+  "liveshare.guestApprovalRequired": true,
+  "liveshare.publishWorkspaceInfo": true,
+  "liveshare.diagnosticLogging": true,
+  "codespaces.accountProvider": "Microsoft",
+  "yaml.validate": false,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.colorTheme": "monokai-chacoral (orange)",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "[dockerfile]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "settingsSync.keybindingsPerPlatform": false,
+  "settingsSync.ignoredExtensions": ["ms-azuretools.vscode-azureterraform"],
+  "yaml.customTags": []
+}

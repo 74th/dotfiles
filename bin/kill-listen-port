@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+# ポートを選んでkill
+import argparse
+import detect
+import os
+import invoke
+
+parser = argparse.ArgumentParser(description="kill programs listening the port")
+parser.add_argument("ports", metavar="port", type=int, nargs="+", help="port number")
+args = parser.parse_args()
+ports = args.ports
+
+c = invoke.Context()
+c.config.update({"run": {"echo": True}})
+
+if detect.linux:
+    for port in ports:
+        lsof: invoke.Result = c.run(f"lsof -i:{port}", warn=True)
+        if lsof.failed:
+            continue
+        lines = lsof.stdout.strip().split("\n")
+        if len(lines) <= 1:
+            continue
+        for line in lines[1:]:
+            pid = line.split()[1]
+            c.run(f"kill {pid}", warn=True)
