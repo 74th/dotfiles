@@ -10,6 +10,7 @@ Compulim.vscode-mocha
 eamodio.gitlens
 EditorConfig.EditorConfig
 ElAnandKumar.el-vsc-product-icon-theme
+emilast.LogFileHighlighter
 esbenp.prettier-vscode
 ethan-reesor.vscode-go-test-adapter
 formulahendry.auto-close-tag
@@ -24,6 +25,7 @@ hbenl.vscode-jasmine-test-adapter
 hbenl.vscode-mocha-test-adapter
 hbenl.vscode-test-explorer
 hediet.vscode-drawio
+helgardrichard.helium-icon-theme
 humao.rest-client
 IBM.output-colorizer
 jumpinjackie.vscode-map-preview
@@ -39,7 +41,10 @@ ms-python.vscode-pylance
 ms-vscode-remote.remote-containers
 ms-vscode-remote.remote-ssh
 ms-vscode-remote.remote-ssh-edit
+ms-vscode-remote.remote-wsl
+ms-vscode-remote.vscode-remote-extensionpack
 ms-vscode.azure-account
+ms-vscode.Theme-MarkdownKit
 ms-vsliveshare.vsliveshare
 ms-vsliveshare.vsliveshare-audio
 ms-vsliveshare.vsliveshare-pack

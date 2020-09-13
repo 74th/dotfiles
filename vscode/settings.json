@@ -305,7 +305,7 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.colorTheme": "Visual Studio Light",
+  "workbench.colorTheme": "monokai-chacoral (orange)",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "[dockerfile]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"

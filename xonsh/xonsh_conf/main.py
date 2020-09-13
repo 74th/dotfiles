@@ -59,10 +59,6 @@ def __set_aliases():
         x_aliases[alias] = cmd
 
 
-def __add_bookmark():
-    run(f"pwd >> ~/bookmark")
-
-
 def _gcloud_config():
     paths = [
         "/usr/local/bin/python2.7",
