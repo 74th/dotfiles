@@ -55,7 +55,7 @@ def _list_packages(c):
 
     # cloud
     pkgs += [
-        "awscli",
+        #"awscli",
         "tfenv",
     ]
     if detect.osx:

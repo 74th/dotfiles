@@ -164,8 +164,19 @@ def add_bash_competion():
         x_env["BASH_COMPLETIONS"] = "/home/linuxbrew/.linuxbrew/etc/bash_completion.d"
 
 
+def launch_ssh_agent():
+    if HOSTNAME not in ["violet-gopher"]:
+        return
+    sock = os.environ.get("XDG_RUNTIME_DIR", "/run/user/1000") + "/keyring/.ssh"
+    if os.path.exists(sock):
+        return
+    silent_run(f"ssh-agent -a {sock}")
+
+
 def load():
     from .prompt import set_prompt
+
+    launch_ssh_agent()
 
     set_prompt()
 
