@@ -41,6 +41,7 @@ def list_packages():
         "xonsh-docker-tabcomplete",
         "xontrib-z",
         "xonsh-direnv",
+        "awscli",
     ]
     return l
 

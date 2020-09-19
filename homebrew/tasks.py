@@ -10,7 +10,6 @@ def _list_minimal(c):
     # bash
     pkgs += [
         "peco",
-
         # alternate cat
         "bat",
     ]
@@ -55,7 +54,6 @@ def _list_packages(c):
 
     # cloud
     pkgs += [
-        #"awscli",
         "tfenv",
     ]
     if detect.osx:
@@ -139,6 +137,7 @@ def install_minimal(c):
 @task
 def show_dependency(c):
     c.run("brew deps --tree --installed")
+
 
 @task
 def unlink(c):
