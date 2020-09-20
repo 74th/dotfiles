@@ -12,6 +12,10 @@ def add_source_list(c):
         "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0"
     )
     c.run("sudo apt-add-repository https://cli.github.com/packages")
+    # nodejs
+    # https://github.com/nodesource/distributions
+    if not os.path.exists("/etc/apt/sources.list.d/nodesource.list"):
+        c.run("curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -")
 
 
 def add_source_list_desktop(c):
