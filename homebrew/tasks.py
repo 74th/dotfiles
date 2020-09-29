@@ -38,6 +38,7 @@ def _list_packages(c):
 
     # CLI toolset
     pkgs += [
+        "patchelf", # docker-composeのインストールに必要
         "sqlite",
         "docker-compose",
         "ghq",
