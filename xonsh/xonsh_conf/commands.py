@@ -1,3 +1,4 @@
+import os
 from .lib import run, silent_run, HOSTNAME
 from .xonsh_builtin import x_env, x_aliases
 
@@ -61,3 +62,17 @@ def load_commands():
             run(name)
 
     x_aliases["db"] = select_dir_bookmark
+
+    def up_ssh_agent():
+        uid = int(silent_run("id -u"))
+        d = f"/run/user/{uid}/keyring"
+        sock = f"{d}/ssh"
+        if not os.path.exists(d):
+            run(f"mkdir {d}")
+        run(f"killall ssh-agent")
+        if os.path.exists(sock):
+            run(f"rm {sock}")
+        run(f"ssh-agent -a {sock}")
+        x_env["SSH_AUTH_SOCK"] = sock
+
+    x_aliases["ssh-agent-up"] = up_ssh_agent
