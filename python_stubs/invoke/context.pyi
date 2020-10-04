@@ -1,5 +1,5 @@
 from contextlib import contextmanager
-from typing import Union, Optional
+from typing import Any, Union, Optional
 
 
 class Result:
@@ -9,6 +9,8 @@ class Result:
 
 
 class Context:
+    config: Any
+
     def run(
         self,
         cmd: str,

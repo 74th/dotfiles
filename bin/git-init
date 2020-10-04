@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+import os
+import invoke
+
+
+def git_init(c: invoke.Context):
+    if not os.path.exists(".git"):
+        c.run("git init")
+
+
+def git_secrets(c: invoke.Context):
+    hook_path = f".git/hooks/pre-commit"
+    if not os.path.exists(hook_path):
+        exists = False
+    else:
+        with open(hook_path) as f:
+            exists = f.read().count("git secrets") > 0
+    if not exists:
+        c.run("git secrets --install")
+
+
+def firstcommit(c: invoke.Context):
+    if c.run("git log -1", warn=True, hide=True).failed:
+        c.run("""git commit -m "firstcommit" --allow-empty """)
+
+
+c = invoke.Context()
+c.config.update({"run": {"echo": True}})
+git_init(c)
+git_secrets(c)
+firstcommit(c)
