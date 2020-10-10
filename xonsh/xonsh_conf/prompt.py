@@ -75,7 +75,7 @@ def set_prompt():
     else:
         prompt += "{RED}"
     prompt += "{hostname}"
-    prompt += "{NO_COLOR}"
+    prompt += "{RESET}"
     prompt += " "
     prompt += "{cwd} "
     prompt += "{git} "

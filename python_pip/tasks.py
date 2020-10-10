@@ -18,6 +18,9 @@ def list_small_packages():
     l += [
         "invoke",
         "poetry",
+        "xonsh[full,ptk]",
+        "xonsh-direnv",
+        "xontrib-readable-traceback"
     ]
     return l
 
@@ -41,6 +44,7 @@ def list_packages():
         "xonsh-docker-tabcomplete",
         "xontrib-z",
         "xonsh-direnv",
+        "docker-compose",
         "awscli",
     ]
     return l

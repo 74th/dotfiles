@@ -40,7 +40,7 @@ def _list_packages(c):
     pkgs += [
         "patchelf", # docker-composeのインストールに必要
         "sqlite",
-        "docker-compose",
+        # "docker-compose",
         "ghq",
         "github/gh/gh",
         "bat",

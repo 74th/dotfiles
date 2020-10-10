@@ -204,7 +204,6 @@ def install_small(c):
     bashrc(c)
     if detect.osx:
         homebrew.install_minimal(c)
-    vimrc(c)
     python_pip.install_small(c)
     xonsh(c)
 

@@ -177,6 +177,6 @@ def gitstatus_prompt():
             ret += "🦉{GREEN}CLEAN?"
     if s.stashed > 0:
         ret += " " + "🌵" * s.stashed
-    ret += "{NO_COLOR}"
+    ret += "{RESET}"
 
     return ret
