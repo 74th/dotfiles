@@ -41,7 +41,7 @@ def main(args: List[str]):
     if n.endswith(".deb"):
         c.run(f"sudo apt install {n}")
         return
-    c.run(f"bat {n}")
+    print(f"cannot determine {n}")
 
 
 main(sys.argv[1:])
