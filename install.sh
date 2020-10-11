@@ -3,7 +3,7 @@ set -xe
 if [ -e /etc/debian_version ]; then
     if ! type pip3 >/dev/null 2>&1; then
         sudo apt-get update
-	sudo apt-get install -y python3 python3-pip direnv
+	sudo apt-get install -y python3 python3-pip direnv git-secrets
     fi
     pip3 install invoke detect pyyaml
 fi

@@ -202,6 +202,8 @@ ns.add_task(install)
 def install_small(c):
     create_basic_dir(c)
     bashrc(c)
+    git.set_config(c)
+    git.chmod_config(c)
     if detect.osx:
         homebrew.install_minimal(c)
     python_pip.install_small(c)
