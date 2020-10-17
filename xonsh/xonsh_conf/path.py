@@ -43,6 +43,7 @@ def get_paths(default_paths: List[str]) -> List[str]:
 
     # Homebrew for Linux
     add("/home/linuxbrew/.linuxbrew/bin")
+    add("/home/linuxbrew/.linuxbrew/sbin")
 
     add("/usr/local/cuda/bin")
     add(home + "/Library/Python/2.7/bin")

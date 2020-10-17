@@ -38,7 +38,7 @@ def _list_packages(c):
 
     # CLI toolset
     pkgs += [
-        "patchelf", # docker-composeのインストールに必要
+        "patchelf",  # docker-composeのインストールに必要
         "sqlite",
         # "docker-compose",
         "ghq",
@@ -155,7 +155,6 @@ def unlink(c):
             "m4",
             "ncurses",
             "node-build",
-            "patchelf",
             "perl",
             "pkg-config",
             "readline",
