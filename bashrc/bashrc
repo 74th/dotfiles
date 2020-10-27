@@ -80,6 +80,13 @@ function cdghq() {
     cd $(ghq list --full-path | peco)
 }
 
+function ssh-gateway() {
+    killall ssh-agent; true
+    eval `ssh-agent`
+    ssh-add ~/.ssh/bastion
+    ssh -A gateway
+}
+
 set -o vi
 
 #stty werase undef
