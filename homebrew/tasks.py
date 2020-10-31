@@ -7,7 +7,6 @@ from invoke import Context
 def _list_minimal(c):
     pkgs = []
 
-    # bash
     pkgs += [
         "peco",
         # alternate cat
@@ -20,7 +19,6 @@ def _list_minimal(c):
 def _list_minimal_mac(c):
     pkgs = []
 
-    # bash
     pkgs += [
         "git",
         "vim",
