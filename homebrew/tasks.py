@@ -143,13 +143,10 @@ def unlink(c):
     pkgs = []
     if detect.linux:
         pkgs = [
-            "python3",
             "openssl@1.1",
             "autoconf",
             "bzip2",
             "libbsd",
-            "libffi",
-            "libyaml",
             "m4",
             "ncurses",
             "node-build",
@@ -159,7 +156,6 @@ def unlink(c):
             "unzip",
             "util-linux",
             "zlib",
-            "xz",
         ]
 
     c.run("brew unlink " + " ".join(pkgs))
