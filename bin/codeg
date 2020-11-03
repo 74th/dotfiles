@@ -14,4 +14,4 @@ g = c.run(f"ghq list --full-path {g} | head -n1", hide=True).stdout.strip()
 if platform.node() in ["violet-gopher"]:
     c.run(f"rcode {g}")
 else:
-    c.run(f"code-insiders {g}")
+    c.run(f"code {g}")

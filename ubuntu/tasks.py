@@ -64,13 +64,13 @@ def _list_packages() -> List[str]:
         "readline-common",
         "git",
         "bzip2",
+        "unrar",
         "nodejs",
         "apt-transport-https",
         "protobuf-compiler",
         "curl",
         "vim",
         "direnv",
-        "gh",
     ]
     return pkgs
 
@@ -91,6 +91,9 @@ def _list_desktop_packages() -> List[str]:
         "fcitx-mozc",
         "vim-gtk",
         "font-manager",
+        "libinput-tools",
+        "wmctrl",
+        "xdotool",
         "code",
         "code-insiders",
     ]
