@@ -94,6 +94,7 @@ def _list_desktop_packages() -> List[str]:
         "libinput-tools",
         "wmctrl",
         "xdotool",
+        "gnome-tweaks",
         "code",
         "code-insiders",
     ]
