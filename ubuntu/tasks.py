@@ -58,6 +58,7 @@ def _list_packages() -> List[str]:
     pkgs: List[str] = []
     pkgs += [
         "jq",
+        "peco",
         "xclip",
         "bat",
         "docker-compose",
