@@ -99,6 +99,12 @@ def _list_desktop_packages() -> List[str]:
         "gnome-tweaks",
         "code",
         "code-insiders",
+        # system monitor
+        "gir1.2-gtop-2.0",
+        "gir1.2-nm-1.0",
+        "gir1.2-clutter-1.0",
+        # 
+        "grub-customizer",
     ]
     return pkgs
 
