@@ -90,6 +90,7 @@ def _list_desktop_packages() -> List[str]:
         "guake",
         "fcitx",
         "fcitx-mozc",
+        "xbindkeys",
         "vim-gtk",
         "font-manager",
         "libinput-tools",
@@ -107,4 +108,5 @@ def desktop_install(c):
     add_source_list_desktop(c)
     pkgs = _list_desktop_packages()
     c.run("sudo apt update")
+    c.run("ln -sf ~/dotfiles/ubuntu/.xbindkeysrc ~/.xbindkeysrc")
     c.run("sudo apt install -y " + " ".join(pkgs))
