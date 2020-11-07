@@ -103,10 +103,22 @@ def _list_desktop_packages() -> List[str]:
         "gir1.2-gtop-2.0",
         "gir1.2-nm-1.0",
         "gir1.2-clutter-1.0",
-        # 
+        # grub
         "grub-customizer",
+        # gtk theme
+        "gtk2-engines-murrine",
+        "gtk2-engines-pixbuf",
     ]
     return pkgs
+
+
+@task
+def zfs_auto_snapshot(c):
+    c.run("sudo cp ./zfs-auto-snapshot/frequency.crontab /etc/cron.d/zfs-auto-snapshot")
+    c.run("sudo cp ./zfs-auto-snapshot/hourly.sh /etc/cron.hourly/zfs-auto-snapshot")
+    c.run("sudo cp ./zfs-auto-snapshot/daily.sh /etc/cron.daily/zfs-auto-snapshot")
+    c.run("sudo cp ./zfs-auto-snapshot/weekly.sh /etc/cron.weekly/zfs-auto-snapshot")
+    c.run("sudo cp ./zfs-auto-snapshot/monthly.sh /etc/cron.monthly/zfs-auto-snapshot")
 
 
 @task
