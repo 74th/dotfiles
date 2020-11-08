@@ -72,6 +72,7 @@ def _list_packages() -> List[str]:
         "curl",
         "vim",
         "direnv",
+        "python-is-python3",
     ]
     return pkgs
 
@@ -128,3 +129,4 @@ def desktop_install(c):
     c.run("sudo apt update")
     c.run("ln -sf ~/dotfiles/ubuntu/.xbindkeysrc ~/.xbindkeysrc")
     c.run("sudo apt install -y " + " ".join(pkgs))
+    c.run("ln -sf ~/dotfiles/ubuntu/_config/libinput-gestures.conf ~/.config/")
