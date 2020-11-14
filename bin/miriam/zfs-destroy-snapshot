@@ -4,4 +4,5 @@ if [ $# -ne 1 ]; then
    exit 1
 fi
 set -xe
-sudo zfs list -t snapshot -o name | grep @${1} | sudo xargs -L 1 zfs rollback -r
+sudo zfs destroy -r bpool/BOOT@${1}
+sudo zfs destroy -r rpool/ROOT@${1}
