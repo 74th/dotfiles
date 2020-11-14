@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ $# -ne 1 ]; then
+   echo "zfs-snapshot <snapshot>"
+   exit 1
+fi
+set -xe
+sudo zfs snapshot -r bpool/BOOT@${1}
+sudo zfs snapshot -r rpool/ROOT@${1}
