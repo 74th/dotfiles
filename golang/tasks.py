@@ -20,7 +20,7 @@ def download_packages(c):
 
 @task
 def install_ubuntu(c):
-    version = "1.15.3"
+    version = "1.15.5"
     if c.run("go version", warn=True).stdout.count(version) > 0:
         return
     with tempfile.TemporaryDirectory() as d:

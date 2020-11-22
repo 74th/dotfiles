@@ -40,7 +40,7 @@ def _list_packages(c):
         "sqlite",
         # "docker-compose",
         "ghq",
-        "github/gh/gh",
+        "gh",
         "bat",
     ]
 
@@ -145,6 +145,7 @@ def unlink(c):
         pkgs = [
             "openssl@1.1",
             "autoconf",
+            "patchelf",
             "bzip2",
             "libbsd",
             "m4",
