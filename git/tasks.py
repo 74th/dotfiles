@@ -28,7 +28,7 @@ def set_config(c):
     c.run('git config --global color.ui true', env=env)
 
     # master push時の警告
-    c.run('git config --global init.templatedir ~/dotfiles/template/', env=env)
+    c.run('git config --global init.templatedir ~/dotfiles/git/template/', env=env)
 
     # 人間らしいgitコマンド
     c.run('git config --global alias.branches "branch -a"', env=env)
