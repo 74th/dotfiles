@@ -155,12 +155,12 @@ def set_inv_completer():
 
 
 def load_xontrib():
-    run("xontrib load coreutils readable-traceback")
+    # run("xontrib load coreutils readable-traceback")
     run("xontrib load direnv")
 
 
 def add_bash_competion():
-    if os.path.exists("/home/linuxbrew/.linuxbrew/etc/bash_completion.d"):
+    if os.path.exists("/home/linujxbrew/.linuxbrew/etc/bash_completion.d"):
         x_env["BASH_COMPLETIONS"] = "/home/linuxbrew/.linuxbrew/etc/bash_completion.d"
 
 

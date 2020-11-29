@@ -20,7 +20,7 @@ def list_small_packages():
         "poetry",
         "xonsh[full,ptk]",
         "xonsh-direnv",
-        "xontrib-readable-traceback"
+        # "xontrib-readable-traceback",
     ]
     return l
 
@@ -37,14 +37,9 @@ def list_packages():
     l += [
         "black",
         "mypy",
-        "xonsh[full]",
-        "pygments",
-        "jedi",
-        "xontrib-readable-traceback",
-        "xonsh-docker-tabcomplete",
-        "xontrib-z",
+        "xonsh[full,ptk]",
         "xonsh-direnv",
-        "docker-compose",
+        # "docker-compose",
         "awscli",
     ]
     return l
