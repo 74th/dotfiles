@@ -1,9 +1,7 @@
 {
-  // 表示まわり
-  "terminal.external.osxExec": "Terminal.app",
+  "workbench.colorTheme": "monokai-charcoal (white)",
+  "workbench.iconTheme": "high-contrast-icons-dark",
   "editor.fontFamily": "Liga InputMono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
-  "workbench.iconTheme": "Monokai Pro (Filter Machine) Icons",
-  "workbench.startupEditor": "none",
   "editor.fontLigatures": true,
   "editor.fontWeight": "400",
   "editor.fontSize": 13,
@@ -18,6 +16,13 @@
   // tab等の表示
   "editor.tabSize": 4,
   "editor.renderControlCharacters": true,
+  // window
+  "window.title": "${rootPath}",
+  "window.titleBarStyle": "custom",
+  "workbench.editor.showTabs": true,
+  "window.menuBarVisibility": "default",
+
+  // 標準の挙動 ----------
   // git
   "git.confirmSync": false, // Syncボタンで尋ねない
   "git.autofetch": true,
@@ -27,7 +32,9 @@
   "git.branchSortOrder": "committerdate",
   "scm.defaultViewMode": "tree",
   // 検索の挙動
+  "search.smartCase": true,
   "editor.find.autoFindInSelection": "multiline",
+  "search.searchOnType": true,
   // auto format
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
@@ -35,11 +42,18 @@
   "editor.lineNumbers": "on",
   "editor.selectionHighlight": true,
   "editor.autoClosingBrackets": "never",
+  // explorer
+  "explorer.confirmDelete": false,
+  "explorer.incrementalNaming": "smart",
+  "explorer.openEditors.visible": 3,
+  "explorer.confirmDragAndDrop": false,
   // file
   "files.eol": "\n",
   "files.encoding": "utf8",
   "files.autoGuessEncoding": false,
   "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "files.autoSave": "afterDelay",
   // terminal
   "terminal.integrated.shell.osx": "/usr/local/bin/bash",
   "terminal.integrated.shell.linux": "/bin/bash",
@@ -65,14 +79,23 @@
       "args": ["-l"]
     }
   ],
-  // debug console
-  "debug.console.fontSize": 14,
-  // minimap
+  // editor
+  "editor.suggestSelection": "first",
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.renderLineHighlight": "all",
+  "editor.renderWhitespace": "all",
+  "editor.folding": false,
   "editor.minimap.enabled": false,
   "editor.codeLens": true,
   "breadcrumbs.enabled": true,
+  "problems.showCurrentInStatus": true,
+  // debug
+  "debug.console.fontSize": 14,
+  "debug.openExplorerOnEnd": true,
+  // その他
   "extensions.autoCheckUpdates": true,
   "extensions.autoUpdate": true,
+  "workbench.settings.editor": "json",
   "scm.alwaysShowProviders": false,
   // 除外ファイル
   "search.exclude": {
@@ -84,23 +107,94 @@
     "**/tmp": true,
     "**/.settings": true,
     "**/.factorypath": true,
-    "**/.pytest_cache": true
+    "**/.pytest_cache": true,
+    "**/.terraform": true
   },
   "files.exclude": {
     "**/node_modules": true,
     "**/__pycache__": true,
     "**/.mypy_cache": true,
+    "**/.venv": true,
     "**/*.swp": true,
     "**/.classpath": true,
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true,
-    "**/.pytest_cache": true
+    "**/.pytest_cache": true,
+    "**/.terraform": true
   },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.hg/store/**": true,
+    "**/__pycache__": true,
+    "**/.mypy_cache": true,
+    "**/.venv/**": true,
+    "**/*.swp": true,
+    "**/.classpath/**": true,
+    "**/.project/**": true,
+    "**/.settings/**": true,
+    "**/.factorypath/**": true,
+    "**/.pytest_cache/**": true,
+    "**/.terraform/**": true
+  },
+  // setting-sync
+  "settingsSync.keybindingsPerPlatform": false,
+  "settingsSync.ignoredExtensions": ["ms-azuretools.vscode-azureterraform"],
+  "settingsSync.ignoredSettings": [
+    "python.pythonPath",
+    "vscode-neovim.neovimPath",
+    "vscode-neovim.neovimExecutablePaths.darwin"
+  ],
+  // Remote Development -------------
+  "remote.SSH.defaultExtensions": [
+    "editorconfig.editorconfig",
+    "mhutchie.git-graph",
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker",
+    "svipas.control-snippets",
+    "hediet.vscode-drawio",
+    "tyriar.shell-launcher"
+  ],
+  "remote.containers.defaultExtensions": [
+    "editorconfig.editorconfig",
+    "mhutchie.git-graph",
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker",
+    "svipas.control-snippets",
+    "hediet.vscode-drawio",
+    "tyriar.shell-launcher"
+  ],
+  "remote.containers.dotfiles.repository": "74th/dotfiles",
   // vimStyle -----------------------
   "vimStyle.defaultMode": "normal",
   "vimStyle.enabled": true,
   "vimStyle.imapEsc": "jj",
+  // nvim -----------------------
+  "vscode-neovim.highlightGroups.highlights": {
+    "Directory": "vim",
+    "IncSearch": {
+      "backgroundColor": "theme.editor.findMatchBackground",
+      "borderColor": "theme.editor.findMatchBorder"
+    },
+    "Search": {
+      "backgroundColor": "theme.editor.findMatchHighlightBackground",
+      "borderColor": "theme.editor.findMatchHighlightBorder"
+    },
+    "Visual": {
+      "backgroundColor": "theme.editor.selectionBackground"
+    },
+    "Conceal": "vim",
+    "Substitute": "vim"
+  },
+  "vscode-neovim.neovimExecutablePaths.linux": "/home/nnyn/bin/nvim",
+  "vscode-neovim.neovimExecutablePaths.darwin": "/Users/nnyn/OSS/nvim-osx64/bin/nvim",
+  "helium-icon-theme.folders.theme": "classic",
   // cSpell -----------------------
   "cSpell.language": "en,en-US",
   "cSpell.enabledLanguageIds": [
@@ -166,7 +260,7 @@
     "*.md": "markdown",
     "bashrc": "shellscript"
   },
-  // Go --------------------------
+  // go --------------------------
   "go.inferGopath": false,
   "go.lintOnSave": "package",
   "go.lintTool": "golangci-lint",
@@ -191,13 +285,19 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "typescript.updateImportsOnFileMove.enabled": "always",
   // javascript --------------------------
   "javascript.referencesCodeLens.enabled": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
   // python --------------------------
   "[python]": {
     "editor.detectIndentation": false,
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
+    // Python の black は ファイル単位のみサポート
+    "editor.formatOnSaveMode": "file"
   },
   "python.testing.pytestEnabled": true,
   "python.linting.mypyEnabled": true,
@@ -214,6 +314,8 @@
   // 一旦 Insider は OFF
   "python.insidersChannel": "off",
   "python.showStartPage": false,
+  "jupyter.sendSelectionToInteractiveWindow": true,
+  "jupyter.askForKernelRestart": false,
   // java -----------------------------
   "[yaml]": {
     "editor.tabSize": 2,
@@ -229,6 +331,7 @@
     "editor.tabSize": 2
   },
   // 雑 --------------------------------
+  "yaml.validate": false,
   "[cuda]": {
     "editor.formatOnSave": true
   },
@@ -236,9 +339,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "hediet.vscode-drawio.theme": "dark",
   // よく変わるやつ
   "diffEditor.ignoreTrimWhitespace": false,
-  "explorer.confirmDragAndDrop": false,
   "gitlens.gitCommands.closeOnFocusOut": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -250,11 +353,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "triggerTaskOnSave.on": true,
-  "remote.SSH.defaultExtensions": ["74th.vimStyle", "esbenp.prettier-vscode"],
-  "remote.containers.defaultExtensions": [
-    "74th.vimStyle",
-    "esbenp.prettier-vscode"
-  ],
   "editor.tokenColorCustomizations": {
     "[Monokai Pro]": {
       "comments": "#B6B6B6"
@@ -271,27 +369,10 @@
       "sideBar.foreground": "#ffffff"
     },
     "[Deep Ocean Theme]": {
-      "sideBar.foreground": "#C0C0C0"
+      "sideBar.foreground": "#C0Cww0C0"
     }
   },
-  "window.titleBarStyle": "custom",
-  "window.menuBarVisibility": "default",
-  "editor.suggestSelection": "first",
-  "editor.copyWithSyntaxHighlighting": false,
-  "editor.renderLineHighlight": "all",
-  "editor.renderWhitespace": "all",
-  "editor.folding": false,
-  "files.trimFinalNewlines": true,
-  "workbench.settings.editor": "json",
-  "window.title": "${rootPath}",
-  "explorer.confirmDelete": false,
-  "explorer.incrementalNaming": "smart",
-  "explorer.openEditors.visible": 0,
-  "search.smartCase": true,
-  "debug.openExplorerOnEnd": true,
-  "problems.showCurrentInStatus": true,
   "remote.SSH.enableAgentForwarding": false,
-  "workbench.editor.showTabs": true,
   "liveshare.showInStatusBar": "whileCollaborating",
   "liveshare.allowGuestTaskControl": true,
   "liveshare.allowGuestDebugControl": true,
@@ -300,17 +381,5 @@
   "liveshare.guestApprovalRequired": true,
   "liveshare.publishWorkspaceInfo": true,
   "liveshare.diagnosticLogging": true,
-  "codespaces.accountProvider": "Microsoft",
-  "yaml.validate": false,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "workbench.colorTheme": "monokai-chacoral (orange)",
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "[dockerfile]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
-  "settingsSync.keybindingsPerPlatform": false,
-  "settingsSync.ignoredExtensions": ["ms-azuretools.vscode-azureterraform"],
-  "yaml.customTags": []
+  "codespaces.accountProvider": "Microsoft"
 }
