@@ -42,6 +42,10 @@ def main(args: List[str]):
         c.run(f"unrar d {n}")
         return
 
+    if n.endswith(".tbz"):
+        c.run(f"bzip2 -d {n}")
+        return
+
     if n.count(".zip"):
         c.run(f"unzip {n}", warn=True)
         return
