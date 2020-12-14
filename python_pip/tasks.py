@@ -13,6 +13,11 @@ def install_packages(c, l: List[str]):
     c.run(f"pip3 install --user --upgrade {l_str}")
 
 
+def install_packages_by_pipx(c, l: List[str]):
+    l_str = " ".join(l)
+    c.run(f"pipx install {l_str}")
+
+
 def list_small_packages():
     l = []
     l += [
@@ -20,7 +25,7 @@ def list_small_packages():
         "poetry",
         "xonsh[full,ptk]",
         "xonsh-direnv",
-        "xontrib-readable-traceback"
+        "xontrib-readable-traceback",
     ]
     return l
 
@@ -44,21 +49,34 @@ def list_packages():
         "xonsh-docker-tabcomplete",
         "xontrib-z",
         "xonsh-direnv",
-        "docker-compose",
         "awscli",
     ]
     return l
 
 
+def list_packages_by_pipx():
+    l = ["docker-compose"]
+    return l
+
+
+@invoke.task
+def install_by_pipx(c):
+    l = list_packages_by_pipx()
+    l_str = " ".join(l)
+    c.run(f"pipx install {l_str}")
+
+
 @invoke.task
 def install(c):
     l = list_packages()
+    install_packages(c, ["pipx"])
     install_packages(c, l)
+    install_by_pipx(c)
     set_poetry_config(c)
 
 
 @invoke.task
-def upgrade_all(c, force=False, upgrade=True):
+def upgrade_all(c, force=False, upgrade=True, pip="pip3"):
     out = c.run("pip3 list").stdout
     lines = out.split("\n")
     for line in lines[2:]:
