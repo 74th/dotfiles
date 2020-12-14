@@ -15,7 +15,7 @@ g = c.run(f"ghq list --full-path {g} | head -n1", hide=True).stdout.strip()
 hostname = gethostname()
 if hostname in ["violet-gopher"]:
     c.run(f"rcode {g}")
-if hostname in ["violet-gopher"]:
+elif hostname in ["charlotte"]:
     c.run(f"code-exploration {g}")
 else:
     c.run(f"code {g}")
