@@ -63,6 +63,7 @@ def set_prompt():
         prompt += "{BLUE}"
     elif (
         HOSTNAME.count("mbp")
+        or HOSTNAME.count("charlotte")
         or HOSTNAME.count("mac")
         or HOSTNAME.startswith("O-")
         or HOSTNAME.startswith("kukrushka.local")

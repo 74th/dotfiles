@@ -18,6 +18,7 @@ def download_packages(c):
     for package in packages:
         c.run("go get -u " + package)
 
+
 @task
 def install_ubuntu(c):
     version = "1.15.6"

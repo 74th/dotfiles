@@ -5,7 +5,7 @@ import detect
 
 
 @task(default=True)
-def backup(c, insider=True):
+def backup(c, insider=False):
     home = os.path.expanduser("~")
     if detect.linux:
         d = f"{home}/.config"

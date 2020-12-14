@@ -100,6 +100,10 @@ def _list_desktop_packages() -> List[str]:
         "gnome-tweaks",
         "code",
         "code-insiders",
+        # desktop tools
+        "gimp",
+        "inkscape",
+        "easytag",
         # system monitor
         "gir1.2-gtop-2.0",
         "gir1.2-nm-1.0",

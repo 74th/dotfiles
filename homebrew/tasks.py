@@ -38,7 +38,7 @@ def _list_packages(c):
     pkgs += [
         "sqlite",
         "ghq",
-        "github/gh/gh",
+        "gh",
         "bat",
     ]
 
@@ -143,6 +143,7 @@ def unlink(c):
         pkgs = [
             "openssl@1.1",
             "autoconf",
+            "patchelf",
             "bzip2",
             "libbsd",
             "m4",

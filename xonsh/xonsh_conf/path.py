@@ -46,8 +46,9 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add("/home/linuxbrew/.linuxbrew/sbin")
 
     add("/usr/local/cuda/bin")
-    add(home + "/Library/Python/2.7/bin")
-    add(home + "/Library/Python/3.7/bin")
+    add("/opt/homebrew/bin")
+    add("/opt/local/bin")
+    add(home + "/Library/Python/3.8/bin")
     add(home + "/google-cloud-sdk/bin")
     add(home + "/google-cloud-sdk/platform/google_appengine")
     add(home + "/npm/bin")
