@@ -11,11 +11,11 @@ g = c.run("ghq list | peco").stdout.strip()
 if not g:
     sys.exit(1)
 
-g = c.run(f"ghq list --full-path {g} | head -n1", hide=True).stdout.strip()
+g = c.run(f"ghq list --exact --full-path {g} | head -n1", hide=True).stdout.strip()
 hostname = gethostname()
 if hostname in ["violet-gopher"]:
     c.run(f"rcode {g}")
 elif hostname in ["charlotte"]:
-    c.run(f"code-exploration {g}")
+    c.run(f"code-insiders {g}")
 else:
     c.run(f"code {g}")

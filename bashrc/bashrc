@@ -76,7 +76,7 @@ function db() {
     $(peco $HOME/ghq/github.com/74th/mycheatsheets/DirBookmark/$HOSTNAME)
 }
 
-function cdghq() {
+function cdg() {
     cd $(ghq list --full-path | peco)
 }
 
