@@ -1,4 +1,5 @@
-from invoke import task
+from typing import cast
+from invoke import task, Context
 
 ubuntu_pkgs = [
     "direnv",
@@ -9,6 +10,7 @@ ubuntu_pkgs = [
     "vim",
     "golang-go",
 ]
+
 
 @task
 def install(c):

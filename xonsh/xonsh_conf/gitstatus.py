@@ -152,7 +152,7 @@ def gitstatus_prompt():
         return None
 
     ret = ""
-    if s.branch == "master":
+    if s.branch == "master" or s.branch == "main":
         ret += "🌟"
     ret += "{YELLOW}" + s.branch
     if s.num_ahead > 0:

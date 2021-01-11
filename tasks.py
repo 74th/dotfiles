@@ -1,3 +1,4 @@
+from typing import cast
 import glob
 import sys
 import os
@@ -31,10 +32,13 @@ HOME = get_home()
 
 
 def get_archi(c):
+    c = cast(invoke.Context, c)
     return c.run("uname -p").stdout.strip()
 
 
 def get_hostname(c):
+    c = cast(invoke.Context, c)
+    c.run()
     return c.run("hostname").stdout.strip()
 
 
@@ -64,6 +68,7 @@ def checkout_dotfiles(c: invoke.Context):
         return
     with c.cd(f"{HOME}/dotfiles"):
         c.run("git pull")
+
 
 @task
 def rehash_pyenv(c_):
