@@ -8,7 +8,7 @@
     "editor.formatOnSave": true
   },
   "python.analysis.stubPath": "./python_stubs",
-  "python.analysis.typeCheckingMode": "strict",
+  "python.analysis.typeCheckingMode": "basic",
   "python.analysis.diagnosticMode": "workspace",
   "python.testing.promptToConfigure": false,
   "python.testing.pytestEnabled": false,
