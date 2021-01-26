@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ "$(hostname)" == 'violet-gopher' ]; then
+    rcode $*
+else
+    code $*
+fi
