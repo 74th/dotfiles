@@ -80,6 +80,8 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
+let g:lsp_settings_filetype_python = ['pyright-langserver', 'pyls-all']
+
 call plug#end()
 
 " LSPの補完をTabで進められるようにする

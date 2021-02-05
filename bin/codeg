@@ -2,9 +2,9 @@
 # ghq を使ってディレクトリを選んで code コマンドを実行
 import sys
 import invoke
-import platform
 from socket import gethostname
 
+code = "code"
 c = invoke.Context()
 g = c.run("ghq list | peco").stdout.strip()
 
@@ -18,4 +18,4 @@ if hostname in ["violet-gopher"]:
 elif hostname in ["charlotte"]:
     c.run(f"code-insiders {g}")
 else:
-    c.run(f"code {g}")
+    c.run(f"{code} {g}")

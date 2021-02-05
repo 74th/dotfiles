@@ -66,12 +66,6 @@ def set_config(c):
     # オープンソース用の名前を適用する
     c.run('git config --global alias.setnnyn "!git config --local user.name 74th && git config --local user.email site@74th.tech"', env=env)
 
-    # サブモジュールをアップデート
-    c.run('git config --global alias.submoduleupdate "submodule update -i"', env=env)
-
-    # ブランチ作成と同時にチェックアウト
-    c.run('git config --global alias.branchcheckout "checkout -b"', env=env)
-
     # pull では rebase を優先する
     c.run('git config --global pull.rebase true')
     # rebase のときに自動で stash save pop する
