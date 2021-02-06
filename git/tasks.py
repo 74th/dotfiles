@@ -67,7 +67,7 @@ def set_config(c):
     c.run('git config --global alias.setnnyn "!git config --local user.name 74th && git config --local user.email site@74th.tech"', env=env)
 
     # pull では rebase を優先する
-    c.run('git config --global pull.rebase true')
+    c.run('git config --global pull.rebase false')
     # rebase のときに自動で stash save pop する
     c.run('git config --global rebase.autostash true')
 
