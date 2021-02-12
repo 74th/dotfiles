@@ -41,6 +41,10 @@ def _list_packages(c):
         "ghq",
         "gh",
         "bat",
+        "fd",
+        "lsd",
+        "ripgrep",
+        "ripgrep-all",
     ]
 
     # develop
