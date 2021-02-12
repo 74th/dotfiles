@@ -1,3 +1,4 @@
+from typing import List
 from invoke import task
 import invoke
 import detect
@@ -138,6 +139,7 @@ def show_dependency(c):
 
 @task
 def unlink(c):
+    installed = c.run("brew list").stdout.split("\n")
     pkgs = []
     if detect.linux:
         pkgs = [
@@ -156,5 +158,6 @@ def unlink(c):
             "util-linux",
             "zlib",
         ]
+    unlink: List[str] = [pkg for pkg in pkgs if pkg in installed]
 
-    c.run("brew unlink " + " ".join(pkgs))
+    c.run("brew unlink " + " ".join(unlink))
