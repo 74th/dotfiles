@@ -148,6 +148,7 @@ def unlink(c):
     if detect.linux:
         pkgs = [
             "openssl@1.1",
+            "python@3.9",
             "autoconf",
             "patchelf",
             "bzip2",

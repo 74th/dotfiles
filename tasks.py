@@ -2,7 +2,7 @@ from typing import cast
 import glob
 import sys
 import os
-from pathlib import Path
+from os import path
 import invoke
 from invoke import task, Collection
 import detect
@@ -29,6 +29,7 @@ def get_home():
 
 
 HOME = get_home()
+GHQ_DIR = path.join(HOME, "ghq")
 
 
 def get_archi(c):
@@ -38,7 +39,6 @@ def get_archi(c):
 
 def get_hostname(c):
     c = cast(invoke.Context, c)
-    c.run()
     return c.run("hostname").stdout.strip()
 
 
@@ -71,9 +71,25 @@ def checkout_dotfiles(c: invoke.Context):
 
 
 @task
+def pyenv(c):
+    c = cast(invoke.Context, c)
+    pyenv_dir = f"{HOME}/.pyenv"
+    if not path.exists(pyenv_dir):
+        c.run("ghq get github.com/pyenv/pyenv")
+        c.run(f"ln -s {GHQ_DIR}/github.com/pyenv/pyenv {pyenv_dir}")
+        if detect.linux:
+            c.run(
+                f"sudo apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev"
+            )
+
+
+ns.add_task(pyenv)
+
+
+@task
 def rehash_pyenv(c_):
     c: invoke.Context = c_
-    if c.run("test -e .pyenv", warn=True).ok:
+    if c.run("test -e pyenv", warn=True).ok:
         print("## rehash pyenv")
         c.run("pyenv rehash")
 
@@ -94,7 +110,6 @@ def bashrc(c):
 
 
 ns.add_task(bashrc)
-HOME
 
 
 @task
@@ -186,6 +201,7 @@ def install(c):
         if hostname in ["miriam", "kukrushka"]:
             ubuntu.desktop_install(c)
     checkout_dotfiles(c)
+    pyenv(c)
     rehash_pyenv(c)
     bashrc(c)
     git.set_config(c)
