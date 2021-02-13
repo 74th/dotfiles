@@ -1,6 +1,17 @@
 #!/usr/local/bin/python3
 import os
+import subprocess
+
 from typing import Dict, List
+
+
+def exists_command(cmd: str):
+    r = subprocess.run(
+        ["which", cmd],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    return r.returncode == 0
 
 
 def get_aliases() -> Dict[str, List[str]]:
@@ -20,14 +31,20 @@ def get_aliases() -> Dict[str, List[str]]:
     a["krm"] = ["kubectl", "delete"]
 
     # syntax_sugar
-    a["al"] = ["ls", "-al"]
-    a["la"] = ["ls", "-al"]
-    a["ll"] = ["ls", "-al"]
-    a["lt"] = ["ls", "-alt"]
+    if exists_command("lsd"):
+        a["al"] = ["lsd", "-al"]
+        a["la"] = ["lsd", "-al"]
+        a["ll"] = ["lsd", "-al"]
+        a["lt"] = ["lsd", "-alt"]
+    else:
+        a["al"] = ["ls", "-al"]
+        a["la"] = ["ls", "-al"]
+        a["ll"] = ["ls", "-al"]
+        a["lt"] = ["ls", "-alt"]
 
     # java
-    #a["javac"] = ["javac", "-J-Dfile.encoding=utf-8"]
-    #a["java"] = ["java", "-Dfile.encoding=UTF-8"]
+    # a["javac"] = ["javac", "-J-Dfile.encoding=utf-8"]
+    # a["java"] = ["java", "-Dfile.encoding=UTF-8"]
 
     return a
 

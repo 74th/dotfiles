@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import invoke
 import os
+from xonsh.procs.pipelines import HiddenCommandPipeline
 from .xonsh_builtin import x_execer, x_env
-from xonsh.proc import HiddenCommandPipeline
 
 
 def run(command: str) -> HiddenCommandPipeline:
