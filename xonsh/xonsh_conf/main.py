@@ -178,11 +178,11 @@ def load():
 
     launch_ssh_agent()
 
+    __add_paths()
     set_prompt()
 
     _default_charsets()
 
-    __add_paths()
     load_xontrib()
 
     _gcloud_config()

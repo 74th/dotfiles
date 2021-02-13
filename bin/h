@@ -8,12 +8,14 @@ def exists(cmd: str) -> bool:
     return _c.run(f"which {cmd}", warn=True, echo=False, hide=True).ok
 
 
-cmds = {"bat": "cat代用"}
-cmds = {"lsd": "ls代用 lsd"}
-cmds = {"fd": "高速find fd .js"}
-cmds = {"rg": "高速grep rg search_text"}
+cmds = {
+    "bat": ["bat *.sql", "cat代用"],
+    "lsd": ["lsd", "ls代用 lsd"],
+    "fd": ["fd .sql", "高速find"],
+    "rg": ["rg ERROR", "高速grep"],
+}
 
 
-for cmd, description in cmds.items():
+for cmd, desc in cmds.items():
     if exists(cmd):
-        print(f"\033[32m{cmd}\033[0m {description}")
+        print(f"\033[32m{desc[0]}\033[0m {desc[1]}")
