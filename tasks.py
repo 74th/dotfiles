@@ -43,7 +43,7 @@ def get_hostname(c):
     return c.run("hostname").stdout.strip()
 
 
-def update_package_manager(c: invoke.Context):
+def update_default_package_manager(c: invoke.Context):
     print("update package manager")
     if detect.linux:
         c.run("sudo apt-get update", echo=True)
@@ -60,15 +60,6 @@ def create_basic_dir(c):
     d = os.path.join(HOME, "bin")
     if not os.path.exists(d):
         os.mkdir(d)
-
-
-def checkout_dotfiles(c: invoke.Context):
-    print("checkout and update dotfiles")
-    if c.run(f"test -e {HOME}/dotfiles", warn=True, hide="both").failed:
-        c.run("git clone https://github.com/74th/dotfiles.git", echo=True)
-        return
-    with c.cd(f"{HOME}/dotfiles"):
-        c.run("git pull")
 
 
 @task
@@ -197,32 +188,44 @@ ns.add_task(starship)
 
 @task(default=True)
 def install(c):
-    update_package_manager(c)
+    update_default_package_manager(c)
     create_basic_dir(c)
+
     archi = get_archi(c)
     hostname = get_hostname(c)
-    if archi == "x86_64":
-        homebrew.default(c)
-    if archi == "aarch64":
+
+    # default package managers
+    if detect.linux and archi == "aarch64":
         arm_ubuntu.install(c)
     if detect.linux and ubuntu.is_ubuntu():
         ubuntu.install(c)
         if hostname in ["miriam", "kukrushka"]:
             ubuntu.desktop_install(c)
-    checkout_dotfiles(c)
-    pyenv(c)
-    rehash_pyenv(c)
-    bashrc(c)
-    git.set_config(c)
-    git.chmod_config(c)
+
+    # homebrew
+    homebrew.default(c)
+
+    # some package managers
+    python_pip.install(c)
+    rust.install(c)
     go.download_packages(c)
     if detect.linux and ubuntu.is_ubuntu():
         go.install_ubuntu(c)
+
+    # setting up
+    xonsh(c)
+    pyenv(c)
+    bashrc(c)
+    vimrc(c)
+    screenrc(c)
+    starship(c)
+    git.set_config(c)
+    git.chmod_config(c)
     if os == "macos":
         macos(c)
-    vimrc(c)
-    python_pip.install(c)
-    xonsh(c)
+
+    # fixing
+    rehash_pyenv(c)
 
 
 ns.add_task(install)
@@ -230,7 +233,9 @@ ns.add_task(install)
 
 @task
 def install_small(c):
+    update_default_package_manager(c)
     create_basic_dir(c)
+
     bashrc(c)
     git.set_config(c)
     git.chmod_config(c)

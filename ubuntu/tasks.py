@@ -14,8 +14,8 @@ def add_source_list(c):
     c.run("sudo apt-add-repository https://cli.github.com/packages")
     # nodejs
     # https://github.com/nodesource/distributions
-    if not os.path.exists("/etc/apt/sources.list.d/nodesource.list"):
-        c.run("curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -")
+    # if not os.path.exists("/etc/apt/sources.list.d/nodesource.list"):
+    #     c.run("curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -")
 
 
 def add_source_list_desktop(c):

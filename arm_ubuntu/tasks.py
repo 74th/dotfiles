@@ -2,12 +2,8 @@ from typing import cast
 from invoke import task, Context
 
 ubuntu_pkgs = [
-    "direnv",
     "python3",
     "python3-pip",
-    "peco",
-    "nodejs",
-    "vim",
     "golang-go",
 ]
 
