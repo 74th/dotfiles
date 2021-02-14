@@ -217,6 +217,7 @@ def install(c):
     pyenv(c)
     bashrc(c)
     vimrc(c)
+    starship(c)
     screenrc(c)
     starship(c)
     git.set_config(c)
