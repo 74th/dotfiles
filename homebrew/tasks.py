@@ -1,3 +1,4 @@
+from typing import List
 from invoke import task
 import invoke
 import detect
@@ -40,6 +41,10 @@ def _list_packages(c):
         "ghq",
         "gh",
         "bat",
+        "fd",
+        "lsd",
+        "ripgrep",
+        "ripgrep-all",
     ]
 
     # develop
@@ -94,6 +99,8 @@ def setHome(c: invoke.Context) -> dict:
 
 @task(default=True)
 def default(c):
+    if c.run("which brew", warn=True).failed:
+        return
     update(c)
     install(c)
     unlink(c)
@@ -138,10 +145,12 @@ def show_dependency(c):
 
 @task
 def unlink(c):
+    installed = c.run("brew list").stdout.split("\n")
     pkgs = []
     if detect.linux:
         pkgs = [
             "openssl@1.1",
+            "python@3.9",
             "autoconf",
             "patchelf",
             "bzip2",
@@ -157,5 +166,6 @@ def unlink(c):
             "util-linux",
             "zlib",
         ]
+    unlink: List[str] = [pkg for pkg in pkgs if pkg in installed]
 
-    c.run("brew unlink " + " ".join(pkgs))
+    c.run("brew unlink " + " ".join(unlink))

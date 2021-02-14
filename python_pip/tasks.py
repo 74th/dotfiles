@@ -22,8 +22,9 @@ def list_small_packages():
     l = []
     l += [
         "invoke",
+        "pyyaml",
         "poetry",
-        "xonsh[full,ptk]",
+        "xonsh[full]",
         "xonsh-direnv",
         # "xontrib-readable-traceback",
     ]
@@ -42,25 +43,22 @@ def list_packages():
     l += [
         "black",
         "mypy",
-        "xonsh[full,ptk]",
         "xonsh-direnv",
     ]
     return l
 
 
 def list_packages_by_pipx():
-    l = [
-        "docker-compose",
-        "awscli",
-    ]
+    l = []
     return l
 
 
 @invoke.task
 def install_by_pipx(c):
     l = list_packages_by_pipx()
-    l_str = " ".join(l)
-    c.run(f"pipx install {l_str}")
+    if len(l) > 0:
+        l_str = " ".join(l)
+        c.run(f"pipx install {l_str}")
 
 
 @invoke.task

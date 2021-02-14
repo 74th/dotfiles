@@ -1,0 +1,21 @@
+#!/bin/python3
+import invoke
+
+_c = invoke.Context()
+
+
+def exists(cmd: str) -> bool:
+    return _c.run(f"which {cmd}", warn=True, echo=False, hide=True).ok
+
+
+cmds = {
+    "bat": ["bat *.sql", "cat代用"],
+    "lsd": ["lsd", "ls代用 lsd"],
+    "fd": ["fd .sql", "高速find"],
+    "rg": ["rg ERROR", "高速grep"],
+}
+
+
+for cmd, desc in cmds.items():
+    if exists(cmd):
+        print(f"\033[32m{desc[0]}\033[0m {desc[1]}")

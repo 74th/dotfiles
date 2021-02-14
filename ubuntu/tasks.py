@@ -14,8 +14,8 @@ def add_source_list(c):
     c.run("sudo apt-add-repository https://cli.github.com/packages")
     # nodejs
     # https://github.com/nodesource/distributions
-    if not os.path.exists("/etc/apt/sources.list.d/nodesource.list"):
-        c.run("curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -")
+    # if not os.path.exists("/etc/apt/sources.list.d/nodesource.list"):
+    #     c.run("curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -")
 
 
 def add_source_list_desktop(c):
@@ -61,17 +61,19 @@ def _list_packages() -> List[str]:
         "peco",
         "xclip",
         "bat",
+        "ripgrep",
         "docker-compose",
         "readline-common",
         "git",
         "bzip2",
-        "unrar",
+        "unar",
         "nodejs",
         "apt-transport-https",
         "protobuf-compiler",
         "curl",
         "vim",
         "direnv",
+        "cargo",
         "python-is-python3",
     ]
     return pkgs
@@ -81,8 +83,8 @@ def _list_packages() -> List[str]:
 def install(c):
     add_source_list(c)
     pkgs = _list_packages()
-    c.run("sudo apt update")
-    c.run("sudo apt install -y " + " ".join(pkgs))
+    c.run("sudo apt-get update")
+    c.run("sudo apt-get install -y " + " ".join(pkgs))
 
 
 def _list_desktop_packages() -> List[str]:
@@ -130,7 +132,7 @@ def zfs_auto_snapshot(c):
 def desktop_install(c):
     add_source_list_desktop(c)
     pkgs = _list_desktop_packages()
-    c.run("sudo apt update")
+    c.run("sudo apt-get update")
     c.run("ln -sf ~/dotfiles/ubuntu/.xbindkeysrc ~/.xbindkeysrc")
-    c.run("sudo apt install -y " + " ".join(pkgs))
+    c.run("sudo apt-get install -y " + " ".join(pkgs))
     c.run("ln -sf ~/dotfiles/ubuntu/_config/libinput-gestures.conf ~/.config/")

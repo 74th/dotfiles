@@ -2,7 +2,7 @@ from typing import cast
 import glob
 import sys
 import os
-from pathlib import Path
+from os import path
 import invoke
 from invoke import task, Collection
 import detect
@@ -14,6 +14,7 @@ import ubuntu.tasks as ubuntu
 import golang.tasks as go
 import python_pip.tasks as python_pip
 import vscode.tasks as vscode
+import rust.tasks as rust
 
 ns = Collection()
 ns.add_collection(ns.from_module(arm_ubuntu), "arm-ubuntu")
@@ -29,6 +30,7 @@ def get_home():
 
 
 HOME = get_home()
+GHQ_DIR = path.join(HOME, "ghq")
 
 
 def get_archi(c):
@@ -38,11 +40,10 @@ def get_archi(c):
 
 def get_hostname(c):
     c = cast(invoke.Context, c)
-    c.run()
     return c.run("hostname").stdout.strip()
 
 
-def update_package_manager(c: invoke.Context):
+def update_default_package_manager(c: invoke.Context):
     print("update package manager")
     if detect.linux:
         c.run("sudo apt-get update", echo=True)
@@ -61,19 +62,26 @@ def create_basic_dir(c):
         os.mkdir(d)
 
 
-def checkout_dotfiles(c: invoke.Context):
-    print("checkout and update dotfiles")
-    if c.run(f"test -e {HOME}/dotfiles", warn=True, hide="both").failed:
-        c.run("git clone https://github.com/74th/dotfiles.git", echo=True)
-        return
-    with c.cd(f"{HOME}/dotfiles"):
-        c.run("git pull")
+@task
+def pyenv(c):
+    c = cast(invoke.Context, c)
+    pyenv_dir = f"{HOME}/.pyenv"
+    if not path.exists(pyenv_dir):
+        c.run("ghq get github.com/pyenv/pyenv")
+        c.run(f"ln -s {GHQ_DIR}/github.com/pyenv/pyenv {pyenv_dir}")
+        if detect.linux:
+            c.run(
+                f"sudo apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev"
+            )
+
+
+ns.add_task(pyenv)
 
 
 @task
 def rehash_pyenv(c_):
     c: invoke.Context = c_
-    if c.run("test -e .pyenv", warn=True).ok:
+    if c.run("test -e pyenv", warn=True).ok:
         print("## rehash pyenv")
         c.run("pyenv rehash")
 
@@ -94,7 +102,6 @@ def bashrc(c):
 
 
 ns.add_task(bashrc)
-HOME
 
 
 @task
@@ -171,33 +178,55 @@ def screenrc(c):
 ns.add_task(screenrc)
 
 
+@task
+def starship(c):
+    c.run(f"ln -fs {HOME}/dotfiles/starship/starship.toml {HOME}/.config/")
+
+
+ns.add_task(starship)
+
+
 @task(default=True)
 def install(c):
-    update_package_manager(c)
+    update_default_package_manager(c)
     create_basic_dir(c)
+
     archi = get_archi(c)
     hostname = get_hostname(c)
-    if archi == "x86_64":
-        homebrew.default(c)
-    if archi == "aarch64":
+
+    # default package managers
+    if detect.linux and archi == "aarch64":
         arm_ubuntu.install(c)
     if detect.linux and ubuntu.is_ubuntu():
         ubuntu.install(c)
         if hostname in ["miriam", "kukrushka"]:
             ubuntu.desktop_install(c)
-    checkout_dotfiles(c)
-    rehash_pyenv(c)
-    bashrc(c)
-    git.set_config(c)
-    git.chmod_config(c)
+
+    # homebrew
+    homebrew.default(c)
+
+    # some package managers
+    python_pip.install(c)
+    rust.install(c)
     go.download_packages(c)
     if detect.linux and ubuntu.is_ubuntu():
         go.install_ubuntu(c)
+
+    # setting up
+    xonsh(c)
+    pyenv(c)
+    bashrc(c)
+    vimrc(c)
+    starship(c)
+    screenrc(c)
+    starship(c)
+    git.set_config(c)
+    git.chmod_config(c)
     if os == "macos":
         macos(c)
-    vimrc(c)
-    python_pip.install(c)
-    xonsh(c)
+
+    # fixing
+    rehash_pyenv(c)
 
 
 ns.add_task(install)
@@ -205,7 +234,9 @@ ns.add_task(install)
 
 @task
 def install_small(c):
+    update_default_package_manager(c)
     create_basic_dir(c)
+
     bashrc(c)
     git.set_config(c)
     git.chmod_config(c)
@@ -221,5 +252,6 @@ ns.add_collection(ns.from_module(homebrew), "homebrew")
 ns.add_collection(ns.from_module(git), "git")
 ns.add_collection(ns.from_module(ubuntu), "ubuntu")
 ns.add_collection(ns.from_module(go), "go")
+ns.add_collection(ns.from_module(rust), "rust")
 ns.add_collection(ns.from_module(python_pip), "pip")
 ns.add_collection(ns.from_module(vscode), "vscode")
