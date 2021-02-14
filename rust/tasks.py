@@ -25,7 +25,11 @@ def list_installed(c: invoke.Context) -> List[str]:
 
 @task
 def install(c):
+    if c.run("which cargo", warn=True).failed:
+        print("!! cargo not found !!")
+        return
     pkgs = list_packages()
     installed = list_installed(c)
     targets = set(pkgs) - set(installed)
-    c.run("cargo install " + " ".join(targets))
+    if len(targets) > 0:
+        c.run("cargo install " + " ".join(targets))

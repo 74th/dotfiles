@@ -73,6 +73,7 @@ def _list_packages() -> List[str]:
         "curl",
         "vim",
         "direnv",
+        "cargo",
         "python-is-python3",
     ]
     return pkgs

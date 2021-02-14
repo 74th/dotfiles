@@ -99,6 +99,8 @@ def setHome(c: invoke.Context) -> dict:
 
 @task(default=True)
 def default(c):
+    if c.run("which brew", warn=True).failed:
+        return
     update(c)
     install(c)
     unlink(c)
