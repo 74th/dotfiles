@@ -14,6 +14,7 @@ import ubuntu.tasks as ubuntu
 import golang.tasks as go
 import python_pip.tasks as python_pip
 import vscode.tasks as vscode
+import rust.tasks as rust
 
 ns = Collection()
 ns.add_collection(ns.from_module(arm_ubuntu), "arm-ubuntu")
@@ -245,5 +246,6 @@ ns.add_collection(ns.from_module(homebrew), "homebrew")
 ns.add_collection(ns.from_module(git), "git")
 ns.add_collection(ns.from_module(ubuntu), "ubuntu")
 ns.add_collection(ns.from_module(go), "go")
+ns.add_collection(ns.from_module(rust), "rust")
 ns.add_collection(ns.from_module(python_pip), "pip")
 ns.add_collection(ns.from_module(vscode), "vscode")
