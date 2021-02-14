@@ -1,3 +1,5 @@
+add_newline = true
+
 format = """
 $username\
 $hostname\
@@ -52,6 +54,12 @@ $battery\
 $time\
 $status\
 $character"""
+
+[line_break]
+disabled = true
+
+[character]
+success_symbol = ""
 
 [kubernetes]
 disabled = false

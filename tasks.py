@@ -186,6 +186,14 @@ def screenrc(c):
 ns.add_task(screenrc)
 
 
+@task
+def starship(c):
+    c.run(f"ln -fs {HOME}/dotfiles/starship/starship.toml {HOME}/.config/")
+
+
+ns.add_task(starship)
+
+
 @task(default=True)
 def install(c):
     update_package_manager(c)

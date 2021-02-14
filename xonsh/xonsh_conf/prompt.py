@@ -50,12 +50,20 @@ def current_kubernetes_context() -> str:
 def set_prompt():
 
     enable_starship = len(x_execer.eval("$(which starship)").strip()) > 0
-    if enable_starship:
-        x_env["PROMPT_FIELDS"]["starship"] = lambda: x_execer.eval("starship prompt")
-        x_env["PROMPT"] = "{starship}"
-        return
 
     prompt = "{RED}{exit}{WHITE}"
+
+    x_env["PROMPT_FIELDS"]["exit"] = (
+        lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
+    )
+
+    if enable_starship:
+        x_env["PROMPT_FIELDS"]["starship"] = lambda: x_execer.eval("starship prompt")
+        prompt += "{starship}"
+        prompt += "\n"
+        prompt += "{prompt_end}"
+        x_env["PROMPT"] = prompt
+        return
 
     # user
     if x_env.get("USER", "nnyn") == "root":
