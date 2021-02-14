@@ -83,8 +83,8 @@ def _list_packages() -> List[str]:
 def install(c):
     add_source_list(c)
     pkgs = _list_packages()
-    c.run("sudo apt update")
-    c.run("sudo apt install -y " + " ".join(pkgs))
+    c.run("sudo apt-get update")
+    c.run("sudo apt-get install -y " + " ".join(pkgs))
 
 
 def _list_desktop_packages() -> List[str]:
@@ -132,7 +132,7 @@ def zfs_auto_snapshot(c):
 def desktop_install(c):
     add_source_list_desktop(c)
     pkgs = _list_desktop_packages()
-    c.run("sudo apt update")
+    c.run("sudo apt-get update")
     c.run("ln -sf ~/dotfiles/ubuntu/.xbindkeysrc ~/.xbindkeysrc")
-    c.run("sudo apt install -y " + " ".join(pkgs))
+    c.run("sudo apt-get install -y " + " ".join(pkgs))
     c.run("ln -sf ~/dotfiles/ubuntu/_config/libinput-gestures.conf ~/.config/")
