@@ -147,6 +147,7 @@ def unlink(c):
             "bzip2",
             "libbsd",
             "m4",
+            "go",
             "ncurses",
             "node-build",
             "perl",
