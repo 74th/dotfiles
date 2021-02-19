@@ -19,7 +19,7 @@ def get_hostname():
 
 def has_path(cmd: str):
     return subprocess.run(
-        ["which", "-s"], stdout=subprocess.PIPE, text=True
+        ["which", "-s", cmd], stdout=subprocess.PIPE, text=True
     ).stdout.strip()
 
 

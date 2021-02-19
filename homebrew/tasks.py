@@ -5,6 +5,12 @@ import detect
 from invoke import Context
 
 
+def _is_arm_macos(c) -> bool:
+    if not detect.osx:
+        return false
+    return c.run("uname -p").stdout.count("arm") > 0
+
+
 def _list_minimal(c):
     pkgs = []
 
@@ -32,6 +38,8 @@ def _list_minimal_mac(c):
 def _list_packages(c):
     pkgs = []
 
+    is_arm_macos = _is_arm_macos(c)
+
     if detect.osx:
         pkgs += ["coreutils"]
 
@@ -44,14 +52,13 @@ def _list_packages(c):
         "fd",
         "lsd",
         "ripgrep",
-        "ripgrep-all",
     ]
 
     # develop
     pkgs += [
         "hub",
         "nodenv",
-        "golangci/tap/golangci-lint",
+        "golangci-lint",
     ]
 
     # cloud
@@ -63,30 +70,14 @@ def _list_packages(c):
             "gnuplot",
         ]
 
-    if detect.osx:
-        pkgs += ["homebrew/cask/docker"]
-
     # kubernetes
-    pkgs += [
-        "kubernetes-cli",
-        "kubectx",
-        "stern",
-    ]
+    if not is_arm_macos:
+        pkgs += [
+            "kubernetes-cli",
+            "kubectx",
+            "stern",
+        ]
 
-    if detect.osx:
-        # fonts
-        pkgs += [
-            "homebrew/cask-fonts/font-source-code-pro",
-            "homebrew/cask-fonts/font-source-han-code-jp",
-            "homebrew/cask-fonts/font-sourcecodepro-nerd-font",
-            "homebrew/cask-fonts/font-fira-code",
-            "homebrew/cask-fonts/font-hasklig",
-            "homebrew/cask/gimp",
-        ]
-        pkgs += [
-            # 小さいカレンダー
-            "homebrew/cask/day-o",
-        ]
     return pkgs
 
 
@@ -167,5 +158,7 @@ def unlink(c):
             "zlib",
         ]
     unlink: List[str] = [pkg for pkg in pkgs if pkg in installed]
+    if not unlink:
+        return
 
     c.run("brew unlink " + " ".join(unlink))
