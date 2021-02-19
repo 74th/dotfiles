@@ -4,9 +4,6 @@ from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode
 from .lib import HOSTNAME, HOME, run, silent_run
 import os
 
-from .lib import silent_run
-from .xonsh_builtin import x_execer
-
 kubeconf_ctime = 0.0
 kubeclient_current_context = ""
 
@@ -49,21 +46,7 @@ def current_kubernetes_context() -> str:
 
 def set_prompt():
 
-    enable_starship = len(x_execer.eval("$(which starship)").strip()) > 0
-
     prompt = "{RED}{exit}{WHITE}"
-
-    x_env["PROMPT_FIELDS"]["exit"] = (
-        lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
-    )
-
-    if enable_starship:
-        x_env["PROMPT_FIELDS"]["starship"] = lambda: x_execer.eval("starship prompt")
-        prompt += "{starship}"
-        prompt += "\n"
-        prompt += "{prompt_end}"
-        x_env["PROMPT"] = prompt
-        return
 
     # user
     if x_env.get("USER", "nnyn") == "root":
@@ -95,13 +78,8 @@ def set_prompt():
     prompt += "{hostname}"
     prompt += "{RESET}"
     prompt += " "
-
-    if enable_starship:
-        prompt += "{starship}"
-    else:
-        prompt += "{cwd} "
-        prompt += "{git} "
-
+    prompt += "{cwd} "
+    prompt += "{git} "
     prompt += "{BLUE}{kubernetes}{WHITE} "
     prompt += "\n"
     prompt += "{prompt_end}"
@@ -110,11 +88,7 @@ def set_prompt():
     x_env["PROMPT_FIELDS"]["exit"] = (
         lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
     )
+    from .gitstatus import gitstatus_prompt
 
-    if enable_starship:
-        x_env["PROMPT_FIELDS"]["starship"] = lambda: x_execer.eval("starship prompt")
-    else:
-        from .gitstatus import gitstatus_prompt
-
-        x_env["PROMPT_FIELDS"]["git"] = gitstatus_prompt
+    x_env["PROMPT_FIELDS"]["git"] = gitstatus_prompt
     x_env["PROMPT_FIELDS"]["kubernetes"] = current_kubernetes_context
