@@ -1,6 +1,12 @@
 #!/usr/bin/python3
-# config の作成
-# gcloud config configurations create some_name
+"""
+gcloud コマンドの設定をスイッチする
+
+config の作成
+gcloud config configurations create some_name
+gcloud config set project some_project
+"""
+
 import json
 import tempfile
 import sys
