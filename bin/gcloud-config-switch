@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+# config の作成
+# gcloud config configurations create some_name
+import json
+import tempfile
+import sys
+import invoke
+
+code = "code"
+c = invoke.Context()
+configs = json.loads(
+    c.run("gcloud config configurations list --format json", hide=True).stdout
+)
+with tempfile.NamedTemporaryFile() as tmp:
+    with open(tmp.name, "w") as f:
+        for config in configs:
+            is_active = "*" if config["is_active"] else " "
+            f.write(f"{config['name']} {is_active}\n")
+    g = c.run(f"peco {tmp.name}").stdout.strip()
+
+if not g:
+    sys.exit(1)
+g = c.run(f"gcloud config configurations activate {g}").stdout.strip()
