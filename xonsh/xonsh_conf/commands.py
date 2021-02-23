@@ -1,4 +1,6 @@
 import os
+from typing import List, cast
+import detect
 from .lib import run, silent_run, HOSTNAME
 from .xonsh_builtin import x_env, x_aliases
 
@@ -76,3 +78,15 @@ def load_commands():
         x_env["SSH_AUTH_SOCK"] = sock
 
     x_aliases["ssh-agent-up"] = up_ssh_agent
+
+    def deactivate_homebrew():
+        paths = cast(List[str], x_env["PATH"])
+        for p in list(paths):
+            if p.count("homebrew"):
+                paths.remove(p)
+            elif p.count("linuxbrew"):
+                paths.remove(p)
+            if detect.mac and p == "/usr/local/bin":
+                paths.remove(p)
+
+    x_aliases["homebrew-deactivate"] = deactivate_homebrew
