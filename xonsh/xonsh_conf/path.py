@@ -63,6 +63,8 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add(home + "/.nodenv/shims")
     add(home + "/.tfenv/bin")
     add(home + "/.cargo/bin")
+    add(home + "/.asdf/bin")
+    add(home + "/.asdf/shims")
     add(home + "/go/bin")
     add(home + "/go/src/github.com/uber/go-torch/FlameGraph")
     add(home + "/Android/Sdk/platform-tools")

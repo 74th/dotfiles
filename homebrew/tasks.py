@@ -137,9 +137,11 @@ def show_dependency(c):
 @task
 def unlink(c):
     installed = c.run("brew list").stdout.split("\n")
-    pkgs = []
+    pkgs = [
+        "go",
+    ]
     if detect.linux:
-        pkgs = [
+        pkgs += [
             "openssl@1.1",
             "python@3.9",
             "autoconf",
@@ -147,7 +149,6 @@ def unlink(c):
             "bzip2",
             "libbsd",
             "m4",
-            "go",
             "ncurses",
             "node-build",
             "perl",
