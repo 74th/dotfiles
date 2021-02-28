@@ -13,6 +13,7 @@ cmds = {
     "lsd": ["lsd", "ls代用 lsd"],
     "fd": ["fd .sql", "高速find"],
     "rg": ["rg ERROR", "高速grep"],
+    "fkill": ["fkill", "インタラクティブなkill"],
 }
 
 
