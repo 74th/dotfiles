@@ -14,6 +14,9 @@ cmds = {
     "fd": ["fd .sql", "高速find"],
     "rg": ["rg ERROR", "高速grep"],
     "fkill": ["fkill", "インタラクティブなkill"],
+    "k": ["k get all", "kubectlのalias"],
+    "kns": ["kns", "kubens peco"],
+    "kctx": ["kctx", "kubectx peco"],
 }
 
 

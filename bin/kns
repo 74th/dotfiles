@@ -1,0 +1,2 @@
+#!/bin/bash
+kubens $(kubens | peco)
