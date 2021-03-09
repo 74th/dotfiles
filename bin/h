@@ -1,11 +1,9 @@
 #!/usr/bin/python3
-import invoke
-
-_c = invoke.Context()
+import subprocess
 
 
 def exists(cmd: str) -> bool:
-    return _c.run(f"which {cmd}", warn=True, echo=False, hide=True).ok
+    return subprocess.run(["which" ,cmd], shell=False, stdout=subprocess.DEVNULL).returncode == 0
 
 
 cmds = {
