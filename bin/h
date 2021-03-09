@@ -22,4 +22,4 @@ cmds = {
 
 for cmd, desc in cmds.items():
     if exists(cmd):
-        print(f"\033[32m{desc[0]}\033[0m {desc[1]}")
+        print(f"\033[32m{desc[0]}\033[0m ... {desc[1]}")
