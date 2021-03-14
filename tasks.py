@@ -13,6 +13,8 @@ import golang.tasks as go
 import python_pip.tasks as python_pip
 import vscode.tasks as vscode
 import tools.tasks as tools
+import krew.tasks as krew
+import rust.tasks as rust
 
 ns = Collection()
 ns.add_collection(ns.from_module(arm_ubuntu), "arm-ubuntu")
@@ -208,7 +210,8 @@ def install(c):
     tools.install(c)
     go.download_packages(c)
     if detect.linux and ubuntu.is_ubuntu():
-        go.install_ubuntu(c)
+        go.install_go(c)
+    krew.install(c)
 
     # setting up
     xonsh(c)
@@ -217,7 +220,7 @@ def install(c):
     vimrc(c)
     starship(c)
     screenrc(c)
-    starship(c)
+    # starship(c)
     git.set_config(c)
     git.chmod_config(c)
     if os == "macos":
@@ -253,3 +256,5 @@ ns.add_collection(ns.from_module(go), "go")
 ns.add_collection(ns.from_module(python_pip), "pip")
 ns.add_collection(ns.from_module(tools), "tools")
 ns.add_collection(ns.from_module(vscode), "vscode")
+ns.add_collection(ns.from_module(krew), "krew")
+ns.add_collection(ns.from_module(rust), "rust")

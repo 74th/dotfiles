@@ -62,6 +62,7 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add(home + "/.pyenv/bin")
     add(home + "/.nodenv/shims")
     add(home + "/.tfenv/bin")
+    add(home + "/.krew/bin")
     add(home + "/.cargo/bin")
     add(home + "/.asdf/bin")
     add(home + "/.asdf/shims")
