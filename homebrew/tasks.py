@@ -48,10 +48,7 @@ def _list_packages(c):
         "sqlite",
         "ghq",
         "gh",
-        "bat",
         "fd",
-        "lsd",
-        "ripgrep",
     ]
 
     # develop
