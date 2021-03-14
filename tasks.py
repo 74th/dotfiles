@@ -1,6 +1,4 @@
 from typing import cast
-import glob
-import sys
 import os
 from os import path
 import invoke
@@ -14,7 +12,7 @@ import ubuntu.tasks as ubuntu
 import golang.tasks as go
 import python_pip.tasks as python_pip
 import vscode.tasks as vscode
-import rust.tasks as rust
+import tools.tasks as tools
 
 ns = Collection()
 ns.add_collection(ns.from_module(arm_ubuntu), "arm-ubuntu")
@@ -207,7 +205,7 @@ def install(c):
 
     # some package managers
     python_pip.install(c)
-    rust.install(c)
+    tools.install(c)
     go.download_packages(c)
     if detect.linux and ubuntu.is_ubuntu():
         go.install_ubuntu(c)
@@ -252,6 +250,6 @@ ns.add_collection(ns.from_module(homebrew), "homebrew")
 ns.add_collection(ns.from_module(git), "git")
 ns.add_collection(ns.from_module(ubuntu), "ubuntu")
 ns.add_collection(ns.from_module(go), "go")
-ns.add_collection(ns.from_module(rust), "rust")
 ns.add_collection(ns.from_module(python_pip), "pip")
+ns.add_collection(ns.from_module(tools), "tools")
 ns.add_collection(ns.from_module(vscode), "vscode")

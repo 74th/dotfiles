@@ -17,6 +17,11 @@
   "python": {
     "prefix": "python",
     "body": ["[*.py]", "indent_style = space", "indent_size = 4"],
-    "description": "*.py"
+    "description": ".py"
+  },
+  "typescript": {
+    "prefix": "typescript",
+    "body": ["[*.{js,ts,tsc}]", "indent_style = space", "indent_size = 4"],
+    "description": ".ts, .tsx, .js"
   }
 }

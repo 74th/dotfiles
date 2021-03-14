@@ -26,5 +26,20 @@
       "    return \"'\" + s.replace(\"'\",\"\\\\'\") + \"'\""
     ],
     "description": "invoke escape command space"
+  },
+  "datetime_jst": {
+    "prefix": "datetime_jst",
+    "body": [
+      "import datetime",
+      "JST = datetime.timezone(datetime.timedelta(hours=+9), 'JST')"
+    ]
+  },
+  "yyymmdd": {
+    "prefix": "yyyymmdd",
+    "body": "datetime.datetime.now(tz=JST).strftime(\"%Y%m%d\")"
+  },
+  "yyymmddhhmmss": {
+    "prefix": "yyyymmddhhmmss",
+    "body": "datetime.datetime.now(tz=JST).strftime(\"%Y%m%d%H%M%S\")"
   }
 }
