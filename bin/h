@@ -3,7 +3,12 @@ import subprocess
 
 
 def exists(cmd: str) -> bool:
-    return subprocess.run(["which" ,cmd], shell=False, stdout=subprocess.DEVNULL).returncode == 0
+    return (
+        subprocess.run(
+            ["which", cmd], shell=False, stdout=subprocess.DEVNULL
+        ).returncode
+        == 0
+    )
 
 
 cmds = {
@@ -15,6 +20,7 @@ cmds = {
     "k": ["k get all", "kubectlのalias"],
     "kns": ["kns", "kubens peco"],
     "kctx": ["kctx", "kubectx peco"],
+    "spython": ["spython", "use system python"],
 }
 
 

@@ -1,2 +1,3 @@
 #!/bin/sh
+set -xe
 kubectl get pods --sort-by=.metadata.creationTimestamp

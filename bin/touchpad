@@ -1,3 +1,0 @@
-#!/bin/bash
-set -xe
-nohup libinput-gestures-setup restart >/dev/null 2>&1
