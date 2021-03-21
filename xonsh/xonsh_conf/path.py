@@ -77,6 +77,7 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add(home + "/bin")
     add(home + "/dotfiles/bin")
     add(home + "/ghq/github.com/74th/mycheatsheets/bin")
+    add(home + "/ghq/github.com/74th/mycheatsheets/bin/" + hostname)
 
     if system == "Linux":
         add(home + "/dotfiles/bin/linux")
