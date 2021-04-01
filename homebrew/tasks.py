@@ -16,8 +16,6 @@ def _list_minimal(c):
 
     pkgs += [
         "peco",
-        # alternate cat
-        "bat",
     ]
 
     return pkgs
