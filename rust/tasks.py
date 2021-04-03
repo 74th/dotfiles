@@ -6,7 +6,7 @@ import invoke
 def list_packages() -> List[str]:
     pkg = [
         "lsd",
-        "starship",
+        "bat",
     ]
     return pkg
 
