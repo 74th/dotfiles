@@ -7,6 +7,7 @@ def list_packages() -> List[str]:
     pkg = [
         "lsd",
         "bat",
+        "ripgrep",
     ]
     return pkg
 
@@ -23,7 +24,7 @@ def list_installed(c: invoke.Context) -> List[str]:
     return installed
 
 
-@task
+@task(default=True)
 def install(c):
     if c.run("which cargo", warn=True).failed:
         print("!! cargo not found !!")

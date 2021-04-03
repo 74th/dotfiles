@@ -30,6 +30,9 @@ def set_config(c):
     # master push時の警告
     c.run('git config --global init.templatedir ~/dotfiles/git/template/', env=env)
 
+    # master push時の警告
+    c.run('git config --global init.defaultBranch main', env=env)
+
     # 人間らしいgitコマンド
     c.run('git config --global alias.branches "branch -a"', env=env)
     c.run('git config --global alias.addline "add -p"', env=env)

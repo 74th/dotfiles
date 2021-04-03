@@ -1,0 +1,32 @@
+{
+  "tsconfig.base.json": {
+    "prefix": "tsconfig-json-base",
+    "body": [
+      "{",
+      "  \"compilerOptions\": {",
+      "    \"target\": \"ES2019\",",
+      "    \"module\": \"commonjs\",",
+      "    \"strict\": true,",
+      "    \"sourceMap\": true,",
+      "    \"esModuleInterop\": true,",
+      "    \"skipLibCheck\": true,",
+      "    \"forceConsistentCasingInFileNames\": true,",
+      "    \"declaration\": true,",
+      "    \"outDir\": \"./build\"",
+      "  },",
+      "  \"include\": [\"./src/**/*\"]",
+      "}"
+    ],
+    "description": "tsconfig.json for base"
+  },
+  "tsconfig.develop.json": {
+    "prefix": "tsconfig-json-develop",
+    "body": [
+      "{",
+      "  \"extends\": \"./tsconfig.base.json\",",
+      "  \"include\": [\"./src/**/*\", \"./test/**/*\"]",
+      "}"
+    ],
+    "description": "tsconfig.json for base"
+  }
+}

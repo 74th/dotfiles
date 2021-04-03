@@ -16,8 +16,6 @@ def _list_minimal(c):
 
     pkgs += [
         "peco",
-        # alternate cat
-        "bat",
     ]
 
     return pkgs
@@ -48,10 +46,7 @@ def _list_packages(c):
         "sqlite",
         "ghq",
         "gh",
-        "bat",
         "fd",
-        "lsd",
-        "ripgrep",
     ]
 
     # develop

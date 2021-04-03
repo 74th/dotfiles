@@ -1,0 +1,4 @@
+#!/bin/sh
+set -xe
+echo "PATH_add .venv/bin/" > .envrc
+direnv allow

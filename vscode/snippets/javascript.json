@@ -1,19 +1,78 @@
 {
-	"NodeJS ファイル書き込み":{
-		"prefix": "ファイル書き込み",
-		"body":[
-			"var fs = require(\"fs\");",
-			"fs.writeFile(\"$1\", $2);"
-		],
-		"description": "ファイルを書き込む"
-	},
-	"NodeJS ファイル読み込み":{
-		"prefix": "ファイル読み込み",
-		"body":[
-			"var fs = require(\"fs\");",
-			"fs.readFile(\"$1\", function(err, text) {",
-			"    text.toString();",
-			"});"
-		]
-	}
+  ".webpack.config.js": {
+    "prefix": "webpack-config-js",
+    "description": "webpack build with Type Script",
+    "body": [
+      "const path = require(\"path\");",
+      "",
+      "let exclude = [path.resolve(__dirname, \"public\")];",
+      "",
+      "module.exports = {",
+      "  entry: \"./index.tsx\",",
+      "  mode: \"development\",",
+      "  devtool: \"source-map\",",
+      "  resolve: {",
+      "    extensions: [\".tsx\", \".ts\", \".js\"],",
+      "  },",
+      "  module: {",
+      "    rules: [",
+      "      {",
+      "        test: /\\.tsx?$/,",
+      "        loader: \"ts-loader\",",
+      "        exclude,",
+      "      },",
+      "      {",
+      "        enforce: \"pre\",",
+      "        test: /\\.js$/,",
+      "        loader: \"source-map-loader\",",
+      "        exclude,",
+      "      },",
+      "      {",
+      "              test: /\\.css$/,",
+      "              use: ['style-loader', 'css-loader'],",
+      "          },",
+      "    ],",
+      "  },",
+      "  devServer: {",
+      "    contentBase: \"../public/\",",
+      "  },",
+      "  output: {",
+      "    filename: \"index.js\",",
+      "    path: path.resolve(__dirname, \"../public/js\"),",
+      "  },",
+      "};"
+    ]
+  },
+  ".prettier.js": {
+    "description": ".prettierrc.js",
+    "prefix": "prettier-js",
+    "body": [
+      "module.exports = {",
+      "    semi: true,",
+      "    trailingComma: 'all',",
+      "    singleQuote: true,",
+      "    printWidth: 120,",
+      "};"
+    ]
+  },
+  ".eslitrc.js": {
+    "prefix": "eslintrc-js",
+    "descritpion": ".eslintrc.js",
+    "body": [
+      "module.exports = {",
+      "    parser: '@typescript-eslint/parser',",
+      "    parserOptions: {",
+      "        ecmaVersion: 2020,",
+      "        sourceType: 'module',",
+      "    },",
+      "    extends: [",
+      "        'plugin:react/recommended',",
+      "        'plugin:@typescript-eslint/recommended',",
+      "        'prettier/@typescript-eslint',",
+      "        'plugin:prettier/recommended',",
+      "    ],",
+      "    rules: {},",
+      "};"
+    ]
+  }
 }

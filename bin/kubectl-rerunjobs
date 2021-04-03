@@ -1,0 +1,75 @@
+#!/usr/bin/python
+import datetime
+import tempfile
+import sys
+import argparse
+from typing import List, cast
+import invoke
+import json
+
+SUFFIX = "-r"
+
+JST = datetime.timezone(datetime.timedelta(hours=+9), "JST")
+
+
+def create_rerun_manifest(manifest: dict) -> dict:
+    name = cast(str, manifest["metadata"]["name"])
+    suffix = name.find(SUFFIX)
+    print(suffix, name.find(SUFFIX))
+    if suffix > 1:
+        name = name[:suffix]
+    manifest["metadata"] = {
+        "name": name
+        + SUFFIX
+        + str(datetime.datetime.now(tz=JST).strftime("%Y%m%d%H%M"))
+    }
+    if len(manifest["metadata"]["name"]) > 63:
+        manifest["metadata"]["name"] = manifest["metadata"]["name"][:63]
+
+    del manifest["status"]
+    if "selector" in manifest["spec"]:
+        del manifest["spec"]["selector"]
+    if (
+        "metadata" in manifest["spec"]["template"]
+        and "labels" in manifest["spec"]["template"]["metadata"]
+        and "controller-uid" in manifest["spec"]["template"]["metadata"]["labels"]
+    ):
+        del manifest["spec"]["template"]["metadata"]["labels"]["controller-uid"]
+    if (
+        "metadata" in manifest["spec"]["template"]
+        and "labels" in manifest["spec"]["template"]["metadata"]
+        and "job-name" in manifest["spec"]["template"]["metadata"]["labels"]
+    ):
+        del manifest["spec"]["template"]["metadata"]["labels"]["job-name"]
+    return manifest
+
+
+parser = argparse.ArgumentParser(description="")
+parser.add_argument("jobs", type=str, help="job", nargs="+")
+parser.add_argument("-n", type=str, help="namespace")
+parser.add_argument("--context", type=str, help="context")
+args = parser.parse_args()
+
+c = invoke.Context()
+job_names: List[str] = args.jobs
+r = c.run(f"kubectl get -o json jobs " + " ".join(job_names), warn=True, hide=True)
+if r.failed:
+    sys.exit(1)
+
+manifests: List[dict] = []
+j = json.loads(r.stdout)
+if j["kind"] == "List":
+    manifests = j["items"]
+else:
+    manifests = [j]
+
+targets = {
+    "kind": "List",
+    "apiVersion": "v1",
+    "items": list(map(create_rerun_manifest, manifests)),
+}
+
+with tempfile.NamedTemporaryFile(suffix=".csv") as tmp:
+    with open(tmp.name, "w") as f:
+        json.dump(targets, f)
+    c.run(f"kubectl apply -f {tmp.name}")

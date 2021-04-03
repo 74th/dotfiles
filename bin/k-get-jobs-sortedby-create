@@ -1,2 +1,3 @@
 #!/bin/sh
+set -xe
 kubectl get jobs --sort-by=.metadata.creationTimestamp

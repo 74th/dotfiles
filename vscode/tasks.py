@@ -34,3 +34,9 @@ def backup(c, insider=False):
                     w.write(l)
 
     c.run(f"{cmd} --list-extensions > {b}/list-extensions.txt")
+
+
+@task
+def upload_markdown_style(c):
+    css_path = os.path.join(os.path.dirname(__file__), "markdown-style.css")
+    c.run(f"gsutil cp {css_path} gs://74th-open/markdown-style.css")

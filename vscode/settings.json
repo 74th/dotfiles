@@ -1,9 +1,10 @@
 {
-  "workbench.colorTheme": "monokai-charcoal (white)",
   "workbench.iconTheme": "high-contrast-icons-dark",
   "editor.fontFamily": "Liga InputMono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
+  "terminal.integrated.fontFamily": "LigaInputMono Nerd Font Mono,Liga InputMono,Hasklig,Hasklig Light,SourceCodePro,Source Code Pro,SourceHanCodeJP,Source Han Code JP,TakaoGothic",
   "editor.fontLigatures": true,
   "editor.fontWeight": "400",
+  "editor.letterSpacing": 0.2,
   "editor.fontSize": 13,
   "window.zoomLevel": 0,
   // カーソル
@@ -16,6 +17,7 @@
   // tab等の表示
   "editor.tabSize": 4,
   "editor.renderControlCharacters": true,
+  "workbench.editor.wrapTabs": true,
   // window
   "window.title": "${rootPath}",
   "window.titleBarStyle": "custom",
@@ -32,10 +34,10 @@
   "git.branchSortOrder": "committerdate",
   "scm.defaultViewMode": "tree",
   // 検索の挙動
-  "search.smartCase": true,
   "editor.find.autoFindInSelection": "multiline",
-  "search.searchOnType": true,
   // auto format
+  "search.smartCase": true,
+  "search.searchOnType": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
   "editor.formatOnSave": true,
@@ -53,9 +55,9 @@
   "files.autoGuessEncoding": false,
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": true,
-  "files.autoSave": "afterDelay",
   // terminal
   "terminal.integrated.shell.osx": "/usr/local/bin/bash",
+  "terminal.integrated.shellArgs.osx": [],
   "terminal.integrated.shell.linux": "/bin/bash",
   "terminal.integrated.fontSize": 14,
   "shellLauncher.shells.osx": [
@@ -82,16 +84,15 @@
   // editor
   "editor.suggestSelection": "first",
   "editor.copyWithSyntaxHighlighting": false,
-  "editor.renderLineHighlight": "all",
   "editor.renderWhitespace": "all",
   "editor.folding": false,
   "editor.minimap.enabled": false,
   "editor.codeLens": true,
   "breadcrumbs.enabled": true,
-  "problems.showCurrentInStatus": true,
-  // debug
+  // debug console
   "debug.console.fontSize": 14,
   "debug.openExplorerOnEnd": true,
+  "debug.showInStatusBar": "always",
   // その他
   "extensions.autoCheckUpdates": true,
   "extensions.autoUpdate": true,
@@ -145,7 +146,8 @@
   "settingsSync.ignoredSettings": [
     "python.pythonPath",
     "vscode-neovim.neovimPath",
-    "vscode-neovim.neovimExecutablePaths.darwin"
+    "vscode-neovim.neovimExecutablePaths.darwin",
+    "terminal.integrated.shell.osx"
   ],
   // Remote Development -------------
   "remote.SSH.defaultExtensions": [
@@ -194,6 +196,10 @@
   },
   "vscode-neovim.neovimExecutablePaths.linux": "/home/nnyn/bin/nvim",
   "vscode-neovim.neovimExecutablePaths.darwin": "/Users/nnyn/OSS/nvim-osx64/bin/nvim",
+  "vscode-neovim.useCtrlKeysForInsertMode": false,
+  "vscode-neovim.useCtrlKeysForNormalMode": false,
+
+  "diffEditor.codeLens": false,
   "helium-icon-theme.folders.theme": "classic",
   // cSpell -----------------------
   "cSpell.language": "en,en-US",
@@ -314,9 +320,12 @@
   // 一旦 Insider は OFF
   "python.insidersChannel": "off",
   "python.showStartPage": false,
-  "jupyter.sendSelectionToInteractiveWindow": true,
-  "jupyter.askForKernelRestart": false,
-  // java -----------------------------
+  //
+  "python.testing.promptToConfigure": false,
+  "python.disableInstallationCheck": true,
+  // yaml -----------------------------
+  "yaml.validate": false,
+  "yaml.customTags": [],
   "[yaml]": {
     "editor.tabSize": 2,
     "editor.autoIndent": "advanced",
@@ -328,18 +337,20 @@
     "editor.wordWrap": "on",
     "editor.quickSuggestions": false,
     "editor.insertSpaces": true,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "markdown.styles": [
+    "https://storage.googleapis.com/74th-open/markdown-style.css"
+  ],
+
   // 雑 --------------------------------
-  "yaml.validate": false,
   "[cuda]": {
     "editor.formatOnSave": true
   },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "hediet.vscode-drawio.theme": "dark",
   // よく変わるやつ
   "diffEditor.ignoreTrimWhitespace": false,
   "gitlens.gitCommands.closeOnFocusOut": true,
@@ -361,7 +372,8 @@
       "comments": "#C0C0C0"
     },
     "[Deep Ocean Theme]": {
-      "comments": "#C0C0C0"
+      "comments": "#C0C0C0",
+      "sideBar.foreground": "#C0C0C0"
     }
   },
   "workbench.colorCustomizations": {
@@ -372,6 +384,8 @@
       "sideBar.foreground": "#C0Cww0C0"
     }
   },
+  "editor.renderLineHighlight": "all",
+  "problems.showCurrentInStatus": true,
   "remote.SSH.enableAgentForwarding": false,
   "liveshare.showInStatusBar": "whileCollaborating",
   "liveshare.allowGuestTaskControl": true,
@@ -381,5 +395,18 @@
   "liveshare.guestApprovalRequired": true,
   "liveshare.publishWorkspaceInfo": true,
   "liveshare.diagnosticLogging": true,
-  "codespaces.accountProvider": "Microsoft"
+  // "files.autoSave": "afterDelay",
+  "hediet.vscode-drawio.theme": "automatic",
+  "workbench.colorTheme": "monokai-charcoal",
+  "jupyter.askForKernelRestart": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.editorAssociations": [
+    {
+      "viewType": "jupyter.notebook.ipynb",
+      "filenamePattern": "*.ipynb"
+    }
+  ],
+  "jupyter.sendSelectionToInteractiveWindow": true,
+  "vscode-edge-devtools.headless": true,
+  "jupyter.interactiveWindowMode": "perFile"
 }
