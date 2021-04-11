@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 import os
-import subprocess
 from typing import List, Optional, Tuple
-import sys
 
 
 def ssh_agent() -> Optional[Tuple[str, str]]:
