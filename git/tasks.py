@@ -57,6 +57,11 @@ def set_config(c):
     )
     c.run('git config --global alias.deleteuntrackedfile "logi clean -f"', env=env)
 
+    # めんどくなってきた
+    c.run('git config --global alias.c "checkout"', env=env)
+    c.run('git config --global alias.b "branch"', env=env)
+    c.run('git config --global alias.p "push"', env=env)
+
     # やっぱり楽なコマンドが良い
     c.run('git config --global alias.st "status"', env=env)
 
