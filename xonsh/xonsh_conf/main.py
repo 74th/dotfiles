@@ -203,3 +203,5 @@ def load():
     # detect_user_docker_for_xonsh()
 
     add_bash_competion()
+
+    x_env["NNYN_DOTFILES_LOADED"] = "1"
