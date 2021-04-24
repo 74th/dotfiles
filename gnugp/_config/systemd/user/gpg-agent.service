@@ -1,9 +1,0 @@
-[Unit]
-Description=GnuPG agent
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/gpg-agent
-
-[Install]
-WantedBy=default.target
