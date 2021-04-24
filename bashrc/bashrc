@@ -23,26 +23,29 @@ if type direnv >/dev/null 2>&1; then
     eval "$(direnv hook bash)"
 fi
 
+# GPG_TTY
+export GPG_TTY=$(tty)
+
 if [ "$PS1" != "" ]; then
     # use as prompt shell
-    
+
     if type python3 >/dev/null 2>&1; then
         eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/aliases.py)"
     fi
     alias x=xonsh
-    
+
     export EDITOR=vi
     export CLICOLOR=1
     source ~/dotfiles/bashrc/completion/git-prompt.sh
     source ~/dotfiles/bashrc/completion/git-completion.bash
     source ~/dotfiles/bashrc/completion/git-flow-completion.bash
-    
+
     function __show_exitcode() {
         _EXITCODE=$?
         if [ $_EXITCODE -ne 0 ]; then echo -e "\e[31m$_EXITCODE\e[m "; fi
     }
     PS1='$(__show_exitcode)'
-    
+
     if [ $OSNAME = "Mac" ]; then
         col=37
     else
@@ -54,18 +57,18 @@ if [ "$PS1" != "" ]; then
         PS1=$PS1'\[\e[${col}m\]\u'
     fi
     PS1=$PS1'@\H\[\e[33m\]\[\e[m\] \w'
-    
+
     GIT_PS1_SHOWDIRTYSTATE=true
     GIT_PS1_SHOWUNTRACKEDFILES=true
     GIT_PS1_SHOWUPSTREAM=auto
     PS1=$PS1'\[\e[33m$(__git_ps1)\e[m\]'
-    
+
     # 非表示の文字は\[ \]で囲うこと
     if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
         PS1=$PS1'\[\033k`expr $HOSTNAME : "\(...\).*"`@\W\033\\\]'
     fi
     PS1=$PS1'\n\$'
-    
+
     function cb() {
         if [ "$HOSTNAME" == "violet-gopher" ]; then
             $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/work)
@@ -76,32 +79,32 @@ if [ "$PS1" != "" ]; then
     function db() {
         $(peco $HOME/ghq/github.com/74th/mycheatsheets/DirBookmark/$HOSTNAME)
     }
-    
+
     function cdg() {
         cd $(ghq list --full-path | peco)
     }
-    
+
     function ssh-gateway() {
         killall ssh-agent; true
         eval `ssh-agent`
         ssh-add ~/.ssh/bastion
         ssh -A gateway
     }
-    
+
     set -o vi
-    
+
     #stty werase undef
     bind '\C-w:unix-filename-rubout'
-    
+
     # vimのエラー対策
     # E437: terminal capability "cm" required
     if [ "$TERM" == 'screen-bce' ]; then
         export TERM=screen
     fi
-    
+
     ## Macで.ssh/id_rsaの鍵をkeychainから使うようにする
     #if [ $OSNAME = "Mac" ];then
     #    ssh-add -k ~/.ssh/id_rsa 2>/dev/null
     #fi
-    
+
 fi
