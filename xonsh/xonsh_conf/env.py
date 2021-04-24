@@ -1,6 +1,11 @@
 #!/usr/bin/python3
 import os
+import subprocess
 from typing import List, Optional, Tuple
+
+
+def current_tty():
+    return subprocess.run(["tty"], stdout=subprocess.PIPE, text=True).stdout.strip()
 
 
 def ssh_agent() -> Optional[Tuple[str, str]]:
@@ -12,11 +17,16 @@ def ssh_agent() -> Optional[Tuple[str, str]]:
     return None
 
 
+def gpg_agent() -> Tuple[str, str]:
+    return "GPG_TTY", current_tty()
+
+
 def build_envs() -> List[Tuple[str, str]]:
     envs: List[Tuple[str, str]] = []
     env = ssh_agent()
     if env:
         envs.append(env)
+    envs.append(gpg_agent())
     return envs
 
 
