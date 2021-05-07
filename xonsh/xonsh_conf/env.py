@@ -4,6 +4,9 @@ import subprocess
 from typing import List, Optional, Tuple
 
 
+home = os.environ.get("HOME", "/home/nnyn")
+
+
 def current_tty():
     return subprocess.run(["tty"], stdout=subprocess.PIPE, text=True).stdout.strip()
 
@@ -17,6 +20,23 @@ def ssh_agent() -> Optional[Tuple[str, str]]:
     return None
 
 
+def pico_sdk_paths() -> List[Tuple[str, str]]:
+    paths: List[Tuple[str, str]] = []
+    p = f"{home}/pico/pico-sdk"
+    if os.path.exists(p):
+        paths.append(("PICO_SDK_PATH", p))
+    p = f"{home}/pico/pico-examples"
+    if os.path.exists(p):
+        paths.append(("PICO_EXAMPLES_PATH", p))
+    p = f"{home}/pico/pico-extras"
+    if os.path.exists(p):
+        paths.append(("PICO_EXTRAS_PATH", p))
+    p = f"{home}/pico/pico-playground"
+    if os.path.exists(p):
+        paths.append(("PICO_PLAYGROUND_PATH", p))
+    return paths
+
+
 def gpg_agent() -> Tuple[str, str]:
     return "GPG_TTY", current_tty()
 
@@ -26,6 +46,7 @@ def build_envs() -> List[Tuple[str, str]]:
     env = ssh_agent()
     if env:
         envs.append(env)
+    envs += pico_sdk_paths()
     envs.append(gpg_agent())
     return envs
 
