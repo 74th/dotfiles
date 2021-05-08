@@ -1,1 +1,1 @@
-sudo systemctl restart gdm
+sudo systemctl restart systemd-logind
