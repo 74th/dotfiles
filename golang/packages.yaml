@@ -1,3 +1,2 @@
 packages:
-  - github.com/jessevdk/go-assets
-  - github.com/jessevdk/go-assets-builder
+  - sigs.k8s.io/kustomize/kustomize@latest

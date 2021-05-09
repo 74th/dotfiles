@@ -17,7 +17,7 @@ def download_packages(c):
         packages = yaml.load(f)["packages"]
 
     for package in packages:
-        c.run("go get -u " + package)
+        c.run("go install " + package)
 
 
 @task
