@@ -1,5 +1,4 @@
 #!/usr/local/bin/python3
-import os
 import subprocess
 
 from typing import Dict, List
@@ -14,7 +13,7 @@ def exists_command(cmd: str):
     return r.returncode == 0
 
 
-def get_aliases() -> Dict[str, List[str]]:
+def get_aliases(human: bool = False) -> Dict[str, List[str]]:
     a: Dict[str, List[str]] = {}
     a["gt"] = ["git", "status"]
     a["commit"] = ["git", "commit", "-v"]
@@ -41,6 +40,8 @@ def get_aliases() -> Dict[str, List[str]]:
         a["la"] = ["ls", "-al"]
         a["ll"] = ["ls", "-al"]
         a["lt"] = ["ls", "-alt"]
+    if human:
+        a["rm"] = ["trash"]
 
     # java
     # a["javac"] = ["javac", "-J-Dfile.encoding=utf-8"]

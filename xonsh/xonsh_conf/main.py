@@ -55,7 +55,7 @@ def __add_paths():
 
 
 def __set_aliases():
-    for alias, cmd in get_aliases().items():
+    for alias, cmd in get_aliases(human=True).items():
         x_aliases[alias] = cmd
 
 
@@ -144,7 +144,7 @@ def invoke_completer(prefix: str, line: str, begidx: int, endidx: int, ctx: dict
         from xonsh.completers.path import complete_path
 
         return complete_path(prefix, line, begidx, endidx, ctx)
-    tasks = silent_run("/usr/local/bin/invoke --complete")
+    tasks = silent_run("invoke --complete")
     return set(tasks.split("\n"))
 
 

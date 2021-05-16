@@ -90,3 +90,13 @@ def load_commands():
                 paths.remove(p)
 
     x_aliases["homebrew-deactivate"] = deactivate_homebrew
+
+    def allow_rm_toggle():
+        if "rm" in x_aliases:
+            print("allow rm")
+            del(x_aliases["rm"])
+        else:
+            print("use trash as rm")
+            x_aliases["rm"] = "trash"
+
+    x_aliases["allow-rm-toggle"] = allow_rm_toggle
