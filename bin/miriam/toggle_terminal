@@ -1,0 +1,38 @@
+#!/bin/python
+import time
+import subprocess
+
+TERMINAL_APP = "gnome-terminal"
+
+def run(command: list[str]) -> list[str]:
+    return subprocess.run(command, capture_output=True, encoding="ascii").stdout.strip().splitlines()
+
+def toggle_terminal():
+
+    output = run(["xdotool", "search" ,"--all", "--onlyvisible", "--classname", TERMINAL_APP])
+    if not output:
+        # no gnome-terminal
+        subprocess.run([TERMINAL_APP])
+        return
+    terminal_window = output[0]
+
+    output = run(["xdotool", "getactivewindow"])
+    active_window = ""
+    if output:
+        active_window = output[0]
+
+    if active_window == terminal_window:
+        run(["xdotool", "windowminimize", terminal_window])
+        return
+
+    active_desktop = run(["xdotool", "get_desktop"])[0]
+    subprocess.run(["xdotool", "set_desktop_for_window", terminal_window, active_desktop])
+    for _ in range(20):
+        terminal_desktop = run(["xdotool", "get_desktop_for_window", terminal_window])[0]
+        if terminal_desktop == active_desktop:
+            break
+        time.sleep(0.1)
+    subprocess.run(["xdotool", "windowraise", terminal_window])
+    subprocess.run(["xdotool", "windowactivate", terminal_window])
+
+toggle_terminal()
