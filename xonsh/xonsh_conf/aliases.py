@@ -40,8 +40,7 @@ def get_aliases(human: bool = False) -> Dict[str, List[str]]:
         a["la"] = ["ls", "-al"]
         a["ll"] = ["ls", "-al"]
         a["lt"] = ["ls", "-alt"]
-    if human:
-        a["rm"] = ["trash"]
+    a["rm"] = ["trash"]
 
     # java
     # a["javac"] = ["javac", "-J-Dfile.encoding=utf-8"]
