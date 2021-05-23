@@ -3,6 +3,7 @@ import time
 import subprocess
 
 TERMINAL_APP = "gnome-terminal"
+#TERMINAL_APP = "tilda"
 
 def run(command: list[str]) -> list[str]:
     return subprocess.run(command, capture_output=True, encoding="ascii").stdout.strip().splitlines()
