@@ -16,6 +16,7 @@ def exists_command(cmd: str):
 def get_aliases(human: bool = False) -> Dict[str, List[str]]:
     a: Dict[str, List[str]] = {}
     a["gt"] = ["git", "status"]
+    a["co"] = ["git", "checkout"]
     a["commit"] = ["git", "commit", "-v"]
     a["add"] = ["git", "add"]
     a["push"] = ["git", "push"]
