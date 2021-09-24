@@ -48,6 +48,7 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add("/usr/local/cuda/bin")
     add("/opt/homebrew/bin")
     add("/opt/local/bin")
+    add("/opt/X11/bin")
     add(home + "/Library/Python/3.9/bin")
     add(home + "/google-cloud-sdk/bin")
     add(home + "/google-cloud-sdk/platform/google_appengine")
@@ -72,7 +73,41 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add(home + "/Android/Sdk/tools")
     add(home + "/sdks/google-cloud-sdk/bin")
     add(home + "/sdks/android-studio/bin")
-    add("/opt/X11/bin")
+    add(home + "/.platformio/penv/bin")
+    add(home + "/libraries/espressif/esp-idf/components/esptool_py/esptool")
+    add(home + "/libraries/espressif/esp-idf/components/espcoredump")
+    add(home + "/libraries/espressif/esp-idf/components/partition_table")
+    add(home + "/libraries/espressif/esp-idf/components/app_update")
+    add(
+        home
+        + "/.espressif/tools/xtensa-esp32-elf/esp-2020r3-8.4.0/xtensa-esp32-elf/bin"
+    )
+    add(
+        home
+        + "/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8.4.0/xtensa-esp32s2-elf/bin"
+    )
+    add(
+        home
+        + "/.espressif/tools/xtensa-esp32s3-elf/esp-2020r3-8.4.0/xtensa-esp32s3-elf/bin"
+    )
+    add(
+        home
+        + "/.espressif/tools/riscv32-esp-elf/1.24.0.123_64eb9ff-8.4.0/riscv32-esp-elf/bin"
+    )
+    add(
+        home
+        + "/.espressif/tools/esp32ulp-elf/2.28.51-esp-20191205/esp32ulp-elf-binutils/bin"
+    )
+    add(
+        home
+        + "/.espressif/tools/esp32s2ulp-elf/2.28.51-esp-20191205/esp32s2ulp-elf-binutils/bin"
+    )
+    add(
+        home
+        + "/.espressif/tools/openocd-esp32/v0.10.0-esp32-20210401/openocd-esp32/bin"
+    )
+    # add(home + "/.espressif/python_env/idf4.4_py3.9_env/bin")
+    add(home + "/libraries/espressif/esp-idf/tools")
 
     add(home + "/bin")
     add(home + "/dotfiles/bin")
