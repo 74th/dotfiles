@@ -1,0 +1,2 @@
+#!/bin/sh
+drawio --export --format png --scale 3.0 --transparent $*

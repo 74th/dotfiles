@@ -12,18 +12,7 @@ def load_commands():
 
     x_aliases["bk"] = open_bookmark
 
-    def edit_cheatsheets():
-        d = run("pwd").lines[0].strip()
-        run("cd ~/ghq/github.com/74th/mycheatsheets/sheets/")
-        run("git pull origin master")
-        name = run("ls | peco").lines[0].strip()
-        run(f"vim {name}")
-        run("git add -A")
-        run('git commit -m "at (uname -s)"')
-        run("git push origin master")
-        run(f"cd {d}")
-
-    x_aliases["ec"] = edit_cheatsheets
+    x_aliases["ec"] = "edit-cs"
 
     def select_command_bookmark():
         if (
@@ -94,7 +83,7 @@ def load_commands():
     def allow_rm_toggle():
         if "rm" in x_aliases:
             print("allow rm")
-            del(x_aliases["rm"])
+            del x_aliases["rm"]
         else:
             print("use trash as rm")
             x_aliases["rm"] = "trash"
