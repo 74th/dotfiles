@@ -1,12 +1,23 @@
 #!/usr/bin/python3
 # ghq を使ってディレクトリを選んで code コマンドを実行
 import sys
+from typing import List, Optional
 import invoke
 from socket import gethostname
 
 code = "code"
-c = invoke.Context()
-g = c.run("ghq list | peco").stdout.strip()
+g = ""
+if len(sys.argv) == 2:
+    m = sys.argv[1]
+    c = invoke.Context()
+    l: List[str] = c.run("ghq list", hide=True).stdout.split("\n")
+    for p in l:
+        if p.find(m) >= 0:
+            if len(g) == 0 or len(p) < len(g):
+                g = p
+else:
+    c = invoke.Context()
+    g = c.run("ghq list").stdout.strip()
 
 if not g:
     sys.exit(1)
