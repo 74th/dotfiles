@@ -17,7 +17,7 @@ if len(sys.argv) == 2:
                 g = p
 else:
     c = invoke.Context()
-    g = c.run("ghq list").stdout.strip()
+    g = c.run("ghq list | peco").stdout.strip()
 
 if not g:
     sys.exit(1)
