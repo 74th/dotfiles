@@ -1,0 +1,2 @@
+#!/bin/sh
+java -jar /home/nnyn/ghq/github.com/freerouting/freerouting/build/libs/freerouting-executable.jar

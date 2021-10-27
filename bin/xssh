@@ -1,2 +1,2 @@
 #!/bin/sh
-ssh -t ${1} xonsh
+ssh -t ${1} .local/bin/xonsh

@@ -3,10 +3,11 @@ import os
 from os.path import expanduser
 import platform
 import invoke
+
 c = invoke.Context()
 with c.cd(os.path.expanduser("~/ghq/github.com/74th/mycheatsheets/")):
     c.run("git pull")
 if platform.node() in ["violet-gopher"]:
     c.run("rcode ~/ghq/github.com/74th/mycheatsheets/sheets")
 else:
-    c.run("code-insiders ~/ghq/github.com/74th/mycheatsheets/sheets")
+    c.run("code ~/ghq/github.com/74th/mycheatsheets/sheets")
