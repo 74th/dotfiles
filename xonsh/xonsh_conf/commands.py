@@ -34,8 +34,16 @@ def load_commands():
 
     x_aliases["cb"] = select_command_bookmark
 
-    def cd_ghq():
-        r = run("ghq list | peco").lines[0].strip()
+    def cd_ghq(args=[""]):
+        r = ""
+        if len(args) == 0:
+            r = run("ghq list | peco").lines[0].strip()
+        else:
+            l: List[str] = silent_run("ghq list").split("\n")
+            for p in l:
+                if p.find(args[0]) >= 0:
+                    if len(r) == 0 or len(p) < len(r):
+                        r = p
         if r:
             r = silent_run(f"ghq list --exact --full-path {r}").strip()
             run(f"cd {r}")
