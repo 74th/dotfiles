@@ -7,7 +7,7 @@ from invoke import Context
 
 def _is_arm_macos(c) -> bool:
     if not detect.osx:
-        return false
+        return False
     return c.run("uname -p").stdout.count("arm") > 0
 
 

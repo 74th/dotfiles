@@ -55,8 +55,8 @@ b:15+Release
 "/home/nnyn/ghq/github.com/74th/dotfiles/bin/arcueid/gnome-overview"
 b:9+Release
 "/home/nnyn/ghq/github.com/74th/dotfiles/bin/arcueid/toggle_terminal"
-    m:0x41 + c:68
-    Shift+Super + F2
+m:0x41 + c:68
+Shift+Super + F2
 
 #
 # End of xbindkeys configuration
