@@ -68,6 +68,7 @@ def _list_packages() -> List[str]:
         "bzip2",
         "unar",
         "nodejs",
+        "npm",
         "apt-transport-https",
         "protobuf-compiler",
         "curl",

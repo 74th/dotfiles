@@ -8,6 +8,10 @@ from invoke import task, Context
 
 @task
 def download_packages(c):
+
+    if c.run("which go", warn=True).failed:
+        install_go(c)
+
     if os.path.exists("packages.yaml"):
         yaml_path = "packages.yaml"
     else:
@@ -22,10 +26,11 @@ def download_packages(c):
 
 @task
 def install_go(c):
-    version = c.run("curl https://golang.org/VERSION?m=text").stdout.strip()
+    version = c.run("curl https://go.dev/VERSION?m=text").stdout.strip()
     # version = "1.14.15"
     cpu = c.run("uname -p").stdout.strip()
-    if c.run("go version", warn=True).stdout.count(version) > 0:
+    go_version = c.run("go version", warn=True)
+    if go_version.ok and go_version.stdout.count(version) > 0:
         return
     with tempfile.TemporaryDirectory() as d:
         with c.cd(d):

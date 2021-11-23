@@ -186,6 +186,27 @@ def starship(c):
 ns.add_task(starship)
 
 
+@task
+def npm(c):
+    if c.run("which npm", warn=True).failed:
+        print("!! npm not found !!")
+        return
+    home = get_home()
+    c.run(f"npm config set prefix {home}/npm")
+    dirs = [
+        f"{HOME}/npm",
+        f"{HOME}/npm/bin",
+        f"{HOME}/npm/share",
+        f"{HOME}/npm/lib",
+    ]
+    for d in dirs:
+        if not os.path.exists(d):
+            c.run(f"mkdir {d}")
+
+
+ns.add_task(npm)
+
+
 @task(default=True)
 def install(c):
     update_default_package_manager(c)
@@ -204,6 +225,9 @@ def install(c):
 
     # homebrew
     homebrew.default(c)
+
+    # npm
+    npm(c)
 
     # some package managers
     python_pip.install(c)

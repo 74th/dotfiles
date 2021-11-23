@@ -10,7 +10,7 @@ def set_poetry_config(c):
 
 def install_packages(c, l: List[str]):
     l_str = " ".join(l)
-    c.run(f"pip3 install --user --upgrade {l_str}")
+    c.run(f"pip3 install --upgrade {l_str}")
 
 
 def install_packages_by_pipx(c, l: List[str]):
