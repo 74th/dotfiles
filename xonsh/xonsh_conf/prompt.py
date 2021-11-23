@@ -57,7 +57,14 @@ def set_prompt():
 
     if HOSTNAME in ["mini", "patty"]:
         prompt += "{GREEN}"
-    elif HOSTNAME in ["violet", "violet-gopher", "miriam", "kukrushka", "penguin"]:
+    elif HOSTNAME in [
+        "violet",
+        "violet-gopher",
+        "miriam",
+        "kukrushka",
+        "penguin",
+        "arcueid",
+    ]:
         prompt += "{CYAN}"
     elif HOSTNAME in ["lewill", "sirius"]:
         prompt += "{BLUE}"
