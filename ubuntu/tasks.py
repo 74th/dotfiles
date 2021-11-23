@@ -120,6 +120,18 @@ def _list_desktop_packages() -> List[str]:
 
 
 @task
+def libinput_gestures(c):
+    if c.run("which libinput-gestures-setup", warn=True).ok:
+        return
+    with tempfile.TemporaryDirectory() as tmp:
+        with c.cd(tmp):
+            c.run("git clone https://github.com/bulletmark/libinput-gestures.git")
+            with c.cd("libinput-gestures"):
+                c.run("sudo ./libinput-gestures-setup install")
+    c.run("libinput-gestures autostart start")
+
+
+@task
 def zfs_auto_snapshot(c):
     c.run("sudo cp ./zfs-auto-snapshot/frequency.crontab /etc/cron.d/zfs-auto-snapshot")
     c.run("sudo cp ./zfs-auto-snapshot/hourly.sh /etc/cron.hourly/zfs-auto-snapshot")
@@ -137,3 +149,4 @@ def desktop_install(c):
     c.run("ln -sf ~/dotfiles/ubuntu/.xbindkeysrc ~/.xbindkeysrc")
     c.run("sudo apt-get install -y " + " ".join(pkgs))
     c.run("ln -sf ~/dotfiles/ubuntu/_config/libinput-gestures.conf ~/.config/")
+    libinput_gestures(c)
