@@ -60,8 +60,6 @@ def _list_packages() -> List[str]:
         "jq",
         "peco",
         "xclip",
-        #"bat",
-        #"ripgrep",
         "docker-compose",
         "readline-common",
         "git",
@@ -103,6 +101,7 @@ def _list_desktop_packages() -> List[str]:
         "gnome-tweaks",
         "code",
         "code-insiders",
+        "shutter",
         # desktop tools
         "gimp",
         "inkscape",
@@ -131,6 +130,7 @@ def zfs_auto_snapshot(c):
 
 @task
 def desktop_install(c):
+    c.run("sudo add-apt-repository ppa:shutter/ppa -y")
     add_source_list_desktop(c)
     pkgs = _list_desktop_packages()
     c.run("sudo apt-get update")
