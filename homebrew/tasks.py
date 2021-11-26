@@ -14,10 +14,6 @@ def _is_arm_macos(c) -> bool:
 def _list_minimal(c):
     pkgs = []
 
-    pkgs += [
-        "peco",
-    ]
-
     return pkgs
 
 

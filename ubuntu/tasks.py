@@ -63,6 +63,7 @@ def _list_packages() -> List[str]:
         "docker-compose",
         "readline-common",
         "git",
+        "git-secrets",
         "bzip2",
         "unar",
         "nodejs",
@@ -73,6 +74,7 @@ def _list_packages() -> List[str]:
         "vim",
         "direnv",
         "cargo",
+        "python3-venv",
         "python-is-python3",
     ]
     return pkgs
