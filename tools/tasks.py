@@ -10,6 +10,7 @@ def npm_packages(small=False) -> List[str]:
         "npm",
         "@vivliostyle/cli",
         "gts",
+        "yarn",
     ]
     return pkg
 
