@@ -9,8 +9,9 @@ def add_source_list(c):
     # gh
     # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
     c.run(
-        "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0"
+        "curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg"
     )
+    c.run("""echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null""")
     c.run("sudo apt-add-repository https://cli.github.com/packages")
     # nodejs
     # https://github.com/nodesource/distributions
@@ -76,6 +77,7 @@ def _list_packages() -> List[str]:
         "cargo",
         "python3-venv",
         "python-is-python3",
+        "trash-cli",
     ]
     return pkgs
 

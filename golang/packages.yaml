@@ -1,2 +1,3 @@
 packages:
   - sigs.k8s.io/kustomize/kustomize@latest
+  - github.com/x-motemen/ghq@latest

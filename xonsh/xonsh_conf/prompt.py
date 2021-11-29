@@ -61,7 +61,6 @@ def set_prompt():
         "violet",
         "violet-gopher",
         "miriam",
-        "kukrushka",
         "penguin",
         "arcueid",
         "ciel",
