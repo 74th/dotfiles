@@ -37,7 +37,7 @@ def load_commands():
     def cd_ghq(args=[""]):
         r = ""
         if len(args) == 0:
-            r = run("ghq list | peco").lines[0].strip()
+            r = silent_run("ghq list | peco").strip()
         else:
             l: List[str] = silent_run("ghq list").split("\n")
             for p in l:
