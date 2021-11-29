@@ -64,6 +64,7 @@ def set_prompt():
         "kukrushka",
         "penguin",
         "arcueid",
+        "ciel",
     ]:
         prompt += "{CYAN}"
     elif HOSTNAME in ["lewill", "sirius"]:

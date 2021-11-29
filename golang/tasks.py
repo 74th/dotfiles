@@ -18,7 +18,7 @@ def download_packages(c):
         yaml_path = "golang/packages.yaml"
 
     with open(yaml_path, "r") as f:
-        packages = yaml.load(f)["packages"]
+        packages = yaml.load(f, yaml.CLoader)["packages"]
 
     for package in packages:
         c.run("go install " + package)

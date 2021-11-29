@@ -15,10 +15,7 @@ def npm_packages(small=False) -> List[str]:
 
 
 def rust_packages(small=False) -> List[str]:
-    pkg = [
-        "lsd",
-        "starship",
-    ]
+    pkg = []
     return pkg
 
 

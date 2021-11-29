@@ -179,14 +179,6 @@ ns.add_task(screenrc)
 
 
 @task
-def starship(c):
-    c.run(f"ln -fs {HOME}/dotfiles/starship/starship.toml {HOME}/.config/")
-
-
-ns.add_task(starship)
-
-
-@task
 def npm(c):
     if c.run("which npm", warn=True).failed:
         print("!! npm not found !!")
@@ -242,9 +234,7 @@ def install(c):
     pyenv(c)
     bashrc(c)
     vimrc(c)
-    starship(c)
     screenrc(c)
-    # starship(c)
     git.set_config(c)
     git.chmod_config(c)
     if os == "macos":
