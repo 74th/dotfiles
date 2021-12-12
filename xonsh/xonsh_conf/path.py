@@ -73,7 +73,7 @@ def get_paths(default_paths: List[str]) -> List[str]:
     add(home + "/Android/Sdk/tools")
     add(home + "/sdks/google-cloud-sdk/bin")
     add(home + "/sdks/android-studio/bin")
-    add(home + "/.platformio/penv/bin")
+    # add(home + "/.platformio/penv/bin") # 余計なアイテムも引き込んでしまうので、必要に応じてシンボリックリンクをする
     add(home + "/libraries/espressif/esp-idf/components/esptool_py/esptool")
     add(home + "/libraries/espressif/esp-idf/components/espcoredump")
     add(home + "/libraries/espressif/esp-idf/components/partition_table")
