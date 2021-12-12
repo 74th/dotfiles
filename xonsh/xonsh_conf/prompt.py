@@ -73,7 +73,7 @@ def set_prompt():
         or HOSTNAME.count("charlotte")
         or HOSTNAME.count("mac")
         or HOSTNAME.startswith("O-")
-        or HOSTNAME.startswith("kukrushka.local")
+        or HOSTNAME.startswith("kukrushka")
     ):
         prompt += "{WHITE}"
     elif HOSTNAME.count("prod") > 0:
