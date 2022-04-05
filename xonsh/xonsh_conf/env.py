@@ -36,16 +36,29 @@ def pico_sdk_paths() -> List[Tuple[str, str]]:
         paths.append(("PICO_PLAYGROUND_PATH", p))
     return paths
 
+
 def esp_tools_path() -> List[Tuple[str, str]]:
     paths: List[Tuple[str, str]] = []
     if os.path.exists(f"{home}/.espressif"):
-        paths.append(("IDF_PYTHON_ENV_PATH","/home/nnyn/.espressif/python_env/idf4.4_py3.9_env"))
-        paths.append(("OPENOCD_SCRIPTS", f"{home}/.espressif/tools/openocd-esp32/v0.10.0-esp32-20210401/openocd-esp32/share/openocd/scripts"))
+        paths.append(
+            ("IDF_PYTHON_ENV_PATH", "/home/nnyn/.espressif/python_env/idf4.4_py3.9_env")
+        )
+        paths.append(
+            (
+                "OPENOCD_SCRIPTS",
+                f"{home}/.espressif/tools/openocd-esp32/v0.10.0-esp32-20210401/openocd-esp32/share/openocd/scripts",
+            )
+        )
     if os.path.exists(f"{home}/libraries/espressif/esp-idf"):
         paths.append(("IDF_PATH", f"{home}/libraries/espressif/esp-idf"))
-        paths.append(("IDF_TOOLS_EXPORT_CMD", f"{home}/libraries/espressif/esp-idf/export.sh"))
-        paths.append(("IDF_TOOLS_INSTALL_CMD", f"{home}/libraries/espressif/esp-idf/install.sh"))
+        paths.append(
+            ("IDF_TOOLS_EXPORT_CMD", f"{home}/libraries/espressif/esp-idf/export.sh")
+        )
+        paths.append(
+            ("IDF_TOOLS_INSTALL_CMD", f"{home}/libraries/espressif/esp-idf/install.sh")
+        )
     return paths
+
 
 def gpg_agent() -> Tuple[str, str]:
     return "GPG_TTY", current_tty()
@@ -58,6 +71,13 @@ def build_envs() -> List[Tuple[str, str]]:
         envs.append(env)
     envs += pico_sdk_paths()
     envs += esp_tools_path()
+
+    # gcloud の CLI では固定インストールのPythonを使う
+    if os.path.exists("/etc/lsb-release"):
+        envs.append(("CLOUDSDK_PYTHON", "/bin/python3"))
+    elif os.path.exists("/usr/local/bin/python3"):
+        envs.append(("CLOUDSDK_PYTHON", "/usr/local/bin/python3"))
+
     envs.append(gpg_agent())
     return envs
 

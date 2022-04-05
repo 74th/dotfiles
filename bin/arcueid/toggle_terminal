@@ -2,7 +2,8 @@
 import time
 import subprocess
 
-TERMINAL_APP = "gnome-terminal"
+TERMINAL_APP = "tabby"
+#TERMINAL_APP = "gnome-terminal"
 #TERMINAL_APP = "tilda"
 
 def run(command: list[str]) -> list[str]:
