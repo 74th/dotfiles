@@ -1,0 +1,264 @@
+version: 3
+profiles:
+  - type: ssh
+    name: lewill
+    options:
+      host: lewill
+      user: nnyn
+      algorithms:
+        hmac:
+          - hmac-sha1
+          - hmac-sha1-etm@openssh.com
+          - hmac-sha2-256
+          - hmac-sha2-256-etm@openssh.com
+          - hmac-sha2-512
+          - hmac-sha2-512-etm@openssh.com
+        kex:
+          - curve25519-sha256
+          - curve25519-sha256@libssh.org
+          - diffie-hellman-group-exchange-sha256
+          - diffie-hellman-group14-sha256
+          - diffie-hellman-group15-sha512
+          - diffie-hellman-group16-sha512
+          - diffie-hellman-group17-sha512
+          - diffie-hellman-group18-sha512
+          - ecdh-sha2-nistp256
+          - ecdh-sha2-nistp384
+          - ecdh-sha2-nistp521
+        cipher:
+          - aes128-ctr
+          - aes128-gcm
+          - aes128-gcm@openssh.com
+          - aes192-ctr
+          - aes256-ctr
+          - aes256-gcm
+          - aes256-gcm@openssh.com
+        serverHostKey:
+          - ecdsa-sha2-nistp256
+          - ecdsa-sha2-nistp384
+          - ecdsa-sha2-nistp521
+          - rsa-sha2-256
+          - rsa-sha2-512
+          - ssh-ed25519
+          - ssh-rsa
+      scripts:
+        - expect: ""
+          send: ""
+      auth: agent
+      privateKeys: []
+      forwardedPorts: []
+    weight: -1
+    icon: fab fa-linux
+    color: "#7bd7f9"
+    id: ssh:custom:lewill:ef1a2eb0-1c2e-412b-b3a5-8233d7e7c4bc
+    group: home
+  - type: local
+    name: bash
+    icon: fab fa-python
+    options:
+      command: bash
+      env:
+        PATH: /opt/Homebrew/bin:$PATH
+      args:
+        - "-l"
+    group: standard
+    id: local:custom:bash:f9c5d24b-8645-49e8-b8da-5eb40963fff7
+  - type: local
+    name: xonsh
+    icon: fab fa-python
+    options:
+      command: xonsh
+      env:
+        PATH: $HOME/.local/bin:$PATH
+      args:
+        - "-l"
+      cwd: /home/nnyn
+    id: local:custom:xonsh:c2e792d5-213f-4c7a-a791-789d6f78456f
+    group: standard
+hotkeys:
+  toggle-window: []
+  copy-current-path: []
+  scroll-to-bottom: []
+  ctrl-c:
+    - Ctrl-C
+  copy:
+    - Ctrl-Shift-C
+  paste:
+    - Ctrl-Shift-V
+    - Shift-Insert
+  select-all:
+    - Ctrl-Shift-A
+  clear: []
+  zoom-in:
+    - Ctrl-=
+    - Ctrl-Shift-=
+  zoom-out:
+    - Ctrl--
+    - Ctrl-Shift--
+  reset-zoom:
+    - Ctrl-0
+  home:
+    - Home
+  end:
+    - End
+  previous-word:
+    - Ctrl-Left
+  next-word:
+    - Ctrl-Right
+  delete-previous-word:
+    - Ctrl-Backspace
+  delete-next-word:
+    - Ctrl-Delete
+  search:
+    - Ctrl-Shift-F
+  pane-focus-all:
+    - Ctrl-Shift-I
+  restart-telnet-session: []
+  restart-ssh-session: []
+  launch-winscp: []
+  settings-tab:
+    profiles: []
+  settings:
+    - Ctrl-,
+  serial:
+    - Alt-K
+  restart-serial-session: []
+  new-window:
+    - Ctrl-Shift-N
+  new-tab:
+    - - Ctrl-T
+  profile: {}
+  profile-selectors: {}
+  toggle-fullscreen:
+    - F11
+  close-tab:
+    - Ctrl-Shift-W
+  reopen-tab: []
+  toggle-last-tab: []
+  rename-tab:
+    - Ctrl-Shift-R
+  next-tab:
+    - Ctrl-Shift-Right
+    - Ctrl-Tab
+  previous-tab:
+    - Ctrl-Shift-Left
+    - Ctrl-Shift-Tab
+  move-tab-left:
+    - Ctrl-Shift-PageUp
+  move-tab-right:
+    - Ctrl-Shift-PageDown
+  rearrange-panes:
+    - Ctrl-Shift
+  duplicate-tab: []
+  explode-tab:
+    - Ctrl-Shift-.
+  combine-tabs:
+    - Ctrl-Shift-,
+  tab-1:
+    - Alt-1
+  tab-2:
+    - Alt-2
+  tab-3:
+    - Alt-3
+  tab-4:
+    - Alt-4
+  tab-5:
+    - Alt-5
+  tab-6:
+    - Alt-6
+  tab-7:
+    - Alt-7
+  tab-8:
+    - Alt-8
+  tab-9:
+    - Alt-9
+  tab-10:
+    - Alt-0
+  tab-11: []
+  tab-12: []
+  tab-13: []
+  tab-14: []
+  tab-15: []
+  tab-16: []
+  tab-17: []
+  tab-18: []
+  tab-19: []
+  tab-20: []
+  split-right:
+    - Ctrl-Shift-E
+  split-bottom:
+    - Ctrl-Shift-D
+  split-left: []
+  split-top: []
+  pane-nav-right:
+    - Ctrl-Alt-Right
+  pane-nav-down:
+    - Ctrl-Alt-Down
+  pane-nav-up:
+    - Ctrl-Alt-Up
+  pane-nav-left:
+    - Ctrl-Alt-Left
+  pane-nav-previous:
+    - Ctrl-Alt-[
+  pane-nav-next:
+    - Ctrl-Alt-]
+  pane-maximize:
+    - Ctrl-Alt-Enter
+  close-pane: []
+  switch-profile:
+    - Ctrl-Alt-T
+  profile-selector:
+    - - Ctrl-Shift-T
+terminal:
+  searchOptions: {}
+  colorScheme:
+    name: 3024 Night
+    foreground: "#f2f2f2"
+    background: "#000000"
+    cursor: "#4d4d4d"
+    colors:
+      - "#2a2a2a"
+      - "#ff0000"
+      - "#79ff0f"
+      - "#e7bf00"
+      - "#396bd7"
+      - "#b449be"
+      - "#66ccff"
+      - "#bbbbbb"
+      - "#666666"
+      - "#ff0080"
+      - "#66ff66"
+      - "#f3d64e"
+      - "#709aed"
+      - "#db67e6"
+      - "#7adff2"
+      - "#ffffff"
+  font: LigaInputMono Nerd Font Mono
+  ligatures: true
+  fallbackFont: ""
+  background: colorScheme
+  showTabProfileIcon: true
+  hideTabIndex: true
+  autoOpen: true
+  warnOnMultilinePaste: false
+  profile: local:custom:xonsh:c2e792d5-213f-4c7a-a791-789d6f78456f
+  customColorSchemes: []
+  showBuiltinProfiles: false
+  bell: visual
+  fontSize: 12
+ssh:
+  knownHosts:
+    - host: lewill
+      port: 22
+      type: ecdsa-sha2-nistp256
+      digest: 533Rqdw2Mq8Y6INigJmHip+70AhgRJXtsHbOYVLyjCo=
+clickableLinks: {}
+appearance:
+  theme: Compact
+  dockScreen: 1
+hacks: {}
+profileDefaults: {}
+language: en-US
+enableAnalytics: false
+enableWelcomeTab: false
+pluginBlacklist: []
