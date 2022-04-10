@@ -23,11 +23,11 @@ def load_commands():
             filename = "work"
         else:
             filename = "home"
-        r = run(
+        r = silent_run(
             f"cat ~/ghq/github.com/74th/mycheatsheets/CmdBookmark/{filename} | peco"
         )
-        if len(r.lines) > 0:
-            name = r.lines[0].strip()
+        if len(r.strip()) > 0:
+            name = r.strip()
             if name[0] == "[":
                 name = name[name.find("]") + 1 :]
             run(name)
