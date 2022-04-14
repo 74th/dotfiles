@@ -1,0 +1,5 @@
+#!/bin/sh
+set -xe
+sudo vi /etc/udev/rules.d/99-nnyn.rules
+sudo chmod a+r /etc/udev/rules.d/99-nnyn.rules
+sudo udevadm control --reload
