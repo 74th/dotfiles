@@ -1,1 +1,8 @@
-- ログイン項目に startup.command を登録する
+```
+launchctl load rcode.plist
+launchctl start rcode
+```
+
+```
+cp rcode.plist ~/Library/LaunchAgents/
+```
