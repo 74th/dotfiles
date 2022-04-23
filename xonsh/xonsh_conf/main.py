@@ -20,7 +20,7 @@ try:
     from . import ctrl_r
 except ModuleNotFoundError:
     from .xonsh_builtin import x_execer
-    command = "xpip install invoke prompt_toolkit detect pyyaml"
+    command = "xpip install invoke prompt_toolkit detect pyyaml xonsh-direnv"
     print(command)
     x_execer.eval(f"$({command})")
     command = "xpip uninstall pyperclip"
