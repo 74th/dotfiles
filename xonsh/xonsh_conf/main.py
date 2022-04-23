@@ -3,20 +3,30 @@ import os
 import os.path
 import re
 import json
-import invoke
-from . import git
-from collections import OrderedDict
-from operator import itemgetter
-import prompt_toolkit
-from .lib import HOSTNAME, run, silent_run
-from .xonsh_builtin import x_env, x_aliases, x_events, x_completers
-from prompt_toolkit.keys import Keys
-from prompt_toolkit.filters import ViInsertMode
-from .commands import load_commands
-from .path import get_paths
-from .aliases import get_aliases
-from .env import apply_envs
-from . import ctrl_r
+try:
+    import invoke
+    from . import git
+    from collections import OrderedDict
+    from operator import itemgetter
+    import prompt_toolkit
+    from .lib import HOSTNAME, run, silent_run
+    from .xonsh_builtin import x_env, x_aliases, x_events, x_completers
+    from prompt_toolkit.keys import Keys
+    from prompt_toolkit.filters import ViInsertMode
+    from .commands import load_commands
+    from .path import get_paths
+    from .aliases import get_aliases
+    from .env import apply_envs
+    from . import ctrl_r
+except ModuleNotFoundError:
+    from .xonsh_builtin import x_execer
+    command = "xpip install invoke prompt_toolkit detect pyyaml"
+    print(command)
+    x_execer.eval(f"$({command})")
+    command = "xpip uninstall pyperclip"
+    print(command)
+    raise Exception("restart")
+
 
 # from .detect_user_docker import detect_user_docker_for_xonsh
 
