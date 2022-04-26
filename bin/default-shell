@@ -2,6 +2,8 @@
 if [ "${HOSTNAME}" == "O-14763-MAC" ]; then
     # Work Mac (Linux VM)
     ssh -t violet .local/bin/xonsh
+elif [ -e "${HOME}/.local/pipx/venvs/xonsh/bin" ]; then
+    "${HOME}/.local/pipx/venvs/xonsh/bin/xonsh"
 elif [ -e "${HOME}/.local/bin/xonsh" ]; then
     "${HOME}/.local/bin/xonsh" -l
 elif [ -e "/opt/homebrew/bin/bash" ]; then
