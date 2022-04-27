@@ -1,6 +1,37 @@
-#!/bin/sh
-xinput set-prop "Apple Inc. Magic Trackpad 2" "libinput Tapping Enabled" 1
-xinput set-prop "Apple Inc. Magic Trackpad 2" "libinput Tapping Drag Enabled" 0
-xinput set-prop "Apple Inc. Magic Trackpad 2" "libinput Natural Scrolling Enabled" 1
-xinput set-prop "Apple Inc. Magic Trackpad 2" "libinput Accel Speed" 0.683824
-nohup libinput-gestures-setup restart >/dev/null 2>&1
+#!/bin/python
+import re
+import invoke
+
+c = invoke.Context()
+stdout: str = c.run("xinput --list --short", hide=True).stdout
+trackpad_ids = []
+for l in stdout.splitlines():
+    if l.count("Apple Inc. Magic Trackpad 2"):
+        m = re.search(r"id=(\d+)", l)
+        if m:
+            trackpad_ids.append(m.group(1))
+if len(trackpad_ids) > 0:
+    print("found multiple Magic Trackpad")
+for trackpad_id in trackpad_ids:
+    c.run(
+        f'xinput set-prop {trackpad_id} "libinput Tapping Enabled" 1',
+        echo=True,
+        warn=True,
+    )
+    c.run(
+        f'xinput set-prop {trackpad_id} "libinput Tapping Drag Enabled" 0',
+        echo=True,
+        warn=True,
+    )
+    c.run(
+        f'xinput set-prop {trackpad_id} "libinput Natural Scrolling Enabled" 1',
+        echo=True,
+        warn=True,
+    )
+    c.run(
+        f'xinput set-prop {trackpad_id} "libinput Accel Speed" 0.683824',
+        echo=True,
+        warn=True,
+    )
+    print(trackpad_ids)
+c.run(f"nohup libinput-gestures-setup restart >/dev/null 2>&1")

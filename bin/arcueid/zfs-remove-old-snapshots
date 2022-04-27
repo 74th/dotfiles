@@ -1,16 +1,31 @@
+#!/bin/python3
+from datetime import datetime, timedelta
+from dateutil import parser
 import invoke
 
 c = invoke.Context()
 
-snapshots = c.run(
-    "sudo zfs list -t snapshot  -o name -S creation -d30",
+lines: list[str] = c.run(
+    "sudo zfs list -t snapshot -oname,creation -Screation -d30 -H",
     echo=True,
     hide="out",
 ).stdout.split("\n")[1:]
 
-for i, snapshot in enumerate(snapshots):
-    cmd = f"sudo zfs destroy -vr {snapshot}"
-    print(f"{i/len(snapshots):0.2f} {cmd}")
-    if not snapshot:
+# 30日以上前のものは削除する
+limit = datetime.now() - timedelta(days=30)
+
+for i, line in enumerate(lines):
+
+    if len(line) == 0:
         continue
+    if line.count("DOCKER"):
+        continue
+    name, creation = line.split("\t")
+    creation_dt = parser.parse(creation)
+
+    if creation_dt > limit:
+        continue
+
+    cmd = f"sudo zfs destroy -vr {name}"
+    print(f"{i/len(lines):0.2f} {cmd}")
     c.run(cmd, hide="out", warn=True)
