@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-import subprocess
 import os
 import invoke
 
@@ -14,11 +13,10 @@ if (
     filename = "work"
 else:
     filename = "home"
-r = c.run(
+prog = c.run(
     f"cat ~/ghq/github.com/74th/mycheatsheets/CmdBookmark/{filename} | peco"
-)
-if len(r.stdout) > 0:
-    name = r.stdout.strip()
-    if name[0] == "[":
-        name = name[name.find("]") + 1 :]
-    c.run(name)
+).stdout.strip()
+if len(prog) > 0:
+    if prog[0] == "[":
+        name = prog[prog.find("]") + 1 :]
+    c.run(prog, pty=True)
