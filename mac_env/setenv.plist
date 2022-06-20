@@ -9,7 +9,7 @@
     <string>/bin/launchctl</string>
     <string>setenv</string>
     <string>GOROOT</string>
-    <string>/usr/local/opt/go/libexec</string>
+    <string>/usr/local/go</string>
   </array>
   <key>RunAtLoad</key>
   <true/>

@@ -35056,7 +35056,7 @@
 			<key>Columns</key>
 			<integer>200</integer>
 			<key>Command</key>
-			<string>/usr/local/bin/python3 -m xonsh</string>
+			<string>/Users/atsushi.morimoto/.local/bin/xonsh</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -36690,7 +36690,7 @@
 			<key>Columns</key>
 			<integer>200</integer>
 			<key>Command</key>
-			<string>/usr/local/bin/python3 -m xonsh</string>
+			<string>/Users/atsushi.morimoto/.local/bin/xonsh</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -36750,7 +36750,7 @@
 			<key>Guid</key>
 			<string>82FEB3D2-B510-461E-BB0A-0D4C7310C4BC</string>
 			<key>Has Hotkey</key>
-			<true/>
+			<false/>
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>
@@ -37509,7 +37509,7 @@
 			<key>Columns</key>
 			<integer>200</integer>
 			<key>Command</key>
-			<string>/usr/local/bin/python3 -m xonsh</string>
+			<string>/Users/atsushi.morimoto/.local/bin/xonsh</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -37569,7 +37569,7 @@
 			<key>Guid</key>
 			<string>2B3ECE14-A717-480A-A422-20A8C38A9061</string>
 			<key>Has Hotkey</key>
-			<true/>
+			<false/>
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>
@@ -39836,7 +39836,7 @@
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>ShowPaneTitles</key>
 	<true/>
 	<key>SmartPlacement</key>
