@@ -1,0 +1,35 @@
+#!/usr/bin/python3
+# ghq を使ってディレクトリを選んで chrome コマンドを実行
+import os
+import sys
+import time
+from typing import List, Optional
+import invoke
+from socket import gethostname
+
+code = "code"
+g = ""
+c = invoke.Context()
+if len(sys.argv) == 2:
+    p = sys.argv[1]
+    p = os.path.abspath(p)
+    word = "/ghq/github.com/"
+    if not p.count(word):
+        sys.stderr.write(f"{p} is not ghq directory\n")
+        sys.exit(1)
+    splitted = p[p.find(word) :].split("/")
+    g = "/".join(splitted[2:5])
+else:
+    g = c.run("ghq list | peco").stdout.strip()
+
+if not g:
+    sys.exit(1)
+
+g = f"https://{g}"
+hostname = gethostname()
+if hostname in ["violet-gopher"]:
+    c.run(f"google-chrome {g}")
+if hostname in ["arcueid"]:
+    c.run(f"google-chrome {g}")
+else:
+    c.run(f"google-chrome {g}")
