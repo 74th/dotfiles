@@ -39,34 +39,23 @@ def _list_packages(c):
 
     # CLI toolset
     pkgs += [
-        "sqlite",
         "ghq",
         "gh",
-        "fd",
     ]
 
     # develop
     pkgs += [
-        "hub",
-        "nodenv",
-        "golangci-lint",
     ]
 
     # cloud
     pkgs += [
         "tfenv",
     ]
-    if detect.osx:
-        pkgs += [
-            "gnuplot",
-        ]
 
     # kubernetes
     if not is_arm_macos:
         pkgs += [
-            "kubernetes-cli",
             "kubectx",
-            "stern",
         ]
 
     return pkgs
@@ -148,6 +137,7 @@ def unlink(c):
             "unzip",
             "util-linux",
             "zlib",
+            "kubernetes-cli"
         ]
     unlink: List[str] = [pkg for pkg in pkgs if pkg in installed]
     if not unlink:

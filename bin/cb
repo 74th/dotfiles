@@ -1,0 +1,22 @@
+#!/usr/bin/python3
+import os
+import invoke
+
+HOSTNAME = os.uname().nodename
+c = invoke.Context()
+
+if (
+    HOSTNAME.startswith("o-")
+    or HOSTNAME.startswith("O-")
+    or HOSTNAME.startswith("violet-gopher")
+):
+    filename = "work"
+else:
+    filename = "home"
+prog = c.run(
+    f"cat ~/ghq/github.com/74th/mycheatsheets/CmdBookmark/{filename} | peco"
+).stdout.strip()
+if len(prog) > 0:
+    if prog[0] == "[":
+        name = prog[prog.find("]") + 1 :]
+    c.run(prog, pty=True)

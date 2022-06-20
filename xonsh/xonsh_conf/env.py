@@ -63,6 +63,13 @@ def esp_tools_path() -> List[Tuple[str, str]]:
 def gpg_agent() -> Tuple[str, str]:
     return "GPG_TTY", current_tty()
 
+def misc() -> List[Tuple[str, str]]:
+    d = {
+        # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+        "USE_GKE_GCLOUD_AUTH_PLUGIN": "True"
+    }
+    return list(d.items())
+
 
 def build_envs() -> List[Tuple[str, str]]:
     envs: List[Tuple[str, str]] = []
@@ -71,6 +78,7 @@ def build_envs() -> List[Tuple[str, str]]:
         envs.append(env)
     envs += pico_sdk_paths()
     envs += esp_tools_path()
+    envs += misc()
 
     # gcloud の CLI では固定インストールのPythonを使う
     if os.path.exists("/etc/lsb-release"):

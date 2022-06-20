@@ -14,26 +14,6 @@ def load_commands():
 
     x_aliases["ec"] = "edit-cs"
 
-    def select_command_bookmark():
-        if (
-            HOSTNAME.startswith("o-")
-            or HOSTNAME.startswith("O-")
-            or HOSTNAME.startswith("violet-gopher")
-        ):
-            filename = "work"
-        else:
-            filename = "home"
-        r = silent_run(
-            f"cat ~/ghq/github.com/74th/mycheatsheets/CmdBookmark/{filename} | peco"
-        )
-        if len(r.strip()) > 0:
-            name = r.strip()
-            if name[0] == "[":
-                name = name[name.find("]") + 1 :]
-            run(name)
-
-    x_aliases["cb"] = select_command_bookmark
-
     def cd_ghq(args=[""]):
         r = ""
         if len(args) == 0:

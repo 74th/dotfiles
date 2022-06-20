@@ -23,6 +23,11 @@ if type direnv >/dev/null 2>&1; then
     eval "$(direnv hook bash)"
 fi
 
+# pyenv
+if [ -e "${HOME}/.pyenv/bin/pyenv" ]; then
+    eval "$(pyenv init -)"
+fi
+
 # GPG_TTY
 export GPG_TTY=$(tty)
 
@@ -38,7 +43,6 @@ if [ "$PS1" != "" ]; then
     export CLICOLOR=1
     source ~/dotfiles/bashrc/completion/git-prompt.sh
     source ~/dotfiles/bashrc/completion/git-completion.bash
-    source ~/dotfiles/bashrc/completion/git-flow-completion.bash
 
     function __show_exitcode() {
         _EXITCODE=$?
