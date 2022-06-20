@@ -26,8 +26,10 @@ if not g:
 g = f"https://{g}/pulls"
 hostname = gethostname()
 if hostname in ["violet-gopher"]:
+    c.run(f"rcode '--command=/Applications/Google Chrome.app/Contents/MacOS/google chrome' {g}")
+elif hostname in ["arcueid"]:
     c.run(f"google-chrome {g}")
-if hostname in ["arcueid"]:
-    c.run(f"google-chrome {g}")
+elif os.path.exists("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"):
+    c.run(f"'/Applications/Google Chrome.app/Contents/MacOS/google chrome' {g}")
 else:
     c.run(f"google-chrome {g}")
