@@ -1,0 +1,7 @@
+#!/bin/sh
+HOSTNAME=$(hostname)
+if [ $HOSTNAME = "ciel" ]; then
+    ssh kukurushka $*
+else
+    echo "this is $(hostname), cannot access host"
+fi

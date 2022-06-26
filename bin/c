@@ -1,6 +1,29 @@
-#!/bin/bash
-if [ "$(hostname)" == 'violet-gopher' ]; then
-    rcode $*
-else
-    code $*
-fi
+#!/bin/python
+import os
+import socket
+import subprocess
+import sys
+
+current = socket.gethostname()
+
+target = "./"
+if len(sys.argv) == 2:
+    target = sys.argv[1]
+target = os.path.abspath(target)
+
+if current == "ciel":
+    host = "kukurushka"
+    vm = "ciel"
+    code_path = "/usr/local/bin/code"
+else:
+    host = ""
+    vm = ""
+    code_path = "code"
+
+if host:
+    cmd = ["ssh", host, code_path, "--remote", "ssh-remote+ciel", target]
+else:
+    cmd = [code_path, target]
+
+print(cmd)
+subprocess.run(cmd, check=True, capture_output=True)
