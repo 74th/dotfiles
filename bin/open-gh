@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 # ghq を使ってディレクトリを選んで chrome コマンドを実行
+import subprocess
+import shlex
 import os
 import sys
 import invoke
@@ -25,8 +27,9 @@ if not g:
 
 g = f"https://{g}"
 hostname = gethostname()
-if hostname in ["violet-gopher"]:
-    c.run(f"rcode '--command=/Applications/Google Chrome.app/Contents/MacOS/google chrome' {g}")
+if hostname in ["violet-gopher", "ciel"]:
+    cmd = ["ssh", "mac", shlex.quote('/Applications/Google Chrome.app/Contents/MacOS/google chrome'), g]
+    subprocess.run(cmd, check=True, capture_output=True)
 elif hostname in ["arcueid"]:
     c.run(f"google-chrome {g}")
 elif os.path.exists("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"):

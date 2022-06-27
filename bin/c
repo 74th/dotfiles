@@ -15,15 +15,19 @@ if current == "ciel":
     host = "kukurushka"
     vm = "ciel"
     code_path = "/usr/local/bin/code"
+elif current == "violet-gopher":
+    host = "mac"
+    vm = "violet"
+    code_path = "/usr/local/bin/code"
 else:
     host = ""
     vm = ""
     code_path = "code"
 
 if host:
-    cmd = ["ssh", host, code_path, "--remote", "ssh-remote+ciel", target]
+    cmd = ["ssh", host, code_path, "--remote", f"ssh-remote+{vm}", target]
 else:
     cmd = [code_path, target]
 
-print(cmd)
+print(" ".join(cmd))
 subprocess.run(cmd, check=True, capture_output=True)

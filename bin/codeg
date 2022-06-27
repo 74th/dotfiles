@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 # ghq を使ってディレクトリを選んで code コマンドを実行
+import subprocess
 import sys
-from typing import List, Optional
+from typing import List
 import invoke
 from socket import gethostname
 
@@ -16,17 +17,17 @@ if len(sys.argv) == 2:
             if len(g) == 0 or len(p) < len(g):
                 g = p
 else:
-    c = invoke.Context()
-    g = c.run("ghq list | peco").stdout.strip()
+    r = subprocess.run("ghq list | peco", check=True, capture_output=True, shell=True, text=True)
+    g = r.stdout.strip()
 
 if not g:
     sys.exit(1)
 
-g = c.run(f"ghq list --exact --full-path {g} | head -n1", hide=True).stdout.strip()
+r = subprocess.run(f"ghq list --exact --full-path {g} | head -n1", check=True, capture_output=True, shell=True, text=True)
+g = r.stdout.strip()
 hostname = gethostname()
-if hostname in ["violet-gopher"]:
-    c.run(f"rcode {g}")
-elif hostname in ["ciel"]:
-    c.run(f"c {g}")
-else:
-    c.run(f"{code} {g}")
+
+if hostname in ["violet-gopher", "ciel"]:
+    code = "c"
+
+subprocess.run([code, g], check=True, capture_output=True)
