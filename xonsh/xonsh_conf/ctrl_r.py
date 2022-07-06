@@ -1,15 +1,22 @@
 # -*- coding: utf-8 -*-
-import os
 import json
+import subprocess
 import tempfile
-import prompt_toolkit
+
 from .lib import run, silent_run, x_execer, HOSTNAME
 from .xonsh_builtin import x_env
-from collections import OrderedDict
-from operator import itemgetter
 
 
-def select_history(buf: prompt_toolkit.buffer.Buffer):
+class Buffer:
+    text: str
+
+    def reset(self):
+        pass
+
+    def insert_text(self, text: str):
+        pass
+
+def select_history(buf: Buffer):
     """
     履歴検索
     """
@@ -55,7 +62,7 @@ def select_git(buf):
             buf.insert_text(selected)
 
 
-def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
+def select_command_bookmark(buf: Buffer):
     if HOSTNAME.startswith("o-"):
         filename = "work"
     else:
@@ -73,7 +80,7 @@ def select_command_bookmark(buf: prompt_toolkit.buffer.Buffer):
     buf.insert_text(name)
 
 
-def select_dir_bookmark(buf: prompt_toolkit.buffer.Buffer):
+def select_dir_bookmark(buf: Buffer):
     with tempfile.NamedTemporaryFile() as tmp:
         run(f"cat  ~/ghq/github.com/74th/mycheatsheets/DirBookmark/{HOSTNAME} | peco > {tmp.name}")
         with open(tmp.name) as f:
@@ -87,7 +94,7 @@ def select_dir_bookmark(buf: prompt_toolkit.buffer.Buffer):
     buf.insert_text(name)
 
 
-def select_peco(buf: prompt_toolkit.buffer.Buffer, command: str):
+def select_peco(buf: Buffer, command: str):
     with tempfile.NamedTemporaryFile() as tmp:
         run(f"{command} | peco > {tmp.name}")
         with open(tmp.name) as f:
@@ -97,7 +104,7 @@ def select_peco(buf: prompt_toolkit.buffer.Buffer, command: str):
     buf.insert_text(" " + line.strip())
 
 
-def select_k8s_list(buf: prompt_toolkit.buffer.Buffer, list_command: str, replace: str):
+def select_k8s_list(buf: Buffer, list_command: str, replace: str):
     j = json.loads(silent_run(list_command))
     l = []
     for item in j["items"]:
@@ -115,38 +122,97 @@ def select_k8s_list(buf: prompt_toolkit.buffer.Buffer, list_command: str, replac
     buf.insert_text(replace + " ".join(lines))
 
 
-def select(buf: prompt_toolkit.buffer.Buffer):
+def comp_branch(buf: Buffer):
+    with tempfile.NamedTemporaryFile() as tmp:
+        run(f"git branch -a --no-color | peco > {tmp.name}")
+        with open(tmp.name) as f:
+            peco = f.readline()
+            if not peco:
+                return
+            branch = peco.split(" ")[-1]
+    text = buf.document.current_line
+    text = text[:-1]
+
+    # buf.reset()
+    # buf.insert_text(text + branch.strip())
+    buf.text = text + branch.strip()
+    buf.text
+
+def comp_ls(buf: Buffer):
+    with tempfile.NamedTemporaryFile() as tmp:
+        run(f"ls --color=never -1 | peco > {tmp.name}")
+        with open(tmp.name) as f:
+            peco = f.readline()
+            if not peco:
+                return
+    text = buf.document.current_line
+    text = text[:-1]
+    buf.reset()
+    buf.insert_text(text + peco.strip())
+
+def comp_test(buf: Buffer):
+    pwd = x_env["PWD"]
+    r = subprocess.run(f"ls --color=never -1 | peco", shell=True, capture_output=True, text=True, cwd=pwd)
+    peco = r.stdout.strip()
+    text = buf.document.current_line
+    text = text[:-1]
+    buf.reset()
+    buf.insert_text(text + peco)
+
+def select(buf: Buffer):
     line: str = buf.document.current_line
     if len(line) == 0:
         select_history(buf)
+        return
+    if line.endswith(" B"):
+        comp_branch(buf)
+        return
+    if line.endswith(" L"):
+        comp_ls(buf)
+        return
+    if line.endswith(" T"):
+        comp_test(buf)
+        return
     if line.startswith("git"):
         select_git(buf)
+        return
     if line.startswith("kubectx"):
         select_peco(buf, "kubectx")
+        return
     if line.startswith("kubens"):
         select_peco(buf, "kubens")
+        return
     if line.startswith("kdp"):
         select_k8s_list(buf, "kubectl get pods --output json", "kubectl describe ")
+        return
     elif line.startswith("kd"):
         tail = line[3:].strip()
         if len(tail):
             select_k8s_list(buf, "kubectl get " + tail + " --output json", "kubectl describe ")
         else:
             select_k8s_list(buf, "kubectl get all --output json", "kubectl describe ")
+        return
     if line.startswith("klp"):
         select_k8s_list(buf, "kubectl get pods --output json", "kubectl logs ")
+        return
     elif line.startswith("kl") or line.startswith("k logs"):
         select_k8s_list(buf, "kubectl get all --output json", "kubectl logs ")
+        return
     if line.startswith("k exec"):
         select_k8s_list(buf, "kubectl get pods --output json", "kubectl exec ")
+        return
     if line.startswith("krm") or line.startswith("k delete"):
         select_k8s_list(buf, "kubectl get all --output json", "kubectl delete ")
-
+        return
     if line.startswith("cb"):
         select_command_bookmark(buf)
+        return
     if line.startswith("db"):
         select_dir_bookmark(buf)
+        return
     if line.startswith("inv"):
         select_peco(buf, "inv --complete")
+        return
     if line.startswith("fab"):
         select_peco(buf, "fab --complete")
+        return

@@ -1,14 +1,14 @@
 import os
 from typing import List, cast
 import detect
-from .lib import run, silent_run, HOSTNAME
+from .lib import run, x_run, silent_run, HOSTNAME
 from .xonsh_builtin import x_env, x_aliases
 
 
 def load_commands():
     def open_bookmark():
-        name = run("cat ~/bookmark | peco").lines[0].strip()
-        run(f"cd {name}")
+        name = run("cat ~/bookmark | peco")
+        x_run(f"cd {name}")
 
     x_aliases["bk"] = open_bookmark
 
@@ -26,19 +26,18 @@ def load_commands():
                         r = p
         if r:
             r = silent_run(f"ghq list --exact --full-path {r}").strip()
-            run(f"cd {r}")
+            x_run(f"cd {r}")
 
     x_aliases["cdg"] = cd_ghq
 
     def select_dir_bookmark():
-        r = run(
+        name = run(
             f"cat ~/ghq/github.com/74th/mycheatsheets/DirBookmark/{HOSTNAME} | peco"
         )
-        if len(r.lines) > 0:
-            name = r.lines[0].strip()
+        if len(name) > 0:
             if name[0] == "[":
                 name = name[name.find("]") + 1 :]
-            run(name)
+            x_run(name)
 
     x_aliases["db"] = select_dir_bookmark
 
