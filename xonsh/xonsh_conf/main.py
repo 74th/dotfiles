@@ -3,14 +3,16 @@ import os
 import os.path
 import re
 import json
+
 try:
     import invoke
     from . import git
     from collections import OrderedDict
     from operator import itemgetter
     import prompt_toolkit
-    from .lib import HOSTNAME, run, silent_run
+    from .lib import HOSTNAME, x_run, silent_run
     from .xonsh_builtin import x_env, x_aliases, x_events, x_completers
+    from xonsh.tools import register_custom_style
     from prompt_toolkit.keys import Keys
     from prompt_toolkit.filters import ViInsertMode
     from .commands import load_commands
@@ -166,8 +168,15 @@ def set_inv_completer():
 
 def load_xontrib():
     # run("xontrib load coreutils readable-traceback")
-    run("xontrib load direnv")
+    x_run("xontrib load direnv")
 
+
+def color():
+    mystyle = {
+        "Token.PTK.CompletionMenu.Completion": "#0F0F0F",
+    }
+    register_custom_style("my", mystyle, base="default")
+    x_env["XONSH_COLOR_STYLE"]="my"
 
 def add_bash_competion():
     if os.path.exists("/home/linujxbrew/.linuxbrew/etc/bash_completion.d"):
@@ -194,6 +203,7 @@ def load():
     _default_charsets()
 
     load_xontrib()
+    color()
 
     _gcloud_config()
 
