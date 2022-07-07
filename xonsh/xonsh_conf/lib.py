@@ -10,8 +10,15 @@ def run(command: str) -> str:
     r = subprocess.run(command, shell=True, capture_output=True, text=True, cwd=pwd)
     return r.stdout.strip()
 
+
+def peco(input: str) -> str:
+    r = subprocess.run("peco", shell=True, capture_output=True, text=True, input=input)
+    return r.stdout.strip()
+
+
 def x_run(command: str) -> HiddenCommandPipeline:
     return x_execer.eval(command)
+
 
 def silent_run(command: str) -> str:
     # return invoke.run(command, warn=True, hide=True).stdout.strip()
