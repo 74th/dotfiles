@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 import os
-import invoke
+import subprocess
 
 HOSTNAME = os.uname().nodename
-c = invoke.Context()
+HOME = os.environ["HOME"]
 
 if (
     HOSTNAME.startswith("o-")
@@ -13,10 +13,14 @@ if (
     filename = "work"
 else:
     filename = "home"
-prog = c.run(
-    f"cat ~/ghq/github.com/74th/mycheatsheets/CmdBookmark/{filename} | peco"
+
+prog = subprocess.run(
+    f"cat {HOME}/ghq/github.com/74th/mycheatsheets/CmdBookmark/{filename} | peco",
+    shell=True,
+    capture_output=True,
+    text=True,
 ).stdout.strip()
 if len(prog) > 0:
     if prog[0] == "[":
         name = prog[prog.find("]") + 1 :]
-    c.run(prog, pty=True)
+    subprocess.run(prog, shell=True)

@@ -3,15 +3,13 @@
 import subprocess
 import sys
 from typing import List
-import invoke
 from socket import gethostname
 
 code = "code"
 g = ""
 if len(sys.argv) == 2:
     m = sys.argv[1]
-    c = invoke.Context()
-    l: List[str] = c.run("ghq list", hide=True).stdout.split("\n")
+    l: List[str] = subprocess.run(["ghq", "list"], capture_output=True, text=True).stdout.split("\n")
     for p in l:
         if p.find(m) >= 0:
             if len(g) == 0 or len(p) < len(g):
