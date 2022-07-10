@@ -1,27 +1,13 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta
 import json
 import subprocess
 import tempfile
 
-from .lib import run, silent_run, HOSTNAME, peco
+from .lib import PTKBuffer, run, silent_run, HOSTNAME, peco
 from .xonsh_builtin import x_session
 
 
-class Buffer(ABCMeta):
-    text: str
-
-    def delete_before_cursor(self):
-        pass
-
-    def reset(self):
-        pass
-
-    def insert_text(self, text: str):
-        pass
-
-
-def select_history(buf: Buffer):
+def select_history(buf: PTKBuffer):
     """
     履歴検索
     """
@@ -57,7 +43,7 @@ def select_git(buf):
             buf.insert_text(" " + " ".join([l.split(" ")[-1] for l in r.splitlines()]))
 
 
-def select_command_bookmark(buf: Buffer):
+def select_command_bookmark(buf: PTKBuffer):
     if HOSTNAME.startswith("o-"):
         filename = "work"
     else:
@@ -73,7 +59,7 @@ def select_command_bookmark(buf: Buffer):
     buf.insert_text(name)
 
 
-def select_dir_bookmark(buf: Buffer):
+def select_dir_bookmark(buf: PTKBuffer):
     name = run(
         f"cat  ~/ghq/github.com/74th/mycheatsheets/DirBookmark/{HOSTNAME} | peco "
     )
@@ -83,7 +69,7 @@ def select_dir_bookmark(buf: Buffer):
     buf.insert_text(name)
 
 
-def select_peco(buf: Buffer, command: str):
+def select_peco(buf: PTKBuffer, command: str):
     with tempfile.NamedTemporaryFile() as tmp:
         run(f"{command} | peco > {tmp.name}")
         with open(tmp.name) as f:
@@ -93,7 +79,7 @@ def select_peco(buf: Buffer, command: str):
     buf.insert_text(" " + line.strip())
 
 
-def select_k8s_list(buf: Buffer, list_command: str, replace: str):
+def select_k8s_list(buf: PTKBuffer, list_command: str, replace: str):
     j = json.loads(silent_run(list_command))
     l = []
     for item in j["items"]:
@@ -111,7 +97,7 @@ def select_k8s_list(buf: Buffer, list_command: str, replace: str):
     buf.insert_text(replace + " ".join(lines))
 
 
-def comp_branch(buf: Buffer):
+def comp_branch(buf: PTKBuffer):
     item = run(f"git branch -a --no-color | peco")
     if not item:
         return
@@ -120,7 +106,7 @@ def comp_branch(buf: Buffer):
     buf.insert_text(branch)
 
 
-def comp_ls(buf: Buffer):
+def comp_ls(buf: PTKBuffer):
     item = run(f"ls --color=never -1 | peco ")
     if not item:
         return
@@ -128,7 +114,7 @@ def comp_ls(buf: Buffer):
     buf.insert_text(item)
 
 
-def select(buf: Buffer):
+def select(buf: PTKBuffer):
     line: str = buf.document.current_line
     if len(line) == 0:
         select_history(buf)
@@ -138,9 +124,6 @@ def select(buf: Buffer):
         return
     if line.endswith(" L"):
         comp_ls(buf)
-        return
-    if line.endswith(" T"):
-        comp_test(buf)
         return
     if line.startswith("git"):
         select_git(buf)

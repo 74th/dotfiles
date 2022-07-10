@@ -1,3 +1,4 @@
+# type: ignore
 import os
 def __append_xonshrc_path():
     import sys

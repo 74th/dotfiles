@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# type: ignore
 from collections import OrderedDict
 import builtins
 import xonsh

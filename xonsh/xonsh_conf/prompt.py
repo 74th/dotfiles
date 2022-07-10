@@ -1,7 +1,7 @@
-from typing import Tuple
+from typing import Any, Dict, cast
 import yaml
-from .xonsh_builtin import x_env, x_aliases, x_events, x_exitcode
-from .lib import HOSTNAME, HOME, run, silent_run
+from .xonsh_builtin import x_env, x_exitcode
+from .lib import HOSTNAME, HOME
 import os
 
 kubeconf_ctime = 0.0
@@ -92,10 +92,9 @@ def set_prompt():
     prompt += "{prompt_end}"
 
     x_env["PROMPT"] = prompt
-    x_env["PROMPT_FIELDS"]["exit"] = (
-        lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
-    )
+    prompt_fields = cast(Dict[str, Any], x_env["PROMPT_FIELDS"])
+    prompt_fields["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
     from .gitstatus import gitstatus_prompt
 
-    x_env["PROMPT_FIELDS"]["git"] = gitstatus_prompt
-    x_env["PROMPT_FIELDS"]["kubernetes"] = current_kubernetes_context
+    prompt_fields["git"] = gitstatus_prompt
+    prompt_fields["kubernetes"] = current_kubernetes_context
