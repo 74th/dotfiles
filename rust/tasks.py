@@ -1,9 +1,8 @@
-from typing import List
 from invoke import task
 import invoke
 
 
-def list_packages() -> List[str]:
+def list_packages() -> list[str]:
     pkg = [
         "lsd",
         "bat",
@@ -12,8 +11,8 @@ def list_packages() -> List[str]:
     return pkg
 
 
-def list_installed(c: invoke.Context) -> List[str]:
-    installed: List[str] = []
+def list_installed(c: invoke.Context) -> list[str]:
+    installed: list[str] = []
     lines = c.run("cargo install --list").stdout
     for line in lines.split("\n"):
         if line and line[0] == " ":

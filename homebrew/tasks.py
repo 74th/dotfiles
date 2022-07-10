@@ -44,8 +44,7 @@ def _list_packages(c):
     ]
 
     # develop
-    pkgs += [
-    ]
+    pkgs += []
 
     # cloud
     pkgs += [
@@ -137,9 +136,9 @@ def unlink(c):
             "unzip",
             "util-linux",
             "zlib",
-            "kubernetes-cli"
+            "kubernetes-cli",
         ]
-    unlink: List[str] = [pkg for pkg in pkgs if pkg in installed]
+    unlink: list[str] = [pkg for pkg in pkgs if pkg in installed]
     if not unlink:
         return
 

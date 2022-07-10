@@ -1,7 +1,6 @@
 #!/usr/local/bin/python3
 import os
 import subprocess
-from typing import List
 import sys
 
 
@@ -23,12 +22,12 @@ def has_path(cmd: str):
     ).stdout.strip()
 
 
-def get_paths(default_paths: List[str]) -> List[str]:
+def get_paths(default_paths: list[str]) -> list[str]:
 
     home = os.path.expanduser("~")
     system = get_system()
     hostname = get_hostname()
-    _paths = []  # type: List[str]
+    _paths = []  # type: list[str]
 
     def add(path: str):
         if path not in default_paths and os.path.exists(path):

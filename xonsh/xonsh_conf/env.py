@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import os
 import subprocess
-from typing import List, Optional, Tuple
+from typing import Optional
 
 
 home = os.environ.get("HOME", "/home/nnyn")
@@ -11,7 +11,7 @@ def current_tty():
     return subprocess.run(["tty"], stdout=subprocess.PIPE, text=True).stdout.strip()
 
 
-def ssh_agent() -> Optional[Tuple[str, str]]:
+def ssh_agent() -> Optional[tuple[str, str]]:
     d = os.environ.get("XDG_RUNTIME_DIR", "")
     if d:
         d += "/keyring/.ssh"
@@ -20,8 +20,8 @@ def ssh_agent() -> Optional[Tuple[str, str]]:
     return None
 
 
-def pico_sdk_paths() -> List[Tuple[str, str]]:
-    paths: List[Tuple[str, str]] = []
+def pico_sdk_paths() -> list[tuple[str, str]]:
+    paths: list[tuple[str, str]] = []
     p = f"{home}/pico/pico-sdk"
     if os.path.exists(p):
         paths.append(("PICO_SDK_PATH", p))
@@ -37,8 +37,8 @@ def pico_sdk_paths() -> List[Tuple[str, str]]:
     return paths
 
 
-def esp_tools_path() -> List[Tuple[str, str]]:
-    paths: List[Tuple[str, str]] = []
+def esp_tools_path() -> list[tuple[str, str]]:
+    paths: list[tuple[str, str]] = []
     if os.path.exists(f"{home}/.espressif"):
         paths.append(
             ("IDF_PYTHON_ENV_PATH", "/home/nnyn/.espressif/python_env/idf4.4_py3.9_env")
@@ -60,10 +60,11 @@ def esp_tools_path() -> List[Tuple[str, str]]:
     return paths
 
 
-def gpg_agent() -> Tuple[str, str]:
+def gpg_agent() -> tuple[str, str]:
     return "GPG_TTY", current_tty()
 
-def misc() -> List[Tuple[str, str]]:
+
+def misc() -> list[tuple[str, str]]:
     d = {
         # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
         "USE_GKE_GCLOUD_AUTH_PLUGIN": "True"
@@ -71,8 +72,8 @@ def misc() -> List[Tuple[str, str]]:
     return list(d.items())
 
 
-def build_envs() -> List[Tuple[str, str]]:
-    envs: List[Tuple[str, str]] = []
+def build_envs() -> list[tuple[str, str]]:
+    envs: list[tuple[str, str]] = []
     env = ssh_agent()
     if env:
         envs.append(env)

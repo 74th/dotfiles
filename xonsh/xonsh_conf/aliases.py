@@ -1,8 +1,6 @@
 #!/usr/local/bin/python3
 import subprocess
 
-from typing import Dict, List
-
 
 def exists_command(cmd: str):
     r = subprocess.run(
@@ -13,8 +11,8 @@ def exists_command(cmd: str):
     return r.returncode == 0
 
 
-def get_aliases(human: bool = False) -> Dict[str, List[str]]:
-    a: Dict[str, List[str]] = {}
+def get_aliases(human: bool = False) -> dict[str, list[str]]:
+    a: dict[str, list[str]] = {}
     a["gt"] = ["git", "status"]
     a["co"] = ["git", "checkout"]
     a["commit"] = ["git", "commit", "-v"]
@@ -50,7 +48,7 @@ def get_aliases(human: bool = False) -> Dict[str, List[str]]:
     return a
 
 
-def export_bash(aliases: Dict[str, List[str]]):
+def export_bash(aliases: dict[str, list[str]]):
     output = ""
     for alias, cmd in aliases.items():
         output += "alias " + alias + "='" + " ".join(cmd) + "';"

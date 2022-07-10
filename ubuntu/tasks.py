@@ -1,4 +1,3 @@
-from typing import List
 import os
 import tempfile
 
@@ -60,8 +59,8 @@ def install_classic_snap_pkgs(c):
     c.run("sudo snap install --classic " + pkgs_str)
 
 
-def _list_packages() -> List[str]:
-    pkgs: List[str] = []
+def _list_packages() -> list[str]:
+    pkgs: list[str] = []
     pkgs += [
         "jq",
         "peco",
@@ -95,8 +94,8 @@ def install(c):
     c.run("sudo apt-get install -y " + " ".join(pkgs))
 
 
-def _list_desktop_packages() -> List[str]:
-    pkgs: List[str] = []
+def _list_desktop_packages() -> list[str]:
+    pkgs: list[str] = []
     pkgs += [
         "guake",
         "fcitx",

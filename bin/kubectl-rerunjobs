@@ -51,12 +51,12 @@ parser.add_argument("--context", type=str, help="context")
 args = parser.parse_args()
 
 c = invoke.Context()
-job_names: List[str] = args.jobs
+job_names: list[str] = args.jobs
 r = c.run(f"kubectl get -o json jobs " + " ".join(job_names), warn=True, hide=True)
 if r.failed:
     sys.exit(1)
 
-manifests: List[dict] = []
+manifests: list[dict] = []
 j = json.loads(r.stdout)
 if j["kind"] == "List":
     manifests = j["items"]

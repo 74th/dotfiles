@@ -1,5 +1,5 @@
 import os
-from typing import List, Set
+from typing import Set
 from invoke import task
 
 install_script = os.path.dirname(__file__) + "/install.sh"
@@ -8,7 +8,7 @@ krew_bin = os.path.expanduser("~/.krew/bin/kubectl-krew")
 
 def installed_plugins(c) -> Set[str]:
     lines = c.run(f"{krew_bin} list").stdout.split("\n")
-    results: List[str] = []
+    results: list[str] = []
     for line in lines:
         l = line.split(" ")
         if not l[0]:

@@ -1,5 +1,5 @@
 import os
-from typing import List, cast
+from typing import cast
 import detect
 from .lib import run, x_run, silent_run, HOSTNAME
 from .xonsh_builtin import x_env, x_aliases
@@ -19,7 +19,7 @@ def load_commands():
         if len(args) == 0:
             r = silent_run("ghq list | peco").strip()
         else:
-            l: List[str] = silent_run("ghq list").split("\n")
+            l: list[str] = silent_run("ghq list").split("\n")
             for p in l:
                 if p.find(args[0]) >= 0:
                     if len(r) == 0 or len(p) < len(r):
@@ -56,7 +56,7 @@ def load_commands():
     x_aliases["ssh-agent-up"] = up_ssh_agent
 
     def deactivate_homebrew():
-        paths = cast(List[str], x_env["PATH"])
+        paths = cast(list[str], x_env["PATH"])
         for p in list(paths):
             if p.count("homebrew"):
                 paths.remove(p)

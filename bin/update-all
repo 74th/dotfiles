@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-from typing import List, Any
-import os.path
 import invoke
 
 

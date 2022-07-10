@@ -1,4 +1,4 @@
-from typing import Any, Dict, cast
+from typing import Any, cast
 import yaml
 from .xonsh_builtin import x_env, x_exitcode
 from .lib import HOSTNAME, HOME
@@ -92,7 +92,7 @@ def set_prompt():
     prompt += "{prompt_end}"
 
     x_env["PROMPT"] = prompt
-    prompt_fields = cast(Dict[str, Any], x_env["PROMPT_FIELDS"])
+    prompt_fields = cast(dict[str, Any], x_env["PROMPT_FIELDS"])
     prompt_fields["exit"] = lambda: "" if x_exitcode() == 0 else str(x_exitcode()) + " "
     from .gitstatus import gitstatus_prompt
 

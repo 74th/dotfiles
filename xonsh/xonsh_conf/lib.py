@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta
-from io import StringIO
 import os
 import subprocess
 from typing import cast
-from xonsh.procs.pipelines import HiddenCommandPipeline
 from .xonsh_builtin import x_execer, x_env
 
 

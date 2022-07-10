@@ -2,26 +2,35 @@
 # ghq を使ってディレクトリを選んで code コマンドを実行
 import subprocess
 import sys
-from typing import List
 from socket import gethostname
 
 code = "code"
 g = ""
 if len(sys.argv) == 2:
     m = sys.argv[1]
-    l: List[str] = subprocess.run(["ghq", "list"], capture_output=True, text=True).stdout.split("\n")
+    l: list[str] = subprocess.run(
+        ["ghq", "list"], capture_output=True, text=True
+    ).stdout.split("\n")
     for p in l:
         if p.find(m) >= 0:
             if len(g) == 0 or len(p) < len(g):
                 g = p
 else:
-    r = subprocess.run("ghq list | peco", check=True, capture_output=True, shell=True, text=True)
+    r = subprocess.run(
+        "ghq list | peco", check=True, capture_output=True, shell=True, text=True
+    )
     g = r.stdout.strip()
 
 if not g:
     sys.exit(1)
 
-r = subprocess.run(f"ghq list --exact --full-path {g} | head -n1", check=True, capture_output=True, shell=True, text=True)
+r = subprocess.run(
+    f"ghq list --exact --full-path {g} | head -n1",
+    check=True,
+    capture_output=True,
+    shell=True,
+    text=True,
+)
 g = r.stdout.strip()
 hostname = gethostname()
 

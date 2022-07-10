@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from typing import cast, List
+from typing import cast
 import os.path
 import re
 
@@ -48,7 +48,7 @@ def _default_charsets():
 
 
 def __add_paths():
-    default_paths = cast(List[str], x_env["PATH"])
+    default_paths = cast(list[str], x_env["PATH"])
     x_env["PATH"] = get_paths(default_paths) + default_paths
 
 

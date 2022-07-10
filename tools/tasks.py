@@ -4,7 +4,7 @@ from invoke import task
 import invoke
 
 
-def npm_packages(small=False) -> List[str]:
+def npm_packages(small=False) -> list[str]:
     pkg = [
         "fkill-cli",
         "npm",
@@ -15,13 +15,13 @@ def npm_packages(small=False) -> List[str]:
     return pkg
 
 
-def rust_packages(small=False) -> List[str]:
+def rust_packages(small=False) -> list[str]:
     pkg = []
     return pkg
 
 
-def npm_installed(c: invoke.Context) -> List[str]:
-    installed: List[str] = []
+def npm_installed(c: invoke.Context) -> list[str]:
+    installed: list[str] = []
     lines = cast(str, c.run("npm ls -g", hide=True).stdout)
     for line in lines.split("\n"):
         m = re.match(r"^[├└]─[-┬] (\S+)@[\d.]+", line)
@@ -51,8 +51,8 @@ def upgrade_npm(c, small=False):
     c.run("npm upgrade -g " + " ".join(pkgs))
 
 
-def rust_installed(c: invoke.Context) -> List[str]:
-    installed: List[str] = []
+def rust_installed(c: invoke.Context) -> list[str]:
+    installed: list[str] = []
     lines = c.run("cargo install --list").stdout
     for line in lines.split("\n"):
         if line and line[0] == " ":

@@ -7,8 +7,6 @@ import collections
 import os
 import subprocess
 
-import xonsh.lazyasd as xl
-
 GitStatus = collections.namedtuple(
     "GitStatus",
     [
