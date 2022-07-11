@@ -70,14 +70,8 @@ def select_dir_bookmark(buf: PTKBuffer):
 
 
 def select_peco(buf: PTKBuffer, command: str):
-    with tempfile.NamedTemporaryFile() as tmp:
-        run(f"{command} | peco > {tmp.name}")
-        with open(tmp.name) as f:
-            line = f.readline()
-            if not line:
-                return
+    line = run(f"{command} | peco")
     buf.insert_text(" " + line.strip())
-
 
 def select_k8s_list(buf: PTKBuffer, list_command: str, replace: str):
     j = json.loads(silent_run(list_command))
