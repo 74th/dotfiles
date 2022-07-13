@@ -22,5 +22,6 @@ prog = subprocess.run(
 ).stdout.strip()
 if len(prog) > 0:
     if prog[0] == "[":
-        name = prog[prog.find("]") + 1 :]
+        prog = prog[prog.find("]") + 1 :]
+    print("\033[92m" + prog + "\033[0m")
     subprocess.run(prog, shell=True)
