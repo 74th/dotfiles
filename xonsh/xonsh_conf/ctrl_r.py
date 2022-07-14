@@ -113,10 +113,10 @@ def select(buf: PTKBuffer):
     if len(line) == 0:
         select_history(buf)
         return
-    if line.endswith(" B"):
+    if line.endswith(" b"):
         comp_branch(buf)
         return
-    if line.endswith(" L"):
+    if line.endswith(" l"):
         comp_ls(buf)
         return
     if line.startswith("git"):
