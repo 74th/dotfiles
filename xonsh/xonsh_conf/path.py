@@ -59,6 +59,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/.local/bin")
     add(home + "/.rbx_env/shims")
     add(home + "/.nodenv/shims")
+    add(home + "/.nodenv/bin")
     add(home + "/.pyenv/shims")
     add(home + "/.pyenv/bin")
     add(home + "/.nodenv/shims")
