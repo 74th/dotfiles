@@ -1,0 +1,5 @@
+#!/bin/bash
+killall ssh-agent; true
+eval `ssh-agent`
+ssh-add ~/.ssh/bastion
+ssh -A gateway
