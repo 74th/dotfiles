@@ -10,17 +10,17 @@ from socket import gethostname
 code = "code"
 g = ""
 c = invoke.Context()
+p = "./"
 if len(sys.argv) == 2:
     p = sys.argv[1]
-    p = os.path.abspath(p)
-    word = "/ghq/github.com/"
-    if not p.count(word):
-        sys.stderr.write(f"{p} is not ghq directory\n")
-        sys.exit(1)
-    splitted = p[p.find(word) :].split("/")
-    g = "/".join(splitted[2:5])
-else:
-    g = c.run("ghq list | peco").stdout.strip()
+
+p = os.path.abspath(p)
+word = "/ghq/github.com/"
+if not p.count(word):
+    sys.stderr.write(f"{p} is not ghq directory\n")
+    sys.exit(1)
+splitted = p[p.find(word) :].split("/")
+g = "/".join(splitted[2:5])
 
 if not g:
     sys.exit(1)
