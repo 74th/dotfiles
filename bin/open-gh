@@ -4,12 +4,10 @@ import subprocess
 import shlex
 import os
 import sys
-import invoke
 from socket import gethostname
 
 code = "code"
 g = ""
-c = invoke.Context()
 p = "./"
 if len(sys.argv) == 2:
     p = sys.argv[1]
@@ -28,11 +26,20 @@ if not g:
 g = f"https://{g}"
 hostname = gethostname()
 if hostname in ["violet-gopher", "ciel"]:
-    cmd = ["ssh", "mac", shlex.quote('/Applications/Google Chrome.app/Contents/MacOS/google chrome'), g]
+    cmd = [
+        "ssh",
+        "mac",
+        shlex.quote("/Applications/Google Chrome.app/Contents/MacOS/google chrome"),
+        g,
+    ]
     subprocess.run(cmd, check=True, capture_output=True)
 elif hostname in ["arcueid"]:
-    c.run(f"google-chrome {g}")
+    subprocess.run(f"google-chrome {g}", check=True, capture_output=True)
 elif os.path.exists("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"):
-    c.run(f"'/Applications/Google Chrome.app/Contents/MacOS/google chrome' {g}")
+    subprocess.run(
+        ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", g],
+        check=True,
+        capture_output=True,
+    )
 else:
-    c.run(f"google-chrome {g}")
+    subprocess.run(f"google-chrome {g}", check=True, capture_output=True)
