@@ -19,6 +19,10 @@ elif current == "violet-gopher":
     host = "mac"
     vm = "violet"
     code_path = "/usr/local/bin/code"
+elif current == "iroha":
+    host = "mac"
+    vm = "iroha"
+    code_path = "/usr/local/bin/code"
 else:
     host = ""
     vm = ""
