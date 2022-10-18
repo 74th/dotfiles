@@ -1,13 +1,19 @@
 #!/usr/bin/python3
 import os
-from os.path import expanduser
-import platform
-import invoke
+import subprocess
 
-c = invoke.Context()
-with c.cd(os.path.expanduser("~/ghq/github.com/74th/mycheatsheets/")):
-    c.run("git pull")
-if platform.node() in ["violet-gopher"]:
-    c.run("rcode ~/ghq/github.com/74th/mycheatsheets/sheets")
-else:
-    c.run("code ~/ghq/github.com/74th/mycheatsheets/sheets")
+p = os.path.expanduser("~/ghq/github.com/74th/mycheatsheets/")
+
+print(f"cd {p} && git pull")
+subprocess.run(
+    ["git", "pull"],
+    check=True,
+    capture_output=True,
+    cwd=p,
+)
+print(f"c {p}")
+subprocess.run(
+    ["c", p],
+    check=True,
+    capture_output=True,
+)
