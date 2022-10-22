@@ -1,6 +1,6 @@
 #!/bin/sh
 HOSTNAME=$(hostname)
-if [ $HOSTNAME = "ciel" ]; then
+if [ $HOSTNAME = "iroha" ]; then
     ssh kukurushka $*
 elif [ $HOSTNAME = "violet-gopher" ]; then
     ssh mac $*

@@ -11,13 +11,13 @@ if len(sys.argv) == 2:
     target = sys.argv[1]
 target = os.path.abspath(target)
 
-if current == "ciel":
-    host = "kukurushka"
-    vm = "ciel"
-    code_path = "/usr/local/bin/code"
-elif current == "violet-gopher":
+if current == "violet-gopher":
     host = "mac"
     vm = "violet"
+    code_path = "/usr/local/bin/code"
+elif current == "iroha":
+    host = "mac"
+    vm = "iroha"
     code_path = "/usr/local/bin/code"
 else:
     host = ""

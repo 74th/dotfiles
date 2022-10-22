@@ -83,12 +83,6 @@ def set_config(c):
     # 日本語の文字化けを治す
     c.run("git config --global core.quotepath false", env=env)
 
-    # オープンソース用の名前を適用する
-    c.run(
-        'git config --global alias.setnnyn "!git config --local user.name 74th && git config --local user.email site@74th.tech"',
-        env=env,
-    )
-
     # pull では rebase を優先する
     c.run("git config --global pull.rebase false")
     # rebase のときに自動で stash save pop する
@@ -100,11 +94,11 @@ def set_config(c):
 
     # gpg key
     # gpg --import gpgkey.key
-    c.run("git config --global user.signingkey 275E8CC7AD40E892")
+    # c.run("git config --global user.signingkey 275E8CC7AD40E892")
 
     # username
     c.run('git config --global user.name "Atsushi Morimoto (74th)"', env=env)
-    c.run("git config --global user.email site@74th.tech", env=env)
+    c.run("git config --global user.email 74th.tech@gmail.com", env=env)
 
 
 @task
