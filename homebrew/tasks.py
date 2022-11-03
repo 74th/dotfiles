@@ -22,7 +22,7 @@ def _list_minimal_mac(c):
 
     pkgs += [
         "git",
-        "vim",
+        "macvim",
         "python",
     ]
 
