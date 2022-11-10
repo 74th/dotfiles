@@ -11,9 +11,9 @@ if len(sys.argv) == 2:
     target = sys.argv[1]
 target = os.path.abspath(target)
 
-if current == "violet-gopher":
+if current == "crow":
     host = "mac"
-    vm = "violet"
+    vm = "crow"
     code_path = "/usr/local/bin/code"
 elif current == "iroha":
     host = "mac"

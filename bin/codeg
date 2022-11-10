@@ -34,7 +34,7 @@ r = subprocess.run(
 g = r.stdout.strip()
 hostname = gethostname()
 
-if hostname in ["violet-gopher", "iroha"]:
+if hostname in ["crow", "iroha"]:
     code = "c"
 
 subprocess.run([code, g], check=True, capture_output=True)
