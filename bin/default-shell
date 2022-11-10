@@ -1,5 +1,8 @@
 #!/bin/sh
-if [ "${HOSTNAME}" = "O-14763-MAC" ]; then
+if [ "${HOSTNAME}" = "PC-91030" ]; then
+    # Work Mac (Linux VM)
+    ssh -t crow .local/bin/xonsh
+elif [ "${HOSTNAME}" = "O-14763-MAC" ]; then
     # Work Mac (Linux VM)
     ssh -t violet .local/bin/xonsh
 elif [ -e "${HOME}/.local/pipx/venvs/xonsh" ]; then
