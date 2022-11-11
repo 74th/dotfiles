@@ -140,7 +140,6 @@ def load():
 
     _default_charsets()
 
-    load_xontrib()
     color()
 
     _gcloud_config()
@@ -162,3 +161,7 @@ def load():
     add_bash_competion()
 
     x_env["NNYN_DOTFILES_LOADED"] = "1"
+    # load_xontrib()
+    x_run(
+        "source /home/nnyn/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/xonsh-direnv.xsh"
+    )
