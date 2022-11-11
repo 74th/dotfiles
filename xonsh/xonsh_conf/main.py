@@ -122,7 +122,7 @@ def add_bash_competion():
 
 
 def launch_ssh_agent():
-    if HOSTNAME not in ["violet-gopher"]:
+    if HOSTNAME not in ["crow"]:
         return
     sock = os.environ.get("XDG_RUNTIME_DIR", "/run/user/1000") + "/keyring/.ssh"
     if os.path.exists(sock):
