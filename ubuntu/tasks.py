@@ -8,19 +8,13 @@ def add_source_list(c):
     # gh -> miniconda を使おう
 
     # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-    # c.run(
-    #     "curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg"
-    # )
-    # c.run(
-    #     """echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null"""
-    # )
-    # c.run("sudo apt-add-repository https://cli.github.com/packages")
-
-    # nodejs
-    # https://github.com/nodesource/distributions
-    # if not os.path.exists("/etc/apt/sources.list.d/nodesource.list"):
-    #     c.run("curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -")
-    pass
+    c.run(
+        "curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg"
+    )
+    c.run(
+        """echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null"""
+    )
+    c.run("sudo apt-add-repository https://cli.github.com/packages")
 
 
 def add_source_list_desktop(c):
