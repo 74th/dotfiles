@@ -8,7 +8,7 @@ HOME = os.environ["HOME"]
 if (
     HOSTNAME.startswith("o-")
     or HOSTNAME.startswith("O-")
-    or HOSTNAME.startswith("violet-gopher")
+    or HOSTNAME.startswith("crow")
 ):
     filename = "work"
 else:

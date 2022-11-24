@@ -74,7 +74,7 @@ if [ "$PS1" != "" ]; then
     PS1=$PS1'\n\$'
 
     function cb() {
-        if [ "$HOSTNAME" == "violet-gopher" ]; then
+        if [ "$HOSTNAME" == "crow" ]; then
             $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/work)
         else
             $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/home)

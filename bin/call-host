@@ -2,7 +2,7 @@
 HOSTNAME=$(hostname)
 if [ $HOSTNAME = "iroha" ]; then
     ssh kukurushka $*
-elif [ $HOSTNAME = "violet-gopher" ]; then
+elif [ $HOSTNAME = "crow" ]; then
     ssh mac $*
 else
     echo "this is $(hostname), cannot access host"

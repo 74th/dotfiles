@@ -23,17 +23,13 @@
                                 "from": {
                                     "key_code": "open_bracket",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ]
+                                        "mandatory": ["control"]
                                     }
                                 },
                                 "to": [
                                     {
                                         "key_code": "open_bracket",
-                                        "modifiers": [
-                                            "control"
-                                        ]
+                                        "modifiers": ["control"]
                                     },
                                     {
                                         "key_code": "japanese_eisuu"
@@ -57,6 +53,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -65,9 +65,7 @@
                                 "from": {
                                     "key_code": "left_command",
                                     "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -94,6 +92,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -102,9 +104,7 @@
                                 "from": {
                                     "key_code": "right_command",
                                     "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -136,6 +136,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -144,12 +148,8 @@
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["caps_lock"]
                                     }
                                 },
                                 "to": [
@@ -170,6 +170,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -178,12 +182,8 @@
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["caps_lock"]
                                     }
                                 },
                                 "to": [
@@ -204,6 +204,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -212,12 +216,8 @@
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["caps_lock"]
                                     }
                                 },
                                 "to": [
@@ -238,6 +238,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -246,12 +250,8 @@
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["caps_lock"]
                                     }
                                 },
                                 "to": [
@@ -277,6 +277,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -285,9 +289,7 @@
                                 "from": {
                                     "key_code": "left_alt",
                                     "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -322,6 +324,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -330,9 +336,7 @@
                                 "from": {
                                     "key_code": "right_alt",
                                     "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -360,6 +364,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -368,9 +376,7 @@
                                 "from": {
                                     "key_code": "left_control",
                                     "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -401,6 +407,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -409,9 +419,7 @@
                                 "from": {
                                     "key_code": "left_shift",
                                     "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -442,6 +450,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -450,12 +462,8 @@
                                 "from": {
                                     "key_code": "1",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -476,6 +484,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -484,12 +496,8 @@
                                 "from": {
                                     "key_code": "2",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -510,6 +518,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -518,12 +530,8 @@
                                 "from": {
                                     "key_code": "3",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -544,6 +552,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -552,12 +564,8 @@
                                 "from": {
                                     "key_code": "4",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -578,6 +586,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -586,12 +598,8 @@
                                 "from": {
                                     "key_code": "5",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -612,6 +620,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -620,12 +632,8 @@
                                 "from": {
                                     "key_code": "6",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -646,6 +654,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -654,12 +666,8 @@
                                 "from": {
                                     "key_code": "7",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -680,6 +688,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -688,12 +700,8 @@
                                 "from": {
                                     "key_code": "8",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -714,6 +722,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -722,12 +734,8 @@
                                 "from": {
                                     "key_code": "9",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -748,6 +756,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -756,12 +768,8 @@
                                 "from": {
                                     "key_code": "0",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -782,6 +790,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -790,12 +802,8 @@
                                 "from": {
                                     "key_code": "hyphen",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
@@ -816,6 +824,10 @@
                                             {
                                                 "product_id": 832,
                                                 "vendor_id": 1452
+                                            },
+                                            {
+                                                "product_id": 835,
+                                                "vendor_id": 1452
                                             }
                                         ],
                                         "type": "device_if"
@@ -824,12 +836,8 @@
                                 "from": {
                                     "key_code": "equal_sign",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
                                     }
                                 },
                                 "to": [
