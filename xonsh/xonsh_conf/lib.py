@@ -27,12 +27,26 @@ class PTKBuffer(ABCMeta):
 
 def run(command: str) -> str:
     pwd = x_env["PWD"]
-    r = subprocess.run(command, shell=True, capture_output=True, text=True, cwd=pwd)
+    r = subprocess.run(
+        command,
+        shell=True,
+        capture_output=True,
+        text=True,
+        cwd=pwd,
+        env=x_env,
+    )
     return r.stdout.strip()
 
 
 def peco(input: str) -> str:
-    r = subprocess.run("peco", shell=True, capture_output=True, text=True, input=input)
+    r = subprocess.run(
+        "peco",
+        shell=True,
+        capture_output=True,
+        text=True,
+        input=input,
+        env=x_env,
+    )
     return r.stdout.strip()
 
 
@@ -42,7 +56,13 @@ def x_run(command: str):
 
 def silent_run(command: str) -> str:
     pwd = x_env["PWD"]
-    r = subprocess.run(command, shell=True, stdout=subprocess.PIPE, text=True, cwd=pwd)
+    r = subprocess.run(
+        command,
+        shell=True,
+        stdout=subprocess.PIPE,
+        text=True,
+        cwd=pwd,
+    )
     return r.stdout
 
 

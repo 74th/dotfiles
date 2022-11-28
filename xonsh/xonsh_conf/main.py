@@ -163,5 +163,5 @@ def load():
     x_env["NNYN_DOTFILES_LOADED"] = "1"
     # load_xontrib()
     x_run(
-        "source /home/nnyn/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/xonsh-direnv.xsh"
+        f"source /{HOME}/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/xonsh-direnv.xsh"
     )
