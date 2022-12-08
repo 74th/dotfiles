@@ -27,6 +27,8 @@ def current_kubernetes_context() -> str:
         else:
             kubeconf = yaml.load(f.read().strip(), Loader=yaml.Loader)
     context_name = kubeconf.get("current-context", "")
+    if context_name is None:
+        return ""
 
     namespace_display_name = ""
 
