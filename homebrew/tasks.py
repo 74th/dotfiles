@@ -24,6 +24,7 @@ def _list_minimal_mac(c):
         "git",
         "macvim",
         "python",
+        "gh",
     ]
 
     return pkgs
@@ -40,7 +41,6 @@ def _list_packages(c):
     # CLI toolset
     pkgs += [
         "ghq",
-        "gh",
     ]
 
     # develop

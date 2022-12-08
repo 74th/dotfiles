@@ -80,6 +80,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/libraries/espressif/esp-idf/components/espcoredump")
     add(home + "/libraries/espressif/esp-idf/components/partition_table")
     add(home + "/libraries/espressif/esp-idf/components/app_update")
+    add("/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/bin")
     add(
         home
         + "/.espressif/tools/xtensa-esp32-elf/esp-2020r3-8.4.0/xtensa-esp32-elf/bin"

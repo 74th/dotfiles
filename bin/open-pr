@@ -25,7 +25,7 @@ if not g:
 
 g = f"https://{g}/pulls"
 hostname = gethostname()
-if hostname in ["violet-gopher", "iroha"]:
+if hostname in ["crow", "iroha"]:
     cmd = [
         "ssh",
         "mac",

@@ -122,7 +122,7 @@ def add_bash_competion():
 
 
 def launch_ssh_agent():
-    if HOSTNAME not in ["violet-gopher"]:
+    if HOSTNAME not in ["crow"]:
         return
     sock = os.environ.get("XDG_RUNTIME_DIR", "/run/user/1000") + "/keyring/.ssh"
     if os.path.exists(sock):
@@ -140,7 +140,6 @@ def load():
 
     _default_charsets()
 
-    load_xontrib()
     color()
 
     _gcloud_config()
@@ -162,3 +161,7 @@ def load():
     add_bash_competion()
 
     x_env["NNYN_DOTFILES_LOADED"] = "1"
+    # load_xontrib()
+    x_run(
+        f"source /{HOME}/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/xonsh-direnv.xsh"
+    )
