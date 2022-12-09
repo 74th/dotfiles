@@ -71,6 +71,8 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/miniconda3/bin")
     add(home + "/go/bin")
     add(home + "/go/src/github.com/uber/go-torch/FlameGraph")
+    add(home + "/Library/AndroidIntel/platform-tools")  # 会社PC用
+    add(home + "/Library/AndroidIntel/tools")  # 会社PC用
     add(home + "/Android/Sdk/platform-tools")
     add(home + "/Android/Sdk/tools")
     add(home + "/sdks/google-cloud-sdk/bin")
