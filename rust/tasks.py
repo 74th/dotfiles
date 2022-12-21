@@ -5,6 +5,7 @@ import invoke
 def list_packages() -> list[str]:
     pkg = [
         "lsd",
+        "binstall",
         "bat",
         "ripgrep",
     ]
