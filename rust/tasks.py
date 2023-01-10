@@ -8,6 +8,7 @@ def list_packages() -> list[str]:
         "binstall",
         "bat",
         "ripgrep",
+        "cargo-generate",
     ]
     return pkg
 
