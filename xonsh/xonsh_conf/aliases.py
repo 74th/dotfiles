@@ -1,5 +1,6 @@
 #!/usr/local/bin/python3
 import subprocess
+import os.path
 
 
 def exists_command(cmd: str):
@@ -45,6 +46,9 @@ def get_aliases(human: bool = False) -> dict[str, list[str]]:
     # java
     # a["javac"] = ["javac", "-J-Dfile.encoding=utf-8"]
     # a["java"] = ["java", "-Dfile.encoding=UTF-8"]
+
+    if os.path.exists("/Volumes"):
+        a["brew"] = ["arch", "-arm64", "brew"]
 
     return a
 
