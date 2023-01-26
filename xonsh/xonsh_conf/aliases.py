@@ -1,7 +1,9 @@
 #!/usr/local/bin/python3
+import os
 import subprocess
 import os.path
 
+HOME = os.environ.get("HOME", "/home/nnyn")
 
 def exists_command(cmd: str):
     r = subprocess.run(
@@ -31,7 +33,7 @@ def get_aliases(human: bool = False) -> dict[str, list[str]]:
     a["krm"] = ["kubectl", "delete"]
 
     # syntax_sugar
-    if exists_command("lsd"):
+    if os.path.exists(f"{HOME}/.cargo/bin/lsd"):
         a["al"] = ["lsd", "-al"]
         a["la"] = ["lsd", "-al"]
         a["ll"] = ["lsd", "-al"]

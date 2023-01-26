@@ -75,7 +75,7 @@ table.insert(ssh_domains, {
   username = "nnyn",
 })
 table.insert(ssh_domains, {
-  name = "ciel",
+  name = "iroha",
   remote_address = "192.168.64.8",
   username = "nnyn",
 })
