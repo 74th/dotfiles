@@ -19,6 +19,11 @@ elif current == "iroha":
     host = "mac"
     vm = "iroha"
     code_path = "/usr/local/bin/code"
+elif "SSH_CLIENT" in os.environ:
+    ssh_client = os.environ["SSH_CLIENT"].split(" ")
+    host = ssh_client[0]
+    vm = current
+    code_path = "/usr/local/bin/code"
 else:
     host = ""
     vm = ""

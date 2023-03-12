@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # ghq を使ってディレクトリを選んで code コマンドを実行
+import os
 import subprocess
 import sys
 from socket import gethostname
@@ -34,7 +35,7 @@ r = subprocess.run(
 g = r.stdout.strip()
 hostname = gethostname()
 
-if hostname in ["crow", "iroha"]:
+if "SSH_CLIENT" in os.environ:
     code = "c"
 
 subprocess.run([code, g], check=True, capture_output=True)

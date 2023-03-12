@@ -6,15 +6,17 @@ from invoke import task
 
 def add_source_list(c):
     # gh -> miniconda を使おう
+    if os.path.exists("/etc/apt/sources.list.d/github-cli.list"):
+        return
 
     # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-    c.run(
-        "curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg"
-    )
-    c.run(
-        """echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null"""
-    )
-    c.run("sudo apt-add-repository https://cli.github.com/packages")
+    #c.run(
+    #    "curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg"
+    #)
+    #c.run(
+    #    """echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null"""
+    #)
+    #c.run("sudo apt-add-repository https://cli.github.com/packages")
 
 
 def add_source_list_desktop(c):
@@ -27,7 +29,7 @@ def add_source_list_desktop(c):
         "sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/"
     )
     c.run(
-        "sudo sh -c 'echo \"deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main\" > /etc/apt/sources.list.d/vscode.list'"
+        "sudo sh -c 'echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main\" > /etc/apt/sources.list.d/vscode.list'"
     )
     c.run("rm packages.microsoft.gpg")
 
@@ -65,8 +67,8 @@ def _list_packages() -> list[str]:
         "git-secrets",
         "bzip2",
         "unar",
-        "nodejs",
-        "npm",
+        # "nodejs",
+        # "npm",
         "apt-transport-https",
         "protobuf-compiler",
         "curl",
