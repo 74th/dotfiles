@@ -110,8 +110,10 @@ def get_paths(default_paths: list[str]) -> list[str]:
         home
         + "/.espressif/tools/openocd-esp32/v0.10.0-esp32-20210401/openocd-esp32/bin"
     )
+    add("/usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin")
     # add(home + "/.espressif/python_env/idf4.4_py3.9_env/bin")
     add(home + "/libraries/espressif/esp-idf/tools")
+    add("/opt/riscv-gnu-toolchain/bin")
 
     add(home + "/bin")
     add(home + "/dotfiles/bin")
