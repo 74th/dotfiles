@@ -56,31 +56,12 @@
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": true,
   // terminal
-  "terminal.integrated.shell.osx": "/usr/local/bin/bash",
+  "terminal.integrated.shell.osx": "/opt/homebrew/bin/bash",
   "terminal.integrated.shellArgs.osx": [],
-  "terminal.integrated.shell.linux": "/bin/bash",
+
+  "terminal.integrated.shell.linux": "/usr/bin/bash",
   "terminal.integrated.fontSize": 14,
-  "shellLauncher.shells.osx": [
-    {
-      "shell": "xonsh"
-    },
-    {
-      "shell": "bash"
-    }
-  ],
-  "shellLauncher.shells.linux": [
-    {
-      "label": "xonsh",
-      "launchName": "xonsh",
-      "shell": "/home/nnyn/.local/bin/xonsh"
-    },
-    {
-      "label": "bash",
-      "launchName": "bash",
-      "shell": "/usr/bin/bash",
-      "args": ["-l"]
-    }
-  ],
+
   // editor
   "editor.suggestSelection": "first",
   "editor.copyWithSyntaxHighlighting": false,

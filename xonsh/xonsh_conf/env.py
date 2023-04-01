@@ -8,6 +8,8 @@ home = os.environ.get("HOME", "/home/nnyn")
 
 
 def current_tty():
+    if os.path.exists("/Applications"):
+        return ""
     return subprocess.run(["tty"], stdout=subprocess.PIPE, text=True).stdout.strip()
 
 
@@ -60,8 +62,11 @@ def esp_tools_path() -> list[tuple[str, str]]:
     return paths
 
 
-def gpg_agent() -> tuple[str, str]:
-    return "GPG_TTY", current_tty()
+def gpg_agent() -> Optional[tuple[str, str]]:
+    tty = current_tty()
+    if not tty:
+        return None
+    return "GPG_TTY", tty
 
 
 def misc() -> list[tuple[str, str]]:
@@ -87,7 +92,9 @@ def build_envs() -> list[tuple[str, str]]:
     elif os.path.exists("/usr/local/bin/python3"):
         envs.append(("CLOUDSDK_PYTHON", "/usr/local/bin/python3"))
 
-    envs.append(gpg_agent())
+    gpg_agent_env = gpg_agent()
+    if gpg_agent_env:
+        envs.append(gpg_agent_env)
     return envs
 
 
