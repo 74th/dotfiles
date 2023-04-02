@@ -23,7 +23,10 @@ elif "SSH_CLIENT" in os.environ:
     ssh_client = os.environ["SSH_CLIENT"].split(" ")
     host = ssh_client[0]
     vm = current
-    code_path = "/usr/local/bin/code"
+    if host in ["192.168.1.186"]:
+        code_path = "/usr/bin/code"
+    else:
+        code_path = "/usr/local/bin/code"
 else:
     host = ""
     vm = ""
