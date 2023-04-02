@@ -67,6 +67,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/.cargo/bin")
     add(home + "/.asdf/bin")
     add(home + "/.asdf/shims")
+    add(home + "/.local/xPacks/@xpack-dev-tools/riscv-none-elf-gcc/12.2.0-3.1/.content/bin")
     add(home + "/miniconda3/bin")
     add(home + "/go/bin")
     add(home + "/go/src/github.com/uber/go-torch/FlameGraph")
