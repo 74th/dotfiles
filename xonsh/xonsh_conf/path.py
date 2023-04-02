@@ -2,6 +2,7 @@
 import os
 import subprocess
 import sys
+import shlex
 
 
 def get_system():
@@ -142,4 +143,4 @@ if __name__ == "__main__":
         current_paths = os.environ["PATH"].split(":")
     additional_paths = get_paths(current_paths)
     if additional_paths:
-        print("export PATH=" + ":".join(additional_paths) + ":$PATH")
+        print("export PATH=" + shlex.quote(":".join(additional_paths)) + ":$PATH")
