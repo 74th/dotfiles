@@ -1,0 +1,3 @@
+#!/bin/sh
+set -xe
+rclone sync gdrive:/datasheets ${HOME}/datasheets
