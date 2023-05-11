@@ -1,4 +1,5 @@
 #!env bash
+# https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 set -xe
 type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
