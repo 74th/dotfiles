@@ -77,6 +77,7 @@ def _list_packages() -> list[str]:
         "cargo",
         "python3-venv",
         "python-is-python3",
+        "pipx",
         "trash-cli",
     ]
     return pkgs

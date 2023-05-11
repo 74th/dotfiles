@@ -4,8 +4,8 @@ import invoke
 
 
 def set_poetry_config(c):
-    c.run(f"poetry config virtualenvs.create true")
-    c.run(f"poetry config virtualenvs.in-project true")
+    c.run(f"~/.local/bin/poetry config virtualenvs.create true")
+    c.run(f"~/.local/bin/poetry config virtualenvs.in-project true")
 
 
 def install_packages(c, l: list[str]):
@@ -23,9 +23,6 @@ def list_small_packages():
     l += [
         "invoke",
         "pyyaml",
-        "poetry",
-        "xonsh[full]",
-        "xonsh-direnv",
         # "xontrib-readable-traceback",
     ]
     return l
@@ -49,16 +46,18 @@ def list_packages():
 
 
 def list_packages_by_pipx():
-    l = []
+    l = [
+        "poetry",
+        "xonsh[full]",
+    ]
     return l
 
 
 @invoke.task
 def install_by_pipx(c):
     l = list_packages_by_pipx()
-    if len(l) > 0:
-        l_str = " ".join(l)
-        c.run(f"pipx install {l_str}")
+    for p in l:
+        c.run(f"pipx install {p}")
 
 
 @invoke.task
