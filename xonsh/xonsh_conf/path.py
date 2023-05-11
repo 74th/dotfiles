@@ -2,31 +2,49 @@
 import os
 import subprocess
 import sys
+import shlex
 
 
 def get_system():
-    return subprocess.run(
+    system_name = subprocess.run(
         ["uname", "-s"], stdout=subprocess.PIPE, text=True
     ).stdout.strip()
+    if system_name == "Darwin":
+        return "macos"
+    return "linux"
 
 
-def get_hostname():
+def get_hostname() -> str:
     return subprocess.run(
         ["hostname"], stdout=subprocess.PIPE, text=True
     ).stdout.strip()
 
 
-def has_path(cmd: str):
+def has_path(cmd: str) -> str:
     return subprocess.run(
         ["which", "-s", cmd], stdout=subprocess.PIPE, text=True
     ).stdout.strip()
 
 
+def get_arch(system: str) -> str:
+    if system == "macos":
+        return "arm64"
+    arch = subprocess.run(
+        ["uname", "--processor"], stdout=subprocess.PIPE, text=True
+    ).stdout.strip()
+    if arch == "aarch64":
+        return "arm64"
+    if arch == "x86_64":
+        return "amd64"
+    return "unknown"
+
+
 def get_paths(default_paths: list[str]) -> list[str]:
 
     home = os.path.expanduser("~")
-    system = get_system()
+    system = get_system() # Linux, Darwin
     hostname = get_hostname()
+    arch = get_arch(system) # arm64, amd64
     _paths = []  # type: list[str]
 
     def add(path: str):
@@ -67,6 +85,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/.cargo/bin")
     add(home + "/.asdf/bin")
     add(home + "/.asdf/shims")
+    add(home + "/.local/xPacks/@xpack-dev-tools/riscv-none-elf-gcc/12.2.0-3.1/.content/bin")
     add(home + "/miniconda3/bin")
     add(home + "/go/bin")
     add(home + "/go/src/github.com/uber/go-torch/FlameGraph")
@@ -110,21 +129,26 @@ def get_paths(default_paths: list[str]) -> list[str]:
         home
         + "/.espressif/tools/openocd-esp32/v0.10.0-esp32-20210401/openocd-esp32/bin"
     )
+    add("/usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin")
     # add(home + "/.espressif/python_env/idf4.4_py3.9_env/bin")
     add(home + "/libraries/espressif/esp-idf/tools")
+    add("/opt/riscv-gnu-toolchain/bin")
 
     add(home + "/bin")
-    add(home + "/dotfiles/bin")
+    add(home + "/ghq/github.com/74th/dotfiles/bin")
     add(home + "/ghq/github.com/74th/mycheatsheets/bin")
     add(home + "/ghq/github.com/74th/mycheatsheets/bin/" + hostname)
-
-    if system == "Linux":
-        add(home + "/dotfiles/bin/linux")
+    if system == "linux":
+        add(home + "/ghq/github.com/74th/dotfiles/bin/linux")
         add(home + "/ghq/github.com/74th/mycheatsheets/bin/linux")
-    if system == "Darwin":
-        add(home + "/dotfiles/bin/macos")
+        if arch == "amd64":
+            add(home + "/ghq/github.com/74th/dotfiles/bin/linux/amd64")
+        if arch == "arm64":
+            add(home + "/ghq/github.com/74th/dotfiles/bin/linux/arm64")
+    if system == "macos":
+        add(home + "/ghq/github.com/74th/dotfiles/bin/macos")
         add(home + "/ghq/github.com/74th/mycheatsheets/bin/macos")
-    add(home + "/dotfiles/bin/" + hostname)
+    add(home + "/ghq/github.com/74th/dotfiles/bin/" + hostname)
     add(home + "/ghq/github.com/74th/mycheatsheets/bin/" + hostname)
 
     return _paths
@@ -139,4 +163,4 @@ if __name__ == "__main__":
         current_paths = os.environ["PATH"].split(":")
     additional_paths = get_paths(current_paths)
     if additional_paths:
-        print("export PATH=" + ":".join(additional_paths) + ":$PATH")
+        print("export PATH=" + shlex.quote(":".join(additional_paths)) + ":$PATH")

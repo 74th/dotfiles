@@ -1,0 +1,1 @@
+- wchlink-mode-switch: https://github.com/cjacker/wchlinke-mode-switch

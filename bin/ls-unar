@@ -1,9 +1,12 @@
 #!/usr/bin/python3
 import os
 import subprocess
+
 files = os.listdir(".")
 for file in files:
     if not os.path.isfile(file):
+        continue
+    if file.startswith("."):
         continue
     print("unar", file)
     subprocess.run(["unar", file], check=True)

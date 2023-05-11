@@ -22,5 +22,5 @@ warnings.filterwarnings(
     'ignore',
     message='There is no current event loop',
     category=DeprecationWarning,
-    module='prompt_toolkit',
+    #module='prompt_toolkit',
 )

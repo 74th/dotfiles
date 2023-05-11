@@ -2,6 +2,10 @@ from invoke import task
 import invoke
 
 
+@task
+def rust_install(c: invoke.Context):
+    c.run("curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh", pty=True)
+
 def list_packages() -> list[str]:
     pkg = [
         "lsd",

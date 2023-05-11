@@ -1,5 +1,6 @@
 #!/bin/sh
 if [ -e "/opt/homebrew/bin/bash" ]; then
+    echo HOHO
     /opt/homebrew/bin/bash -l
 elif [ -e "/usr/local/bin/bash" ]; then
     /usr/local/bin/bash -l
