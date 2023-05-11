@@ -6,8 +6,7 @@ HOSTNAME = os.uname().nodename
 HOME = os.environ["HOME"]
 
 if (
-    HOSTNAME.startswith("o-")
-    or HOSTNAME.startswith("O-")
+    HOSTNAME.startswith("PC-")
     or HOSTNAME.startswith("crow")
 ):
     filename = "work"
