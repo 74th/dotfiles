@@ -13,7 +13,7 @@ subprocess.run(
 )
 print(f"c {p}")
 subprocess.run(
-    ["c", p],
+    ["c", f"{p}/sheets"],
     check=True,
     capture_output=True,
 )
