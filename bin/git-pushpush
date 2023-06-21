@@ -1,5 +1,11 @@
 #!/bin/sh
 set -x
 git add -A
-git commit -m "up from ${HOSTNAME}"
+host=${HOSTNAME}
+case "${host}" in
+  PC-*)
+    host="WORK"
+    ;;
+esac
+git commit -m "up from ${host}"
 git push
