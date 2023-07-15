@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+# ターゲットのプロセスを選択して kill
+import re
+import subprocess
+import sys
+
+if len(sys.argv) == 2:
+    m = sys.argv[1]
+    r = subprocess.run(
+        f"ps aux --no-header | grep {m} | peco", check=True, capture_output=True, shell=True, text=True
+    )
+else:
+    r = subprocess.run(
+        "ps aux --no-header | peco", check=True, capture_output=True, shell=True, text=True
+    )
+g = r.stdout.strip()
+
+if not g:
+    sys.exit(1)
+
+print(g)
+
+m = re.match(r"^\S+\s+(\S+)\s+", g)
+if not m:
+    sys.exit(1)
+
+process_id = m.group(1)
+
+cmd = ["kill", process_id]
+
+print(" ".join(cmd))
+
+r = subprocess.run(
+    cmd,
+    check=True,
+    capture_output=True,
+    text=True,
+)
