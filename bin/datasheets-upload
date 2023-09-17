@@ -1,0 +1,8 @@
+#!/bin/sh
+set -xe
+if [ "$1" = "-f" ]; then
+    rclone sync --exclude ".DS_Store" ${HOME}/datasheets gdrive:/datasheets/documents
+else
+    rclone copy --exclude ".DS_Store" ${HOME}/datasheets gdrive:/datasheets/documents
+    rclone sync --exclude -n ${HOME}/datasheets gdrive:/datasheets/documents
+fi

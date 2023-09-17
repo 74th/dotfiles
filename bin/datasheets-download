@@ -1,0 +1,8 @@
+#!/bin/sh
+set -xe
+if [ "$1" = "-f" ]; then
+    rclone sync gdrive:/datasheets/documents ${HOME}/datasheets
+else
+    rclone copy gdrive:/datasheets/documents ${HOME}/datasheets
+    rclone sync -n gdrive:/datasheets/documents ${HOME}/datasheets
+fi
