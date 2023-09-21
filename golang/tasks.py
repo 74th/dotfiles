@@ -8,7 +8,6 @@ from invoke import task, Context
 
 @task
 def download_packages(c):
-
     if c.run("which go", warn=True).failed:
         install_go(c)
 
@@ -26,7 +25,7 @@ def download_packages(c):
 
 @task
 def install_go(c):
-    version = c.run("curl https://go.dev/VERSION?m=text").stdout.strip()
+    version = c.run("curl https://go.dev/VERSION?m=text").stdout.splitlines()[0].strip()
     # version = "1.14.15"
     cpu = c.run("uname -p").stdout.strip()
     go_version = c.run("go version", warn=True)
