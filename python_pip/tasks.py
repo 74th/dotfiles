@@ -8,41 +8,15 @@ def set_poetry_config(c):
     c.run(f"~/.local/bin/poetry config virtualenvs.in-project true")
 
 
-def install_packages(c, l: list[str]):
-    l_str = " ".join(l)
-    c.run(f"pip3 install --upgrade {l_str}")
-
-
 def install_packages_by_pipx(c, l: list[str]):
     l_str = " ".join(l)
     c.run(f"pipx install {l_str}")
 
 
-def list_small_packages():
-    l = []
-    l += [
-        "invoke",
-        "pyyaml",
-        # "xontrib-readable-traceback",
-    ]
-    return l
-
-
 @invoke.task
 def install_small(c):
-    l = list_small_packages()
-    install_packages(c, l)
+    install_by_pipx(c)
     set_poetry_config(c)
-
-
-def list_packages():
-    l = list_small_packages()
-    l += [
-        "black",
-        "mypy",
-        "xonsh-direnv",
-    ]
-    return l
 
 
 def list_packages_by_pipx():
@@ -58,13 +32,12 @@ def install_by_pipx(c):
     l = list_packages_by_pipx()
     for p in l:
         c.run(f"pipx install {p}")
+    c.run(f"pipx runpip xonsh install invoke prompt_toolkit detect pyyaml xonsh-direnv", warn=True)
+    c.run(f"pipx runpip xonsh uninstall pyperclip -y", warn=True)
 
 
 @invoke.task
 def install(c):
-    l = list_packages()
-    install_packages(c, ["pipx"])
-    install_packages(c, l)
     install_by_pipx(c)
     set_poetry_config(c)
 
