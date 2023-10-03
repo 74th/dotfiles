@@ -63,7 +63,7 @@ def set_prompt():
         "crow",
         "miriam",
         "penguin",
-        "arcueid",
+        "fern",
         "iroha",
         "imuri",
         "reah",
