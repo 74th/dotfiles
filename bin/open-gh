@@ -2,7 +2,7 @@
 # ghq を使ってディレクトリを選んで chrome コマンドを実行
 import subprocess
 import shlex
-import os
+import pathlib
 import sys
 from socket import gethostname
 
@@ -10,9 +10,13 @@ code = "code"
 g = ""
 p = "./"
 if len(sys.argv) == 2:
-    p = sys.argv[1]
+    p = pathlib.Path(sys.argv[1]).absolute().as_posix()
+else:
+    r = subprocess.run(
+        "ghq list | peco", check=True, capture_output=True, shell=True, text=True
+    )
+    p = pathlib.Path("~/ghq/").joinpath(r.stdout.strip()).as_posix()
 
-p = os.path.abspath(p)
 word = "/ghq/github.com/"
 if not p.count(word):
     sys.stderr.write(f"{p} is not ghq directory\n")
@@ -35,7 +39,7 @@ if hostname in ["crow", "iroha"]:
     subprocess.run(cmd, check=True, capture_output=True)
 elif hostname in ["arcueid"]:
     subprocess.run(f"google-chrome {g}", check=True, capture_output=True)
-elif os.path.exists("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"):
+elif pathlib.Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").exists():
     subprocess.run(
         ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", g],
         check=True,
