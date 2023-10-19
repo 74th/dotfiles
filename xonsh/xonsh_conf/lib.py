@@ -25,6 +25,16 @@ class PTKBuffer(ABCMeta):
         pass
 
 
+def _build_bash_env() -> dict:
+    env = {}
+    for k in x_env.keys():
+        try:
+            env[k] = x_env.get_stringified(k)
+        except Exception:
+            pass
+    return env
+
+
 def run(command: str) -> str:
     pwd = x_env["PWD"]
     r = subprocess.run(
@@ -33,7 +43,7 @@ def run(command: str) -> str:
         capture_output=True,
         text=True,
         cwd=pwd,
-        env=x_env,
+        env=_build_bash_env(),
     )
     return r.stdout.strip()
 
@@ -45,7 +55,7 @@ def peco(input: str) -> str:
         capture_output=True,
         text=True,
         input=input,
-        env=x_env,
+        env=_build_bash_env(),
     )
     return r.stdout.strip()
 
