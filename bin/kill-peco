@@ -3,15 +3,22 @@
 import re
 import subprocess
 import sys
+import platform
+
+os_name = platform.system()
+if os_name == 'Darwin':
+    ps_command = "ps aux"
+else:
+    ps_command = "ps aux --no-headero"
 
 if len(sys.argv) == 2:
     m = sys.argv[1]
     r = subprocess.run(
-        f"ps aux --no-header | grep {m} | peco", check=True, capture_output=True, shell=True, text=True
+        f"{ps_command} | grep {m} | peco", check=True, capture_output=True, shell=True, text=True
     )
 else:
     r = subprocess.run(
-        "ps aux --no-header | peco", check=True, capture_output=True, shell=True, text=True
+        f"{ps_command} | peco", check=True, capture_output=True, shell=True, text=True
     )
 g = r.stdout.strip()
 
