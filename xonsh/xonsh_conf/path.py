@@ -40,11 +40,10 @@ def get_arch(system: str) -> str:
 
 
 def get_paths(default_paths: list[str]) -> list[str]:
-
     home = os.path.expanduser("~")
-    system = get_system() # Linux, Darwin
+    system = get_system()  # Linux, Darwin
     hostname = get_hostname()
-    arch = get_arch(system) # arm64, amd64
+    arch = get_arch(system)  # arm64, amd64
     _paths = []  # type: list[str]
 
     def add(path: str):
@@ -79,13 +78,17 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/.nodenv/bin")
     add(home + "/.nodenv/shims")
     add(home + "/.pyenv/shims")
+    add(home + "/.rye/shims")
     add(home + "/.pyenv/bin")
     add(home + "/.tfenv/bin")
     add(home + "/.krew/bin")
     add(home + "/.cargo/bin")
     add(home + "/.asdf/bin")
     add(home + "/.asdf/shims")
-    add(home + "/.local/xPacks/@xpack-dev-tools/riscv-none-elf-gcc/12.2.0-3.1/.content/bin")
+    add(
+        home
+        + "/.local/xPacks/@xpack-dev-tools/riscv-none-elf-gcc/12.2.0-3.1/.content/bin"
+    )
     add(home + "/miniconda3/bin")
     add(home + "/go/bin")
     add(home + "/go/src/github.com/uber/go-torch/FlameGraph")
