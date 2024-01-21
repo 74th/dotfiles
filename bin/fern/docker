@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ "$1" = "build" ]; then
+    /bin/docker build --network=host "${@:2}"
+else
+    /bin/docker "$@"
+fi
