@@ -6,7 +6,7 @@ import tempfile
 from typing import Optional
 
 
-def select_target(resource_type: Optional[str] = None):
+def select_target(resource_type: Optional[str] = None) -> list[str]:
     if resource_type:
         cmd = ["kubectl", "get", resource_type]
     else:
@@ -20,32 +20,39 @@ def select_target(resource_type: Optional[str] = None):
         )
 
     if peco_out.returncode != 0:
-        return ""
+        return [""]
 
-    return peco_out.stdout.split(" ")[0]
+    return [line.split(" ")[0] for line in peco_out.stdout.splitlines()]
 
 
-def kubectl_describe(operation: str, target: list[str]):
-    cmd = ["kubectl", operation] + target
+def kubectl_operation(operation: str, options: list[str], target: list[str]):
+    cmd = ["kubectl", operation] + options + target
     subprocess.run(cmd, check=True, text=True)
 
 
 def main():
     if len(sys.argv) == 0:
-        print("Usage: k- <operation> (<resource_type>)")
+        print("Usage: k- OPERATION [OPTION...] [RESOURCE_TYPE]")
         sys.exit()
     if len(sys.argv) > 1:
         operation = sys.argv[1]
-    if len(sys.argv) > 2:
-        resource_type = sys.argv[2]
+
+    options = [arg for arg in sys.argv[1:] if arg.startswith("-")]
+
+    if len(sys.argv) > 2 and not sys.argv[-1].startswith("-"):
+        resource_type = sys.argv[-1]
     else:
         resource_type = None
-    target = select_target(resource_type)
 
-    if not target:
+    targets = select_target(resource_type)
+
+    if not targets:
         sys.exit(1)
 
-    kubectl_describe(operation, [resource_type, target] if resource_type else [target])
+    if resource_type:
+        targets = [f"{resource_type}/{t}" for t in targets]
+
+    kubectl_operation(operation, options, targets)
 
 
 if __name__ == "__main__":
