@@ -6,15 +6,19 @@ import sys
 import platform
 
 os_name = platform.system()
-if os_name == 'Darwin':
+if os_name == "Darwin":
     ps_command = "ps aux"
 else:
-    ps_command = "ps aux --no-headero"
+    ps_command = "ps aux --no-headers"
 
 if len(sys.argv) == 2:
     m = sys.argv[1]
     r = subprocess.run(
-        f"{ps_command} | grep {m} | peco", check=True, capture_output=True, shell=True, text=True
+        f"{ps_command} | grep {m} | peco",
+        check=True,
+        capture_output=True,
+        shell=True,
+        text=True,
     )
 else:
     r = subprocess.run(
