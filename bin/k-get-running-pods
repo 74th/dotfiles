@@ -1,3 +1,27 @@
-#!/bin/sh
-set -xe
-kubectl get pods --field-selector=status.phase=Running
+#!/bin/bash
+while getopts ":w:h" opt; do
+    case $opt in
+        w)
+            cmd="watch kubectl get pods --field-selector=status.phase=Running"
+            echo $cmd
+            $cmd
+            ;;
+        h)
+            echo "Usage: k-get-running-pods [-w]"
+            echo "List all running pods in the current namespace"
+            echo "Options:"
+            echo "  -w  Watch the pods"
+            exit 0
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+    esac
+done
+
+if [ $OPTIND -eq 1 ]; then
+    cmd="kubectl get pods --field-selector=status.phase=Running"
+    echo $cmd
+    $cmd
+fi
