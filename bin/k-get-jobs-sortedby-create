@@ -1,3 +1,26 @@
 #!/bin/sh
-set -xe
-kubectl get jobs --sort-by=.metadata.creationTimestamp
+while getopts ":wh" opt; do
+    case $opt in
+        w)
+            cmd="kubectl get jobs --sort-by=.metadata.creationTimestamp"
+            ;;
+        h)
+            echo "Usage: k-get-jobs-sortedby-create [-w]"
+            echo "List all jobs in the current namespace sorted by creation time"
+            echo "Options:"
+            echo "  -w  Watch the jobs"
+            exit 0
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+    esac
+done
+
+if [ $OPTIND -eq 1 ]; then
+    cmd="kubectl get jobs --sort-by=.metadata.creationTimestamp"
+fi
+
+echo $cmd
+$cmd

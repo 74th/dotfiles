@@ -1,10 +1,8 @@
 #!/bin/bash
-while getopts ":w:h" opt; do
+while getopts ":wh" opt; do
     case $opt in
         w)
             cmd="watch kubectl get pods --field-selector=status.phase=Running"
-            echo $cmd
-            $cmd
             ;;
         h)
             echo "Usage: k-get-running-pods [-w]"
@@ -22,6 +20,7 @@ done
 
 if [ $OPTIND -eq 1 ]; then
     cmd="kubectl get pods --field-selector=status.phase=Running"
-    echo $cmd
-    $cmd
 fi
+
+echo $cmd
+$cmd
