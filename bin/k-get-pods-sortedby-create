@@ -2,7 +2,8 @@
 while getopts ":wh" opt; do
     case $opt in
         w)
-            cmd="kubectl get pods --sort-by=.metadata.creationTimestamp"
+            cmd="watch kubectl get pods --sort-by=.metadata.creationTimestamp"
+            ;;
         h)
             echo "Usage: k-get-pods-sortedby-create [-w]"
             echo "List all pods in the current namespace sorted by creation time"
