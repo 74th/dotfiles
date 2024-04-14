@@ -17,4 +17,4 @@ node_modules
 .project
 org.eclipse.buildship.core.prefs
 *.class
-
+CMakeFiles
