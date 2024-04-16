@@ -77,6 +77,12 @@ def set_config(c):
         env=env,
     )
 
+    # ブランチをpecoでswitch
+    c.run(
+        'git config --global alias.switchp "!git-switch-peco"',
+        env=env,
+    )
+
     # vimを使用
     c.run('git config --global core.editor "vi"', env=env)
 

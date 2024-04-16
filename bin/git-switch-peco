@@ -1,0 +1,45 @@
+#!/bin/python3
+
+import sys
+import subprocess
+import tempfile
+from typing import Optional
+
+
+def select_branch() -> list[str]:
+    cmd = [
+        "git",
+        "for-each-ref",
+        "--sort=-committerdate",
+        "refs/heads/",
+        "--format=%(refname:short)",
+    ]
+    with tempfile.NamedTemporaryFile(mode="wt") as fp:
+        cmd_out = subprocess.run(cmd, check=True, capture_output=True, text=True)
+        fp.write(cmd_out.stdout)
+        fp.flush()
+        peco_out = subprocess.run(
+            ["peco", fp.name], check=True, text=True, capture_output=True
+        )
+
+    if peco_out.returncode != 0:
+        sys.exit(1)
+
+    return [line.split(" ")[0] for line in peco_out.stdout.splitlines()]
+
+
+def switch_branch(branch: str) -> None:
+    subprocess.run(["git", "switch", branch], check=True)
+
+
+def main():
+    branch = select_branch()
+
+    if not branch:
+        sys.exit(1)
+
+    switch_branch(branch[0])
+
+
+if __name__ == "__main__":
+    main()
