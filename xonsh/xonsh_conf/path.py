@@ -50,6 +50,8 @@ def get_paths(default_paths: list[str]) -> list[str]:
         if path not in default_paths and os.path.exists(path):
             _paths.insert(0, path)
 
+    # --- OS のパッケージマネージャ ---
+
     # Ubuntuなどで追加されてなかった時用
     add("/usr/local/bin")
     add("/usr/local/sbin")
@@ -57,62 +59,82 @@ def get_paths(default_paths: list[str]) -> list[str]:
     # for Ubuntu
     add("/snap/bin")
 
-    # Homebrew for Linux
+    # Homebrew
     add("/home/linuxbrew/.linuxbrew/bin")
     add("/home/linuxbrew/.linuxbrew/sbin")
+    add("/opt/homebrew/bin")
 
     add("/usr/local/cuda/bin")
-    add("/opt/homebrew/bin")
-    add("/opt/local/bin")
     add("/opt/X11/bin")
+
+    # optは強め
+    add("/opt/local/bin")
+
+    # --- アプリケーション ---
     add("/Applications/WezTerm.app/Contents/MacOS")
+    add("/opt/riscv-gnu-toolchain/bin")
+    add("/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/bin")
+    add("/usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin")
+
+    # --- ユーザのパッケージ ---
+    add(home + "/.local/bin")
+
+    # Cloud
     add(home + "/Library/Python/3.9/bin")
     add(home + "/google-cloud-sdk/bin")
     add(home + "/google-cloud-sdk/platform/google_appengine")
+    add(home + "/sdks/google-cloud-sdk/bin")
+    add(home + "/sdks/android-studio/bin")
+
+    # JS
+    add(home + "/.deno/bin")
     add(home + "/npm/bin")
     add(home + "/npm/node_modules/.bin")
-    add(home + "/Library/Android/sdk/platform-tools")
-    add(home + "/.nix-profile/bin")
-    add(home + "/.local/bin")
-    add(home + "/.rbx_env/shims")
-    add(home + "/.nodenv/bin")
-    add(home + "/.nodenv/shims")
-    add(home + "/.pyenv/shims")
-    add(home + "/.rye/shims")
-    add(home + "/.pyenv/bin")
-    add(home + "/.tfenv/bin")
-    add(home + "/.krew/bin")
-    add(home + "/.cargo/bin")
+
+    # 環境選択系
     add(home + "/.asdf/bin")
     add(home + "/.asdf/shims")
+    add(home + "/.nodenv/bin")
+    add(home + "/.nodenv/shims")
+    add(home + "/.rbx_env/shims")
+    add(home + "/.pyenv/shims")
+
+    # Lang
+    add(home + "/go/bin")
+    add(home + "/.nix-profile/bin")
+    add(home + "/.rye/shims")
+    add(home + "/.pyenv/bin")
+    add(home + "/.cargo/bin")
+
+    # Tool
+    add(home + "/.tfenv/bin")
+    add(home + "/.krew/bin")
     add(
         home
         + "/.local/xPacks/@xpack-dev-tools/riscv-none-elf-gcc/12.2.0-3.1/.content/bin"
     )
     add(home + "/miniconda3/bin")
-    add(home + "/go/bin")
     add(home + "/go/src/github.com/uber/go-torch/FlameGraph")
-    add(home + "/Library/AndroidIntel/platform-tools")  # 会社PC用
-    add(home + "/Library/AndroidIntel/tools")  # 会社PC用
-    add(home + "/Android/Sdk/platform-tools")
-    add(home + "/Android/Sdk/tools")
-    add(home + "/sdks/google-cloud-sdk/bin")
-    add(home + "/sdks/android-studio/bin")
+
+    # Espressif
     # add(home + "/.platformio/penv/bin") # 余計なアイテムも引き込んでしまうので、必要に応じてシンボリックリンクをする
     add(home + "/libraries/espressif/esp-idf/components/esptool_py/esptool")
     add(home + "/libraries/espressif/esp-idf/components/espcoredump")
     add(home + "/libraries/espressif/esp-idf/components/partition_table")
     add(home + "/libraries/espressif/esp-idf/components/app_update")
-    add("/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/bin")
-    add("/usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin")
     # add(home + "/.espressif/python_env/idf4.4_py3.9_env/bin")
     add(home + "/libraries/espressif/esp-idf/tools")
-    add("/opt/riscv-gnu-toolchain/bin")
 
-    add(home + "/bin")
+    # Android
+    add(home + "/Library/Android/sdk/platform-tools")
+    add(home + "/Library/AndroidIntel/platform-tools")  # 会社PC用
+    add(home + "/Library/AndroidIntel/tools")  # 会社PC用
+    add(home + "/Android/Sdk/platform-tools")
+    add(home + "/Android/Sdk/tools")
+
+    # --- 個人管理最優先系 ---
     add(home + "/ghq/github.com/74th/dotfiles/bin")
     add(home + "/ghq/github.com/74th/mycheatsheets/bin")
-    add(home + "/ghq/github.com/74th/mycheatsheets/bin/" + hostname)
     if system == "linux":
         add(home + "/ghq/github.com/74th/dotfiles/bin/linux")
         add(home + "/ghq/github.com/74th/mycheatsheets/bin/linux")
@@ -125,6 +147,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
         add(home + "/ghq/github.com/74th/mycheatsheets/bin/macos")
     add(home + "/ghq/github.com/74th/dotfiles/bin/" + hostname)
     add(home + "/ghq/github.com/74th/mycheatsheets/bin/" + hostname)
+    add(home + "/bin")
 
     return _paths
 
