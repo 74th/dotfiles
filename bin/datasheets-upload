@@ -6,3 +6,6 @@ else
     rclone copy --exclude ".DS_Store" ${HOME}/datasheets gdrive:/datasheets/documents
     rclone sync --exclude -n ${HOME}/datasheets gdrive:/datasheets/documents
 fi
+
+# 74th-datasheets
+gcloud storage rsync ./ gs://74th-datasheets --recursive --exclude=".*\.DS_Store" --dry-run
