@@ -24,16 +24,16 @@ def ssh_agent() -> Optional[tuple[str, str]]:
 
 def pico_sdk_paths() -> list[tuple[str, str]]:
     paths: list[tuple[str, str]] = []
-    p = f"{home}/pico/pico-sdk"
+    p = f"{home}/libs/pico/pico-sdk"
     if os.path.exists(p):
         paths.append(("PICO_SDK_PATH", p))
-    p = f"{home}/pico/pico-examples"
+    p = f"{home}/libs/pico/pico-examples"
     if os.path.exists(p):
         paths.append(("PICO_EXAMPLES_PATH", p))
-    p = f"{home}/pico/pico-extras"
+    p = f"{home}/libs/pico/pico-extras"
     if os.path.exists(p):
         paths.append(("PICO_EXTRAS_PATH", p))
-    p = f"{home}/pico/pico-playground"
+    p = f"{home}/libs/pico/pico-playground"
     if os.path.exists(p):
         paths.append(("PICO_PLAYGROUND_PATH", p))
     return paths
