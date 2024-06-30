@@ -8,4 +8,4 @@ else
 fi
 
 # 74th-datasheets
-gcloud storage rsync ./ gs://74th-datasheets --recursive --exclude=".*\.DS_Store" --dry-run
+gcloud storage rsync ${HOME}/datasheets  gs://74th-datasheets --recursive --exclude=".*\.DS_Store"

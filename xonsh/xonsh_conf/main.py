@@ -153,6 +153,7 @@ def load():
     x_env["VI_MODE"] = True
     if "PYENV_VERSION" in x_env:
         del x_env["PYENV_VERSION"]
+    x_env["AUTO_CD"] = True
 
     git.set_aliases()
 
