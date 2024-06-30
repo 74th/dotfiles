@@ -95,6 +95,7 @@ if [ "$PS1" != "" ]; then
     }
 
     set -o vi
+    shopt -s autocd
 
     #stty werase undef
     bind '\C-w:unix-filename-rubout'
@@ -109,5 +110,4 @@ if [ "$PS1" != "" ]; then
     #if [ $OSNAME = "Mac" ];then
     #    ssh-add -k ~/.ssh/id_rsa 2>/dev/null
     #fi
-
 fi
