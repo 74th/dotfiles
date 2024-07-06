@@ -1,4 +1,6 @@
 import invoke
+import datetime
+import tempfile
 from invoke import task, Context, Result
 
 
@@ -110,3 +112,31 @@ def set_config(c):
 @task
 def chmod_config(c):
     c.run("chmod 600 ~/.gitconfig")
+
+
+@task
+def create_gpg(c):
+    c.run("which gpg")
+    if not c.run("gh gpg-key list", warn=True).ok:
+        print("gh auth refresh -s write:gpg_key")
+        return
+
+    c.run(
+        "gpg --batch --passphrase '' --quick-gen-key \"Atsushi Morimoto (74th) <74th.tech@gmail.com>\" default default never"
+    )
+    stdout: list[str] = c.run("gpg  --list-keys").stdout.splitlines()
+    for i, l in enumerate(stdout):
+        r = l.split(" ")
+        if "pub" in r and "[SC]" in r:
+            key_id = stdout[i + 1].strip()
+            break
+
+    hostname = c.run("hostname").stdout.strip()
+    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    c.run(f"gpg --armor --export {key_id} > gpg.key")
+    c.run(f'gh gpg-key add ./gpg.key --title "{hostname} {current_date}"')
+    c.run("rm gpg.key")
+
+    c.run("git config --global gpg.program gpg")
+    c.run("git config --global commit.gpgsign true")
+    c.run(f"git config --global user.signingkey {key_id}")
