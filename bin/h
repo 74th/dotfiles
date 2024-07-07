@@ -18,8 +18,8 @@ cmds = {
     "rg": ["rg ERROR", "高速grep"],
     "fkill": ["fkill", "インタラクティブなkill"],
     "k": ["k get all", "kubectlのalias"],
-    "kns": ["kns", "kubens peco"],
-    "kctx": ["kctx", "kubectx peco"],
+    "k-ns": ["k-ns", "kubectl ns peco"],
+    "k-ctx": ["k-ctx", "kubectl ctx peco"],
     "spython": ["spython", "use system python"],
 }
 

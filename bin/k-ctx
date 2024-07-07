@@ -1,2 +1,2 @@
 #!/bin/bash
-kubectx $(kubectx | peco)
+kubectl ctx $(kubctl ectx | peco)

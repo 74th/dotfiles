@@ -51,12 +51,6 @@ def _list_packages(c):
         "tfenv",
     ]
 
-    # kubernetes
-    if not is_arm_macos:
-        pkgs += [
-            "kubectx",
-        ]
-
     return pkgs
 
 

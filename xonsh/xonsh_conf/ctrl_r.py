@@ -73,6 +73,7 @@ def select_peco(buf: PTKBuffer, command: str):
     line = run(f"{command} | peco")
     buf.insert_text(" " + line.strip())
 
+
 def select_k8s_list(buf: PTKBuffer, list_command: str, replace: str):
     j = json.loads(silent_run(list_command))
     l = []
@@ -122,11 +123,14 @@ def select(buf: PTKBuffer):
     if line.startswith("git"):
         select_git(buf)
         return
-    if line.startswith("kubectx"):
-        select_peco(buf, "kubectx")
+    if line.startswith("k ctx"):
+        select_peco(buf, "kubectl ctx")
         return
-    if line.startswith("kubens"):
-        select_peco(buf, "kubens")
+    if line.startswith("kubectl ctx"):
+        select_peco(buf, "kubectl ctx")
+        return
+    if line.startswith("kubectl ns"):
+        select_peco(buf, "kubectl ns")
         return
     if line.startswith("kdp"):
         select_k8s_list(buf, "kubectl get pods --output json", "kubectl describe ")
