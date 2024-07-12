@@ -88,7 +88,7 @@ def install_with_apt(c: Context):
 
 def install_other(c: Context, package: str, cmd: str):
     with c.cd(pathlib.Path("~").expanduser()):
-        r = c.run(f"which {package}", warn=True/
+        r = c.run(f"which {package}", warn=True)
         assert r is not None
         if r.failed:
             c.run(cmd, pty=True)
