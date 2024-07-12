@@ -61,7 +61,6 @@ def _list_packages() -> list[str]:
         "jq",
         "peco",
         "xclip",
-        "docker-compose",
         "readline-common",
         "git",
         "git-secrets",
@@ -80,6 +79,9 @@ def _list_packages() -> list[str]:
         "pipx",
         "trash-cli",
         "pkg-config",
+        "docker.io",
+        "docker-compose",
+        "docker-buildx",
     ]
     return pkgs
 
