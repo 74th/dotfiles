@@ -1,6 +1,6 @@
 import os
 import os.path
-from invoke import task
+from invoke.tasks import task
 import detect
 
 

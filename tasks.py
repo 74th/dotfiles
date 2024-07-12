@@ -1,8 +1,9 @@
 from typing import cast
 import os
 from os import path
-import invoke
-from invoke import task, Collection
+from invoke.tasks import task
+from invoke.context import Context
+from invoke.collection import Collection
 import detect
 
 import homebrew.tasks as homebrew
@@ -33,17 +34,19 @@ HOME = get_home()
 GHQ_DIR = path.join(HOME, "ghq")
 
 
-def get_archi(c):
-    c = cast(invoke.Context, c)
-    return c.run("uname -p").stdout.strip()
+def get_archi(c: Context):
+    r = c.run("uname -p")
+    assert r
+    return r.stdout.strip()
 
 
-def get_hostname(c):
-    c = cast(invoke.Context, c)
-    return c.run("hostname").stdout.strip()
+def get_hostname(c: Context):
+    r = c.run("hostname")
+    assert r
+    return r.stdout.strip()
 
 
-def update_default_package_manager(c: invoke.Context):
+def update_default_package_manager(c):
     print("update package manager")
     if detect.linux:
         c.run("sudo apt-get update", echo=True)
@@ -64,7 +67,7 @@ def create_basic_dir(c):
 
 @task
 def pyenv(c):
-    c = cast(invoke.Context, c)
+    c = cast(Context, c)
     pyenv_dir = f"{HOME}/.pyenv"
     if not path.exists(pyenv_dir):
         c.run("ghq get github.com/pyenv/pyenv")
@@ -75,18 +78,20 @@ def pyenv(c):
             )
 
 
-ns.add_task(pyenv)
+ns.add_task(pyenv)  # type: ignore
 
 
 @task
 def rehash_pyenv(c_):
-    c: invoke.Context = c_
-    if c.run("test -e pyenv", warn=True).ok:
+    c: Context = c_
+    r = c.run("test -e pyenv", warn=True)
+    assert r
+    if r.ok:
         print("## rehash pyenv")
         c.run("pyenv rehash")
 
 
-ns.add_task(rehash_pyenv)
+ns.add_task(rehash_pyenv)  # type: ignore
 
 
 @task
@@ -101,7 +106,7 @@ def bashrc(c):
     c.run(f'echo "source {HOME}/dotfiles/bashrc/bashrc" >> {HOME}/.bashrc')
 
 
-ns.add_task(bashrc)
+ns.add_task(bashrc)  # type: ignore
 
 
 @task
@@ -131,7 +136,7 @@ def macos(c):
     c.run(f"launchctl load {HOME}/Library/LaunchAgents/setenv.plist")
 
 
-ns.add_task(macos)
+ns.add_task(macos)  # type: ignore
 
 
 @task
@@ -159,7 +164,7 @@ def vimrc(c, no_extension=False):
         c.run("vi +PlugInstall +qall", hide="both", warn=True)
 
 
-ns.add_task(vimrc)
+ns.add_task(vimrc)  # type: ignore
 
 
 @task
@@ -167,7 +172,7 @@ def xonsh(c):
     c.run(f"ln -fs {HOME}/dotfiles/xonsh/xonshrc.py {HOME}/.xonshrc")
 
 
-ns.add_task(xonsh)
+ns.add_task(xonsh)  # type: ignore
 
 
 @task
@@ -175,7 +180,7 @@ def screenrc(c):
     c.run(f"cp {HOME}/dotfiles/screenrc/screenrc {HOME}/.screenrc")
 
 
-ns.add_task(screenrc)
+ns.add_task(screenrc)  # type: ignore
 
 
 @task
@@ -196,7 +201,7 @@ def npm(c):
             c.run(f"mkdir {d}")
 
 
-ns.add_task(npm)
+ns.add_task(npm)  # type: ignore
 
 
 @task(default=True)
@@ -244,7 +249,7 @@ def install(c):
     rehash_pyenv(c)
 
 
-ns.add_task(install)
+ns.add_task(install)  # type: ignore
 
 
 @task
@@ -261,7 +266,7 @@ def install_small(c):
     xonsh(c)
 
 
-ns.add_task(install_small)
+ns.add_task(install_small)  # type: ignore
 
 ns.add_collection(ns.from_module(homebrew), "homebrew")
 ns.add_collection(ns.from_module(git), "git")

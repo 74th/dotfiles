@@ -1,10 +1,9 @@
 import re
-from typing import List, cast
-from invoke import task
-import invoke
+from invoke.tasks import task
+from invoke.context import Context
 
 
-def npm_packages(small=False) -> list[str]:
+def npm_packages() -> list[str]:
     pkg = [
         "fkill-cli",
         "npm",
@@ -15,14 +14,16 @@ def npm_packages(small=False) -> list[str]:
     return pkg
 
 
-def rust_packages(small=False) -> list[str]:
+def rust_packages() -> list[str]:
     pkg = []
     return pkg
 
 
-def npm_installed(c: invoke.Context) -> list[str]:
+def npm_installed(c: Context) -> list[str]:
     installed: list[str] = []
-    lines = cast(str, c.run("npm ls -g", hide=True).stdout)
+    r = c.run("npm ls -g", hide=True)
+    assert r
+    lines = r.stdout
     for line in lines.split("\n"):
         m = re.match(r"^[├└]─[-┬] (\S+)@[\d.]+", line)
         if m:
@@ -31,8 +32,10 @@ def npm_installed(c: invoke.Context) -> list[str]:
 
 
 @task
-def npm(c, small=False):
-    if c.run("which npm", warn=True).failed:
+def npm(c: Context):
+    r = c.run("which npm", warn=True)
+    assert r
+    if r.failed:
         print("!! npm not found !!")
         return
     pkgs = npm_packages()
@@ -43,17 +46,21 @@ def npm(c, small=False):
 
 
 @task
-def upgrade_npm(c, small=False):
-    if c.run("which npm", warn=True).failed:
+def upgrade_npm(c: Context):
+    r = c.run("which npm", warn=True)
+    assert r
+    if r.failed:
         print("!! npm not found !!")
         return
     pkgs = npm_packages()
     c.run("npm upgrade -g " + " ".join(pkgs))
 
 
-def rust_installed(c: invoke.Context) -> list[str]:
+def rust_installed(c: Context) -> list[str]:
     installed: list[str] = []
-    lines = c.run("cargo install --list").stdout
+    r = c.run("cargo install --list")
+    assert r
+    lines = r.stdout
     for line in lines.split("\n"):
         if line and line[0] == " ":
             continue
@@ -64,8 +71,10 @@ def rust_installed(c: invoke.Context) -> list[str]:
 
 
 @task
-def rust(c, small=False):
-    if c.run("which cargo", warn=True).failed:
+def rust(c: Context):
+    r = c.run("which cargo", warn=True)
+    assert r
+    if r.failed:
         print("!! cargo not found !!")
         return
     pkgs = rust_packages()
@@ -76,6 +85,6 @@ def rust(c, small=False):
 
 
 @task
-def install(c, small=True):
-    npm(c, small)
-    rust(c, small)
+def install(c: Context):
+    npm(c)
+    rust(c)

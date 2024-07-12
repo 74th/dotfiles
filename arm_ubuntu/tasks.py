@@ -1,5 +1,5 @@
-from typing import cast
-from invoke import task, Context
+from invoke.tasks import task
+from invoke.context import Context
 
 ubuntu_pkgs = [
     "python3",
@@ -9,7 +9,7 @@ ubuntu_pkgs = [
 
 
 @task
-def install(c):
+def install(c: Context):
     c.run("sudo apt-get update")
     pkgs = " ".join(ubuntu_pkgs)
     c.run("sudo apt-get install -y " + pkgs)

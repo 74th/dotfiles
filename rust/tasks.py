@@ -1,10 +1,12 @@
-from invoke import task
+from invoke.tasks import task
+from invoke.context import Context
 import invoke
 
 
 @task
-def rust_install(c: invoke.Context):
+def rust_install(c: Context):
     c.run("curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh", pty=True)
+
 
 def list_packages() -> list[str]:
     pkg = [
@@ -17,9 +19,11 @@ def list_packages() -> list[str]:
     return pkg
 
 
-def list_installed(c: invoke.Context) -> list[str]:
+def list_installed(c: Context) -> list[str]:
     installed: list[str] = []
-    lines = c.run("cargo install --list").stdout
+    r = c.run("cargo install --list")
+    assert r
+    lines = r.stdout
     for line in lines.split("\n"):
         if line and line[0] == " ":
             continue
@@ -30,8 +34,10 @@ def list_installed(c: invoke.Context) -> list[str]:
 
 
 @task(default=True)
-def install(c):
-    if c.run("which cargo", warn=True).failed:
+def install(c: Context):
+    r = c.run("which cargo", warn=True)
+    assert r
+    if r.failed:
         print("!! cargo not found !!")
         return
     pkgs = list_packages()

@@ -1,8 +1,6 @@
-from typing import List
-from invoke import task
-import invoke
+from invoke.tasks import task
+from invoke.context import Context
 import detect
-from invoke import Context
 
 
 def _is_arm_macos(c) -> bool:
@@ -54,10 +52,14 @@ def _list_packages(c):
     return pkgs
 
 
-def setHome(c: invoke.Context) -> dict:
+def setHome(c: Context) -> dict:
     env = {}
-    if len(c.run("echo $HOME", hide=True).stdout.strip()) == 0:
-        env["HOME"] = c.run("cd ~;pwd", hide=True).stdout.strip()
+    r = c.run("echo $HOME", hide=True)
+    assert r
+    if len(r.stdout.strip()) == 0:
+        r = c.run("cd ~;pwd", hide=True)
+        assert r
+        env["HOME"] = r.stdout.strip()
     return env
 
 

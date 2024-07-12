@@ -1,9 +1,8 @@
 import os
-import invoke
 import yaml
 import tempfile
 import detect
-from invoke import task, Context
+from invoke.tasks import task
 
 
 @task

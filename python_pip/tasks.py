@@ -1,6 +1,4 @@
-from typing import List
-from invoke import task
-import invoke
+from invoke.tasks import task
 
 
 def set_poetry_config(c):
@@ -13,7 +11,7 @@ def install_packages_by_pipx(c, l: list[str]):
     c.run(f"pipx install {l_str}")
 
 
-@invoke.task
+@task
 def install_small(c):
     install_by_pipx(c)
     set_poetry_config(c)
@@ -27,22 +25,25 @@ def list_packages_by_pipx():
     return l
 
 
-@invoke.task
+@task
 def install_by_pipx(c):
     l = list_packages_by_pipx()
     for p in l:
         c.run(f"pipx install {p}")
-    c.run(f"pipx runpip xonsh install invoke prompt_toolkit detect pyyaml xonsh-direnv", warn=True)
+    c.run(
+        f"pipx runpip xonsh install invoke prompt_toolkit detect pyyaml xonsh-direnv",
+        warn=True,
+    )
     c.run(f"pipx runpip xonsh uninstall pyperclip -y", warn=True)
 
 
-@invoke.task
+@task
 def install(c):
     install_by_pipx(c)
     set_poetry_config(c)
 
 
-@invoke.task
+@task
 def upgrade_all(c, force=False, upgrade=True, pip="pip3"):
     out = c.run("pip3 list").stdout
     lines = out.split("\n")

@@ -1,6 +1,6 @@
 import os
 from typing import Set
-from invoke import task
+from invoke.tasks import task
 
 install_script = os.path.dirname(__file__) + "/install.sh"
 krew_bin = os.path.expanduser("~/.krew/bin/kubectl-krew")

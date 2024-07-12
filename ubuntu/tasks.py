@@ -1,7 +1,7 @@
 import os
 import tempfile
 
-from invoke import task
+from invoke.tasks import task
 
 
 def add_source_list(c):
@@ -10,13 +10,13 @@ def add_source_list(c):
         return
 
     # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-    #c.run(
+    # c.run(
     #    "curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg"
-    #)
-    #c.run(
+    # )
+    # c.run(
     #    """echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null"""
-    #)
-    #c.run("sudo apt-add-repository https://cli.github.com/packages")
+    # )
+    # c.run("sudo apt-add-repository https://cli.github.com/packages")
 
 
 def add_source_list_desktop(c):
