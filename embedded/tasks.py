@@ -21,6 +21,7 @@ UBUNTU_PACKAGES = {
     "cmake",
     "gcc",
     "g++",
+    "minicom",
 }
 
 PIPX_PACKAGES = {
