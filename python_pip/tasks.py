@@ -1,3 +1,5 @@
+import pathlib
+
 from invoke.tasks import task
 
 
@@ -38,9 +40,17 @@ def install_by_pipx(c):
 
 
 @task
+def install_rye(c):
+    if pathlib.Path("~/.rye/shims/rye").expanduser().exists():
+        return
+    c.run("curl -sSf https://rye.astral.sh/get | bash", pty=True)
+
+
+@task
 def install(c):
     install_by_pipx(c)
     set_poetry_config(c)
+    install_rye(c)
 
 
 @task

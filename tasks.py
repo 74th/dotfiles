@@ -16,6 +16,7 @@ import vscode.tasks as vscode
 import tools.tasks as tools
 import krew.tasks as krew
 import rust.tasks as rust
+import embedded.tasks as embedded
 
 ns = Collection()
 ns.add_collection(ns.from_module(arm_ubuntu), "arm-ubuntu")
@@ -277,3 +278,4 @@ ns.add_collection(ns.from_module(tools), "tools")
 ns.add_collection(ns.from_module(vscode), "vscode")
 ns.add_collection(ns.from_module(krew), "krew")
 ns.add_collection(ns.from_module(rust), "rust")
+ns.add_collection(ns.from_module(embedded), "embedded")

@@ -79,6 +79,7 @@ def _list_packages() -> list[str]:
         "python-is-python3",
         "pipx",
         "trash-cli",
+        "pkg-config",
     ]
     return pkgs
 
