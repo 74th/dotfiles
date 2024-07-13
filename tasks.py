@@ -268,7 +268,6 @@ def install_small(c):
 
 
 ns.add_task(install_small)  # type: ignore
-ns.add_task(install_dev)  # type: ignore
 
 ns.add_collection(ns.from_module(homebrew), "homebrew")
 ns.add_collection(ns.from_module(git), "git")
