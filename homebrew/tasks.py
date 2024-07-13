@@ -55,10 +55,10 @@ def _list_packages(c):
 def setHome(c: Context) -> dict:
     env = {}
     r = c.run("echo $HOME", hide=True)
-    assert r
+    assert r is not None
     if len(r.stdout.strip()) == 0:
         r = c.run("cd ~;pwd", hide=True)
-        assert r
+        assert r is not None
         env["HOME"] = r.stdout.strip()
     return env
 

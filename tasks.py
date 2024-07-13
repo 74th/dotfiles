@@ -37,13 +37,13 @@ GHQ_DIR = path.join(HOME, "ghq")
 
 def get_archi(c: Context):
     r = c.run("uname -p")
-    assert r
+    assert r is not None
     return r.stdout.strip()
 
 
 def get_hostname(c: Context):
     r = c.run("hostname")
-    assert r
+    assert r is not None
     return r.stdout.strip()
 
 
@@ -86,7 +86,7 @@ ns.add_task(pyenv)  # type: ignore
 def rehash_pyenv(c_):
     c: Context = c_
     r = c.run("test -e pyenv", warn=True)
-    assert r
+    assert r is not None
     if r.ok:
         print("## rehash pyenv")
         c.run("pyenv rehash")
@@ -268,6 +268,7 @@ def install_small(c):
 
 
 ns.add_task(install_small)  # type: ignore
+ns.add_task(install_dev)  # type: ignore
 
 ns.add_collection(ns.from_module(homebrew), "homebrew")
 ns.add_collection(ns.from_module(git), "git")

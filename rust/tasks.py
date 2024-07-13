@@ -11,7 +11,7 @@ def install_rust(c: Context):
 @task
 def install_binstall(c: Context):
     r = c.run("which cargo-binstall", warn=True, hide=True)
-    assert r
+    assert r is not None
     if r.ok:
         return
     c.run(
@@ -33,7 +33,7 @@ def list_packages() -> list[str]:
 def list_installed(c: Context) -> list[str]:
     installed: list[str] = []
     r = c.run("cargo install --list", hide=True)
-    assert r
+    assert r is not None
     lines = r.stdout
     for line in lines.split("\n"):
         if line and line[0] == " ":
@@ -49,7 +49,7 @@ def install(c: Context):
     install_binstall(c)
 
     r = c.run("which cargo", warn=True)
-    assert r
+    assert r is not None
     if r.failed:
         print("!! cargo not found !!")
         return

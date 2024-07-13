@@ -1,3 +1,4 @@
+import os
 import pathlib
 import json
 
@@ -45,11 +46,13 @@ OTHER_PACKAGES = {
     )
 }
 
+EMBEDDED_GRUPS = {"dialout", "plugdev"}
+
 
 @task
 def install_with_pipx(c: Context):
     r = c.run("pipx list --json", hide=True)
-    assert r
+    assert r is not None
 
     installed = set(json.loads(r.stdout)["venvs"].keys())
 
@@ -72,7 +75,7 @@ def install_with_cargo(c: Context):
 @task
 def install_with_apt(c: Context):
     r = c.run("apt list --installed", hide=True)
-    assert r
+    assert r is not None
 
     installed: list[str] = []
     for l in r.stdout.splitlines():
@@ -85,6 +88,21 @@ def install_with_apt(c: Context):
 
     c.run("sudo apt update")
     c.run("sudo apt install -y " + " ".join(targets))
+
+
+@task
+def add_to_groups(c: Context):
+    r = c.run("groups", hide=True)
+    assert r is not None
+
+    user = os.environ["USER"]
+
+    current = set(r.stdout.split())
+
+    targets = list(EMBEDDED_GRUPS - current)
+
+    for t in targets:
+        c.run(f"fsudo usermod -aG {t} {user}")
 
 
 def install_other(c: Context, package: str, cmd: str):
@@ -107,3 +125,4 @@ def install(c: Context):
     install_with_pipx(c)
     install_with_cargo(c)
     install_others(c)
+    add_to_groups(c)

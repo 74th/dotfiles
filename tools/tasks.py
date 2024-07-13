@@ -22,7 +22,7 @@ def rust_packages() -> list[str]:
 def npm_installed(c: Context) -> list[str]:
     installed: list[str] = []
     r = c.run("npm ls -g", hide=True)
-    assert r
+    assert r is not None
     lines = r.stdout
     for line in lines.split("\n"):
         m = re.match(r"^[├└]─[-┬] (\S+)@[\d.]+", line)
@@ -34,7 +34,7 @@ def npm_installed(c: Context) -> list[str]:
 @task
 def npm(c: Context):
     r = c.run("which npm", warn=True)
-    assert r
+    assert r is not None
     if r.failed:
         print("!! npm not found !!")
         return
@@ -48,7 +48,7 @@ def npm(c: Context):
 @task
 def upgrade_npm(c: Context):
     r = c.run("which npm", warn=True)
-    assert r
+    assert r is not None
     if r.failed:
         print("!! npm not found !!")
         return
@@ -59,7 +59,7 @@ def upgrade_npm(c: Context):
 def rust_installed(c: Context) -> list[str]:
     installed: list[str] = []
     r = c.run("cargo install --list")
-    assert r
+    assert r is not None
     lines = r.stdout
     for line in lines.split("\n"):
         if line and line[0] == " ":
@@ -73,7 +73,7 @@ def rust_installed(c: Context) -> list[str]:
 @task
 def rust(c: Context):
     r = c.run("which cargo", warn=True)
-    assert r
+    assert r is not None
     if r.failed:
         print("!! cargo not found !!")
         return
