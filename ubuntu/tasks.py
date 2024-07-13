@@ -1,7 +1,9 @@
+from pathlib import Path
 import os
 import tempfile
 
 from invoke.tasks import task
+from invoke.context import Context
 
 
 def add_source_list(c):
@@ -35,9 +37,9 @@ def add_source_list_desktop(c):
 
 
 def is_ubuntu():
-    if not os.path.exists("/etc/lsb-release"):
+    if not Path("/etc/lsb-release").exists():
         return False
-    with open("/etc/lsb-release") as f:
+    with Path("/etc/lsb-release").open() as f:
         body = f.read()
     return body.count("Ubuntu") >= 0
 
@@ -81,17 +83,25 @@ def _list_packages() -> list[str]:
         "pkg-config",
         "docker.io",
         "docker-compose",
+        "docker-compose-v2",
         "docker-buildx",
     ]
     return pkgs
 
 
 @task
-def install(c):
+def setup_user(c: Context):
+    c.run("sudo usermod -aG docker $USER")
+
+
+@task
+def install(c: Context):
     add_source_list(c)
     pkgs = _list_packages()
     c.run("sudo apt-get update")
     c.run("sudo apt-get install -y " + " ".join(pkgs))
+
+    setup_user(c)
 
 
 def _list_desktop_packages() -> list[str]:
