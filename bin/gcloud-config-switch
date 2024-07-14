@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!system-python
 """
 gcloud コマンドの設定をスイッチする
 

@@ -1,4 +1,4 @@
-#!/bin/python3
+#!system-python
 from datetime import datetime, timedelta
 from dateutil import parser
 import invoke

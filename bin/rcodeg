@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!system-python
 # ghq を使ってディレクトリを選んで code コマンドを実行
 import sys
 import invoke

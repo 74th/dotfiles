@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!system-python
 import subprocess
 import math
 

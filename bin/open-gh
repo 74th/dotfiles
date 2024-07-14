@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!system-python
 # ghq を使ってディレクトリを選んで chrome コマンドを実行
 import subprocess
 import shlex
@@ -39,7 +39,9 @@ if hostname in ["crow", "iroha"]:
     subprocess.run(cmd, check=True, capture_output=True)
 elif hostname in ["arcueid"]:
     subprocess.run(f"google-chrome {g}", check=True, capture_output=True)
-elif pathlib.Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").exists():
+elif pathlib.Path(
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+).exists():
     subprocess.run(
         ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", g],
         check=True,

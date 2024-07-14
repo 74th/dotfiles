@@ -1,14 +1,11 @@
-#!/usr/bin/python3
+#!system-python
 import os
 import subprocess
 
 HOSTNAME = os.uname().nodename
 HOME = os.environ["HOME"]
 
-if (
-    HOSTNAME.startswith("PC-")
-    or HOSTNAME.startswith("crow")
-):
+if HOSTNAME.startswith("PC-") or HOSTNAME.startswith("crow"):
     filename = "work"
 else:
     filename = "home"

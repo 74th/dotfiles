@@ -1,4 +1,4 @@
-#!/bin/python3
+#!system-python
 import time
 import re
 import subprocess

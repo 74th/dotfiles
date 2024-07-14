@@ -11,6 +11,7 @@ import git.tasks as git
 import arm_ubuntu.tasks as arm_ubuntu
 import ubuntu.tasks as ubuntu
 import golang.tasks as go
+import python.tasks as python
 import python_pip.tasks as python_pip
 import vscode.tasks as vscode
 import tools.tasks as tools
@@ -241,6 +242,7 @@ ns.add_collection(ns.from_module(homebrew), "homebrew")
 ns.add_collection(ns.from_module(git), "git")
 ns.add_collection(ns.from_module(ubuntu), "ubuntu")
 ns.add_collection(ns.from_module(go), "go")
+ns.add_collection(ns.from_module(python), "python")
 ns.add_collection(ns.from_module(python_pip), "pip")
 ns.add_collection(ns.from_module(tools), "tools")
 ns.add_collection(ns.from_module(vscode), "vscode")
