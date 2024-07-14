@@ -1,0 +1,20 @@
+#!system-python
+import os
+import sys
+import subprocess
+
+cwd = os.getcwd()
+dirs = cwd.split("/")
+n = dirs.index("ghq")
+if n < 0:
+    print("ghq not found")
+    sys.exit(1)
+
+package = "/".join(dirs[n + 1 :])
+
+cmd = ["go", "mod", "init", package]
+print(" ".join(cmd))
+
+r = subprocess.run(cmd, check=False)
+if r.returncode != 0:
+    sys.exit(r.returncode)

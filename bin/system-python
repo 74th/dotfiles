@@ -1,0 +1,10 @@
+#!/bin/bash
+if [[ -x /opt/homebrew/bin/python3 ]]; then
+    /opt/homebrew/bin/python3 "$@"
+elif [[ -x /usr/local/bin/python3 ]]; then
+    /usr/local/bin/python3 "$@"
+elif [[ -x /usr/bin/python3 ]]; then
+    /usr/bin/python3 "$@"
+else
+    python3 "$@"
+fi
