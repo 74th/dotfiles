@@ -1,4 +1,3 @@
-from typing import cast
 import os
 from os import path
 from invoke.tasks import task
@@ -6,6 +5,7 @@ from invoke.context import Context
 from invoke.collection import Collection
 import detect
 
+from task_utils import HOME, GHQ_DIR, get_arch, get_hostname
 import homebrew.tasks as homebrew
 import git.tasks as git
 import arm_ubuntu.tasks as arm_ubuntu
@@ -14,37 +14,12 @@ import golang.tasks as go
 import python_pip.tasks as python_pip
 import vscode.tasks as vscode
 import tools.tasks as tools
-import krew.tasks as krew
+import kubectl.tasks as kubectl
 import rust.tasks as rust
 import embedded.tasks as embedded
 
 ns = Collection()
 ns.add_collection(ns.from_module(arm_ubuntu), "arm-ubuntu")
-
-
-def get_home():
-    home = os.environ.get("HOME", None)
-    if home is not None:
-        return home
-    if detect.mac:
-        return "/Users/nnyn"
-    return "/home/nnyn"
-
-
-HOME = get_home()
-GHQ_DIR = path.join(HOME, "ghq")
-
-
-def get_archi(c: Context):
-    r = c.run("uname -p")
-    assert r is not None
-    return r.stdout.strip()
-
-
-def get_hostname(c: Context):
-    r = c.run("hostname")
-    assert r is not None
-    return r.stdout.strip()
 
 
 def update_default_package_manager(c):
@@ -55,21 +30,15 @@ def update_default_package_manager(c):
         c.run("brew update", echo=True)
 
 
-def delete_file(path: str):
-    if os.path.exists(path):
-        os.remove(path)
-
-
-def create_basic_dir(c):
-    d = os.path.join(HOME, "bin")
-    if not os.path.exists(d):
-        os.mkdir(d)
+def create_basic_dir():
+    d = HOME.joinpath("bin")
+    if not d.exists():
+        d.mkdir()
 
 
 @task
-def pyenv(c):
-    c = cast(Context, c)
-    pyenv_dir = f"{HOME}/.pyenv"
+def pyenv(c: Context):
+    pyenv_dir = HOME.joinpath(".pyenv")
     if not path.exists(pyenv_dir):
         c.run("ghq get github.com/pyenv/pyenv")
         c.run(f"ln -s {GHQ_DIR}/github.com/pyenv/pyenv {pyenv_dir}")
@@ -189,8 +158,7 @@ def npm(c):
     if c.run("which npm", warn=True).failed:
         print("!! npm not found !!")
         return
-    home = get_home()
-    c.run(f"npm config set prefix {home}/npm")
+    c.run(f"npm config set prefix {HOME}/npm")
     dirs = [
         f"{HOME}/npm",
         f"{HOME}/npm/bin",
@@ -208,9 +176,9 @@ ns.add_task(npm)  # type: ignore
 @task(default=True)
 def install(c):
     update_default_package_manager(c)
-    create_basic_dir(c)
+    create_basic_dir()
 
-    archi = get_archi(c)
+    archi = get_arch(c)
     hostname = get_hostname(c)
 
     # default package managers
@@ -233,7 +201,7 @@ def install(c):
     go.download_packages(c)
     if detect.linux and ubuntu.is_ubuntu():
         go.install_go(c)
-    krew.install(c)
+    kubectl.install(c)
 
     # setting up
     xonsh(c)
@@ -256,7 +224,7 @@ ns.add_task(install)  # type: ignore
 @task
 def install_small(c):
     update_default_package_manager(c)
-    create_basic_dir(c)
+    create_basic_dir()
 
     bashrc(c)
     git.set_config(c)
@@ -276,6 +244,6 @@ ns.add_collection(ns.from_module(go), "go")
 ns.add_collection(ns.from_module(python_pip), "pip")
 ns.add_collection(ns.from_module(tools), "tools")
 ns.add_collection(ns.from_module(vscode), "vscode")
-ns.add_collection(ns.from_module(krew), "krew")
+ns.add_collection(ns.from_module(kubectl), "kubectl")
 ns.add_collection(ns.from_module(rust), "rust")
 ns.add_collection(ns.from_module(embedded), "embedded")
