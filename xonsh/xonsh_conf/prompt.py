@@ -67,7 +67,7 @@ def set_prompt():
         "iroha",
         "imuri",
         "reah",
-    ]:
+    ] or HOSTNAME.startswith("crow"):
         prompt += "{CYAN}"
     elif HOSTNAME in ["lewill", "sirius", "frieren"]:
         prompt += "{BLUE}"

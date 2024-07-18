@@ -61,7 +61,7 @@ def _list_packages() -> list[str]:
     pkgs: list[str] = []
     pkgs += [
         "jq",
-        "peco",
+        # "peco",
         "xclip",
         "readline-common",
         "git",

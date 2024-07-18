@@ -11,7 +11,7 @@ if len(sys.argv) == 2:
     target = sys.argv[1]
 target = os.path.abspath(target)
 
-if current == "crow":
+if current.startswith("crow"):
     host = "mac"
     vm = "crow"
     code_path = "/usr/local/bin/code"

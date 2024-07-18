@@ -15,7 +15,12 @@ def npm_packages() -> list[str]:
 
 
 def rust_packages() -> list[str]:
-    pkg = []
+    pkg: list[str] = []
+    return pkg
+
+
+def go_packages() -> list[tuple[str, str]]:
+    pkg = [("peco", "github.com/peco/peco/cmd/peco@latest")]
     return pkg
 
 
@@ -85,6 +90,20 @@ def rust(c: Context):
 
 
 @task
+def go(c: Context):
+    for pkg in go_packages():
+        cmd, url = pkg
+
+        r = c.run(f"which {cmd}", hide=True, warn=True)
+        assert r is not None
+        if r.ok:
+            continue
+
+        c.run(f"go install {url}")
+
+
+@task
 def install(c: Context):
     npm(c)
     rust(c)
+    go(c)

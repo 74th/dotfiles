@@ -8,7 +8,7 @@ from task_utils import HOME, get_arch
 from invoke.tasks import task
 from invoke.context import Context
 
-install_script = Path(__file__).joinpath("install.sh")
+install_script = Path(__file__).parent.joinpath("install.sh")
 krew_bin = Path("~/.krew/bin/kubectl-krew").expanduser()
 
 KREW_PLUGINS = {
