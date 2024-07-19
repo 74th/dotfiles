@@ -1,5 +1,6 @@
 #!system-python
 # ghq を使ってディレクトリを選んで code コマンドを実行
+from pathlib import Path
 import os
 import subprocess
 import sys
@@ -36,6 +37,9 @@ g = r.stdout.strip()
 hostname = gethostname()
 
 if "SSH_CLIENT" in os.environ:
-    code = "c"
+    code = Path("~/ghq/github.com/74th/dotfiles/bin/c").expanduser()
 
-subprocess.run([code, g], check=True, capture_output=True)
+cmd = ["system-python", code, g]
+print(cmd)
+
+subprocess.run(cmd, check=True, capture_output=True)

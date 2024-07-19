@@ -1,8 +1,8 @@
 #!system-python
-import os
+from pathlib import Path
 import subprocess
 
-p = os.path.expanduser("~/ghq/github.com/74th/mycheatsheets/")
+p = Path("~/ghq/github.com/74th/mycheatsheets/").expanduser()
 
 print(f"cd {p} && git pull")
 subprocess.run(
@@ -11,9 +11,12 @@ subprocess.run(
     capture_output=True,
     cwd=p,
 )
-print(f"c {p}")
+
+code = Path("~/ghq/github.com/74th/dotfiles/bin/c").expanduser()
+print(f"{code} {p}")
+
 subprocess.run(
-    ["c", f"{p}/sheets"],
+    ["system-python", code, f"{p}/sheets"],
     check=True,
     capture_output=True,
 )
