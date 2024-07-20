@@ -1,4 +1,4 @@
-#!system-python
+#!/usr/local/bin/system-python
 # ターゲットのプロセスを選択して kill
 import re
 import subprocess

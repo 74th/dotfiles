@@ -1,4 +1,4 @@
-#!system-python
+#!/usr/local/bin/system-python
 """
 gcloud コマンドの設定をスイッチする
 

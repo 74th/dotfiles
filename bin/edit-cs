@@ -1,4 +1,4 @@
-#!system-python
+#!/usr/local/bin/system-python
 from pathlib import Path
 import subprocess
 

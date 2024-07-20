@@ -1,4 +1,4 @@
-#!system-python
+#!/usr/local/bin/system-python
 # Python venv を作成して、direnvに追加
 import os
 import invoke

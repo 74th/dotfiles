@@ -1,4 +1,4 @@
-#!system-python
+#!/usr/local/bin/system-python
 # ghq を使ってディレクトリを選んで code コマンドを実行
 from pathlib import Path
 import os
@@ -6,7 +6,6 @@ import subprocess
 import sys
 from socket import gethostname
 
-code = "code"
 g = ""
 if len(sys.argv) == 2:
     m = sys.argv[1]
@@ -37,9 +36,16 @@ g = r.stdout.strip()
 hostname = gethostname()
 
 if "SSH_CLIENT" in os.environ:
-    code = Path("~/ghq/github.com/74th/dotfiles/bin/c").expanduser()
+    codeg = Path("~/ghq/github.com/74th/dotfiles/bin/c").expanduser()
+    cmd = [
+        "system-python",
+        Path("~/ghq/github.com/74th/dotfiles/bin/c").expanduser(),
+        g,
+    ]
+else:
+    cmd = ["code", g]
 
-cmd = ["system-python", code, g]
+
 print(cmd)
 
 subprocess.run(cmd, check=True, capture_output=True)

@@ -1,4 +1,4 @@
-#!system-python
+#!/usr/local/bin/system-python
 # ghq を使ってディレクトリを選んで chrome コマンドを実行
 import subprocess
 import shlex
