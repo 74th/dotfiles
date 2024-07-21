@@ -1,5 +1,6 @@
 #!/usr/local/bin/system-python
 # ghq を使ってディレクトリを選んで code コマンドを実行
+import shlex
 from pathlib import Path
 import os
 import subprocess
@@ -46,6 +47,6 @@ else:
     cmd = ["code", g]
 
 
-print(cmd)
+print(shlex.join(map(str, cmd)))
 
 subprocess.run(cmd, check=True, capture_output=True)

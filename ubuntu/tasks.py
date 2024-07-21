@@ -1,3 +1,4 @@
+import tempfile
 from pathlib import Path
 import os
 import tempfile
@@ -169,3 +170,24 @@ def desktop_install(c):
     c.run("sudo apt-get install -y " + " ".join(pkgs))
     c.run("ln -sf ~/dotfiles/ubuntu/_config/libinput-gestures.conf ~/.config/")
     libinput_gestures(c)
+
+
+@task
+def run_install(c: Context):
+    script_root = Path(__file__).parent.joinpath("install")
+
+    scripts = [script for _, _, script in script_root.walk()][0]
+    with tempfile.NamedTemporaryFile("+wt") as f:
+        f.write("\n".join(scripts))
+        f.flush()
+        r = c.run(f"peco {f.name}")
+
+    assert r is not None
+
+    for script in r.stdout.split("\n"):
+        script = script.strip()
+        if not script:
+            continue
+        c.run((script_root / script).as_posix())
+
+    assert r is not None
