@@ -86,6 +86,7 @@ def _list_packages() -> list[str]:
         "docker-compose",
         "docker-compose-v2",
         "docker-buildx",
+        "libmysqlclient-dev",
     ]
     return pkgs
 
