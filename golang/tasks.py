@@ -1,6 +1,7 @@
 import os
-import yaml
 import tempfile
+
+import yaml
 import detect
 from invoke.tasks import task
 
@@ -43,6 +44,6 @@ def install_go(c):
                 else:
                     tar_gz = f"{version}.linux-amd64.tar.gz"
             c.run(f"curl -LO https://dl.google.com/go/{tar_gz}")
-            c.run(f"sudo rm -rf /usr/local/go")
+            c.run("sudo rm -rf /usr/local/go")
             c.run(f"sudo tar -C /usr/local -xzf {tar_gz}")
-            c.run(f"sudo ln -fs /usr/local/go/bin/* /usr/local/bin/")
+            c.run("sudo ln -fs /usr/local/go/bin/* /usr/local/bin/")

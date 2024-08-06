@@ -10,6 +10,7 @@ dependencies = [
     "detect>=2020.12.3",
     "pyyaml>=6.0.1",
     "xonsh[full]>=0.17.0",
+    "types-pyyaml>=6.0.12.20240724",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

@@ -24,6 +24,8 @@ pyperclip==1.9.0
     # via xonsh
 pyyaml==6.0.1
     # via dotfiles
+types-pyyaml==6.0.12.20240724
+    # via dotfiles
 ujson==5.10.0
     # via xonsh
 wcwidth==0.2.13
