@@ -23,6 +23,7 @@ def list_packages_by_pipx():
     l = [
         "poetry",
         "xonsh[full]",
+        "pre-commit",
     ]
     return l
 
