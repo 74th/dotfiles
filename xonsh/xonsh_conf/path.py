@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 import shlex
+import pathlib
 
 
 def get_system():
@@ -148,6 +149,12 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/ghq/github.com/74th/dotfiles/bin/" + hostname)
     add(home + "/ghq/github.com/74th/mycheatsheets/bin/" + hostname)
     add(home + "/bin")
+
+    # --- ローカル ---
+    if "VIRTUAL_ENV" in os.environ:
+        _bin_path = pathlib.Path(os.environ["VIRTUAL_ENV"]) / "bin"
+        if _bin_path.exists():
+            add(_bin_path.as_posix())
 
     return _paths
 
