@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo "git-switch-origin <branch>"
+    exit 1
+fi
+
+branch_name=$1
+
+if git show-ref --quiet --verify "refs/heads/$1"; then
+    git branch -D ${branch_name}
+fi
+
+git switch -c ${branch_name} origin/${branch_name}

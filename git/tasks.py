@@ -40,6 +40,7 @@ def set_config(c):
     c.run('git config --global alias.addremove "reset"', env=env)
     c.run('git config --global alias.tags "tag"', env=env)
     c.run('git config --global alias.stashes "stash list"', env=env)
+    c.run('git config --global alias.stash-all "stash -u"', env=env)
     c.run('git config --global alias.unstage "reset -q HEAD --"', env=env)
     c.run('git config --global alias.discard "checkout --"', env=env)
     c.run('git config --global alias.uncommit "reset --mixed HEAD~"', env=env)
@@ -61,6 +62,10 @@ def set_config(c):
     c.run('git config --global alias.c "checkout"', env=env)
     c.run('git config --global alias.b "branch"', env=env)
     c.run('git config --global alias.p "push"', env=env)
+    c.run('git config --global alias.sw "switch"', env=env)
+    c.run('git config --global alias.swp "switch-peco"', env=env)
+    c.run('git config --global alias.swf "switch-origin"', env=env)
+    c.run('git config --global alias.pt "push-with-tags"', env=env)
 
     # やっぱり楽なコマンドが良い
     c.run('git config --global alias.st "status"', env=env)
