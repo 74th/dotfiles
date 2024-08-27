@@ -1,4 +1,5 @@
 import datetime
+import shlex
 from invoke.tasks import task
 
 
@@ -34,60 +35,44 @@ def set_config(c):
     c.run("git config --global init.defaultBranch main", env=env)
 
     # 人間らしいgitコマンド
-    c.run('git config --global alias.branches "branch -a"', env=env)
-    c.run('git config --global alias.addline "add -p"', env=env)
-    c.run('git config --global alias.addlineedit "add -e"', env=env)
-    c.run('git config --global alias.addremove "reset"', env=env)
-    c.run('git config --global alias.tags "tag"', env=env)
-    c.run('git config --global alias.stashes "stash list"', env=env)
-    c.run('git config --global alias.stash-all "stash -u"', env=env)
-    c.run('git config --global alias.unstage "reset -q HEAD --"', env=env)
-    c.run('git config --global alias.discard "checkout --"', env=env)
-    c.run('git config --global alias.uncommit "reset --mixed HEAD~"', env=env)
-    c.run('git config --global alias.amend "commit --amend"', env=env)
-    c.run('git config --global alias.reset-all "!git reset --hard && git clean -fd"', env=env)
-    c.run(
-        "git config --global alias.graph \"log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative\"",
-        env=env,
-    )
-    c.run(
-        'git config --global alias.unmerged "diff --name-only --diff-filter=U"', env=env
-    )
-    c.run(
-        "git config --global alias.history \"log -10 --format=format:'%Cgreen%h %Creset• %s (%cN, %ar)'\"",
-        env=env,
-    )
-    c.run('git config --global alias.deleteuntrackedfile "logi clean -f"', env=env)
+    humanize_aliases = {
+        "branches": "git branch -a",
+        "addline": "git add -p",
+        "addlineedit": "git add -e",
+        "addremove": "git reset",
+        "tags": "git tag",
+        "stashes": "git stash list",
+        "stash-all": "git stash -u",
+        "unstage": "git reset -q HEAD --",
+        "discard": "git checkout --",
+        "uncommit": "git reset --mixed HEAD~",
+        "amend": "git commit --amend",
+        "reset-all": "git reset --hard && git clean -fd",
+        "delete-branch": "git branch -d",
+        "push-with-tags": "git push && git push --tags",
+        "graph": "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative",
+        "unmerged": "git diff --name-only --diff-filter=U",
+        "history": "git log -10 --format=format:'%Cgreen%h %Creset• %s (%cN, %ar)'",
+        "firstcommit": "commit --allow-empty -m 'first commit'",
+    }
 
-    # めんどくなってきた
-    c.run('git config --global alias.c "checkout"', env=env)
-    c.run('git config --global alias.b "branch"', env=env)
-    c.run('git config --global alias.p "push"', env=env)
-    c.run('git config --global alias.sw "switch"', env=env)
-    c.run('git config --global alias.swp "switch-peco"', env=env)
-    c.run('git config --global alias.swf "switch-origin"', env=env)
-    c.run('git config --global alias.pt "push-with-tags"', env=env)
+    for alias, command in humanize_aliases.items():
+        cmd = shlex.quote(f"!set -x && {command}")
+        c.run(f"git config --global alias.{alias} {cmd}", env=env)
 
-    # やっぱり楽なコマンドが良い
-    c.run('git config --global alias.st "status"', env=env)
+    # 省略形
+    easy_aliases = {
+        "cm": "commit",
+        "pu": "push -u",
+        "sw": "switch",
+        "st": "status",
+        "swp": "switch-peco",
+        "swf": "switch-origin",
+        "pt": "push-with-tags",
+    }
 
-    # masterを追う
-    c.run(
-        'git config --global alias.upstreamtomaster "branch --set-upstream-to=origin/master master"',
-        env=env,
-    )
-
-    # 最初の空コミット
-    c.run(
-        "git config --global alias.firstcommit \"commit --allow-empty -m 'first commit'\"",
-        env=env,
-    )
-
-    # ブランチをpecoでswitch
-    c.run(
-        'git config --global alias.switchp "!git-switch-peco"',
-        env=env,
-    )
+    for alias, command in easy_aliases.items():
+        c.run(f'git config --global alias.{alias} "{command}"', env=env)
 
     # vimを使用
     c.run('git config --global core.editor "vi"', env=env)
