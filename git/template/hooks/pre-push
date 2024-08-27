@@ -8,10 +8,6 @@ if [[ "${remote_ref##refs/heads/}" = "master" \
   || "${remote_ref##refs/heads/}" = "develop" \
   || "${remote_ref##refs/heads/}" = "qa" \
   || "${remote_ref##refs/heads/}" = "canary" ]]; then
-  if [[ "${remote_ref##refs/remotes/origin/}" = "74th" ]]; then
-    echo "Skipping check for remote branch '74th'"
-    continue
-  fi
 
   echo "Warning: push to remote master, main, or develop, continue? [y/N]"
 
