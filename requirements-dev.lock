@@ -12,7 +12,7 @@
 -e file:.
 detect==2020.12.3
     # via dotfiles
-distro==1.9.0
+gnureadline==8.2.10
     # via xonsh
 invoke==2.2.0
     # via dotfiles
