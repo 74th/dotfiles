@@ -45,6 +45,7 @@ def set_config(c):
     c.run('git config --global alias.discard "checkout --"', env=env)
     c.run('git config --global alias.uncommit "reset --mixed HEAD~"', env=env)
     c.run('git config --global alias.amend "commit --amend"', env=env)
+    c.run('git config --global alias.reset-all "!git reset --hard && git clean -fd"', env=env)
     c.run(
         "git config --global alias.graph \"log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative\"",
         env=env,
