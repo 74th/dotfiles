@@ -37,23 +37,25 @@ def set_config(c):
     # 人間らしいgitコマンド
     humanize_aliases = {
         "branches": "git branch -a",
-        "addline": "git add -p",
-        "addlineedit": "git add -e",
-        "addremove": "git reset",
-        "tags": "git tag",
+        "add-line": "git add -p",
+        "add-line-edit": "git add -e",
         "stashes": "git stash list",
         "stash-all": "git stash -u",
-        "unstage": "git reset -q HEAD --",
+        "unstage": "git reset",
+        "unstage-all": "git reset -q HEAD --",
         "discard": "git checkout --",
+        "discard-all": "git reset --hard && git clean -fd",
         "uncommit": "git reset --mixed HEAD~",
+        "commit-first": "commit --allow-empty -m 'first commit'",
         "amend": "git commit --amend",
-        "reset-all": "git reset --hard && git clean -fd",
         "delete-branch": "git branch -d",
+        "tags": "git tag",
         "push-with-tags": "git push && git push --tags",
+        "push-with-tags-and-follow": "git push -u && git push --tags",
+        "follow": "git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD)",
         "graph": "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative",
         "unmerged": "git diff --name-only --diff-filter=U",
         "history": "git log -10 --format=format:'%Cgreen%h %Creset• %s (%cN, %ar)'",
-        "firstcommit": "commit --allow-empty -m 'first commit'",
     }
 
     for alias, command in humanize_aliases.items():
@@ -63,11 +65,12 @@ def set_config(c):
     # 省略形
     easy_aliases = {
         "cm": "commit",
-        "pu": "push -u",
+        "pu": "push-with-tags-and-follow",
         "sw": "switch",
         "st": "status",
         "swp": "switch-peco",
         "swf": "switch-origin",
+        "swcf": "switch-create-from",
         "pt": "push-with-tags",
     }
 

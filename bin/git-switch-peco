@@ -3,7 +3,6 @@
 import sys
 import subprocess
 import tempfile
-from typing import Optional
 
 
 def select_branch() -> list[str]:
