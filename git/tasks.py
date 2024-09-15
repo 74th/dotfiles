@@ -34,6 +34,9 @@ def set_config(c):
     # master push時の警告
     c.run("git config --global init.defaultBranch main", env=env)
 
+    # https://zenn.dev/hiro8_hiro8/articles/d63b3bfbe2c86e
+    c.run("git config --global http.postBuffer 524288000", env=env)
+
     # 人間らしいgitコマンド
     humanize_aliases = {
         "branches": "git branch -a",
@@ -46,7 +49,7 @@ def set_config(c):
         "discard": "git checkout --",
         "discard-all": "git reset --hard && git clean -fd",
         "uncommit": "git reset --mixed HEAD~",
-        "commit-first": "commit --allow-empty -m 'first commit'",
+        "commit-first": "git commit --allow-empty -m 'first commit'",
         "amend": "git commit --amend",
         "delete-branch": "git branch -d",
         "tags": "git tag",
