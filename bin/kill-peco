@@ -54,9 +54,9 @@ cmd = ["kill"] + cmd_args + process_ids
 
 print(" ".join(cmd))
 
-# r = subprocess.run(
-#     cmd,
-#     check=True,
-#     capture_output=True,
-#     text=True,
-# )
+r = subprocess.run(
+    cmd,
+    check=True,
+    capture_output=True,
+    text=True,
+)
