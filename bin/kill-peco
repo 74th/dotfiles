@@ -40,21 +40,23 @@ g = r.stdout.strip()
 if not g:
     sys.exit(1)
 
-print(g)
+process_ids: list[str] = []
+for l in g.splitlines():
+    m = re.match(r"^\S+\s+(\S+)\s+", l)
+    if not m:
+        continue
+    process_ids.append(m.group(1))
 
-m = re.match(r"^\S+\s+(\S+)\s+", g)
-if not m:
+if not process_ids:
     sys.exit(1)
 
-process_id = m.group(1)
-
-cmd = ["kill"] + cmd_args + [process_id]
+cmd = ["kill"] + cmd_args + process_ids
 
 print(" ".join(cmd))
 
-r = subprocess.run(
-    cmd,
-    check=True,
-    capture_output=True,
-    text=True,
-)
+# r = subprocess.run(
+#     cmd,
+#     check=True,
+#     capture_output=True,
+#     text=True,
+# )
