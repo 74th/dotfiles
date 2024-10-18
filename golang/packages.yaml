@@ -4,3 +4,4 @@ packages:
   - go.uber.org/mock/mockgen@latest
   - github.com/peco/peco/cmd/peco@latest
   - golang.org/x/tools/cmd/stringer@latest
+  - github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
