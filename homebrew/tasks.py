@@ -28,6 +28,7 @@ def _list_minimal_mac(c):
         "pinentry",
         "pipx",
         "direnv",
+        "peco",
     ]
 
     return pkgs

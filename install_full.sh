@@ -6,8 +6,9 @@ if [ -e /etc/debian_version ]; then
     fi
     pip3 install invoke detect
 fi
-if [ ! -e ~/dotfiles ]; then
-    git clone https://github.com/74th/dotfiles.git ~/dotfiles
+if [ ! -e ~/ghq/github.com/74th/dotfiles ]; then
+    mkdir -p ~/ghq/github.com/74th/dotfiles
+    git clone https://github.com/74th/dotfiles.git ~/ghq/github.com/74th/dotfiles
 fi
-cd ~/dotfiles
+cd ~/ghq/github.com/74th/dotfiles
 python3 -u -m invoke install

@@ -20,7 +20,10 @@ def set_config(c):
     c.run("git config --global push.default current", env=env)
 
     # globalのGitIgnore
-    c.run("git config --global core.excludesfile ~/dotfiles/git/.gitignore", env=env)
+    c.run(
+        "git config --global core.excludesfile ~/ghq/github.com/74th/dotfiles/git/.gitignore",
+        env=env,
+    )
 
     # git diffの並列実行
     c.run("git config --global core.preloadindex true", env=env)
@@ -29,7 +32,10 @@ def set_config(c):
     c.run("git config --global color.ui true", env=env)
 
     # master push時の警告
-    c.run("git config --global init.templatedir ~/dotfiles/git/template/", env=env)
+    c.run(
+        "git config --global init.templatedir ~/ghq/github.com/74th/dotfiles/git/template/",
+        env=env,
+    )
 
     # master push時の警告
     c.run("git config --global init.defaultBranch main", env=env)
