@@ -66,7 +66,6 @@ def set_prompt():
         "iroha",
         "imuri",
         "reah",
-        "cheadle",
     ] or HOSTNAME.startswith("crow"):
         prompt += "{CYAN}"
     elif HOSTNAME in ["lewill", "sirius", "frieren"]:
@@ -77,6 +76,7 @@ def set_prompt():
         or HOSTNAME.count("mac")
         or HOSTNAME.startswith("PC-")
         or HOSTNAME.startswith("kukrushka")
+        or HOSTNAME.startswith("cheadle")
     ):
         prompt += "{WHITE}"
     elif HOSTNAME.count("prod") > 0:
