@@ -29,6 +29,7 @@ def _list_minimal_mac(c):
         "pipx",
         "direnv",
         "peco",
+        "nodenv",
     ]
 
     return pkgs
