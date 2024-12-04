@@ -110,7 +110,7 @@ def macos(c):
         )
     c.run(f"launchctl load {HOME}/Library/LaunchAgents/setenv.plist")
 
-    # メニューバーアイコンの間隔
+    # メニューバーアイコンの間隔を調整
     # https://zenn.dev/usagimaru/articles/9c4f45b0f3c906
     c.run("defaults -currentHost write -globalDomain NSStatusItemSpacing -int 6")
     c.run(
