@@ -110,6 +110,13 @@ def macos(c):
         )
     c.run(f"launchctl load {HOME}/Library/LaunchAgents/setenv.plist")
 
+    # メニューバーアイコンの間隔
+    # https://zenn.dev/usagimaru/articles/9c4f45b0f3c906
+    c.run("defaults -currentHost write -globalDomain NSStatusItemSpacing -int 6")
+    c.run(
+        "defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 6"
+    )
+
 
 ns.add_task(macos)  # type: ignore
 
