@@ -9,7 +9,7 @@ if [ ! -d "/opt/homebrew" ]; then
 fi
 
 if [ ! -d "/Users/nnyn/.rye" ]; then
-    curl -sSf https://rye.astral.sh/get | bash
+    RYE_INSTALL_OPTION="--yes" curl -sSf https://rye.astral.sh/get | bash
 fi
 
 ~/.rye/shims/rye sync
