@@ -16,5 +16,5 @@ fi
 git switch -c ${new_branch} ${from_branch}
 
 # そのままでは origin/branch にSyncしてしまうため、接続を切る
-git config --unset branch.${new_branch}.merge
-git config --unset branch.${new_branch}.remote
+git config --unset branch.${new_branch}.merge || true
+git config --unset branch.${new_branch}.remote || true
