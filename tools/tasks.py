@@ -90,20 +90,6 @@ def rust(c: Context):
 
 
 @task
-def go(c: Context):
-    for pkg in go_packages():
-        cmd, url = pkg
-
-        r = c.run(f"which {cmd}", hide=True, warn=True)
-        assert r is not None
-        if r.ok:
-            continue
-
-        c.run(f"go install {url}")
-
-
-@task
 def install(c: Context):
     npm(c)
     rust(c)
-    go(c)

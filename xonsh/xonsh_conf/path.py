@@ -161,7 +161,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
 
 if __name__ == "__main__":
     # for bash
-    # eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/path.py)"
+    # eval "$(python3 ~/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/path.py)"
     if len(sys.argv) > 1:
         current_paths = sys.argv[1].split(":")
     else:

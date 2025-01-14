@@ -20,8 +20,8 @@ else
 fi
 
 if [ "$NNYN_DOTFILES_LOADED" != "1" ]; then
-    eval "$($PYTHON3_BIN ~/dotfiles/xonsh/xonsh_conf/path.py)"
-    eval "$($PYTHON3_BIN ~/dotfiles/xonsh/xonsh_conf/env.py)"
+    eval "$($PYTHON3_BIN ~/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/path.py)"
+    eval "$($PYTHON3_BIN ~/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/env.py)"
 fi
 
 # direnv
@@ -41,14 +41,14 @@ if [ "$PS1" != "" ]; then
     # use as prompt shell
 
     if type python3 >/dev/null 2>&1; then
-        eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/aliases.py)"
+        eval "$(python3 ~/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/aliases.py)"
     fi
     alias x=xonsh
 
     export EDITOR=vi
     export CLICOLOR=1
-    source ~/dotfiles/bashrc/completion/git-prompt.sh
-    source ~/dotfiles/bashrc/completion/git-completion.bash
+    source ~/ghq/github.com/74th/dotfiles/bashrc/completion/git-prompt.sh
+    source ~/ghq/github.com/74th/dotfiles/bashrc/completion/git-completion.bash
 
     function __show_exitcode() {
         _EXITCODE=$?

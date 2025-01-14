@@ -41,7 +41,8 @@ def create_basic_dir():
 def pyenv(c: Context):
     pyenv_dir = HOME.joinpath(".pyenv")
     if not path.exists(pyenv_dir):
-        c.run("ghq get github.com/pyenv/pyenv")
+        c.run(f"mkdir -p {GHQ_DIR}/github.com/pyenv/")
+        c.run(f"git clone https://github.com/pyenv/pyenv {GHQ_DIR}/github.com/pyenv/")
         c.run(f"ln -s {GHQ_DIR}/github.com/pyenv/pyenv {pyenv_dir}")
         if detect.linux:
             c.run(
@@ -72,9 +73,11 @@ def bashrc(c):
     if os.path.exists(bashrc):
         with open(bashrc, "r") as f:
             body: str = f.read()
-        if body.find(f"source {HOME}/dotfiles/bashrc/bashrc") > -1:
+        if body.find(f"source {HOME}/ghq/github.com/74th/dotfiles/bashrc/bashrc") > -1:
             return
-    c.run(f'echo "source {HOME}/dotfiles/bashrc/bashrc" >> {HOME}/.bashrc')
+    c.run(
+        f'echo "source {HOME}/ghq/github.com/74th/dotfiles/bashrc/bashrc" >> {HOME}/.bashrc'
+    )
 
 
 ns.add_task(bashrc)  # type: ignore
@@ -94,7 +97,9 @@ def macos(c):
 
     # karabiner-elements
     c.run(f"rm -rf {HOME}/.config/karabiner")
-    c.run(f"ln -s {HOME}/dotfiles/karabiner-elements {HOME}/.config/karabiner")
+    c.run(
+        f"ln -s {HOME}/ghq/github.com/74th/dotfiles/karabiner-elements {HOME}/.config/karabiner"
+    )
 
     # 環境変数
     c.run(f"mkdir -p {HOME}/Library/LaunchAgents")
@@ -102,9 +107,16 @@ def macos(c):
         c.run(f"launchctl unload {HOME}/Library/LaunchAgents/setenv.plist")
     else:
         c.run(
-            f"ln -s {HOME}/dotfiles/mac_env/setenv.plist {HOME}/Library/LaunchAgents/setenv.plist"
+            f"ln -s {HOME}/ghq/github.com/74th/dotfiles/mac_env/setenv.plist {HOME}/Library/LaunchAgents/setenv.plist"
         )
     c.run(f"launchctl load {HOME}/Library/LaunchAgents/setenv.plist")
+
+    # メニューバーアイコンの間隔を調整
+    # https://zenn.dev/usagimaru/articles/9c4f45b0f3c906
+    c.run("defaults -currentHost write -globalDomain NSStatusItemSpacing -int 6")
+    c.run(
+        "defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 6"
+    )
 
 
 ns.add_task(macos)  # type: ignore
@@ -118,14 +130,18 @@ def vimrc(c, no_extension=False):
         r = c.run(f"cat {HOME}/.vimrc")
         has = r.stdout.find("dotfiles") > 0
     if not has:
-        c.run(f'echo "source {HOME}/dotfiles/vimrc/vimrc.vim" >>{HOME}/.vimrc')
+        c.run(
+            f'echo "source {HOME}/ghq/github.com/74th/dotfiles/vimrc/vimrc.vim" >>{HOME}/.vimrc'
+        )
 
     has = False
     if os.path.exists(f"{HOME}/.gvimrc"):
         r = c.run(f"cat {HOME}/.gvimrc")
         has = r.stdout.find("dotfiles") > 0
     if not has:
-        c.run(f'echo "source {HOME}/dotfiles/vimrc/gvimrc.vim" >>{HOME}/.gvimrc')
+        c.run(
+            f'echo "source {HOME}/ghq/github.com/74th/dotfiles/vimrc/gvimrc.vim" >>{HOME}/.gvimrc'
+        )
 
     if not no_extension:
         c.run(f"mkdir -p {HOME}/.vim/autoload")
@@ -140,7 +156,9 @@ ns.add_task(vimrc)  # type: ignore
 
 @task
 def xonsh(c):
-    c.run(f"ln -fs {HOME}/dotfiles/xonsh/xonshrc.py {HOME}/.xonshrc")
+    c.run(
+        f"ln -fs {HOME}/ghq/github.com/74th/dotfiles/xonsh/xonshrc.py {HOME}/.xonshrc"
+    )
 
 
 ns.add_task(xonsh)  # type: ignore
@@ -148,7 +166,7 @@ ns.add_task(xonsh)  # type: ignore
 
 @task
 def screenrc(c):
-    c.run(f"cp {HOME}/dotfiles/screenrc/screenrc {HOME}/.screenrc")
+    c.run(f"cp {HOME}/ghq/github.com/74th/dotfiles/screenrc/screenrc {HOME}/.screenrc")
 
 
 ns.add_task(screenrc)  # type: ignore

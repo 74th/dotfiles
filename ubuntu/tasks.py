@@ -167,9 +167,11 @@ def desktop_install(c):
     add_source_list_desktop(c)
     pkgs = _list_desktop_packages()
     c.run("sudo apt-get update")
-    c.run("ln -sf ~/dotfiles/ubuntu/.xbindkeysrc ~/.xbindkeysrc")
+    c.run("ln -sf ~/ghq/github.com/74th/dotfiles/ubuntu/.xbindkeysrc ~/.xbindkeysrc")
     c.run("sudo apt-get install -y " + " ".join(pkgs))
-    c.run("ln -sf ~/dotfiles/ubuntu/_config/libinput-gestures.conf ~/.config/")
+    c.run(
+        "ln -sf ~/ghq/github.com/74th/dotfiles/ubuntu/_config/libinput-gestures.conf ~/.config/"
+    )
     libinput_gestures(c)
 
 

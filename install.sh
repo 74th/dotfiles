@@ -8,9 +8,9 @@ if [ -e /etc/debian_version ]; then
     pipx install invoke
     pipx runpip invoke install detect pyyaml
 fi
-if [ ! -e ~/dotfiles ]; then
-    git clone https://github.com/74th/dotfiles.git ~/dotfiles
+if [ ! -e ~/ghq/github.com/74th/dotfiles ]; then
+    git clone https://github.com/74th/dotfiles.git ~/ghq/github.com/74th/dotfiles
 fi
-cd ~/dotfiles
+cd ~/ghq/github.com/74th/dotfiles
 export PATH=$HOME/.local/bin:$PATH
 invoke install-small

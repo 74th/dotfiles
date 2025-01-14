@@ -5,6 +5,7 @@ import os.path
 
 HOME = os.environ.get("HOME", "/home/nnyn")
 
+
 def exists_command(cmd: str):
     r = subprocess.run(
         ["which", cmd],
@@ -64,6 +65,6 @@ def export_bash(aliases: dict[str, list[str]]):
 
 if __name__ == "__main__":
     # for bash
-    # eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/aliases.py)"
+    # eval "$(python3 ~/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/aliases.py)"
     aliases = get_aliases()
     export_bash(aliases)

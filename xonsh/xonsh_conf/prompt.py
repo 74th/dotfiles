@@ -47,7 +47,6 @@ def current_kubernetes_context() -> str:
 
 
 def set_prompt():
-
     prompt = "{RED}{exit}{WHITE}"
 
     # user
@@ -60,7 +59,7 @@ def set_prompt():
     if HOSTNAME in ["mini", "patty"]:
         prompt += "{GREEN}"
     elif HOSTNAME in [
-        "crow",
+        "nonoa",
         "miriam",
         "penguin",
         "fern",
@@ -77,6 +76,7 @@ def set_prompt():
         or HOSTNAME.count("mac")
         or HOSTNAME.startswith("PC-")
         or HOSTNAME.startswith("kukrushka")
+        or HOSTNAME.startswith("cheadle")
     ):
         prompt += "{WHITE}"
     elif HOSTNAME.count("prod") > 0:

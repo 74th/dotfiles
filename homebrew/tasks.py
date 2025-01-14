@@ -23,8 +23,13 @@ def _list_minimal_mac(c):
         "macvim",
         "python",
         "gh",
+        "ghq",
         "gpg",
         "pinentry",
+        "pipx",
+        "direnv",
+        "peco",
+        "nodenv",
     ]
 
     return pkgs

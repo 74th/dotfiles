@@ -108,7 +108,7 @@ def apply_envs():
 
 if __name__ == "__main__":
     # for bash
-    # eval "$(python3 ~/dotfiles/xonsh/xonsh_conf/env.py)"
+    # eval "$(python3 ~/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/env.py)"
     envs = build_envs()
     for env in envs:
         print(f"""export {env[0]}="{env[1]}"\n""")
