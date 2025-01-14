@@ -1,17 +1,15 @@
 #!/usr/local/bin/system-python
+import subprocess
 import argparse
-import detect
-import os
-import invoke
 
 parser = argparse.ArgumentParser(description="show listen port")
 parser.add_argument("ports", metavar="port", type=int, nargs="+", help="port number")
 args = parser.parse_args()
 ports = args.ports
 
-c = invoke.Context()
-c.config.update({"run": {"echo": True}})
-
-if detect.linux:
-    for port in ports:
-        c.run(f"lsof -i:{port}", warn=True)
+for port in ports:
+    cmd = ["sudo", "lsof", f"-i:{port}"]
+    print(" ".join(cmd))
+    output = subprocess.run(cmd, check=True, capture_output=True)
+    lines = output.stdout.decode("ascii").strip().splitlines()
+    print("\n".join(lines))
