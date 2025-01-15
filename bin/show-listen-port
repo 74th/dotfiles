@@ -10,6 +10,12 @@ ports = args.ports
 for port in ports:
     cmd = ["sudo", "lsof", f"-i:{port}"]
     print(" ".join(cmd))
-    output = subprocess.run(cmd, check=True, capture_output=True)
+    output = subprocess.run(cmd, check=False, capture_output=True)
+    if output.returncode == 1:
+        print(f"port:{port} no process detected")
+        continue
+    if output.returncode > 0:
+        print(f"port:{port} error: {output.stderr.decode('utf-8').strip()}")
+        continue
     lines = output.stdout.decode("ascii").strip().splitlines()
     print("\n".join(lines))
