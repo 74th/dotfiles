@@ -1,10 +1,11 @@
 #!/bin/bash
-set -xe
 
 if [ $# -eq 0 ]; then
     echo "git-switch-create-from <new_branch> <origin/from_branch>"
     exit 1
 fi
+
+set -xe
 
 new_branch=$1
 from_branch=$2
@@ -16,5 +17,5 @@ fi
 git switch -c ${new_branch} ${from_branch}
 
 # そのままでは origin/branch にSyncしてしまうため、接続を切る
-git config --unset branch.${new_branch}.merge
-git config --unset branch.${new_branch}.remote
+git config --unset branch.${new_branch}.merge || true
+git config --unset branch.${new_branch}.remote || true

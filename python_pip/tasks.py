@@ -46,12 +46,19 @@ def install_rye(c):
         return
     c.run("curl -sSf https://rye.astral.sh/get | bash", pty=True)
 
+@task
+def install_uv(c):
+    if pathlib.Path("~/.local/bin/uv").expanduser().exists():
+        return
+    c.run("curl -LsSf https://astral.sh/uv/install.sh | sh", pty=True)
+
 
 @task
 def install(c):
     install_by_pipx(c)
     set_poetry_config(c)
     install_rye(c)
+    install_uv(c)
 
 
 @task

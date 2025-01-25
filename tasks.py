@@ -41,7 +41,8 @@ def create_basic_dir():
 def pyenv(c: Context):
     pyenv_dir = HOME.joinpath(".pyenv")
     if not path.exists(pyenv_dir):
-        c.run("ghq get github.com/pyenv/pyenv")
+        c.run(f"mkdir -p {GHQ_DIR}/github.com/pyenv/")
+        c.run(f"git clone https://github.com/pyenv/pyenv {GHQ_DIR}/github.com/pyenv/")
         c.run(f"ln -s {GHQ_DIR}/github.com/pyenv/pyenv {pyenv_dir}")
         if detect.linux:
             c.run(

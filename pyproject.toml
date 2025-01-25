@@ -9,8 +9,8 @@ dependencies = [
     "invoke>=2.2.0",
     "detect>=2020.12.3",
     "pyyaml>=6.0.1",
-    "xonsh[full]>=0.17.0",
     "types-pyyaml>=6.0.12.20240724",
+    "xonsh[full]>=0.14.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
@@ -19,7 +19,7 @@ requires-python = ">= 3.8"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.rye]
+[tool.uv]
 managed = true
 dev-dependencies = []
 

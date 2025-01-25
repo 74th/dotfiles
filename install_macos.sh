@@ -8,14 +8,14 @@ if [ ! -d "/opt/homebrew" ]; then
     brew install python
 fi
 
-if [ ! -d "/Users/nnyn/.rye" ]; then
-    curl -sSf https://rye.astral.sh/get | bash
+if [ ! -f "$HOME/.local/bin/uv" ]; then
+    curl -LsSf https://astral.sh/uv/install.sh | sh
 fi
 
-~/.rye/shims/rye sync
+~/.local/bin/uv sync
 
 if ! type brew >/dev/null 2>&1; then
     export PATH=/opt/homebrew/bin:$PATH
 fi
 
-~/.rye/shims/python -u -m invoke install-small
+~/.local/bin/uv run invoke install-small
