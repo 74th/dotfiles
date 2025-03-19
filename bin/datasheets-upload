@@ -1,5 +1,8 @@
 #!/bin/sh
 set -xe
+# 要: rclone config
+# ここのクライアントID、クライアントシークレットを使う
+# https://console.cloud.google.com/apis/credentials/oauthclient/776113568960-sm7rbc4amsmi0k6emqhhkmqt3sipa1m8.apps.googleusercontent.com?inv=1&invt=Abny_g&project=nnyn-dev
 if [ "$1" = "-f" ]; then
     rclone sync --exclude ".DS_Store" ${HOME}/datasheets gdrive:/datasheets/documents
 else
