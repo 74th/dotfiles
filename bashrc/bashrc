@@ -22,6 +22,7 @@ fi
 if [ "$NNYN_DOTFILES_LOADED" != "1" ]; then
     eval "$($PYTHON3_BIN ~/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/path.py)"
     eval "$($PYTHON3_BIN ~/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/env.py)"
+    export NNYN_DOTFILES_LOADED=1
 fi
 
 # direnv
