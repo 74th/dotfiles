@@ -42,6 +42,7 @@ def get_arch(system: str) -> str:
 
 def get_paths(default_paths: list[str]) -> list[str]:
     home = os.path.expanduser("~")
+    pwd = os.environ.get("PWD", None)
     system = get_system()  # Linux, Darwin
     hostname = get_hostname()
     arch = get_arch(system)  # arm64, amd64
@@ -155,6 +156,11 @@ def get_paths(default_paths: list[str]) -> list[str]:
         _bin_path = pathlib.Path(os.environ["VIRTUAL_ENV"]) / "bin"
         if _bin_path.exists():
             add(_bin_path.as_posix())
+
+    if pwd:
+        local_venv = pathlib.Path(os.environ["PWD"]) / ".venv" / "bin"
+        if local_venv.exists:
+            add(local_venv.as_posix())
 
     return _paths
 
