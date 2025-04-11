@@ -38,77 +38,98 @@ fi
 # GPG_TTY
 export GPG_TTY=$(tty)
 
-if [ "$PS1" != "" ]; then
-    # use as prompt shell
-
-    if type python3 >/dev/null 2>&1; then
-        eval "$(python3 ~/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/aliases.py)"
-    fi
-    alias x=xonsh
-
-    export EDITOR=vi
-    export CLICOLOR=1
-    source ~/ghq/github.com/74th/dotfiles/bashrc/completion/git-prompt.sh
-    source ~/ghq/github.com/74th/dotfiles/bashrc/completion/git-completion.bash
-
-    function __show_exitcode() {
-        _EXITCODE=$?
-        if [ $_EXITCODE -ne 0 ]; then echo -e "\e[31m$_EXITCODE\e[m "; fi
-    }
-    PS1='$(__show_exitcode)'
-
-    if [ $OSNAME = "Mac" ]; then
-        col=37
-    else
-        col=34
-    fi
-    if [ $(id -u) == "0" ]; then
-        PS1=$PS1'\[\e[31m\]\u\e[${col}m\]'
-    else
-        PS1=$PS1'\[\e[${col}m\]\u'
-    fi
-    PS1=$PS1'@\H\[\e[33m\]\[\e[m\] \w'
-
-    GIT_PS1_SHOWDIRTYSTATE=true
-    GIT_PS1_SHOWUNTRACKEDFILES=true
-    GIT_PS1_SHOWUPSTREAM=auto
-    PS1=$PS1'\[\e[33m$(__git_ps1)\e[m\]'
-
-    # 非表示の文字は\[ \]で囲うこと
-    if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
-        PS1=$PS1'\[\033k`expr $HOSTNAME : "\(...\).*"`@\W\033\\\]'
-    fi
-    PS1=$PS1'\n\$'
-
-    function cb() {
-        if [ "$HOSTNAME" == "crow" ]; then
-            $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/work)
-        else
-            $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/home)
-        fi
-    }
-    function db() {
-        $(peco $HOME/ghq/github.com/74th/mycheatsheets/DirBookmark/$HOSTNAME)
-    }
-
-    function cdg() {
-        cd $(ghq list --full-path | peco)
-    }
-
-    set -o vi
-    shopt -s autocd
-
-    #stty werase undef
-    bind '\C-w:unix-filename-rubout'
-
-    # vimのエラー対策
-    # E437: terminal capability "cm" required
-    if [ "$TERM" == 'screen-bce' ]; then
-        export TERM=screen
-    fi
-
-    ## Macで.ssh/id_rsaの鍵をkeychainから使うようにする
-    #if [ $OSNAME = "Mac" ];then
-    #    ssh-add -k ~/.ssh/id_rsa 2>/dev/null
-    #fi
+if [ "$PS1" == "" ]; then
+    # シェルスクリプトなどから呼ばれている場合
+    return
 fi
+
+if type python3 >/dev/null 2>&1; then
+    eval "$(python3 ~/ghq/github.com/74th/dotfiles/xonsh/xonsh_conf/aliases.py)"
+fi
+alias x=xonsh
+
+export EDITOR=vi
+export CLICOLOR=1
+source ~/ghq/github.com/74th/dotfiles/bashrc/completion/git-prompt.sh
+source ~/ghq/github.com/74th/dotfiles/bashrc/completion/git-completion.bash
+
+# --- プロンプト ---
+function __show_exitcode() {
+    _EXITCODE=$?
+    if [ $_EXITCODE -ne 0 ]; then echo -e "\e[31m$_EXITCODE\e[m "; fi
+}
+PS1='$(__show_exitcode)'
+
+if [ $OSNAME = "Mac" ]; then
+    col=37
+else
+    col=34
+fi
+if [ $(id -u) == "0" ]; then
+    PS1=$PS1'\[\e[31m\]\u\e[${col}m\]'
+else
+    PS1=$PS1'\[\e[${col}m\]\u'
+fi
+PS1=$PS1'@\H\[\e[33m\]\[\e[m\] \w'
+
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM=auto
+PS1=$PS1'\[\e[33m$(__git_ps1)\e[m\]'
+
+# 非表示の文字は\[ \]で囲うこと
+if [ "$TERM" == 'screen' -o "$TERM" == 'screen-bce' ]; then
+    PS1=$PS1'\[\033k`expr $HOSTNAME : "\(...\).*"`@\W\033\\\]'
+fi
+PS1=$PS1'\n\$'
+
+# --- 設定 ---
+# Vimっぽい動作
+set -o vi
+
+# ディレクトリ名だけでcdできる
+shopt -s autocd
+
+#stty werase undef
+# Ctrl-W でパス区切りまで削除
+bind '\C-w:unix-filename-rubout'
+
+# --- 便利コマンド ---
+function cb() {
+    if [ "$HOSTNAME" == "crow2" ]; then
+        $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/work)
+    else
+        $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/home)
+    fi
+}
+function db() {
+    $(peco $HOME/ghq/github.com/74th/mycheatsheets/DirBookmark/$HOSTNAME)
+}
+
+function cdg() {
+    cd $(ghq list --full-path | peco)
+}
+
+# Ctrl-r: pecoのヒストリ
+# https://takagi.blog/bash-history-peco/
+function peco_search_history() {
+    local l=$(HISTTIMEFORMAT= history | \
+    sort -r | sed -E s/^\ *[0-9]\+\ \+// | \
+    peco --query "$READLINE_LINE")
+    READLINE_LINE="$l"
+    READLINE_POINT=${#l}
+}
+bind -x '"\C-r": peco_search_history'
+
+# --- その他 ---
+
+# vimのエラー対策
+# E437: terminal capability "cm" required
+if [ "$TERM" == 'screen-bce' ]; then
+    export TERM=screen
+fi
+
+## Macで.ssh/id_rsaの鍵をkeychainから使うようにする
+#if [ $OSNAME = "Mac" ];then
+#    ssh-add -k ~/.ssh/id_rsa 2>/dev/null
+#fi
