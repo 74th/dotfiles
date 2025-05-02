@@ -8,43 +8,27 @@ def set_poetry_config(c):
     c.run(f"~/.local/bin/poetry config virtualenvs.in-project true")
 
 
-def install_packages_by_pipx(c, l: list[str]):
-    l_str = " ".join(l)
-    c.run(f"pipx install {l_str}")
-
-
 @task
 def install_small(c):
-    install_by_pipx(c)
+    install_by_uv(c)
     set_poetry_config(c)
 
 
-def list_packages_by_pipx():
+def list_packages_by_uv():
     l = [
         "poetry",
-        "xonsh[full]",
         "pre-commit",
+        # "xonsh[full]",
     ]
     return l
 
 
 @task
-def install_by_pipx(c):
-    l = list_packages_by_pipx()
+def install_by_uv(c):
+    l = list_packages_by_uv()
     for p in l:
-        c.run(f"pipx install {p}")
-    c.run(
-        f"pipx runpip xonsh install invoke prompt_toolkit detect pyyaml xonsh-direnv",
-        warn=True,
-    )
-    c.run(f"pipx runpip xonsh uninstall pyperclip -y", warn=True)
+        c.run(f"uv tool install {p}")
 
-
-@task
-def install_rye(c):
-    if pathlib.Path("~/.rye/shims/rye").expanduser().exists():
-        return
-    c.run("curl -sSf https://rye.astral.sh/get | bash", pty=True)
 
 @task
 def install_uv(c):
@@ -55,10 +39,9 @@ def install_uv(c):
 
 @task
 def install(c):
-    install_by_pipx(c)
-    set_poetry_config(c)
-    install_rye(c)
     install_uv(c)
+    install_by_uv(c)
+    set_poetry_config(c)
 
 
 @task

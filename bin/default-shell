@@ -2,9 +2,8 @@
 if [ "${HOSTNAME}" = "PC-91030" ]; then
     # Work Mac (Linux VM)
     ssh -t crow .local/bin/xonsh
-elif [ "${HOSTNAME}" = "O-14763-MAC" ]; then
-    # Work Mac (Linux VM)
-    ssh -t violet .local/bin/xonsh
+elif [ "${HOSTNAME}" = "PC-91093" ]; then
+    "${HOME}/ghq/github.com/74th/dotfiles/.venv/bin/xonsh"
 elif [ -e "${HOME}/.local/pipx/venvs/xonsh" ]; then
     echo "${HOME}/.local/pipx/venvs/xonsh/bin/xonsh"
     "${HOME}/.local/pipx/venvs/xonsh/bin/xonsh"
