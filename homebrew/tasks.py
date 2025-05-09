@@ -3,12 +3,6 @@ from invoke.context import Context
 import detect
 
 
-def _is_arm_macos(c) -> bool:
-    if not detect.osx:
-        return False
-    return c.run("uname -p").stdout.count("arm") > 0
-
-
 def _list_minimal(c):
     pkgs = []
 
@@ -20,7 +14,6 @@ def _list_minimal_mac(c):
 
     pkgs += [
         "git",
-        "macvim",
         "python",
         "gh",
         "ghq",
@@ -30,6 +23,8 @@ def _list_minimal_mac(c):
         "direnv",
         "peco",
         "nodenv",
+        "unar",
+        "trash-cli",
     ]
 
     return pkgs
@@ -37,8 +32,6 @@ def _list_minimal_mac(c):
 
 def _list_packages(c):
     pkgs = []
-
-    is_arm_macos = _is_arm_macos(c)
 
     if detect.osx:
         pkgs += ["coreutils"]
@@ -54,6 +47,13 @@ def _list_packages(c):
     # cloud
     pkgs += [
         "tfenv",
+    ]
+
+    # fonts
+    pkgs += [
+        "font-monaspace",
+        "font-monaspace-nerd-font",
+        "font-source-code-pro",
     ]
 
     return pkgs
