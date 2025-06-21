@@ -1,3 +1,15 @@
 #!/bin/sh
 set -x
-git branch --merged develop | grep -vE '^\*|main$|master$|develop$' | xargs -I % git branch -d %
+
+if git show-ref --verify --quiet refs/heads/develop; then
+  base_branch="develop"
+elif git show-ref --verify --quiet refs/heads/main; then
+  base_branch="main"
+elif git show-ref --verify --quiet refs/heads/master; then
+  base_branch="master"
+else
+  echo "Error: Could not find 'develop', 'main', or 'master' branch." >&2
+  exit 1
+fi
+
+git branch --merged "$base_branch" | grep -vE '^\*|main$|master$|develop$' | xargs -I % git branch -d %
