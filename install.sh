@@ -24,4 +24,4 @@ cd $HOME/ghq/github.com/74th/dotfiles/
 
 source ./install_uv.sh
 
-uv run invoke install
+uv run invoke install-small
