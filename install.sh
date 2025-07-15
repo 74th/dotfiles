@@ -1,16 +1,27 @@
-#!/bin/bash
+#!env bash
 set -xe
 if [ -e /etc/debian_version ]; then
-    if ! type pip3 >/dev/null 2>&1; then
-        sudo apt-get update
-	sudo apt-get install -y python3 python3-pip direnv pipx git-secrets
+    if [ "aarch64" == "$(uname -m)" ]; then
+        ARCH=arm64
+    else
+        ARCH=amd64
     fi
-    pipx install invoke
-    pipx runpip invoke install detect pyyaml
+    sudo apt-get update
+    sudo apt-get install -y git unzip curl
+else
+    if [ "arm64" == "$(uname -m)" ]; then
+        ARCH=arm64
+    else
+        ARCH=amd64
+    fi
+    mkdir -p ~/tmp
 fi
-if [ ! -e ~/ghq/github.com/74th/dotfiles ]; then
-    git clone https://github.com/74th/dotfiles.git ~/ghq/github.com/74th/dotfiles
-fi
-cd ~/ghq/github.com/74th/dotfiles
-export PATH=$HOME/.local/bin:$PATH
-invoke install-small
+mkdir -p $HOME/ghq/github.com/74th
+cd $HOME/ghq/github.com/74th
+git clone https://github.com/74th/dotfiles.git
+
+cd $HOME/ghq/github.com/74th/dotfiles/
+
+source ./install_uv.sh
+
+uv run invoke install

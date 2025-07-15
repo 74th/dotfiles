@@ -4,8 +4,8 @@ from invoke.tasks import task
 
 
 def set_poetry_config(c):
-    c.run(f"~/.local/bin/poetry config virtualenvs.create true")
-    c.run(f"~/.local/bin/poetry config virtualenvs.in-project true")
+    c.run("~/.local/bin/poetry config virtualenvs.create true")
+    c.run("~/.local/bin/poetry config virtualenvs.in-project true")
 
 
 @task
@@ -18,7 +18,6 @@ def list_packages_by_uv():
     l = [
         "poetry",
         "pre-commit",
-        # "xonsh[full]",
     ]
     return l
 
@@ -27,7 +26,17 @@ def list_packages_by_uv():
 def install_by_uv(c):
     l = list_packages_by_uv()
     for p in l:
-        c.run(f"uv tool install {p}")
+        c.run(f"~/.local/bin/uv tool install {p}")
+
+
+@task
+def install_xonsh_by_uv(c):
+    additional_packages = ["pip", "invoke", "detect", "pyyaml", "xonsh-direnv"]
+    c.run(
+        "~/.local/bin/uv tool install xonsh[full] "
+        + " ".join(f"--with={p}" for p in additional_packages)
+    )
+    c.run("~/.local/bin/uv tool run --from=xonsh pip uninstall -y pyperclip")
 
 
 @task
@@ -41,6 +50,7 @@ def install_uv(c):
 def install(c):
     install_uv(c)
     install_by_uv(c)
+    install_xonsh_by_uv(c)
     set_poetry_config(c)
 
 

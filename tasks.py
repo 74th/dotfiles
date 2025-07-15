@@ -1,11 +1,10 @@
 import os
-from os import path
+from pathlib import Path
 from invoke.tasks import task
-from invoke.context import Context
 from invoke.collection import Collection
 import detect
 
-from task_utils import HOME, GHQ_DIR, get_arch, get_hostname
+from task_utils import HOME, get_arch, get_hostname
 import homebrew.tasks as homebrew
 import git.tasks as git
 import arm_ubuntu.tasks as arm_ubuntu
@@ -35,35 +34,6 @@ def create_basic_dir():
     d = HOME.joinpath("bin")
     if not d.exists():
         d.mkdir()
-
-
-@task
-def pyenv(c: Context):
-    pyenv_dir = HOME.joinpath(".pyenv")
-    if not path.exists(pyenv_dir):
-        c.run(f"mkdir -p {GHQ_DIR}/github.com/pyenv/")
-        c.run(f"git clone https://github.com/pyenv/pyenv {GHQ_DIR}/github.com/pyenv/")
-        c.run(f"ln -s {GHQ_DIR}/github.com/pyenv/pyenv {pyenv_dir}")
-        if detect.linux:
-            c.run(
-                f"sudo apt-get install -y libreadline8 libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev"
-            )
-
-
-ns.add_task(pyenv)  # type: ignore
-
-
-@task
-def rehash_pyenv(c_):
-    c: Context = c_
-    r = c.run("test -e pyenv", warn=True)
-    assert r is not None
-    if r.ok:
-        print("## rehash pyenv")
-        c.run("pyenv rehash")
-
-
-ns.add_task(rehash_pyenv)  # type: ignore
 
 
 @task
@@ -224,17 +194,20 @@ def install(c):
 
     # setting up
     xonsh(c)
-    pyenv(c)
     bashrc(c)
     vimrc(c)
     screenrc(c)
     git.set_config(c)
     git.chmod_config(c)
-    if os == "macos":
+    if detect.osx:
         macos(c)
-
-    # fixing
-    rehash_pyenv(c)
+        if not Path("/usr/local/bin/system-python").exists():
+            if Path("/opt/homebrew/bin/python3").exists():
+                c.run("sudo ln -s /usr/bin/python3 /usr/local/bin/system-python")
+    elif detect.linux:
+        if not Path("/usr/local/bin/system-python").exists():
+            if Path("/usr/bin/python3").exists():
+                c.run("sudo ln -s /usr/bin/python3 /usr/local/bin/system-python")
 
 
 ns.add_task(install)  # type: ignore

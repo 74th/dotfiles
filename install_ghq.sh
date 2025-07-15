@@ -1,4 +1,4 @@
-#! env python3
+#!env bash
 set -xe
 if [ -e /etc/debian_version ]; then
     if [ "aarch64" == "$(uname -m)" ]; then
@@ -16,8 +16,6 @@ if [ -e /etc/debian_version ]; then
     ./ghq_linux_$ARCH/ghq get 74th/dotfiles
     mkdir -p ~/bin
     cp ./ghq_linux_$ARCH/ghq ~/bin/
-    rm -rf $HOME/dotfiles
-    ln -sf $HOME/ghq/github.com/74th/dotfiles $HOME/dotfiles
 else
     if [ "arm64" == "$(uname -m)" ]; then
         ARCH=arm64
@@ -32,8 +30,9 @@ else
     ./ghq_darwin_$ARCH/ghq get 74th/dotfiles
     mkdir -p ~/bin
     cp ./ghq_darwin_$ARCH/ghq ~/bin/
-    rm -rf $HOME/dotfiles
-    ln -sf $HOME/ghq/github.com/74th/dotfiles $HOME/dotfiles
 fi
-cd $HOME/dotfiles/
-bash ./install.sh
+cd $HOME/ghq/github.com/74th/dotfiles/
+
+source ./install_uv.sh
+
+uv run invoke install
