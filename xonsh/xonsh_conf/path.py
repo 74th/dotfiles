@@ -85,7 +85,8 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/Library/Python/3.9/bin")
     add(home + "/google-cloud-sdk/bin")
     add(home + "/google-cloud-sdk/platform/google_appengine")
-    add(home + "/sdks/google-cloud-sdk/bin")
+    add("/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/")
+    add(home + "/tools/google-cloud-sdk/bin")
     add(home + "/sdks/android-studio/bin")
 
     # JS
