@@ -1,14 +1,35 @@
-#!/usr/bin/env bash
+#!/usr/local/bin/system-python
 
-if [ -n "$1" ]; then
-    PROJECT_DIR="$(cd "$1" && pwd)"
-else
-    PROJECT_DIR="$(pwd)"
-fi
+import sys
+import subprocess
+from pathlib import Path
 
-PROJECT_DIR_BASENAME="$(basename "$PROJECT_DIR")"
-PROJECT_DIR_HASH=$(printf "%s" "$PROJECT_DIR" | xxd -p -c 256)
 
-set -xe
+def main():
+    # 引数が指定されていればそのディレクトリを、なければ現在のディレクトリを使用
+    if len(sys.argv) > 1:
+        project_dir = Path(sys.argv[1]).resolve()
+    else:
+        project_dir = Path.cwd()
 
-code --folder-uri "vscode-remote://dev-container%2B${PROJECT_DIR_HASH}/workspaces/${PROJECT_DIR_BASENAME}"
+    project_dir_basename = project_dir.name
+
+    project_dir_hash = str(project_dir).encode("utf-8").hex()
+
+    folder_uri = f"vscode-remote://dev-container%2B{project_dir_hash}/workspaces/{project_dir_basename}"
+
+    try:
+        subprocess.run(["code", "--folder-uri", folder_uri], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error: Failed to open VS Code Dev Container: {e}", file=sys.stderr)
+        sys.exit(1)
+    except FileNotFoundError:
+        print(
+            "Error: 'code' command not found. Please install VS Code CLI.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
