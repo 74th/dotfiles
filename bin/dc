@@ -2,7 +2,10 @@
 
 import sys
 import subprocess
+import json
 from pathlib import Path
+
+# 参考: https://qiita.com/P-man_Brown/items/8ed6985f05cde494d16e
 
 
 def main():
@@ -14,9 +17,22 @@ def main():
 
     project_dir_basename = project_dir.name
 
+    # devcontainer.jsonからworkspaceFolderを取得
+    devcontainer_json_path = project_dir / ".devcontainer" / "devcontainer.json"
+    workspace_folder = f"/workspaces/{project_dir_basename}"
+
+    if devcontainer_json_path.exists():
+        try:
+            with open(devcontainer_json_path, "r", encoding="utf-8") as f:
+                devcontainer_config = json.load(f)
+                if "workspaceFolder" in devcontainer_config:
+                    workspace_folder = devcontainer_config["workspaceFolder"]
+        except (json.JSONDecodeError, IOError) as e:
+            print(f"Warning: Failed to read devcontainer.json: {e}", file=sys.stderr)
+
     project_dir_hash = str(project_dir).encode("utf-8").hex()
 
-    folder_uri = f"vscode-remote://dev-container%2B{project_dir_hash}/workspaces/{project_dir_basename}"
+    folder_uri = f"vscode-remote://dev-container%2B{project_dir_hash}{workspace_folder}"
 
     try:
         subprocess.run(["code", "--folder-uri", folder_uri], check=True)
