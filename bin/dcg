@@ -1,8 +1,7 @@
 #!/usr/local/bin/system-python
-# ghq を使ってディレクトリを選んで code コマンドを実行
+# ghq を使ってディレクトリを選んで dc コマンドを実行
 import subprocess
 import sys
-from socket import gethostname
 
 g = ""
 if len(sys.argv) == 2:
