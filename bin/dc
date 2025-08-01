@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [ -n "$1" ]; then
+    PROJECT_DIR="$(cd "$1" && pwd)"
+else
+    PROJECT_DIR="$(pwd)"
+fi
+
+PROJECT_DIR_BASENAME="$(basename "$PROJECT_DIR")"
+PROJECT_DIR_HASH=$(printf "%s" "$PROJECT_DIR" | xxd -p -c 256)
+
+set -xe
+
+code --folder-uri "vscode-remote://dev-container%2B${PROJECT_DIR_HASH}/workspaces/${PROJECT_DIR_BASENAME}"
