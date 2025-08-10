@@ -92,6 +92,7 @@ def set_prompt():
     prompt += "{cwd} "
     prompt += "{git} "
     prompt += "{BLUE}{kubernetes}{WHITE} "
+    prompt += "{itermdir}"
     prompt += "\n"
     prompt += "{prompt_end}"
 
@@ -102,3 +103,8 @@ def set_prompt():
 
     prompt_fields["git"] = gitstatus_prompt
     prompt_fields["kubernetes"] = current_kubernetes_context
+
+    def _iterm_current_dir() -> str:
+        return f"\x1b[1337;CurrentDir={os.getcwd()}\x07"
+
+    prompt_fields['itermdir'] = _iterm_current_dir
