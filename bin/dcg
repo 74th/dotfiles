@@ -1,0 +1,37 @@
+#!/usr/local/bin/system-python
+# ghq を使ってディレクトリを選んで dc コマンドを実行
+import subprocess
+import sys
+
+g = ""
+if len(sys.argv) == 2:
+    m = sys.argv[1]
+    l: list[str] = subprocess.run(
+        ["ghq", "list"], capture_output=True, text=True
+    ).stdout.split("\n")
+    for p in l:
+        if p.find(m) >= 0:
+            if len(g) == 0 or len(p) < len(g):
+                g = p
+else:
+    r = subprocess.run(
+        "ghq list | peco", check=True, capture_output=True, shell=True, text=True
+    )
+    g = r.stdout.strip()
+
+if not g:
+    sys.exit(1)
+
+r = subprocess.run(
+    f"ghq list --exact --full-path {g} | head -n1",
+    check=True,
+    capture_output=True,
+    shell=True,
+    text=True,
+)
+g = r.stdout.strip()
+
+try:
+    subprocess.run(["dc", g], check=True)
+except subprocess.CalledProcessError as e:
+    sys.exit(1)

@@ -54,6 +54,9 @@ def _list_packages(c):
         "font-monaspace",
         "font-monaspace-nerd-font",
         "font-source-code-pro",
+        "font-moralerspace",
+        "font-moralerspace-jpdoc",
+        "font-moralerspace-hw",
     ]
 
     return pkgs
