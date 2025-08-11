@@ -867,18 +867,26 @@
                     "ignore": false,
                     "simple_modifications": [
                         {
+                            "from": { "pointing_button": "button2" },
+                            "to": [{ "pointing_button": "button3" }]
+                        },
+                        {
                             "from": { "pointing_button": "button6" },
                             "to": [{ "apple_vendor_keyboard_key_code": "mission_control" }]
                         },
                         {
                             "from": { "pointing_button": "button7" },
                             "to": [{ "pointing_button": "button2" }]
-                        },
-                        {
-                            "from": { "pointing_button": "button2" },
-                            "to": [{ "pointing_button": "button3" }]
                         }
                     ]
+                },
+                {
+                    "identifiers": {
+                        "is_pointing_device": true,
+                        "product_id": 57641,
+                        "vendor_id": 6790
+                    },
+                    "ignore": false
                 }
             ],
             "fn_function_keys": [
