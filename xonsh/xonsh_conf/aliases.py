@@ -42,7 +42,7 @@ def get_aliases(human: bool = False) -> dict[str, list[str]]:
     else:
         a["al"] = ["ls", "-al"]
         a["la"] = ["ls", "-al"]
-        a["ll"] = ["ls", "-al"]
+        a["ll"] = ["ls", "-alh"]
         a["lt"] = ["ls", "-alt"]
     a["rm"] = ["trash"]
 
