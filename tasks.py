@@ -7,7 +7,6 @@ import detect
 from task_utils import HOME, get_arch, get_hostname
 import homebrew.tasks as homebrew
 import git.tasks as git
-import arm_ubuntu.tasks as arm_ubuntu
 import ubuntu.tasks as ubuntu
 import golang.tasks as go
 import python.tasks as python
@@ -19,7 +18,6 @@ import rust.tasks as rust
 import embedded.tasks as embedded
 
 ns = Collection()
-ns.add_collection(ns.from_module(arm_ubuntu), "arm-ubuntu")
 
 
 def update_default_package_manager(c):
@@ -171,8 +169,6 @@ def install(c):
     hostname = get_hostname(c)
 
     # default package managers
-    if detect.linux and archi == "aarch64":
-        arm_ubuntu.install(c)
     if detect.linux and ubuntu.is_ubuntu():
         ubuntu.install(c)
         if hostname in ["miriam", "kukrushka"]:
