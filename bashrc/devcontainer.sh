@@ -1,3 +1,4 @@
+# -- .bashrc for devcontainer -
 export EDITOR=vi
 export CLICOLOR=1
 
