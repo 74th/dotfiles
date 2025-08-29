@@ -124,9 +124,7 @@ ns.add_task(vimrc)  # type: ignore
 
 @task
 def xonsh(c):
-    c.run(
-        f"ln -fs {HOME}/ghq/github.com/74th/dotfiles/xonsh/xonshrc.py {HOME}/.xonshrc"
-    )
+    c.run(f"cp {HOME}/ghq/github.com/74th/dotfiles/xonsh/xonshrc.py {HOME}/.xonshrc")
 
 
 ns.add_task(xonsh)  # type: ignore
