@@ -8,21 +8,22 @@ def _list_packages(c):
 
     if detect.osx:
         pkgs += [
-        "coreutils",
-        "git",
-        "python",
-        "gh",
-        "ghq",
-        "gpg",
-        "pinentry",
-        "pipx",
-        "direnv",
-        "peco",
-        "nodenv",
-        "unar",
-        "trash-cli",
-        "pnpm",
-    ]
+            "coreutils",
+            "git",
+            "python",
+            "gh",
+            "ghq",
+            "gpg",
+            "pinentry",
+            "pipx",
+            "pnpm",
+            "direnv",
+            "peco",
+            "nodenv",
+            "unar",
+            "trash-cli",
+            "pnpm",
+        ]
 
     # CLI toolset
     pkgs += [
