@@ -46,6 +46,7 @@ def bashrc(c):
     c.run(
         f'echo "source {HOME}/ghq/github.com/74th/dotfiles/bashrc/bashrc" >> {HOME}/.bashrc'
     )
+    c.run(f"ln -s {HOME}/.bashrc {HOME}/.bash_profile")
 
 
 ns.add_task(bashrc)  # type: ignore
