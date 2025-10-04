@@ -1,6 +1,7 @@
 #!/usr/local/bin/system-python
 
 import sys
+import shlex
 import subprocess
 import json
 from pathlib import Path
@@ -28,11 +29,18 @@ if devcontainer_json_path.exists():
     except (json.JSONDecodeError, IOError) as e:
         print(f"Warning: Failed to read devcontainer.json: {e}", file=sys.stderr)
 
+if workspace_folder.count("${localWorkspaceFolderBasename}") > 0:
+    workspace_folder = workspace_folder.replace(
+        "${localWorkspaceFolderBasename}", project_dir_basename
+    )
+
 project_dir_hash = str(project_dir).encode("utf-8").hex()
 
 folder_uri = f"vscode-remote://dev-container%2B{project_dir_hash}{workspace_folder}"
 
 try:
+    cmd = ["code", "--folder-uri", folder_uri]
+    print(shlex.join(cmd))
     subprocess.run(["code", "--folder-uri", folder_uri], check=True, cwd=project_dir)
 except subprocess.CalledProcessError as e:
     print(f"Error: Failed to open VS Code Dev Container: {e}", file=sys.stderr)

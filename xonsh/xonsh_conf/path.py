@@ -93,6 +93,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/.deno/bin")
     add(home + "/npm/bin")
     add(home + "/npm/node_modules/.bin")
+    add(home + "/Library/pnpm")
 
     # 環境選択系
     add(home + "/.asdf/bin")

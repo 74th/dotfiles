@@ -74,6 +74,8 @@ def misc() -> list[tuple[str, str]]:
         # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
         "USE_GKE_GCLOUD_AUTH_PLUGIN": "True"
     }
+    if os.path.exists(f"{home}/Library/pnpm"):
+        d["PNPM_HOME"] = f"{home}/Library/pnpm"
     return list(d.items())
 
 

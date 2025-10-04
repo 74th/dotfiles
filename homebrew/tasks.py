@@ -3,38 +3,27 @@ from invoke.context import Context
 import detect
 
 
-def _list_minimal(c):
-    pkgs = []
-
-    return pkgs
-
-
-def _list_minimal_mac(c):
-    pkgs = []
-
-    pkgs += [
-        "git",
-        "python",
-        "gh",
-        "ghq",
-        "gpg",
-        "pinentry",
-        "pipx",
-        "direnv",
-        "peco",
-        "nodenv",
-        "unar",
-        "trash-cli",
-    ]
-
-    return pkgs
-
-
 def _list_packages(c):
     pkgs = []
 
     if detect.osx:
-        pkgs += ["coreutils"]
+        pkgs += [
+            "coreutils",
+            "git",
+            "python",
+            "gh",
+            "ghq",
+            "gpg",
+            "pinentry",
+            "pipx",
+            "pnpm",
+            "direnv",
+            "peco",
+            "nodenv",
+            "unar",
+            "trash-cli",
+            "pnpm",
+        ]
 
     # CLI toolset
     pkgs += [
@@ -92,26 +81,13 @@ def update(c):
 
 @task
 def install(c):
-    pkgs = _list_minimal(c)
-    pkgs += _list_packages(c)
+    pkgs = _list_packages(c)
     installed = c.run("brew list").stdout.split("\n")
     pkgs = set(pkgs) - set(installed)
     env = setHome(c)
     if len(pkgs) > 0:
         c.run("brew install " + " ".join(pkgs), env=env)
     unlink(c)
-
-
-@task
-def install_minimal(c):
-    pkgs = _list_minimal(c)
-    if detect.mac:
-        pkgs += _list_minimal_mac(c)
-    installed = c.run("brew list").stdout.split("\n")
-    pkgs = set(pkgs) - set(installed)
-    env = setHome(c)
-    if len(pkgs) > 0:
-        c.run("brew install " + " ".join(pkgs), env=env)
 
 
 @task
