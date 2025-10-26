@@ -76,6 +76,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add("/Applications/WezTerm.app/Contents/MacOS")
     add("/opt/riscv-gnu-toolchain/bin")
     add("/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/bin")
+    add("/opt/podman/bin")
     add("/usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin")
 
     # --- ユーザのパッケージ ---
