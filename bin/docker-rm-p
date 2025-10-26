@@ -1,0 +1,51 @@
+#!/usr/local/bin/system-python
+import sys
+import subprocess
+import shlex
+
+
+def main():
+    result = subprocess.run(
+        shlex.join(
+            [
+                "docker",
+                "ps",
+                "-a",
+                "--format",
+                "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Command}}\t{{.Status}}",
+            ]
+        )
+        + " | peco",
+        check=True,
+        capture_output=True,
+        shell=True,
+        text=True,
+    )
+    if result.stdout.strip() == "":
+        sys.exit(1)
+        return
+    container_ids = []
+    for selected_row in result.stdout.strip().split("\n"):
+        container_id = selected_row.strip().split(" ")[0]
+        if container_id == "CONTAINER":
+            continue
+
+        container_ids.append(container_id)
+
+    if not container_ids:
+        sys.exit(1)
+        return
+    print("delete " + ", ".join(container_ids))
+
+    result = subprocess.run(
+        [
+            "docker",
+            "rm",
+            "-f",
+        ]
+        + container_ids
+    )
+
+
+if __name__ == "__main__":
+    main()
