@@ -21,6 +21,7 @@ class ContainerInfo:
 	short_id: str
 	name: str
 	image: str
+	status: str
 	started_at: dt.datetime
 	age: dt.timedelta
 
@@ -43,10 +44,10 @@ def run_command(args: Sequence[str]) -> str:
 	return result.stdout
 
 
-def list_running_container_ids() -> List[str]:
-	"""Return running container IDs (same set as `docker ps`)."""
+def list_container_ids() -> List[str]:
+	"""Return container IDs (same set as `docker ps -a`)."""
 
-	output = run_command(("docker", "ps", "--no-trunc", "--format", "{{.ID}}"))
+	output = run_command(("docker", "ps", "-a", "--no-trunc", "--format", "{{.ID}}"))
 	return [line.strip() for line in output.splitlines() if line.strip()]
 
 
@@ -107,7 +108,7 @@ def format_timedelta(delta: dt.timedelta) -> str:
 
 
 def collect_recent_containers(threshold: dt.timedelta) -> List[ContainerInfo]:
-	container_ids = list_running_container_ids()
+	container_ids = list_container_ids()
 	if not container_ids:
 		return []
 
@@ -128,7 +129,8 @@ def collect_recent_containers(threshold: dt.timedelta) -> List[ContainerInfo]:
 		short_id = container_id[:12] if container_id else container_id
 		name = entry.get("Name", "").lstrip("/") or short_id
 		image = entry.get("Config", {}).get("Image", "")
-		recent.append(ContainerInfo(container_id, short_id, name, image, started_at, age))
+		status = entry.get("State", {}).get("Status", "")
+		recent.append(ContainerInfo(container_id, short_id, name, image, status, started_at, age))
 	return sorted(recent, key=lambda c: c.age)
 
 
@@ -142,7 +144,7 @@ def remove_containers(containers: Iterable[ContainerInfo]) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
 	parser = argparse.ArgumentParser(
-		description="docker ps で確認できるうち、指定時間以内に起動したコンテナを削除します",
+		description="docker ps -a で確認できるうち、指定時間以内に起動したコンテナを削除します",
 	)
 	parser.add_argument(
 		"--within-minutes",
@@ -186,7 +188,10 @@ def main(argv: Sequence[str] | None = None) -> int:
 		if image_display and len(image_display) > 60:
 			image_display = image_display[:57] + "..."
 		image_part = f" ({image_display})" if image_display else ""
-		print(f"  - {info.short_id} [{info.name}]{image_part} | started {started_display} | age {age_display}")
+		status_part = f" | status {info.status}" if info.status else ""
+		print(
+			f"  - {info.short_id} [{info.name}]{image_part}{status_part} | started {started_display} | age {age_display}"
+		)
 
 	if args.dry_run:
 		print("\n--dry-run オプションが指定されたため削除しません。")
