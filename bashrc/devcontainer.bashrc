@@ -1,5 +1,5 @@
 # -- .bashrc for devcontainer -
-export EDITOR=vi
+export EDITOR=code
 export CLICOLOR=1
 
 # vimっぽい
@@ -8,6 +8,8 @@ set -o vi
 alias ll="ls -alh"
 alias g="git"
 alias gt="git status"
+
+git config --global core.editor 'code --wait'
 
 function __show_exitcode() {
     _EXITCODE=$?
