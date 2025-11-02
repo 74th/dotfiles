@@ -1,3 +1,10 @@
 #!/bin/bash
 set -xe
-git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv
+if [ -d ~/.tfenv ]; then
+    cd ~/.tfenv
+    git pull
+else
+    git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv
+fi
+
+mkdir -p ~/.tfenv/versions
