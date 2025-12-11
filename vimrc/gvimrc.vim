@@ -23,6 +23,12 @@ endif
 " GVIMではマウスが使えるように
 set mouse=a
 
+" alertを鳴らさない
+set noerrorbells
+set novisualbell
+set t_vb=
+set visualbell t_vb=
+
 hi Cursor ctermfg=232 ctermbg=231 cterm=NONE guifg=#0a0006 guibg=#f8f8f0 gui=NONE
 hi Visual ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
 hi CursorLine ctermfg=NONE ctermbg=234 cterm=NONE guifg=NONE guibg=#22191e gui=NONE
