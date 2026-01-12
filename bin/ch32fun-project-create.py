@@ -11,7 +11,6 @@ def main(argv: list[str] | None = None) -> None:
         sys.exit(1)
 
     project_name = args[0]
-    project_path = Path(project_name)
 
     origin_ch32fun_dir = Path("~/ghq/github.com/cnlohr/ch32fun").expanduser()
     if not origin_ch32fun_dir.exists():
@@ -78,6 +77,7 @@ MINICHLINK:=$(shell dirname $(shell which minichlink))""",
     (current_dir / "ch32fun" / "ch32fun.mk").write_text(ch32funmk)
 
     # .vscode/c_cpp_properties.json
+    # Mac用の設定を追加したいので、全文保持する
     c_cpp_properties = """{
     "configurations": [
         {
