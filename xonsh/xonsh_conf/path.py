@@ -89,6 +89,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add("/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/")
     add(home + "/tools/google-cloud-sdk/bin")
     add(home + "/sdks/android-studio/bin")
+    add(home + "/sdks/google-cloud-sdk/bin")
 
     # JS
     add(home + "/.deno/bin")
