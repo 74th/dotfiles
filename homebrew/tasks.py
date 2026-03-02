@@ -46,6 +46,7 @@ def _list_packages(c):
         "font-moralerspace",
         "font-moralerspace-jpdoc",
         "font-moralerspace-hw",
+        "font-jetbrains-mono",
     ]
 
     return pkgs
