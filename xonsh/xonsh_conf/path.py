@@ -71,6 +71,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
 
     # optは強め
     add("/opt/local/bin")
+    add("/opt/cmake/bin")
 
     # --- アプリケーション ---
     add("/Applications/WezTerm.app/Contents/MacOS")
