@@ -69,7 +69,7 @@ def set_prompt():
         "ayame",
     ] or HOSTNAME.startswith("crow"):
         prompt += "{CYAN}"
-    elif HOSTNAME in ["lewill", "sirius", "frieren"]:
+    elif HOSTNAME in ["lewill", "sirius", "frieren", "constance"]:
         prompt += "{BLUE}"
     elif (
         HOSTNAME.count("mbp")
