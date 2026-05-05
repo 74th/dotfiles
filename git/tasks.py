@@ -65,6 +65,9 @@ def set_config(c):
         "graph": "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative",
         "unmerged": "git diff --name-only --diff-filter=U",
         "history": "git log -10 --format=format:'%Cgreen%h %Creset• %s (%cN, %ar)'",
+        "swdev": "git fetch origin && git switch -m -C develop origin/develop",
+        "swmain": "git fetch origin && git switch -m -C main origin/main",
+        "swmaster": "git fetch origin && git switch -m -C main origin/master",
     }
 
     for alias, command in humanize_aliases.items():

@@ -1,0 +1,16 @@
+#!/bin/bash
+# teedo: コマンドの出力をログファイルに保存しつつ、画面にも表示するスクリプト
+
+if [ "$#" -lt 2 ]; then
+    echo "Usage: teedo <log_file> <command> [arguments...]"
+    exit 1
+fi
+
+# 第1引数をログファイルとして取得
+LOG_FILE="$1"
+# 第1引数を捨てて、残りの引数をコマンドとして扱う
+shift
+
+# コマンドを実行
+# 2>&1 で標準エラーを標準出力に統合し、tee で画面表示とファイル書き込みを同時に行う
+"$@" 2>&1 | tee "$LOG_FILE"
