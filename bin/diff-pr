@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+FROM_BRANCH="develop"
+TO_BRANCH="main"
+
+usage() {
+  cat <<'EOF'
+Usage:
+  diff-pr [--from BRANCH] [--to BRANCH]
+
+Options:
+  --from BRANCH   Source branch. Default: develop
+  --to BRANCH     Target branch. Default: main
+  -h, --help      Show this help.
+
+Example:
+  diff-pr --from develop --to main
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --from)
+      if [[ $# -lt 2 || "$2" == --* ]]; then
+        echo "Error: --from requires a branch name." >&2
+        exit 1
+      fi
+      FROM_BRANCH="$2"
+      shift 2
+      ;;
+    --to)
+      if [[ $# -lt 2 || "$2" == --* ]]; then
+        echo "Error: --to requires a branch name." >&2
+        exit 1
+      fi
+      TO_BRANCH="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Error: unknown option: $1" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+done
+
+git fetch origin --quiet
+
+git log "origin/${TO_BRANCH}..origin/${FROM_BRANCH}" \
+  --merges \
+  --pretty=format:'%s' \
+  | grep -oE '#[0-9]+' \
+  | sort -uV \
+  | sed 's/^/- /'
