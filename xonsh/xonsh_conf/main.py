@@ -1,31 +1,20 @@
 # -*- coding: utf-8 -*-
 import os
-from typing import cast
 import os.path
 import re
+from typing import cast
 
-try:
-    from . import git
-    from .lib import HOSTNAME, x_run, silent_run, PTKBuffer
-    from .xonsh_builtin import x_env, x_aliases, x_events, x_completers
-    from xonsh.tools import register_custom_style
-    from prompt_toolkit.keys import Keys
-    from prompt_toolkit.filters import ViInsertMode
-    from .commands import load_commands
-    from .path import get_paths
-    from .aliases import get_aliases
-    from .env import apply_envs
-    from . import ctrl_r
-except ModuleNotFoundError:
-    from .xonsh_builtin import x_execer
+from prompt_toolkit.filters import ViInsertMode
+from prompt_toolkit.keys import Keys
+from xonsh.tools import register_custom_style
 
-    command = "xpip install invoke prompt_toolkit detect pyyaml xonsh-direnv"
-    print(command)
-    x_execer.eval(f"$({command})")
-    command = "xpip uninstall pyperclip"
-    print(command)
-    raise Exception("restart")
-
+from . import ctrl_r, git
+from .aliases import get_aliases
+from .commands import load_commands
+from .env import apply_envs
+from .lib import HOSTNAME, PTKBuffer, silent_run, x_run
+from .path import get_paths
+from .xonsh_builtin import x_aliases, x_completers, x_env, x_events
 
 # from .detect_user_docker import detect_user_docker_for_xonsh
 

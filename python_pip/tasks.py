@@ -31,12 +31,16 @@ def install_by_uv(c):
 
 @task
 def install_xonsh_by_uv(c):
-    additional_packages = ["pip", "invoke", "detect", "pyyaml", "xonsh-direnv"]
+    additional_packages = [
+        "invoke",
+        "detect",
+        "pyyaml",
+        "xonsh-direnv",
+    ]
     c.run(
         "~/.local/bin/uv tool install xonsh[full] "
         + " ".join(f"--with={p}" for p in additional_packages)
     )
-    c.run("~/.local/bin/uv tool run --from=xonsh pip uninstall -y pyperclip")
 
 
 @task
