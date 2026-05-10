@@ -1,9 +1,9 @@
 #!/usr/local/bin/python3
 import os
+import pathlib
+import shlex
 import subprocess
 import sys
-import shlex
-import pathlib
 
 
 def get_system():
@@ -124,6 +124,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/miniconda3/bin")
     add(home + "/go/src/github.com/uber/go-torch/FlameGraph")
     add(home + "/.rd/bin")
+    add(home + "/.lmstudio/bin")
 
     # Espressif
     # add(home + "/.platformio/penv/bin") # 余計なアイテムも引き込んでしまうので、必要に応じてシンボリックリンクをする
