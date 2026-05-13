@@ -15,14 +15,17 @@ def _list_packages(c):
             "ghq",
             "gpg",
             "pinentry",
-            "pipx",
-            "pnpm",
             "direnv",
             "peco",
             "nodenv",
             "unar",
             "trash-cli",
+
+            # nodejs
             "pnpm",
+            "node",
+            "nodenv",
+            "node-build",
         ]
 
     # CLI toolset
