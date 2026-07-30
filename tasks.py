@@ -145,6 +145,7 @@ def npm(c):
         print("!! npm not found !!")
         return
     c.run(f"npm config set prefix {HOME}/npm")
+    c.run(f"npm config set min-release-age 7")
     dirs = [
         f"{HOME}/npm",
         f"{HOME}/npm/bin",
