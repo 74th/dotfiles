@@ -1,0 +1,4 @@
+#!/bin/bash
+# sbxのssh機能に、VS Code Remote SSHで接続する
+sandbox=claude-$(basename $(pwd))
+code --remote "ssh-remote+$sandbox.sbx" "$(pwd)"
