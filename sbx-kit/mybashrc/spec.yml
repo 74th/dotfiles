@@ -1,0 +1,10 @@
+schemaVersion: "2"
+kind: mixin
+name: mybashrc
+displayName: My .bashrc
+
+setup:
+  install:
+    - command: "curl https://raw.githubusercontent.com/74th/dotfiles/refs/heads/master/bashrc/docker-sandbox.bashrc >> ~/.bashrc"
+      user: "1000"
+      description: Install My .bashrc

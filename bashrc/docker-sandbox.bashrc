@@ -18,18 +18,20 @@ function __show_exitcode() {
 
 function __show_relative_path() {
     local current_dir=$(pwd)
-    # /Users/*/ghq/*/*/*で始まる場合の処理
-    if [[ "$current_dir" == /Users/*/ghq/*/*/* ]]; then
-        # /Users/*/ghq/*/*/sub/path -> ./sub/path のように変換
-        # /Users/*/ghq/*/*/ -> ./ のように変換
-        local relative_path=$(echo "$current_dir" | sed 's|^/Users/[^/]*/ghq/[^/]*/[^/]*/[^/]*||')
+    local workspace_dir="${WORKSPACE_DIR%/}"
+
+    # $WORKSPACE_DIR配下では、ワークスペースからの相対パスを表示する
+    # $WORKSPACE_DIR             -> .
+    # $WORKSPACE_DIR/sub/path    -> ./sub/path
+    if [[ -n "$workspace_dir" && ( "$current_dir" == "$workspace_dir" || "$current_dir" == "$workspace_dir"/* ) ]]; then
+        local relative_path="${current_dir#"$workspace_dir"}"
         if [[ -z "$relative_path" ]]; then
-            echo "./"
+            echo "."
         else
             echo ".${relative_path}"
         fi
     else
-        # /workspaces/以外の場合は通常のパス表示
+        # $WORKSPACE_DIRが未設定、またはその配下ではない場合は通常のパス表示
         echo "$current_dir"
     fi
 }
