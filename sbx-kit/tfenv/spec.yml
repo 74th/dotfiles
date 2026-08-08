@@ -9,6 +9,6 @@ setup:
     - command: git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv
       user: "1000"
       description: Install tfenv
-    - command: echo 'export PATH="$HOME/.tfenv/bin:$PATH"' >> ~/.bashrc
-      user: "1000"
+    - command: 'echo ''export PATH="/home/agent/.tfenv/bin:$PATH"'' >> /etc/sandbox-persistent.sh'
+      user: "0"
       description: Add tfenv to PATH

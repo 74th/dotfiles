@@ -1,0 +1,163 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "pyyaml>=6.0.3",
+# ]
+# ///
+import curses
+import os
+import pathlib
+import shlex
+import subprocess
+import sys
+
+import yaml
+
+
+def select_items(items: list[str]) -> list[str]:
+    def main(stdscr):
+        curses.start_color()
+        curses.use_default_colors()
+
+        curses.curs_set(0)
+        stdscr.keypad(True)
+
+        pos = 0
+        selected = set()
+        top = 0
+
+        while True:
+            stdscr.erase()
+            height, width = stdscr.getmaxyx()
+
+            visible_height = max(1, height - 1)
+
+            # カーソルが画面外に出たらスクロール
+            if pos < top:
+                top = pos
+            elif pos >= top + visible_height:
+                top = pos - visible_height + 1
+
+            for row, index in enumerate(
+                range(top, min(len(items), top + visible_height))
+            ):
+                mark = "[x]" if index in selected else "[ ]"
+                cursor = ">" if index == pos else " "
+                line = f"{cursor} {mark} {items[index]}"
+
+                try:
+                    stdscr.addnstr(row, 0, line, width - 1)
+                except curses.error:
+                    pass
+
+            help_text = "↑↓/jk: move  Space: toggle  Enter: OK  q/Esc: cancel"
+            try:
+                stdscr.addnstr(height - 1, 0, help_text, width - 1)
+            except curses.error:
+                pass
+
+            stdscr.refresh()
+
+            key = stdscr.getch()
+
+            if key in (curses.KEY_UP, ord("k")):
+                pos = max(0, pos - 1)
+
+            elif key in (curses.KEY_DOWN, ord("j")):
+                pos = min(len(items) - 1, pos + 1)
+
+            elif key == ord(" "):
+                if pos in selected:
+                    selected.remove(pos)
+                else:
+                    selected.add(pos)
+
+            elif key in (10, 13, curses.KEY_ENTER):
+                return [items[i] for i in sorted(selected)]
+
+            elif key in (27, ord("q")):
+                return []
+
+    if not items:
+        return []
+
+    return curses.wrapper(main)
+
+
+if len(sys.argv) == 1:
+    base_name = pathlib.Path(os.getcwd()).absolute().name
+    base_name = base_name.replace("-", "-").lower()
+
+    out = subprocess.run(["sbx", "ls"], check=True, capture_output=True)
+    sandbox_list = [
+        line.split()[0] for line in out.stdout.strip().decode("utf-8").splitlines()
+    ][1:]
+
+    detected_sandboxes = []
+
+    for sandbox in sandbox_list:
+        if sandbox.endswith(base_name):
+            detected_sandboxes.append(sandbox)
+            break
+    else:
+        print(f"Sandbox '{base_name}' does not exist.")
+        raise SystemExit(1)
+
+    if len(detected_sandboxes) > 1:
+        print(f"Multiple sandboxes detected: {detected_sandboxes}")
+        raise SystemExit(1)
+    detected_sandbox = detected_sandboxes[0]
+else:
+    detected_sandbox = sys.argv[1]
+
+kits_list: list[str] = []
+
+dotfiles_kit_path = pathlib.Path(__file__).resolve().parent.parent / "sbx-kit"
+for kit in sorted(kit.name for kit in dotfiles_kit_path.iterdir() if kit.is_dir()):
+    kits_list.append(f"{kit} - {dotfiles_kit_path / kit}")
+
+kits = select_items(kits_list)
+
+for i, kit in enumerate(kits):
+    kits[i] = kit.split(" - ")[1]
+
+print(f"dotfiles_kit_path: {dotfiles_kit_path}")
+
+print(f"Selected sandbox: {detected_sandbox}")
+print(f"Selected kits: {kits}")
+
+
+def sbx_kit_add(sandbox: str, kit: str):
+    cmd = ["sbx", "kit", "add", sandbox, kit]
+    print(" ".join(cmd))
+    subprocess.run(cmd, check=True, capture_output=True)
+
+
+def exec_sbx_kit_add(sandbox: str, kit: str):
+    spec_yaml_path = pathlib.Path(kit) / "spec.yml"
+    if not spec_yaml_path.exists():
+        spec_yaml_path = pathlib.Path(kit) / "spec.yaml"
+        if not spec_yaml_path.exists():
+            print(f"No spec file found in {kit}")
+            return
+
+    with spec_yaml_path.open("r", encoding="utf-8") as f:
+        spec = yaml.load(f, Loader=yaml.FullLoader)
+    for install_spec in spec["setup"]["install"]:
+        command = install_spec["command"]
+        if "user" in install_spec:
+            user = install_spec["user"]
+        else:
+            user = "1000"
+
+        cmd = ["sbx", "exec", "-u", str(user), sandbox, "--", "bash", "-c", command]
+        print(" ".join(cmd))
+        subprocess.run(cmd, check=True, capture_output=True)
+
+
+for kit in kits:
+    exec_sbx_kit_add(detected_sandbox, kit)
+
+print("stop sbx container")
+subprocess.run(["sbx", "stop", detected_sandbox])
