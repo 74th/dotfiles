@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ $# -lt 1 ]]; then
+    exec code-sbx claude
+else
+    exec code-sbx claude "$1"
+fi

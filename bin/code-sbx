@@ -29,7 +29,7 @@ if "SSH_CLIENT" in os.environ:
     else:
         code_path = "/usr/local/bin/code"
     if host in ["192.168.1.50"]:
-        host = "constance"
+        vm = "constance"
 else:
     host = ""
     vm = ""
@@ -37,9 +37,21 @@ else:
 
 
 if host:
-    cmd = ["ssh", host, code_path, "--remote", f"ssh-remote+{sandbox_name}.sbxl", workspace_path.as_posix()]
+    cmd = [
+        "ssh",
+        host,
+        code_path,
+        "--remote",
+        f"ssh-remote+{sandbox_name}.sbx-{vm}",
+        workspace_path.as_posix(),
+    ]
 else:
-    cmd = [code_path, "--remote", f"ssh-remote+{sandbox_name}.sbx", workspace_path.as_posix()]
+    cmd = [
+        code_path,
+        "--remote",
+        f"ssh-remote+{sandbox_name}.sbx",
+        workspace_path.as_posix(),
+    ]
 
 print(" ".join(cmd))
 subprocess.run(cmd, check=True, capture_output=True)
