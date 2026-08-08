@@ -5,6 +5,31 @@ import socket
 import subprocess
 import sys
 
+"""
+以下のように多段sshの設定がされていることを前提とする
+
+```
+Host constance
+    HostName 192.168.1.50
+
+Host *.sbx-constance
+    User _default_user_
+
+    ProxyCommand /bin/sh -c 'h="%n"; exec /usr/bin/ssh -T constance /usr/bin/sbx ssh proxy "${h%%.sbx-constance}.sbx"'
+
+    IdentityAgent none
+    IdentityFile /dev/null
+    IdentitiesOnly yes
+
+    ControlMaster no
+    ControlPath none
+
+    KnownHostsCommand /bin/sh -c 'r=$(echo "$1" | /usr/bin/sed "s/\.sbx-constance$/.sbx/"); /usr/bin/ssh -T constance /usr/bin/sbx ssh known-hosts "$r" | /usr/bin/sed "s/^$r[[:space:]]/$1 /"' sh %H
+
+    StrictHostKeyChecking yes
+```
+"""
+
 current = socket.gethostname()
 
 workspace_path = "./"
