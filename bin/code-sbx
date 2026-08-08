@@ -11,11 +11,11 @@ import os
 import pathlib
 import socket
 import subprocess
-import sys
 
 import questionary
 
 r"""
+SSH接続先のマシンでsbxに接続する場合、
 以下のように多段sshの設定がされていることを前提とする
 
 ```
@@ -72,28 +72,36 @@ def detect_existing_sandbox_name(workspace_path: str) -> str:
 current = socket.gethostname()
 
 
-if "-h" in sys.argv or "--help" in sys.argv:
-    print("Usage: sbx-add-kit [workspace_path] [agent]")
-    raise SystemExit(0)
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "workspace_path",
+    nargs="?",
+    default="./",
+    help="Path to the workspace (default: current directory)",
+)
+parser.add_argument("--agent", dest="agent", help="Agent name")
+parser.add_argument("--sandbox", help="Sandbox name")
+args = parser.parse_args()
 
-if len(sys.argv) > 1:
-    workspace_path = sys.argv[1]
-else:
-    workspace_path = "./"
+workspace_path = pathlib.Path(os.path.abspath(args.workspace_path))
 
-workspace_path = pathlib.Path(os.path.abspath(workspace_path))
 
-if len(sys.argv) == 3:
-    agent = sys.argv[2]
+if args.sandbox:
+    sandbox_name = args.sandbox
+elif args.agent:
+    agent = args.agent
     sandbox_name = f"{agent}-{workspace_path.name}"
     sandbox_name = sandbox_name.replace("_", "-")
 else:
     sandbox_name = detect_existing_sandbox_name(workspace_path)
 
 print(f"sandbox name: {sandbox_name}")
+print(f"workspace path: {workspace_path.as_posix()}")
 
 
 if "SSH_CLIENT" in os.environ:
+    # このスクリプトの実行環境自体がssh接続されている場合、
+    # ssh接続元のホストで多段sshを実行する
     ssh_client = os.environ["SSH_CLIENT"].split(" ")
     host = ssh_client[0]
     vm = current

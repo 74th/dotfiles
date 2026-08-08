@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ $# -lt 1 ]]; then
-    exec code-sbx claude
+    exec code-sbx --agent claude
 else
-    exec code-sbx claude "$1"
+    exec code-sbx --agent claude "$1"
 fi
