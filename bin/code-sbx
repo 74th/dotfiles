@@ -1,0 +1,45 @@
+#!/usr/local/bin/system-python
+import os
+import pathlib
+import socket
+import subprocess
+import sys
+
+current = socket.gethostname()
+
+workspace_path = "./"
+if len(sys.argv) == 1:
+    print("Usage: code-sbx <agent> (<workspace_path>)")
+    sys.exit(1)
+agent = sys.argv[1]
+if len(sys.argv) == 3:
+    workspace_path = sys.argv[2]
+
+workspace_path = pathlib.Path(os.path.abspath(workspace_path))
+
+sandbox_name = f"{agent}-{workspace_path.name}"
+sandbox_name = sandbox_name.replace("_", "-")
+
+if "SSH_CLIENT" in os.environ:
+    ssh_client = os.environ["SSH_CLIENT"].split(" ")
+    host = ssh_client[0]
+    vm = current
+    if host in ["192.168.1.186"]:
+        code_path = "/usr/bin/code"
+    else:
+        code_path = "/usr/local/bin/code"
+    if host in ["192.168.1.50"]:
+        host = "constance"
+else:
+    host = ""
+    vm = ""
+    code_path = "code"
+
+
+if host:
+    cmd = ["ssh", host, code_path, "--remote", f"ssh-remote+{sandbox_name}.sbxl", workspace_path.as_posix()]
+else:
+    cmd = [code_path, "--remote", f"ssh-remote+{sandbox_name}.sbx", workspace_path.as_posix()]
+
+print(" ".join(cmd))
+subprocess.run(cmd, check=True, capture_output=True)

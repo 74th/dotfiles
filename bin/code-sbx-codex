@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [[ $# -lt 1 ]]; then
+    echo "Usage: code-sbx-codex (<workspace_path>)"
+    exit 1
+fi
+
+exec code-sbx codex "$1" >/dev/null 2>&1
