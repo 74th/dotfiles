@@ -1,143 +1,22 @@
-#!/usr/local/bin/system-python
-import curses
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "questionary>=2.1.1",
+# ]
+# ///
 import pathlib
 import subprocess
 
-
-def select_items(items: list[str]) -> list[str]:
-    def main(stdscr):
-        curses.start_color()
-        curses.use_default_colors()
-
-        curses.curs_set(0)
-        stdscr.keypad(True)
-
-        pos = 0
-        selected = set()
-        top = 0
-
-        while True:
-            stdscr.erase()
-            height, width = stdscr.getmaxyx()
-
-            visible_height = max(1, height - 1)
-
-            # カーソルが画面外に出たらスクロール
-            if pos < top:
-                top = pos
-            elif pos >= top + visible_height:
-                top = pos - visible_height + 1
-
-            for row, index in enumerate(
-                range(top, min(len(items), top + visible_height))
-            ):
-                mark = "[x]" if index in selected else "[ ]"
-                cursor = ">" if index == pos else " "
-                line = f"{cursor} {mark} {items[index]}"
-
-                try:
-                    stdscr.addnstr(row, 0, line, width - 1)
-                except curses.error:
-                    pass
-
-            help_text = "↑↓/jk: move  Space: toggle  Enter: OK  q/Esc: cancel"
-            try:
-                stdscr.addnstr(height - 1, 0, help_text, width - 1)
-            except curses.error:
-                pass
-
-            stdscr.refresh()
-
-            key = stdscr.getch()
-
-            if key in (curses.KEY_UP, ord("k")):
-                pos = max(0, pos - 1)
-
-            elif key in (curses.KEY_DOWN, ord("j")):
-                pos = min(len(items) - 1, pos + 1)
-
-            elif key == ord(" "):
-                if pos in selected:
-                    selected.remove(pos)
-                else:
-                    selected.add(pos)
-
-            elif key in (10, 13, curses.KEY_ENTER):
-                return [items[i] for i in sorted(selected)]
-
-            elif key in (27, ord("q")):
-                return []
-
-    if not items:
-        return []
-
-    return curses.wrapper(main)
-
-
-def select_one(items: list[str]) -> str | None:
-    def main(stdscr):
-        curses.start_color()
-        curses.use_default_colors()
-
-        curses.curs_set(0)
-        stdscr.keypad(True)
-
-        pos = 0
-        top = 0
-
-        while True:
-            stdscr.erase()
-            height, width = stdscr.getmaxyx()
-
-            visible_height = max(1, height - 1)
-
-            if pos < top:
-                top = pos
-            elif pos >= top + visible_height:
-                top = pos - visible_height + 1
-
-            for row, index in enumerate(
-                range(top, min(len(items), top + visible_height))
-            ):
-                cursor = ">" if index == pos else " "
-                line = f"{cursor} {items[index]}"
-
-                try:
-                    stdscr.addnstr(row, 0, line, width - 1)
-                except curses.error:
-                    pass
-
-            help_text = "↑↓/jk: move  Enter: OK  q/Esc: cancel"
-            try:
-                stdscr.addnstr(height - 1, 0, help_text, width - 1)
-            except curses.error:
-                pass
-
-            stdscr.refresh()
-
-            key = stdscr.getch()
-
-            if key in (curses.KEY_UP, ord("k")):
-                pos = max(0, pos - 1)
-
-            elif key in (curses.KEY_DOWN, ord("j")):
-                pos = min(len(items) - 1, pos + 1)
-
-            elif key in (10, 13, curses.KEY_ENTER):
-                return items[pos]
-
-            elif key in (27, ord("q")):
-                return None
-
-    if not items:
-        return None
-
-    return curses.wrapper(main)
-
+import questionary
 
 agent_list = ["codex", "claude", "shell"]
 
-agent = select_one(agent_list)
+agent = questionary.select(
+    "select agent",
+    choices=agent_list,
+).ask()
+
 if agent is None:
     raise SystemExit(130)
 
@@ -147,7 +26,10 @@ dotfiles_kit_path = pathlib.Path(__file__).resolve().parent.parent / "sbx-kit"
 for kit in sorted(kit.name for kit in dotfiles_kit_path.iterdir() if kit.is_dir()):
     kits_list.append(f"{kit} - {dotfiles_kit_path / kit}")
 
-kits = select_items(kits_list)
+kits = questionary.checkbox(
+    "select kits",
+    choices=kits_list,
+).ask()
 
 for i, kit in enumerate(kits):
     kits[i] = kit.split(" - ")[1]

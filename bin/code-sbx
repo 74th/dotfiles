@@ -1,9 +1,19 @@
-#!/usr/local/bin/system-python
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "pyyaml>=6.0.3",
+#     "questionary>=2.1.1",
+# ]
+# ///
+import argparse
 import os
 import pathlib
 import socket
 import subprocess
 import sys
+
+import questionary
 
 r"""
 以下のように多段sshの設定がされていることを前提とする
@@ -30,20 +40,58 @@ Host *.sbx-constance
 ```
 """
 
+
+def detect_existing_sandbox_name(workspace_path: str) -> str:
+    base_name = pathlib.Path(workspace_path).absolute().name
+    base_name = base_name.replace("-", "-").lower()
+
+    out = subprocess.run(["sbx", "ls"], check=True, capture_output=True)
+    sandbox_list = [
+        line.split()[0] for line in out.stdout.strip().decode("utf-8").splitlines()
+    ][1:]
+
+    detected_sandboxes = []
+
+    for sandbox in sandbox_list:
+        if sandbox.endswith(base_name):
+            detected_sandboxes.append(sandbox)
+            break
+    else:
+        print(f"Sandbox '{base_name}' does not exist.")
+        raise SystemExit(1)
+
+    if len(detected_sandboxes) > 1:
+        return questionary.select(
+            "Multiple sandboxes detected. Please select one:",
+            choices=detected_sandboxes,
+        ).ask()
+
+    return detected_sandboxes[0]
+
+
 current = socket.gethostname()
 
-workspace_path = "./"
-if len(sys.argv) == 1:
-    print("Usage: code-sbx <agent> (<workspace_path>)")
-    sys.exit(1)
-agent = sys.argv[1]
-if len(sys.argv) == 3:
-    workspace_path = sys.argv[2]
+
+if "-h" in sys.argv or "--help" in sys.argv:
+    print("Usage: sbx-add-kit [workspace_path] [agent]")
+    raise SystemExit(0)
+
+if len(sys.argv) > 1:
+    workspace_path = sys.argv[1]
+else:
+    workspace_path = "./"
 
 workspace_path = pathlib.Path(os.path.abspath(workspace_path))
 
-sandbox_name = f"{agent}-{workspace_path.name}"
-sandbox_name = sandbox_name.replace("_", "-")
+if len(sys.argv) == 3:
+    agent = sys.argv[2]
+    sandbox_name = f"{agent}-{workspace_path.name}"
+    sandbox_name = sandbox_name.replace("_", "-")
+else:
+    sandbox_name = detect_existing_sandbox_name(workspace_path)
+
+print(f"sandbox name: {sandbox_name}")
+
 
 if "SSH_CLIENT" in os.environ:
     ssh_client = os.environ["SSH_CLIENT"].split(" ")
