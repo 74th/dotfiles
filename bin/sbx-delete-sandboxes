@@ -1,0 +1,33 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "questionary==2.1.1",
+# ]
+# ///
+import shlex
+import subprocess
+
+import questionary
+
+out = subprocess.run(["sbx", "ls"], check=True, capture_output=True)
+sandbox_list = [
+    line.split()[0] for line in out.stdout.strip().decode("utf-8").splitlines()
+][1:]
+
+if not sandbox_list:
+    print("No sandboxes found.")
+    raise SystemExit(1)
+
+targets: list[str] = questionary.checkbox(
+    "Select a sandbox to delete:",
+    choices=sandbox_list,
+).ask()
+
+if not targets:
+    print("No sandbox selected.")
+    raise SystemExit(1)
+
+cmd = ["sbx", "rm", "-f"] + targets
+print(shlex.join(cmd))
+subprocess.run(cmd, check=True)
