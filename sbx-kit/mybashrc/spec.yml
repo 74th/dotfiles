@@ -2,6 +2,7 @@ schemaVersion: "2"
 kind: mixin
 name: mybashrc
 displayName: My .bashrc
+description: https://github.com/74th/dotfiles/blob/master/bashrc/docker-sandbox.bashrc
 
 setup:
   install:

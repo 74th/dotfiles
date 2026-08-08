@@ -2,6 +2,7 @@ schemaVersion: "2"
 kind: mixin
 name: gcloud
 displayName: Google Cloud SDK
+description: https://cloud.google.com/sdk
 
 setup:
   install:
