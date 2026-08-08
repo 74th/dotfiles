@@ -5,7 +5,7 @@ import socket
 import subprocess
 import sys
 
-"""
+r"""
 以下のように多段sshの設定がされていることを前提とする
 
 ```
