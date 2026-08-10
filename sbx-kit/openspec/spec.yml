@@ -1,0 +1,11 @@
+schemaVersion: "2"
+kind: mixin
+name: openspec
+displayName: OpenSpec
+description: https://github.com/Fission-AI/openspec
+
+setup:
+  install:
+    - command: npm install -g @fission-ai/openspec@latest
+      user: "1000"
+      description: Install openspec

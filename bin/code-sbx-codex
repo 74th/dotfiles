@@ -1,4 +1,7 @@
-#!/bin/bash
-# sbxのssh機能に、VS Code Remote SSHで接続する
-sandbox=codex-$(basename $(pwd))
-code --remote "ssh-remote+$sandbox.sbx" "$(pwd)"
+#!/usr/bin/env bash
+
+if [[ $# -lt 1 ]]; then
+    exec code-sbx --agent codex
+else
+    exec code-sbx --agent codex "$1"
+fi
