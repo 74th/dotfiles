@@ -1,0 +1,6 @@
+#!/bin/bash
+set -xe
+detected_sandbox=$(sbx-detect-sandbox)
+echo "Detected sandbox: $detected_sandbox"
+printf -v remote_command 'cd -- %q && exec bash -i' "$PWD"
+exec ssh -t "${detected_sandbox}.sbx" -- "$remote_command"

@@ -6,6 +6,7 @@
 # ]
 # ///
 import argparse
+import json
 import os
 import pathlib
 import socket
@@ -40,23 +41,22 @@ Host *.sbx-constance
 """
 
 
-def detect_existing_sandbox_name(workspace_path: str) -> str:
-    base_name = pathlib.Path(workspace_path).absolute().name
-    base_name = base_name.replace("-", "-").lower()
+def detect_existing_sandbox_name(workspace_path: str | pathlib.Path) -> str:
+    workspace_path = pathlib.Path(workspace_path).resolve()
 
-    out = subprocess.run(["sbx", "ls"], check=True, capture_output=True)
-    sandbox_list = [
-        line.split()[0] for line in out.stdout.strip().decode("utf-8").splitlines()
-    ][1:]
+    out = subprocess.run(["sbx", "ls", "--json"], check=True, capture_output=True)
+    sandbox_list = json.loads(out.stdout.decode("utf-8")).get("sandboxes", [])
+    detected_sandboxes = [
+        sandbox["name"]
+        for sandbox in sandbox_list
+        if any(
+            pathlib.Path(workspace).resolve() == workspace_path
+            for workspace in sandbox.get("workspaces", [])
+        )
+    ]
 
-    detected_sandboxes = []
-
-    for sandbox in sandbox_list:
-        if sandbox.endswith(base_name):
-            detected_sandboxes.append(sandbox)
-            break
-    else:
-        print(f"Sandbox '{base_name}' does not exist.")
+    if not detected_sandboxes:
+        print(f"Sandbox for workspace '{workspace_path}' does not exist.")
         raise SystemExit(1)
 
     if len(detected_sandboxes) > 1:
