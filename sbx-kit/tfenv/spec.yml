@@ -1,0 +1,14 @@
+schemaVersion: "2"
+kind: mixin
+name: tfenv
+displayName: tfenv
+description: https://github.com/tfutils/tfenv
+
+setup:
+  install:
+    - command: git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv
+      user: "1000"
+      description: Install tfenv
+    - command: 'echo ''export PATH="/home/agent/.tfenv/bin:$PATH"'' >> /etc/sandbox-persistent.sh'
+      user: "0"
+      description: Add tfenv to PATH

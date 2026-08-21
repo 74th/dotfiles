@@ -1,0 +1,14 @@
+schemaVersion: "2"
+kind: mixin
+name: gcloud
+displayName: Google Cloud SDK
+description: https://cloud.google.com/sdk
+
+setup:
+  install:
+    - command: "curl https://sdk.cloud.google.com | bash -s -- --disable-prompts"
+      user: "1000"
+      description: Install Google Cloud SDK
+    - command: 'echo ''export PATH="/home/agent/google-cloud-sdk/bin:$PATH"'' >> /etc/sandbox-persistent.sh'
+      user: "0"
+      description: Add Google Cloud SDK to PATH

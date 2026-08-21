@@ -1,26 +1,106 @@
-#!/usr/local/bin/system-python
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "questionary>=2.1.1",
+# ]
+# ///
+import argparse
+import json
 import os
 import pathlib
 import socket
 import subprocess
-import sys
+
+import questionary
+
+r"""
+SSH接続先のマシンでsbxに接続する場合、
+以下のように多段sshの設定がされていることを前提とする
+
+```
+Host constance
+    HostName 192.168.1.50
+
+Host *.sbx-constance
+    User _default_user_
+
+    ProxyCommand /bin/sh -c 'h="%n"; exec /usr/bin/ssh -T constance /usr/bin/sbx ssh proxy "${h%%.sbx-constance}.sbx"'
+
+    IdentityAgent none
+    IdentityFile /dev/null
+    IdentitiesOnly yes
+
+    ControlMaster no
+    ControlPath none
+
+    KnownHostsCommand /bin/sh -c 'r=$(echo "$1" | /usr/bin/sed "s/\.sbx-constance$/.sbx/"); /usr/bin/ssh -T constance /usr/bin/sbx ssh known-hosts "$r" | /usr/bin/sed "s/^$r[[:space:]]/$1 /"' sh %H
+
+    StrictHostKeyChecking yes
+```
+"""
+
+
+def detect_existing_sandbox_name(workspace_path: str | pathlib.Path) -> str:
+    workspace_path = pathlib.Path(workspace_path).resolve()
+
+    out = subprocess.run(["sbx", "ls", "--json"], check=True, capture_output=True)
+    sandbox_list = json.loads(out.stdout.decode("utf-8")).get("sandboxes", [])
+    detected_sandboxes = [
+        sandbox["name"]
+        for sandbox in sandbox_list
+        if any(
+            pathlib.Path(workspace).resolve() == workspace_path
+            for workspace in sandbox.get("workspaces", [])
+        )
+    ]
+
+    if not detected_sandboxes:
+        print(f"Sandbox for workspace '{workspace_path}' does not exist.")
+        raise SystemExit(1)
+
+    if len(detected_sandboxes) > 1:
+        return questionary.select(
+            "Multiple sandboxes detected. Please select one:",
+            choices=detected_sandboxes,
+        ).ask()
+
+    return detected_sandboxes[0]
+
 
 current = socket.gethostname()
 
-workspace_path = "./"
-if len(sys.argv) == 1:
-    print("Usage: code-sbx <agent> (<workspace_path>)")
-    sys.exit(1)
-agent = sys.argv[1]
-if len(sys.argv) == 3:
-    workspace_path = sys.argv[2]
 
-workspace_path = pathlib.Path(os.path.abspath(workspace_path))
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "workspace_path",
+    nargs="?",
+    default="./",
+    help="Path to the workspace (default: current directory)",
+)
+parser.add_argument("--agent", dest="agent", help="Agent name")
+parser.add_argument("--sandbox", help="Sandbox name")
+args = parser.parse_args()
 
-sandbox_name = f"{agent}-{workspace_path.name}"
-sandbox_name = sandbox_name.replace("_", "-")
+workspace_path = pathlib.Path(os.path.abspath(args.workspace_path))
+
+
+if args.sandbox:
+    sandbox_name = args.sandbox
+elif args.agent:
+    agent = args.agent
+    sandbox_name = f"{agent}-{workspace_path.name}"
+    sandbox_name = sandbox_name.replace("_", "-")
+else:
+    sandbox_name = detect_existing_sandbox_name(workspace_path)
+
+print(f"sandbox name: {sandbox_name}")
+print(f"workspace path: {workspace_path.as_posix()}")
+
 
 if "SSH_CLIENT" in os.environ:
+    # このスクリプトの実行環境自体がssh接続されている場合、
+    # ssh接続元のホストで多段sshを実行する
     ssh_client = os.environ["SSH_CLIENT"].split(" ")
     host = ssh_client[0]
     vm = current

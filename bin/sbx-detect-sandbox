@@ -1,0 +1,44 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "pyyaml>=6.0.3",
+#     "questionary>=2.1.1",
+# ]
+# ///
+import json
+import os
+import pathlib
+import subprocess
+
+
+def detect_existing_sandbox_name() -> str:
+    workspace_path = pathlib.Path(os.getcwd()).resolve()
+
+    out = subprocess.run(["sbx", "ls", "--json"], check=True, capture_output=True)
+    sandbox_list = json.loads(out.stdout.decode("utf-8")).get("sandboxes", [])
+    detected_sandboxes = [
+        sandbox["name"]
+        for sandbox in sandbox_list
+        if any(
+            pathlib.Path(workspace).resolve() == workspace_path
+            for workspace in sandbox.get("workspaces", [])
+        )
+    ]
+
+    if not detected_sandboxes:
+        print(f"Sandbox for workspace '{workspace_path}' does not exist.")
+        raise SystemExit(1)
+
+    if len(detected_sandboxes) > 1:
+        print(
+            f"Multiple sandboxes detected for workspace '{workspace_path}': {detected_sandboxes}"
+        )
+        raise SystemExit(1)
+
+    return detected_sandboxes[0]
+
+
+detected_sandbox = detect_existing_sandbox_name()
+
+print(detected_sandbox)

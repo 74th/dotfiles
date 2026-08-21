@@ -1,0 +1,47 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "questionary>=2.1.1",
+# ]
+# ///
+import pathlib
+import subprocess
+
+import questionary
+
+agent_list = ["codex", "claude", "shell"]
+
+agent = questionary.select(
+    "select agent",
+    choices=agent_list,
+).ask()
+
+if agent is None:
+    raise SystemExit(130)
+
+kits_list: list[str] = []
+
+dotfiles_kit_path = pathlib.Path(__file__).resolve().parent.parent / "sbx-kit"
+for kit in sorted(kit.name for kit in dotfiles_kit_path.iterdir() if kit.is_dir()):
+    kits_list.append(f"{kit} - {dotfiles_kit_path / kit}")
+
+kits = questionary.checkbox(
+    "select kits",
+    choices=kits_list,
+).ask()
+
+for i, kit in enumerate(kits):
+    kits[i] = kit.split(" - ")[1]
+
+print(f"dotfiles_kit_path: {dotfiles_kit_path}")
+
+print(f"Selected agent: {agent}")
+print(f"Selected kits: {kits}")
+
+cmd = ["sbx", "create", agent, "."]
+for kit in kits:
+    cmd.extend(["--kit", kit])
+
+print(" ".join(cmd))
+subprocess.run(cmd, check=True, capture_output=True)
