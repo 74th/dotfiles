@@ -1,0 +1,11 @@
+onboarding = false
+[terminal]
+default_shell = "/opt/homebrew/bin/bash"
+
+[ui.toast]
+delivery = "system"
+delay_seconds = 1
+
+[theme]
+name = "vesper"
+auto_switch = false

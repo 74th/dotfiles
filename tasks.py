@@ -159,6 +159,13 @@ def npm(c):
 
 ns.add_task(npm)  # type: ignore
 
+@task
+def herdr(c):
+    config_path = Path(f"{HOME}/.config/herdr")
+    config_path.mkdir(parents=True, exist_ok=True)
+    c.run(f"ln -sf {HOME}/ghq/github.com/74th/dotfiles/herdr/config.toml {config_path / "config.toml"}")
+
+ns.add_task(herdr)  # type: ignore
 
 @task(default=True)
 def install(c):
