@@ -1,0 +1,10 @@
+local-xonsh | xonsh
+constance | ssh constance
+constance-xonsh | ssh -t constance /home/nnyn/.local/bin/xonsh -li
+constance-herdr | herdr --remote constance
+ayame | ssh ayame
+ayame-xonsh | ssh -t ayame /home/nnyn/.local/bin/xonsh -li
+frieren | ssh frieren
+frieren-xonsh | ssh -t frieren /home/nnyn/.local/bin/xonsh -li
+sirius | ssh sirius
+sirius-xonsh | ssh -t sirius /home/nnyn/.local/bin/xonsh -li

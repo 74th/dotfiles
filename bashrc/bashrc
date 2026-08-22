@@ -95,19 +95,26 @@ shopt -s autocd
 bind '\C-w:unix-filename-rubout'
 
 # --- 便利コマンド ---
-function cb() {
-    if [ "$HOSTNAME" == "crow2" ]; then
-        $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/work)
-    else
-        $(peco $HOME/ghq/github.com/74th/mycheatsheets/CmdBookmark/home)
-    fi
-}
 function db() {
     $(peco $HOME/ghq/github.com/74th/mycheatsheets/DirBookmark/$HOSTNAME)
 }
 
 function cdg() {
     cd $(ghq list --full-path | peco)
+}
+
+function t() {
+    local selected title cmd
+
+    selected=$(peco "$HOME/ghq/github.com/74th/dotfiles/terminal_profiles/$HOSTNAME.txt") || return
+    [ -z "$selected" ] && return
+
+    title="${selected%% | *}"
+    cmd="${selected#* | }"
+
+    printf '\033]2;%s\007' "$title"
+    clear
+    eval "exec $cmd"
 }
 
 # Ctrl-r: pecoのヒストリ

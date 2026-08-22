@@ -167,6 +167,22 @@ def herdr(c):
 
 ns.add_task(herdr)  # type: ignore
 
+@task
+def ghostty(c):
+    config_path = Path(f"{HOME}/.config/ghostty")
+    config_path.mkdir(parents=True, exist_ok=True)
+    c.run(f"ln -sf {HOME}/ghq/github.com/74th/dotfiles/ghorstty/config.ghostty {config_path / "config.ghostty"}")
+
+ns.add_task(ghostty)  # type: ignore
+
+@task
+def hammerspoon(c):
+    config_path = Path(f"{HOME}/.hammerspoon")
+    config_path.mkdir(parents=True, exist_ok=True)
+    c.run(f"ln -sf {HOME}/ghq/github.com/74th/dotfiles/hammerspoon/init.lua {config_path / 'init.lua'}")
+
+ns.add_task(hammerspoon)  # type: ignore
+
 @task(default=True)
 def install(c):
     update_default_package_manager(c)
