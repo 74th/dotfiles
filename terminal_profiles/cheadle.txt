@@ -1,7 +1,7 @@
 local-xonsh | xonsh
 constance | ssh constance
 constance-xonsh | ssh -t constance /home/nnyn/.local/bin/xonsh -li
-constance-herdr | herdr --remote constance
+constance-herdr | ssh -t constance /home/nnyn/.local/bin/herdr
 ayame | ssh ayame
 ayame-xonsh | ssh -t ayame /home/nnyn/.local/bin/xonsh -li
 frieren | ssh frieren

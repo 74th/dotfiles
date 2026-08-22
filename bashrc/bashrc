@@ -105,9 +105,19 @@ function cdg() {
 
 function t() {
     local selected title cmd
+    local profile_file="$HOME/ghq/github.com/74th/dotfiles/terminal_profiles/cheadle.txt"
 
-    selected=$(peco "$HOME/ghq/github.com/74th/dotfiles/terminal_profiles/$HOSTNAME.txt") || return
-    [ -z "$selected" ] && return
+    if [ -n "$1" ]; then
+        selected=$(awk -F ' \\| ' -v name="$1" '$1 == name { print; exit }' "$profile_file")
+
+        if [ -z "$selected" ]; then
+            echo "profile not found: $1" >&2
+            return 1
+        fi
+    else
+        selected=$(peco "$profile_file") || return
+        [ -z "$selected" ] && return
+    fi
 
     title="${selected%% | *}"
     cmd="${selected#* | }"
