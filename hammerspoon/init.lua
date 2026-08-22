@@ -22,7 +22,7 @@ local function positionGhostty(win)
   })
 end
 
-hs.hotkey.bind({"cmd"}, "F3", function()
+hs.hotkey.bind({"cmd"}, "F2", function()
   local app = hs.application.get(ghosttyBundleId)
 
   if app and app:isFrontmost() then
