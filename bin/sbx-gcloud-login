@@ -38,14 +38,14 @@ def detect_existing_sandbox_name() -> str:
     ]
 
     if not detected_sandboxes:
-        print(f"Sandbox for workspace '{workspace_path}' does not exist.")
+        print(f"ワークスペース '{workspace_path}' のサンドボックスが見つかりません。")
         raise SystemExit(1)
 
     if len(detected_sandboxes) == 1:
         return detected_sandboxes[0]
 
     sandbox = questionary.select(
-        f"Multiple sandboxes detected for workspace '{workspace_path}':",
+        f"ワークスペース '{workspace_path}' に複数のサンドボックスが見つかりました:",
         choices=detected_sandboxes,
     ).ask()
     return sandbox
@@ -108,13 +108,24 @@ def find_authorization_response(output: str) -> str:
             return url
 
     raise RuntimeError(
-        "The remote bootstrap command did not output an authorization response URL."
+        "リモートブートストラップコマンドの出力から、認可応答 URL を取得できませんでした。"
     )
 
 
 def read_remote_bootstrap_output(cmd: list[str]) -> str:
-    print(f"Detected remote bootstrap command: {shlex.join(cmd)}")
-    print("Running it on the host; the confirmation prompt is accepted automatically.")
+    print(f"リモートブートストラップコマンドを検出しました: {shlex.join(cmd)}")
+    if "SSH_CLIENT" in os.environ:
+        print(
+            "このセッションは SSH 経由で接続されています。ブラウザを利用できるマシンで、"
+            "次のコマンドを実行してください:"
+        )
+        print(shlex.join(cmd))
+        remote_bootstrap_output = input(
+            "ブラウザでのログイン完了後、上記コマンドの出力をここに貼り付けてください: "
+        )
+        return find_authorization_response(remote_bootstrap_output)
+
+    print("ホスト上でコマンドを実行します。確認プロンプトには自動で応答します。")
     with subprocess.Popen(
         cmd,
         stdin=subprocess.PIPE,
@@ -126,7 +137,7 @@ def read_remote_bootstrap_output(cmd: list[str]) -> str:
         assert process.stdin is not None
         assert process.stdout is not None
 
-        print("Proceed (y/N)? y")
+        print("続行しますか (y/N)? y")
         process.stdin.write("y\n")
         process.stdin.flush()
 
@@ -137,7 +148,8 @@ def read_remote_bootstrap_output(cmd: list[str]) -> str:
 
         if process.wait() != 0:
             print(
-                f"Remote bootstrap command failed with exit code {process.returncode}."
+                "リモートブートストラップコマンドが終了コード "
+                f"{process.returncode} で失敗しました。"
             )
             raise SystemExit(process.returncode)
 
@@ -146,9 +158,9 @@ def read_remote_bootstrap_output(cmd: list[str]) -> str:
 
 sandbox = sys.argv[1] if len(sys.argv) > 1 else detect_existing_sandbox_name()
 
-print(f"Select sandbox: {sandbox}")
+print(f"選択したサンドボックス: {sandbox}")
 if check_already_logged_in(sandbox):
-    print(f"Already logged in to sandbox '{sandbox}'.")
+    print(f"サンドボックス '{sandbox}' にはすでにログイン済みです。")
     raise SystemExit(0)
 
 login_gcloud(sandbox)
