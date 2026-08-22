@@ -108,6 +108,11 @@ function p() {
     local selected title cmd
     local profile_file="$HOME/ghq/github.com/74th/dotfiles/terminal_profiles/$HOSTNAME.txt"
 
+    if [ ! -f "$profile_file" ]; then
+        echo "profile file not found: $profile_file" >&2
+        return 1
+    fi
+
     if [ -n "$1" ]; then
         selected=$(awk -F ' \\| ' -v name="$1" '$1 == name { print; exit }' "$profile_file")
 
@@ -126,6 +131,14 @@ function p() {
     printf '\033]2;%s\007' "$title"
     clear
     eval "exec $cmd"
+}
+
+function sbx-codex() {
+    HERDR_AGENT=codex sbx run codex
+}
+
+function sbx-claude() {
+    HERDR_AGENT=claude sbx run claude
 }
 
 # Ctrl-r: pecoのヒストリ

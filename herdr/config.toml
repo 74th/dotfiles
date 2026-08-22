@@ -1,11 +1,19 @@
 onboarding = false
 [terminal]
-default_shell = "/opt/homebrew/bin/bash"
+default_shell = "bash"
 
 [ui.toast]
-delivery = "system"
+delivery = "terminal"
 delay_seconds = 1
 
 [theme]
 name = "vesper"
 auto_switch = false
+
+[keys]
+next_workspace = "prefix+j"
+previous_workspace = "prefix+k"
+next_tab = "prefix+l"
+previous_tab = "prefix+h"
+new_workspace = "prefix+n"
+rename_workspace = "prefix+r"

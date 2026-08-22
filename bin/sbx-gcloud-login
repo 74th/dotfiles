@@ -1,0 +1,154 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "questionary==2.1.1",
+# ]
+# ///
+import json
+import os
+import pathlib
+import re
+import shlex
+import subprocess
+import sys
+from urllib.parse import parse_qs, urlparse
+
+import questionary
+
+REMOTE_BOOTSTRAP_COMMAND_RE = re.compile(
+    r'(?P<command>gcloud auth login --remote-bootstrap=(?:"[^"]+"|\'[^\']+\'|\S+))'
+)
+
+SBX_GCLOUD_BIN = "/home/agent/google-cloud-sdk/bin/gcloud"
+
+
+def detect_existing_sandbox_name() -> str:
+    workspace_path = pathlib.Path(os.getcwd()).resolve()
+
+    out = subprocess.run(["sbx", "ls", "--json"], check=True, capture_output=True)
+    sandbox_list = json.loads(out.stdout.decode("utf-8")).get("sandboxes", [])
+    detected_sandboxes = [
+        sandbox["name"]
+        for sandbox in sandbox_list
+        if any(
+            pathlib.Path(workspace).resolve() == workspace_path
+            for workspace in sandbox.get("workspaces", [])
+        )
+    ]
+
+    if not detected_sandboxes:
+        print(f"Sandbox for workspace '{workspace_path}' does not exist.")
+        raise SystemExit(1)
+
+    if len(detected_sandboxes) == 1:
+        return detected_sandboxes[0]
+
+    sandbox = questionary.select(
+        f"Multiple sandboxes detected for workspace '{workspace_path}':",
+        choices=detected_sandboxes,
+    ).ask()
+    return sandbox
+
+
+def check_already_logged_in(sandbox: str) -> bool:
+    cmd = ["sbx", "exec", sandbox, SBX_GCLOUD_BIN, "auth", "print-access-token"]
+    print(shlex.join(cmd))
+    out = subprocess.run(cmd, capture_output=True)
+    if out.returncode != 0:
+        return False
+    return True
+
+
+def login_gcloud(sandbox: str) -> None:
+    cmd = [
+        "sbx",
+        "exec",
+        sandbox,
+        SBX_GCLOUD_BIN,
+        "auth",
+        "login",
+        "--no-browser",
+        "--update-adc",
+    ]
+    print(shlex.join(cmd))
+    with subprocess.Popen(
+        cmd,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        bufsize=1,
+    ) as process:
+        assert process.stdout is not None
+
+        for line in process.stdout:
+            print(line, end="", flush=True)
+            match = REMOTE_BOOTSTRAP_COMMAND_RE.search(line)
+            if match is not None:
+                remote_bootstrap_cmd = shlex.split(match.group("command"))
+                remote_bootstrap_output = read_remote_bootstrap_output(
+                    remote_bootstrap_cmd
+                )
+                assert process.stdin is not None
+                process.stdin.write(remote_bootstrap_output)
+                if not remote_bootstrap_output.endswith("\n"):
+                    process.stdin.write("\n")
+                process.stdin.flush()
+
+        if process.wait() != 0:
+            raise subprocess.CalledProcessError(process.returncode, cmd)
+
+
+def find_authorization_response(output: str) -> str:
+    for url in reversed(re.findall(r"https?://\S+", output)):
+        url = url.rstrip("'.\")]}>,")
+        query = parse_qs(urlparse(url).query)
+        if "state" in query and "code" in query:
+            return url
+
+    raise RuntimeError(
+        "The remote bootstrap command did not output an authorization response URL."
+    )
+
+
+def read_remote_bootstrap_output(cmd: list[str]) -> str:
+    print(f"Detected remote bootstrap command: {shlex.join(cmd)}")
+    print("Running it on the host; the confirmation prompt is accepted automatically.")
+    with subprocess.Popen(
+        cmd,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        bufsize=1,
+    ) as process:
+        assert process.stdin is not None
+        assert process.stdout is not None
+
+        print("Proceed (y/N)? y")
+        process.stdin.write("y\n")
+        process.stdin.flush()
+
+        output_lines = []
+        for line in process.stdout:
+            print(line, end="", flush=True)
+            output_lines.append(line)
+
+        if process.wait() != 0:
+            print(
+                f"Remote bootstrap command failed with exit code {process.returncode}."
+            )
+            raise SystemExit(process.returncode)
+
+    return find_authorization_response("".join(output_lines))
+
+
+sandbox = sys.argv[1] if len(sys.argv) > 1 else detect_existing_sandbox_name()
+
+print(f"Select sandbox: {sandbox}")
+if check_already_logged_in(sandbox):
+    print(f"Already logged in to sandbox '{sandbox}'.")
+    raise SystemExit(0)
+
+login_gcloud(sandbox)
