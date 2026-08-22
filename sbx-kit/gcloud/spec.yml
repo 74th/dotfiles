@@ -4,6 +4,11 @@ name: gcloud
 displayName: Google Cloud SDK
 description: https://cloud.google.com/sdk
 
+permissions:
+  network:
+    allow:
+      - sdk.cloud.google.com:443
+
 setup:
   install:
     - command: "curl https://sdk.cloud.google.com | bash -s -- --disable-prompts"
