@@ -103,9 +103,10 @@ function cdg() {
     cd $(ghq list --full-path | peco)
 }
 
-function t() {
+# プロファイル切り替えコマンド
+function p() {
     local selected title cmd
-    local profile_file="$HOME/ghq/github.com/74th/dotfiles/terminal_profiles/cheadle.txt"
+    local profile_file="$HOME/ghq/github.com/74th/dotfiles/terminal_profiles/$HOSTNAME.txt"
 
     if [ -n "$1" ]; then
         selected=$(awk -F ' \\| ' -v name="$1" '$1 == name { print; exit }' "$profile_file")
