@@ -25,7 +25,7 @@ end
 hs.hotkey.bind({"cmd"}, "F2", function()
   local app = hs.application.get(ghosttyBundleId)
 
-  if app and app:isFrontmost() then
+  if app and app:isFrontmost() and not app:isHidden() then
     app:hide()
     return
   end

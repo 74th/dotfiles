@@ -1,3 +1,4 @@
+herdr | herdr
 local-xonsh | xonsh
 constance | ssh constance
 constance-xonsh | ssh -t constance /home/nnyn/.local/bin/xonsh -li
