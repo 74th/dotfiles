@@ -12,8 +12,6 @@ def load_commands():
 
     x_aliases["bk"] = open_bookmark
 
-    x_aliases["ec"] = "edit-cs"
-
     def cd_ghq(args=[""]):
         r = ""
         if len(args) == 0:

@@ -12,6 +12,8 @@ set -o vi
 alias ll="ls -alh"
 alias g="git"
 alias gt="git status"
+alias pull="git pull"
+alias push="git push"
 
 git config --global core.editor 'code --wait'
 
@@ -89,3 +91,14 @@ for alias_name in "${!easy_aliases[@]}"; do
     git config --global "alias.${alias_name}" "${easy_aliases[$alias_name]}"
 done
 unset alias_name
+
+# Ctrl-r: pecoのヒストリ
+# https://takagi.blog/bash-history-peco/
+function peco_search_history() {
+    local l=$(HISTTIMEFORMAT= history | \
+    sort -r | sed -E s/^\ *[0-9]\+\ \+// | \
+    peco --query "$READLINE_LINE")
+    READLINE_LINE="$l"
+    READLINE_POINT=${#l}
+}
+bind -x '"\C-r": peco_search_history'

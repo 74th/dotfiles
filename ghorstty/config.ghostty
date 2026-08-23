@@ -8,6 +8,10 @@ font-family = Monaco
 font-family = Hiragino Sans W3
 font-size = 12
 
+# 通知音変更
+bell-features = audio, title
+bell-audio-path = /System/Library/Sounds/Ping.aiff
+
 # Guake的に使う機能はHammerspoonで実装するので、Ghostty側では無効化する
 # keybind = global:cmd+shift+f3=toggle_quick_terminal
 # quick-terminal-position = left
