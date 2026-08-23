@@ -17,6 +17,8 @@ def exists_command(cmd: str):
 
 def get_aliases(human: bool = False) -> dict[str, list[str]]:
     a: dict[str, list[str]] = {}
+    a["ec"] = ["edit-cs"]
+
     a["g"] = ["git"]
     a["gt"] = ["git", "status"]
     a["co"] = ["git", "checkout"]
@@ -27,23 +29,16 @@ def get_aliases(human: bool = False) -> dict[str, list[str]]:
 
     # kubernetes
     a["k"] = ["kubectl"]
-    a["kgp"] = ["eubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
+    a["kgp"] = ["kubectl", "get", "pods", "--sort-by=.metadata.creationTimestamp"]
     a["kga"] = ["kubectl", "get", "all"]
     a["kg"] = ["kubectl", "get"]
     a["kd"] = ["kubectl", "describe"]
     a["krm"] = ["kubectl", "delete"]
 
-    # syntax_sugar
-    if os.path.exists(f"{HOME}/.cargo/bin/lsd"):
-        a["al"] = ["lsd", "-al"]
-        a["la"] = ["lsd", "-al"]
-        a["ll"] = ["lsd", "-al"]
-        a["lt"] = ["lsd", "-alt"]
-    else:
-        a["al"] = ["ls", "-al"]
-        a["la"] = ["ls", "-al"]
-        a["ll"] = ["ls", "-alh"]
-        a["lt"] = ["ls", "-alt"]
+    a["al"] = ["ls", "-al"]
+    a["la"] = ["ls", "-al"]
+    a["ll"] = ["ls", "-alh"]
+    a["lt"] = ["ls", "-alt"]
     a["rm"] = ["trash"]
 
     # java

@@ -6,6 +6,9 @@ description: https://github.com/74th/dotfiles/blob/master/bashrc/docker-sandbox.
 
 setup:
   install:
-    - command: "curl https://raw.githubusercontent.com/74th/dotfiles/refs/heads/master/bashrc/docker-sandbox.bashrc >> ~/.bashrc"
+    - description: Install My .bashrc
+      command: "curl https://raw.githubusercontent.com/74th/dotfiles/refs/heads/master/bashrc/docker-sandbox.bashrc >> ~/.bashrc"
       user: "1000"
-      description: Install My .bashrc
+    - description: Install peco
+      command: "apt-get update && apt-get install -y peco"
+      user: "0"
