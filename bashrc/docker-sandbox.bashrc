@@ -12,6 +12,8 @@ set -o vi
 alias ll="ls -alh"
 alias g="git"
 alias gt="git status"
+alias pull="git pull"
+alias push="git push"
 
 git config --global core.editor 'code --wait'
 
