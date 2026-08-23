@@ -11,6 +11,7 @@ name = "vesper"
 auto_switch = false
 
 [keys]
+prefix = "ctrl+a"
 next_workspace = "prefix+j"
 previous_workspace = "prefix+k"
 next_tab = "prefix+l"
