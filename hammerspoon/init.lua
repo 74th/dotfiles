@@ -8,7 +8,7 @@ local function positionGhostty(win)
 
   -- 大きい外部ディスプレイ
   if frame.w >= 2000 then
-    width = 1100
+    width = 1300
   else
     -- Mac内蔵ディスプレイ
     width = math.floor(frame.w * 0.65)

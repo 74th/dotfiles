@@ -106,7 +106,11 @@ function cdg() {
 # プロファイル切り替えコマンド
 function p() {
     local selected title cmd
-    local profile_file="$HOME/ghq/github.com/74th/dotfiles/terminal_profiles/$HOSTNAME.txt"
+    local profile_file="$HOME/.terminal_profiles.txt"
+
+    if [ ! -f "$profile_file" ]; then
+        profile_file="$HOME/ghq/github.com/74th/dotfiles/terminal_profiles/$HOSTNAME.txt"
+    fi
 
     if [ ! -f "$profile_file" ]; then
         echo "profile file not found: $profile_file" >&2
