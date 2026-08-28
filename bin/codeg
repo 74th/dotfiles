@@ -39,7 +39,6 @@ hostname = gethostname()
 if "SSH_CLIENT" in os.environ:
     codeg = Path("~/ghq/github.com/74th/dotfiles/bin/c").expanduser()
     cmd = [
-        "system-python",
         Path("~/ghq/github.com/74th/dotfiles/bin/c").expanduser(),
         g,
     ]

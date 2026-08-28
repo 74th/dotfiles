@@ -9,7 +9,6 @@ import homebrew.tasks as homebrew
 import git.tasks as git
 import ubuntu.tasks as ubuntu
 import golang.tasks as go
-import python.tasks as python
 import python_pip.tasks as python_pip
 import vscode.tasks as vscode
 import tools.tasks as tools
@@ -218,15 +217,6 @@ def install(c):
     screenrc(c)
     git.set_config(c)
     git.chmod_config(c)
-    if detect.osx:
-        macos(c)
-        if not Path("/usr/local/bin/system-python").exists():
-            if Path("/opt/homebrew/bin/python3").exists():
-                c.run("sudo ln -s /usr/bin/python3 /usr/local/bin/system-python")
-    elif detect.linux:
-        if not Path("/usr/local/bin/system-python").exists():
-            if Path("/usr/bin/python3").exists():
-                c.run("sudo ln -s /usr/bin/python3 /usr/local/bin/system-python")
 
 
 ns.add_task(install)  # type: ignore
@@ -252,7 +242,6 @@ ns.add_collection(ns.from_module(homebrew), "homebrew")
 ns.add_collection(ns.from_module(git), "git")
 ns.add_collection(ns.from_module(ubuntu), "ubuntu")
 ns.add_collection(ns.from_module(go), "go")
-ns.add_collection(ns.from_module(python), "python")
 ns.add_collection(ns.from_module(python_pip), "pip")
 ns.add_collection(ns.from_module(tools), "tools")
 ns.add_collection(ns.from_module(vscode), "vscode")

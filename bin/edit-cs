@@ -16,7 +16,7 @@ code = Path("~/ghq/github.com/74th/dotfiles/bin/c").expanduser()
 print(f"{code} {p}")
 
 subprocess.run(
-    ["system-python", code, f"{p}/sheets"],
+    [code, f"{p}/sheets"],
     check=True,
     capture_output=True,
 )
