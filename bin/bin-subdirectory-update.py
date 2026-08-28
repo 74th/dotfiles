@@ -1,4 +1,4 @@
-#!/usr/local/bin/system-python
+#!/usr/bin/env -S uv run --script
 """
 ~/bin/ 以下のサブディレクトリにある実行ファイルを ~/bin/ にシンボリックリンクを貼る
 ディレクトリで区切るので、セットで導入、リムーブが簡単にできる

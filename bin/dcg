@@ -1,4 +1,4 @@
-#!/usr/local/bin/system-python
+#!/usr/bin/env -S uv run --script
 # ghq を使ってディレクトリを選んで dc コマンドを実行
 import subprocess
 import sys

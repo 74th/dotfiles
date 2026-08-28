@@ -1,4 +1,4 @@
-#!/usr/local/bin/system-python
+#!/usr/bin/env -S uv run --script
 # ターゲットのプロセスを選択して kill
 import re
 import subprocess
