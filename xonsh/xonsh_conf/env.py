@@ -94,6 +94,10 @@ def build_envs() -> list[tuple[str, str]]:
     elif os.path.exists("/usr/local/bin/python3"):
         envs.append(("CLOUDSDK_PYTHON", "/usr/local/bin/python3"))
 
+    # volta
+    if os.path.exists(f"{home}/.volta"):
+        envs += [("VOLTA_HOME", f"{home}/.volta")]
+
     gpg_agent_env = gpg_agent()
     if gpg_agent_env:
         envs.append(gpg_agent_env)

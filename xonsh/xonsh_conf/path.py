@@ -98,6 +98,7 @@ def get_paths(default_paths: list[str]) -> list[str]:
     add(home + "/npm/bin")
     add(home + "/npm/node_modules/.bin")
     add(home + "/Library/pnpm")
+    add(home + "/.volta/bin")
 
     # 環境選択系
     add(home + "/.asdf/bin")
