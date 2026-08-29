@@ -1,7 +1,4 @@
 packages:
-  - sigs.k8s.io/kustomize/kustomize@latest
   - github.com/x-motemen/ghq@latest
-  - go.uber.org/mock/mockgen@latest
-  - github.com/peco/peco/cmd/peco@latest
   - golang.org/x/tools/cmd/stringer@latest
   - github.com/fullstorydev/grpcurl/cmd/grpcurl@latest

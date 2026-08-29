@@ -1,4 +1,4 @@
-#!env bash
+#!/usr/bin/bash
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 set -xe
 type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
