@@ -137,12 +137,22 @@ function p() {
     eval "exec $cmd"
 }
 
+# sbxのherdr用
 function sbx-codex() {
     HERDR_AGENT=codex sbx run codex
 }
 
 function sbx-claude() {
     HERDR_AGENT=claude sbx run claude
+}
+
+# bellならし
+# bell make -j16
+bell() {
+    "$@"
+    local status=$?
+    printf '\a'
+    return $status
 }
 
 # Ctrl-r: pecoのヒストリ

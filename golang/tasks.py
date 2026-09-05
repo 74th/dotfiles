@@ -27,22 +27,23 @@ def download_packages(c):
 def install_go(c):
     version = c.run("curl https://go.dev/VERSION?m=text").stdout.splitlines()[0].strip()
     # version = "1.14.15"
-    cpu = c.run("uname -p").stdout.strip()
+    if detect.mac:
+        cpu = c.run("uname -p").stdout.strip()
+        if cpu == "arm":
+            tar_gz = f"{version}.darwin-arm64.tar.gz"
+        else:
+            tar_gz = f"{version}.darwin-amd64.tar.gz"
+    else:
+        cpu = c.run("uname -m").stdout.strip()
+        if cpu == "aarch64":
+            tar_gz = f"{version}.linux-arm64.tar.gz"
+        else:
+            tar_gz = f"{version}.linux-amd64.tar.gz"
     go_version = c.run("go version", warn=True)
     if go_version.ok and go_version.stdout.count(version) > 0:
         return
     with tempfile.TemporaryDirectory() as d:
         with c.cd(d):
-            if detect.mac:
-                if cpu == "arm":
-                    tar_gz = f"{version}.darwin-arm64.tar.gz"
-                else:
-                    tar_gz = f"{version}.darwin-amd64.tar.gz"
-            else:
-                if cpu == "aarch64":
-                    tar_gz = f"{version}.linux-arm64.tar.gz"
-                else:
-                    tar_gz = f"{version}.linux-amd64.tar.gz"
             c.run(f"curl -LO https://dl.google.com/go/{tar_gz}")
             c.run("sudo rm -rf /usr/local/go")
             c.run(f"sudo tar -C /usr/local -xzf {tar_gz}")

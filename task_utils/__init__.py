@@ -35,7 +35,10 @@ def get_arch(c: Context) -> Arch:
     if __arch:
         return __arch
 
-    r = c.run("uname -p")
+    if detect.mac:
+        r = c.run("uname -p")
+    else:
+        r = c.run("uname -m")
     assert r is not None
     arch = r.stdout.strip()
     if arch == "x86_64":

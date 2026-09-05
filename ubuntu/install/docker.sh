@@ -1,4 +1,4 @@
-#!env bash
+#!/usr/bin/bash bash
 set -xe
 # https://docs.docker.com/engine/install/ubuntu/
 sudo apt-get remove docker docker-engine docker.io containerd runc | true

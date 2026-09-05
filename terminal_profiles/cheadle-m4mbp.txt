@@ -2,11 +2,12 @@ herdr | herdr
 local-xonsh | xonsh
 constance | ssh constance
 constance-xonsh | ssh -t constance /home/nnyn/.local/bin/xonsh -li
-constance-herdr | ssh -t constance /home/nnyn/.local/bin/herdr
+constance-herdr | herdr --remote constance
 ayame | ssh ayame
 ayame-xonsh | ssh -t ayame /home/nnyn/.local/bin/xonsh -li
 frieren | ssh frieren
 frieren-xonsh | ssh -t frieren /home/nnyn/.local/bin/xonsh -li
-frieren-herdr | ssh -t frieren /home/nnyn/.local/bin/herdr
+frieren-herdr | herdr --remote frieren
 sirius | ssh sirius
 sirius-xonsh | ssh -t sirius /home/nnyn/.local/bin/xonsh -li
+frieren-from-net | ssh frieren-from-net

@@ -1,4 +1,4 @@
-#!env bash
+#!/usr/bin/bash bash
 set -xe
 if [ -e /etc/debian_version ]; then
     if [ "aarch64" == "$(uname -m)" ]; then
