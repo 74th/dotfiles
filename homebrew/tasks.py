@@ -6,31 +6,27 @@ import detect
 def _list_packages(c):
     pkgs = []
 
-    if detect.osx:
-        pkgs += [
-            "coreutils",
-            "git",
-            "python",
-            "gh",
-            "ghq",
-            "gpg",
-            "pinentry",
-            "direnv",
-            "peco",
-            "nodenv",
-            "unar",
-            "trash-cli",
-
-            # nodejs
-            "pnpm",
-            "node",
-            "nodenv",
-            "node-build",
-        ]
-
-    # CLI toolset
     pkgs += [
+        "coreutils",
+        "git",
+        "python",
+        "gh",
         "ghq",
+        "gpg",
+        "pinentry",
+        "direnv",
+        "peco",
+        "nodenv",
+        "unar",
+        "trash-cli",
+        "herdr",
+
+        # nodejs
+        "pnpm",
+        "volta",
+        "node",
+        "nodenv",
+        "node-build",
     ]
 
     # develop
