@@ -1,0 +1,19 @@
+#!/bin/bash
+
+usage() {
+	cat <<'EOF'
+Usage: expand-targz <archive.tar.gz> [tar options]
+
+Extract a gzip-compressed tar archive.
+EOF
+}
+
+case "${1:-}" in
+	""|-h|--help)
+		usage
+		exit 0
+		;;
+esac
+
+set -xe
+tar -zxvf "$@"
