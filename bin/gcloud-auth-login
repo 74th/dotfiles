@@ -1,0 +1,7 @@
+#!/bin/bash
+sset -xe
+if [ "$(uname)" = "Linux" ]; then
+    gcloud auth login --update-adc --no-launch-browser
+else
+    gcloud auth login --update-adc --launch-browser
+fi
