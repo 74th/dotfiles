@@ -2,17 +2,16 @@
 # /// script
 # requires-python = ">=3.12"
 # dependencies = [
-#     "pyyaml>=6.0.3",
-#     "questionary>=2.1.1",
 # ]
 # ///
 import json
 import os
 import pathlib
 import subprocess
+import sys
 
 
-def detect_existing_sandbox_name() -> str:
+def detect_existing_sandbox_name(agent: str | None = None) -> str:
     workspace_path = pathlib.Path(os.getcwd()).resolve()
 
     out = subprocess.run(["sbx", "ls", "--json"], check=True, capture_output=True)
@@ -30,6 +29,13 @@ def detect_existing_sandbox_name() -> str:
         print(f"Sandbox for workspace '{workspace_path}' does not exist.")
         raise SystemExit(1)
 
+    if agent is not None and len(detected_sandboxes) > 1:
+        agent_sandboxes = [
+            sandbox for sandbox in detected_sandboxes if agent in sandbox
+        ]
+        if len(agent_sandboxes) == 1:
+            return agent_sandboxes[0]
+
     if len(detected_sandboxes) > 1:
         print(
             f"Multiple sandboxes detected for workspace '{workspace_path}': {detected_sandboxes}"
@@ -39,6 +45,7 @@ def detect_existing_sandbox_name() -> str:
     return detected_sandboxes[0]
 
 
-detected_sandbox = detect_existing_sandbox_name()
+agent = sys.argv[1] if len(sys.argv) > 1 else None
+detected_sandbox = detect_existing_sandbox_name(agent)
 
 print(detected_sandbox)
