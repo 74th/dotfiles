@@ -25,7 +25,8 @@ DOTFILES_BASE = pathlib.Path(__file__).parent.parent
 
 
 class Method(Enum):
-    UBUNTU_INSTALL = "ubuntu-install"
+    SCRIPT = "script"
+    CMD = "cmd"
     HOMEBREW = "homebrew"
 
 
@@ -38,21 +39,51 @@ def print_cmd(cmd: str | list[str]) -> None:
     cprint(cmd, color="green")
 
 
-def install_by_ubuntu_script(items: list[str]) -> None:
+def install_by_scripts(items: list[str]) -> None:
     for item in items:
-        bin_file = DOTFILES_BASE / "ubuntu" / "install" / f"{item}.sh"
-        print_cmd(f"{bin_file}")
-        subprocess.run([str(bin_file)], check=True)
+        print_cmd(item)
+        subprocess.run([item], check=True)
 
 
-def list_ubuntu_install_scripts() -> list[Choice]:
-    ubuntu_install_dir = DOTFILES_BASE / "ubuntu" / "install"
+def install_by_cmd(items: list[str | list[str]]) -> None:
+    for item in items:
+        if isinstance(item, list):
+            for cmd in item:
+                print_cmd(cmd)
+                subprocess.run(cmd, shell=True, check=True)
+        else:
+            print_cmd(item)
+            subprocess.run(item, shell=True, check=True)
+
+
+def list_dotfiles_ubuntu_install_scripts() -> list[Choice]:
+    DOTFILES_UBUNTU_INSTALL_dir = DOTFILES_BASE / "ubuntu" / "install"
     items: list[Choice] = []
-    for script_file in ubuntu_install_dir.glob("*.sh"):
-        item = script_file.stem
+    for script_file in DOTFILES_UBUNTU_INSTALL_dir.glob("*.sh"):
         items.append(
             Choice(
-                title=f"{item} (ubuntu/install)", value=(Method.UBUNTU_INSTALL, item)
+                title=f"{script_file.stem} (dotfiles/ubuntu/install)",
+                value=(Method.SCRIPT, script_file),
+            )
+        )
+    return items
+
+
+def list_install_scripts() -> list[Choice]:
+    DOTFILES_INSTALL_dir = DOTFILES_BASE / "install"
+    items: list[Choice] = []
+    for script_file in DOTFILES_INSTALL_dir.glob("*.sh"):
+        items.append(
+            Choice(
+                title=f"{script_file.stem} (dotfiles/install)",
+                value=(Method.SCRIPT, script_file),
+            )
+        )
+    for script_file in DOTFILES_INSTALL_dir.glob("*.py"):
+        items.append(
+            Choice(
+                title=f"{script_file.stem} (dotfiles/install)",
+                value=(Method.SCRIPT, script_file),
             )
         )
     return items
@@ -66,19 +97,42 @@ def install_by_brew(items: list[str]) -> None:
 
 def list_brew() -> list[Choice]:
     brew_packages = ["volta", "fio", "herdr"]
-    return [
+    items = [
         Choice(title=f"{package} (brew)", value=(Method.HOMEBREW, package))
         for package in brew_packages
     ]
+    return items
+
+
+def list_mac() -> list[Choice]:
+    items: list[Choice] = []
+
+    # docker sandboxes (sbx)
+    items.append(
+        Choice(
+            title="sbx (brew)",
+            value=(
+                Method.CMD,
+                [
+                    ["brew", "trust", "docker/tap"],
+                    ["brew", "install", "docker/tap/sbx"],
+                ],
+            ),
+        )
+    )
+
+    return items
 
 
 def main() -> None:
     available_items: list[Choice] = []
 
+    available_items.extend(list_install_scripts())
     if detect.linux:
-        available_items.extend(list_ubuntu_install_scripts())
+        available_items.extend(list_dotfiles_ubuntu_install_scripts())
     if detect.mac:
-        available_items.extend(list_brew().values())
+        available_items.extend(list_brew())
+        available_items.extend(list_mac())
 
     available_items.sort(key=lambda choice: choice.title)
 
@@ -100,11 +154,14 @@ def main() -> None:
         selected_tag_grouped_items[method].append(item)
 
     for method, items in selected_tag_grouped_items.items():
-        if method == Method.UBUNTU_INSTALL:
-            install_by_ubuntu_script(items)
+        if method == Method.SCRIPT:
+            install_by_scripts(items)
 
         if method == Method.HOMEBREW:
             install_by_brew(items)
+
+        if method == Method.CMD:
+            install_by_cmd(items)
 
 
 if __name__ == "__main__":
