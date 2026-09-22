@@ -6,13 +6,6 @@ resolution-markers = [
     "python_full_version < '3.9'",
 ]
 
-[options]
-exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for backwards compatibility when using relative exclude-newer values.
-exclude-newer-span = "P1W"
-
-[options.exclude-newer-package]
-starlette = "2026-05-23T16:55:39.201Z"
-
 [[package]]
 name = "detect"
 version = "2020.12.3"
@@ -308,13 +301,13 @@ wheels = [
 
 [package.optional-dependencies]
 full = [
-    { name = "distro", marker = "python_full_version < '3.9' and sys_platform == 'linux'" },
-    { name = "gnureadline", marker = "python_full_version < '3.9' and sys_platform == 'darwin'" },
-    { name = "prompt-toolkit", marker = "python_full_version < '3.9'" },
-    { name = "pygments", marker = "python_full_version < '3.9'" },
-    { name = "pyperclip", marker = "python_full_version < '3.9'" },
-    { name = "setproctitle", marker = "python_full_version < '3.9' and sys_platform == 'win32'" },
-    { name = "ujson", marker = "python_full_version < '3.9'" },
+    { name = "distro", marker = "sys_platform == 'linux'" },
+    { name = "gnureadline", marker = "sys_platform == 'darwin'" },
+    { name = "prompt-toolkit" },
+    { name = "pygments" },
+    { name = "pyperclip" },
+    { name = "setproctitle", marker = "sys_platform == 'win32'" },
+    { name = "ujson" },
 ]
 
 [[package]]
@@ -335,11 +328,11 @@ wheels = [
 
 [package.optional-dependencies]
 full = [
-    { name = "distro", marker = "python_full_version >= '3.9' and sys_platform == 'linux'" },
-    { name = "gnureadline", marker = "python_full_version >= '3.9' and sys_platform == 'darwin'" },
-    { name = "prompt-toolkit", marker = "python_full_version >= '3.9'" },
-    { name = "pygments", marker = "python_full_version >= '3.9'" },
-    { name = "pyperclip", marker = "python_full_version >= '3.9'" },
-    { name = "setproctitle", marker = "python_full_version >= '3.9' and sys_platform == 'win32'" },
-    { name = "ujson", marker = "python_full_version >= '3.9'" },
+    { name = "distro", marker = "sys_platform == 'linux'" },
+    { name = "gnureadline", marker = "sys_platform == 'darwin'" },
+    { name = "prompt-toolkit" },
+    { name = "pygments" },
+    { name = "pyperclip" },
+    { name = "setproctitle", marker = "sys_platform == 'win32'" },
+    { name = "ujson" },
 ]
