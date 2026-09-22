@@ -14,10 +14,12 @@ import shlex
 import subprocess
 import sys
 from enum import Enum
+from typing import cast
 
 import detect
 import questionary
 from print_color import print as cprint
+from questionary import Choice
 
 DOTFILES_BASE = pathlib.Path(__file__).parent.parent
 
@@ -25,6 +27,9 @@ DOTFILES_BASE = pathlib.Path(__file__).parent.parent
 class Method(Enum):
     UBUNTU_INSTALL = "ubuntu-install"
     HOMEBREW = "homebrew"
+
+
+ChoiceValue = tuple[Method, str]
 
 
 def print_cmd(cmd: str | list[str]) -> None:
@@ -40,12 +45,16 @@ def install_by_ubuntu_script(items: list[str]) -> None:
         subprocess.run([str(bin_file)], check=True)
 
 
-def list_ubuntu_install_scripts() -> dict[str, tuple[Method, str]]:
+def list_ubuntu_install_scripts() -> list[Choice]:
     ubuntu_install_dir = DOTFILES_BASE / "ubuntu" / "install"
-    items = {}
+    items: list[Choice] = []
     for script_file in ubuntu_install_dir.glob("*.sh"):
         item = script_file.stem
-        items[item] = (Method.UBUNTU_INSTALL, item)
+        items.append(
+            Choice(
+                title=f"{item} (ubuntu/install)", value=(Method.UBUNTU_INSTALL, item)
+            )
+        )
     return items
 
 
@@ -55,38 +64,40 @@ def install_by_brew(items: list[str]) -> None:
     subprocess.run(cmd, check=True)
 
 
-def list_brew_install_items() -> dict[str, tuple[Method, str]]:
-    items = {}
+def list_brew() -> list[Choice]:
     brew_packages = ["volta", "fio", "herdr"]
-    for package in brew_packages:
-        items[package] = (Method.HOMEBREW, package)
-    return items
+    return [
+        Choice(title=f"{package} (brew)", value=(Method.HOMEBREW, package))
+        for package in brew_packages
+    ]
 
 
 def main() -> None:
-    available_items: dict[str, tuple[Method, str]] = {}
+    available_items: list[Choice] = []
 
     if detect.linux:
-        available_items.update(list_ubuntu_install_scripts())
+        available_items.extend(list_ubuntu_install_scripts())
     if detect.mac:
-        available_items.update(list_brew_install_items())
+        available_items.extend(list_brew().values())
 
-    available_items_keys_sorted = sorted(available_items.keys())
+    available_items.sort(key=lambda choice: choice.title)
 
-    selected_item_keys = questionary.checkbox(
-        "Select an item to install:", choices=available_items_keys_sorted
-    ).ask()
+    choiced = cast(
+        list[ChoiceValue],
+        questionary.checkbox(
+            "Select an item to install:", choices=available_items
+        ).ask(),
+    )
 
-    if not selected_item_keys:
+    if not choiced:
         sys.exit(1)
 
     selected_tag_grouped_items: dict[Method, list[str]] = {}
-    for key in selected_item_keys:
-        method, func = available_items[key]
+    for choiced_item in choiced:
+        method, item = choiced_item
         if method not in selected_tag_grouped_items:
             selected_tag_grouped_items[method] = []
-        selected_tag_grouped_items[method].append(func)
-    print(selected_tag_grouped_items)
+        selected_tag_grouped_items[method].append(item)
 
     for method, items in selected_tag_grouped_items.items():
         if method == Method.UBUNTU_INSTALL:
