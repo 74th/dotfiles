@@ -166,6 +166,22 @@ function peco_search_history() {
 }
 bind -x '"\C-r": peco_search_history'
 
+if [ "$OSNAME" = "Linux" ]; then
+    # Unlock GNOME Keyring from CLI
+    keyring-unlock() {
+        local KEYRING_PASSWORD
+
+        read -rsp "GNOME Keyring password: " KEYRING_PASSWORD
+        echo
+
+        printf '%s' "$KEYRING_PASSWORD" | gnome-keyring-daemon --replace --unlock
+        local rc=$?
+
+        unset KEYRING_PASSWORD
+        return "$rc"
+    }
+fi
+
 # --- その他 ---
 
 # vimのエラー対策
