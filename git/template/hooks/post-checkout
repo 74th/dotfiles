@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# clone直後だけ実行
+NULL_REF=0000000000000000000000000000000000000000
+
+if [ "$1" = "$NULL_REF" ]; then
+    if [ -f ".pre-commit-config.yaml" ]; then
+        if command -v pre-commit >/dev/null 2>&1; then
+            pre-commit install
+        fi
+    fi
+fi
