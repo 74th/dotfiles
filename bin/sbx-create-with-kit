@@ -22,9 +22,16 @@ if agent is None:
 
 kits_list: list[str] = []
 
-dotfiles_kit_path = pathlib.Path(__file__).resolve().parent.parent / "sbx-kit"
-for kit in sorted(kit.name for kit in dotfiles_kit_path.iterdir() if kit.is_dir()):
-    kits_list.append(f"{kit} - {dotfiles_kit_path / kit}")
+kit_dirs = [
+    pathlib.Path(__file__).resolve().parent.parent / "sbx-kit",
+    pathlib.Path("~/ghq/github.com/74th/mycheatsheets").expanduser() / "sbx-kit",
+]
+
+for kit_dir in kit_dirs:
+    if not kit_dir.exists():
+        continue
+    for kit in sorted(kit.name for kit in kit_dir.iterdir() if kit.is_dir()):
+        kits_list.append(f"{kit} - {kit_dir / kit}")
 
 kits = questionary.checkbox(
     "select kits",
@@ -33,8 +40,6 @@ kits = questionary.checkbox(
 
 for i, kit in enumerate(kits):
     kits[i] = kit.split(" - ")[1]
-
-print(f"dotfiles_kit_path: {dotfiles_kit_path}")
 
 print(f"Selected agent: {agent}")
 print(f"Selected kits: {kits}")
