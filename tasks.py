@@ -170,7 +170,7 @@ ns.add_task(herdr)  # type: ignore
 def ghostty(c):
     config_path = Path(f"{HOME}/.config/ghostty")
     config_path.mkdir(parents=True, exist_ok=True)
-    c.run(f"ln -sf {HOME}/ghq/github.com/74th/dotfiles/ghorstty/config.ghostty {config_path / "config.ghostty"}")
+    c.run(f"ln -sf {HOME}/ghq/github.com/74th/dotfiles/ghostty/config.ghostty {config_path / "config.ghostty"}")
 
 ns.add_task(ghostty)  # type: ignore
 
