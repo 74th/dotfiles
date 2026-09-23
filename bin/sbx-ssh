@@ -1,6 +1,10 @@
 #!/bin/bash
 set -xe
-detected_sandbox=$(sbx-detect-sandbox)
+if [[ $# -ge 1 ]]; then
+	detected_sandbox=$(sbx-detect-sandbox "$1")
+else
+	detected_sandbox=$(sbx-detect-sandbox)
+fi
 echo "Detected sandbox: $detected_sandbox"
 printf -v remote_command 'cd -- %q && exec bash -i' "$PWD"
 exec ssh -t "${detected_sandbox}.sbx" -- "$remote_command"

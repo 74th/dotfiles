@@ -20,3 +20,5 @@ org.eclipse.buildship.core.prefs
 CMakeFiles
 
 .work
+
+xprivate

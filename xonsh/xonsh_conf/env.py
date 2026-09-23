@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uv run --script
+#!/usr/bin/env -S uv run --no-project --script
 import os
 import subprocess
 from typing import Optional

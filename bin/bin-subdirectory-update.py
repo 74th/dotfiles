@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uv run --script
+#!/usr/bin/env -S uv run --no-project --script
 """
 ~/bin/ 以下のサブディレクトリにある実行ファイルを ~/bin/ にシンボリックリンクを貼る
 ディレクトリで区切るので、セットで導入、リムーブが簡単にできる

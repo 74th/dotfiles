@@ -101,8 +101,8 @@ def set_config(c):
     c.run("git config --global rebase.autostash true")
 
     # ghq
-    c.run("git config --global ghq.user 74th")
-    c.run("git config --global commit.gpgsign true")
+    # c.run("git config --global ghq.user 74th")
+    # c.run("git config --global commit.gpgsign true")
 
     # gpg key
     # gpg --import gpgkey.key
