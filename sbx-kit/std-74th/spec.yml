@@ -1,0 +1,23 @@
+schemaVersion: "2"
+kind: mixin
+name: standard-74th
+displayName: standard-74th
+description: Standard kit for @74th
+
+setup:
+  install:
+    # mybashrc
+    - description: Install My .bashrc
+      command: "curl https://raw.githubusercontent.com/74th/dotfiles/refs/heads/master/bashrc/docker-sandbox.bashrc >> ~/.bashrc"
+      user: "1000"
+    - description: Install peco
+      command: "apt-get update && apt-get install -y peco"
+      user: "0"
+    # openspec
+    - command: npm install -g @fission-ai/openspec@latest
+      user: "1000"
+      description: Install openspec
+    # pre-commit
+    - command: "uv tool install pre-commit"
+      user: "1000"
+      description: Install pre-commit

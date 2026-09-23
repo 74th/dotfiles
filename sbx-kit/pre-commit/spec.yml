@@ -1,0 +1,19 @@
+schemaVersion: "2"
+kind: mixin
+
+name: pre-commit
+version: "1.0.0"
+displayName: pre-commit
+description: Installs pre-commit for Git hook management
+
+permissions:
+  network:
+    allow:
+      - pypi.org
+      - files.pythonhosted.org
+
+setup:
+  install:
+    - command: "uv tool install pre-commit"
+      user: "1000"
+      description: Install pre-commit
