@@ -11,8 +11,8 @@ if len(sys.argv) == 2:
     target = sys.argv[1]
 target = os.path.abspath(target)
 
-if current.startswith("crow"):
-    host = "mac"
+if current.startswith(("constance", "frieren", "ayame", "sirius")):
+    host = "192.168.1.191"
     vm = current
     code_path = "/usr/local/bin/code"
 elif "SSH_CLIENT" in os.environ:
