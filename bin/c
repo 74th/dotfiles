@@ -12,7 +12,7 @@ if len(sys.argv) == 2:
 target = os.path.abspath(target)
 
 if current.startswith(("constance", "frieren", "ayame", "sirius")):
-    host = "192.168.1.191"
+    host = "192.168.1.191"  # Wi-Fi
     vm = current
     code_path = "/usr/local/bin/code"
 elif "SSH_CLIENT" in os.environ:
