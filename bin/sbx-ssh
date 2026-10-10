@@ -1,9 +1,9 @@
 #!/bin/bash
 set -xe
 if [[ $# -ge 1 ]]; then
-	detected_sandbox=$(sbx-detect-sandbox "$1")
+	detected_sandbox=$(sbx-detect-sandbox "$1" --include-subdirectory)
 else
-	detected_sandbox=$(sbx-detect-sandbox)
+	detected_sandbox=$(sbx-detect-sandbox --include-subdirectory)
 fi
 echo "Detected sandbox: $detected_sandbox"
 printf -v remote_command 'cd -- %q && exec bash -i' "$PWD"
