@@ -4,48 +4,92 @@
 # dependencies = [
 # ]
 # ///
+import argparse
 import json
-import os
 import pathlib
+import shlex
 import subprocess
 import sys
 
 
-def detect_existing_sandbox_name(agent: str | None = None) -> str:
-    workspace_path = pathlib.Path(os.getcwd()).resolve()
+def fail(message: str) -> None:
+    print(message, file=sys.stderr)
+    raise SystemExit(1)
+
+
+def detect_existing_sandbox_name(
+    agent: str | None, include_subdirectory: bool
+) -> tuple[str, bool]:
+    """Return (sandbox name, whether cwd is a subdirectory of the workspace)."""
+    cwd = pathlib.Path.cwd().resolve()
 
     out = subprocess.run(["sbx", "ls", "--json"], check=True, capture_output=True)
     sandbox_list = json.loads(out.stdout.decode("utf-8")).get("sandboxes", [])
-    detected_sandboxes = [
-        sandbox["name"]
-        for sandbox in sandbox_list
-        if any(
-            pathlib.Path(workspace).resolve() == workspace_path
-            for workspace in sandbox.get("workspaces", [])
-        )
-    ]
 
-    if not detected_sandboxes:
-        print(f"Sandbox for workspace '{workspace_path}' does not exist.")
-        raise SystemExit(1)
+    detected: dict[str, bool] = {}
+    for sandbox in sandbox_list:
+        for workspace in sandbox.get("workspaces", []):
+            workspace_path = pathlib.Path(workspace).resolve()
+            if workspace_path == cwd:
+                detected[sandbox["name"]] = False
+                break
+            if include_subdirectory and workspace_path in cwd.parents:
+                detected[sandbox["name"]] = True
+                break
 
-    if agent is not None and len(detected_sandboxes) > 1:
-        agent_sandboxes = [
-            sandbox for sandbox in detected_sandboxes if agent in sandbox
-        ]
-        if len(agent_sandboxes) == 1:
-            return agent_sandboxes[0]
+    if not detected:
+        fail(f"Sandbox for workspace '{cwd}' does not exist.")
 
-    if len(detected_sandboxes) > 1:
-        print(
-            f"Multiple sandboxes detected for workspace '{workspace_path}': {detected_sandboxes}"
-        )
-        raise SystemExit(1)
+    names = list(detected)
+    if agent is not None and len(names) > 1:
+        agent_names = [name for name in names if agent in name]
+        if len(agent_names) == 1:
+            names = agent_names
 
-    return detected_sandboxes[0]
+    if len(names) > 1:
+        fail(f"Multiple sandboxes detected for workspace '{cwd}': {names}")
+
+    return names[0], detected[names[0]]
 
 
-agent = sys.argv[1] if len(sys.argv) > 1 else None
-detected_sandbox = detect_existing_sandbox_name(agent)
+def build_run_command(agent: str, sandbox_name: str, is_subdirectory: bool) -> str:
+    name = shlex.quote(sandbox_name)
+    path = shlex.quote(str(pathlib.Path.cwd().resolve()))
+    if agent == "codex":
+        command = f"HERDR_AGENT=codex sbx run --name {name}"
+        if is_subdirectory:
+            command += f" -- --cd {path}"
+        return command
+    if agent == "claude":
+        if is_subdirectory:
+            return f"HERDR_AGENT=claude sbx exec -it -w {path} {name} claude"
+        return f"HERDR_AGENT=claude sbx run --name {name}"
+    fail(f"Unsupported agent for --output-run-command: '{agent}'")
+    raise AssertionError
 
-print(detected_sandbox)
+
+parser = argparse.ArgumentParser()
+parser.add_argument("agent", nargs="?", help="agent name (codex/claude)")
+parser.add_argument(
+    "--include-subdirectory",
+    action="store_true",
+    help="also detect sandboxes whose workspace contains the current directory",
+)
+parser.add_argument(
+    "--output-run-command",
+    action="store_true",
+    help="print the command to run the agent instead of the sandbox name",
+)
+args = parser.parse_args()
+
+if args.output_run_command and args.agent is None:
+    fail("--output-run-command requires an agent (codex/claude).")
+
+sandbox_name, is_subdirectory = detect_existing_sandbox_name(
+    args.agent, args.include_subdirectory
+)
+
+if args.output_run_command:
+    print(build_run_command(args.agent, sandbox_name, is_subdirectory))
+else:
+    print(sandbox_name)

@@ -138,12 +138,18 @@ function p() {
 }
 
 # sbxのherdr用
+function _sbx-run-agent() {
+    local run_command
+    run_command=$(sbx-detect-sandbox "$1" --include-subdirectory --output-run-command) || return
+    eval "$run_command"
+}
+
 function sbx-codex() {
-    HERDR_AGENT=codex sbx run codex
+    _sbx-run-agent codex
 }
 
 function sbx-claude() {
-    HERDR_AGENT=claude sbx run claude
+    _sbx-run-agent claude
 }
 
 # bellならし
