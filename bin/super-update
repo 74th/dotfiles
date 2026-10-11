@@ -1,0 +1,110 @@
+#!/usr/bin/env -S uv run --no-project --script
+"""
+指定したツールをアップデート/インストールする
+複数指定した場合は、1つずつ順番に実行する
+
+usage: super-update herdr [tool ...]
+"""
+
+import argparse
+import platform
+import shlex
+import shutil
+import subprocess
+import sys
+from dataclasses import dataclass
+
+
+@dataclass
+class Step:
+    cmd: list[str]
+    # 失敗しても次のステップに進む
+    optional: bool = False
+    # このコマンドが PATH にない場合はスキップする
+    requires: str | None = None
+
+
+@dataclass
+class Tool:
+    name: str
+    # 全 OS 共通ならリスト、OS ごとに違うなら {"linux": [...], "darwin": [...]}
+    steps: list[Step] | dict[str, list[Step]]
+
+
+def current_os() -> str:
+    return platform.system().lower()
+
+
+def shell_pipe(script: str) -> list[str]:
+    return ["bash", "-c", f"set -o pipefail; {script}"]
+
+
+TOOLS = [
+    Tool(
+        "herdr",
+        [
+            Step(["herdr", "server", "stop"], optional=True, requires="herdr"),
+            Step(shell_pipe("curl -fsSL https://herdr.dev/install.sh | sh")),
+        ],
+    ),
+    Tool("claude", [Step(["claude", "update"])]),
+    Tool("codex", [Step(["codex", "update"])]),
+]
+TOOL_MAP = {t.name: t for t in TOOLS}
+
+
+def run_step(step: Step) -> bool:
+    if step.requires and shutil.which(step.requires) is None:
+        print(f"$ {shlex.join(step.cmd)}  (skipped: {step.requires} not found)")
+        return True
+    print(f"$ {shlex.join(step.cmd)}", flush=True)
+    result = subprocess.run(step.cmd)
+    if result.returncode != 0:
+        if step.optional:
+            print(f"(ignored: exit {result.returncode})")
+            return True
+        return False
+    return True
+
+
+def update(name: str, os_name: str) -> bool:
+    steps = TOOL_MAP[name].steps
+    if isinstance(steps, dict):
+        steps = steps.get(os_name)
+    if steps is None:
+        print(f"{name}: unsupported OS: {os_name}", file=sys.stderr)
+        return False
+    print(f"==> {name}")
+    for step in steps:
+        if not run_step(step):
+            print(f"{name}: failed: {shlex.join(step.cmd)}", file=sys.stderr)
+            return False
+    return True
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="ツールをアップデート/インストールする")
+    parser.add_argument(
+        "tools",
+        nargs="+",
+        metavar="tool",
+        help=f"対象ツール ({', '.join(sorted(TOOL_MAP))})",
+    )
+    args = parser.parse_args()
+
+    unknown = [t for t in args.tools if t not in TOOL_MAP]
+    if unknown:
+        parser.error(
+            f"unknown tool: {', '.join(unknown)} (available: {', '.join(sorted(TOOL_MAP))})"
+        )
+
+    os_name = current_os()
+    failed = [t for t in args.tools if not update(t, os_name)]
+    if failed:
+        print(f"failed: {', '.join(failed)}", file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
