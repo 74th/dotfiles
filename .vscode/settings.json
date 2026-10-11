@@ -15,5 +15,11 @@
   "python.testing.pytestEnabled": false,
   "python.testing.unittestEnabled": false,
   "python.testing.nosetestsEnabled": false,
-  "python.pythonPath": "/bin/python"
+  "python.pythonPath": "/bin/python",
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#A17A00",
+    "titleBar.inactiveBackground": "#A17A00",
+    "titleBar.activeForeground": "#FFFFFF",
+    "titleBar.inactiveForeground": "#FFFFFF"
+  }
 }
