@@ -23,7 +23,7 @@ if agent is None:
 kits_list: list[str] = []
 
 kit_dirs = [
-    pathlib.Path(__file__).resolve().parent.parent / "sbx-kit",
+    pathlib.Path(__file__).resolve().parent.parent / "sbx-kits" / "v2",
     pathlib.Path("~/ghq/github.com/74th/mycheatsheets").expanduser() / "sbx-kit",
 ]
 

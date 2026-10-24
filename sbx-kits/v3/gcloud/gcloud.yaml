@@ -1,0 +1,26 @@
+# syntax=docker/sandbox-kit:3
+schemaVersion: '3'
+kind: mixin
+displayName: Google Cloud SDK
+description: https://cloud.google.com/sdk
+capabilities:
+- type: com.docker.sandbox/network-policy@1
+  config:
+    install:
+      allow:
+      - sdk.cloud.google.com:443
+      - dl.google.com:443
+      - storage.googleapis.com:443
+    runtime:
+      allow:
+      - sdk.cloud.google.com:443
+- type: com.docker.sandbox/lifecycle@1
+  config:
+    install:
+    - command: curl https://sdk.cloud.google.com | bash -s -- --disable-prompts
+      user: '1000'
+      description: Install Google Cloud SDK
+      env: [HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, http_proxy, https_proxy, all_proxy, no_proxy]
+    - command: echo 'export PATH="/home/agent/google-cloud-sdk/bin:$PATH"' >> /etc/sandbox-persistent.sh
+      user: '0'
+      description: Add Google Cloud SDK to PATH

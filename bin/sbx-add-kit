@@ -50,7 +50,7 @@ else:
 
 kits_list: list[str] = []
 
-dotfiles_kit_path = pathlib.Path(__file__).resolve().parent.parent / "sbx-kit"
+dotfiles_kit_path = pathlib.Path(__file__).resolve().parent.parent / "sbx-kits" / "v2"
 for kit in sorted(kit.name for kit in dotfiles_kit_path.iterdir() if kit.is_dir()):
     kits_list.append(f"{kit} - {dotfiles_kit_path / kit}")
 
