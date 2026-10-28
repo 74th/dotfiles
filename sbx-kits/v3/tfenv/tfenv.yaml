@@ -1,0 +1,21 @@
+# syntax=docker/sandbox-kit:3
+schemaVersion: '3'
+kind: mixin
+displayName: tfenv
+description: https://github.com/tfutils/tfenv
+capabilities:
+- type: com.docker.sandbox/network-policy@1
+  config:
+    install:
+      allow:
+      - github.com:443
+- type: com.docker.sandbox/lifecycle@1
+  config:
+    install:
+    - command: git clone --depth=1 https://github.com/tfutils/tfenv.git ~/.tfenv
+      user: '1000'
+      description: Install tfenv
+      env: [HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, http_proxy, https_proxy, all_proxy, no_proxy]
+    - command: echo 'export PATH="/home/agent/.tfenv/bin:$PATH"' >> /etc/sandbox-persistent.sh
+      user: '0'
+      description: Add tfenv to PATH
