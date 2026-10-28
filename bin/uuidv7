@@ -1,0 +1,8 @@
+#!/usr/bin/env -S uv run --no-project --script
+# /// script
+# requires-python = ">=3.14"
+# ///
+
+import uuid
+
+print(uuid.uuid7())
