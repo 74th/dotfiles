@@ -24,7 +24,7 @@ def detect_existing_sandbox_name(
     cwd = pathlib.Path.cwd().resolve()
 
     out = subprocess.run(["sbx", "ls", "--json"], check=True, capture_output=True)
-    sandbox_list = json.loads(out.stdout.decode("utf-8")).get("sandboxes", [])
+    sandbox_list = json.loads(out.stdout.decode("utf-8"))
 
     detected: dict[str, bool] = {}
     for sandbox in sandbox_list:
@@ -42,7 +42,9 @@ def detect_existing_sandbox_name(
 
     names = list(detected)
     if agent is not None and len(names) > 1:
-        agent_names = [name for name in names if agent in name]
+        agent_names = [
+            name for name in names if agent in name or name.startswith("mix-")
+        ]
         if len(agent_names) == 1:
             names = agent_names
 
@@ -55,6 +57,9 @@ def detect_existing_sandbox_name(
 def build_run_command(agent: str, sandbox_name: str, is_subdirectory: bool) -> str:
     name = shlex.quote(sandbox_name)
     path = shlex.quote(str(pathlib.Path.cwd().resolve()))
+    if sandbox_name.startswith("mix-") and agent in ("codex", "claude"):
+        workdir = f" -w {path}" if is_subdirectory else ""
+        return f"HERDR_AGENT={agent} sbx exec -it{workdir} {name} {agent}"
     if agent == "codex":
         command = f"HERDR_AGENT=codex sbx run --name {name}"
         if is_subdirectory:
