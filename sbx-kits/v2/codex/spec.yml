@@ -1,0 +1,15 @@
+schemaVersion: "2"
+kind: mixin
+name: agents
+displayName: Codex
+
+setup:
+  install:
+    - command: |
+        npm install -g @openai/codex
+      user: "1000"
+      description: "Install Codex"
+
+    - command: "codex --version"
+      user: "1000"
+      description: "Verify Codex"
