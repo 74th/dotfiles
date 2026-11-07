@@ -3,16 +3,18 @@
 指定したツールをアップデート/インストールする
 複数指定した場合は、1つずつ順番に実行する
 
-usage: super-update herdr [tool ...]
+usage: super-update openspec [tool ...]
 """
 
 import argparse
+import os
 import platform
 import shlex
 import shutil
 import subprocess
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from pathlib import Path
 
 
 @dataclass
@@ -27,8 +29,14 @@ class Step:
 @dataclass
 class Tool:
     name: str
+    # install_steps を省略すると、未導入時も steps を使う
     # 全 OS 共通ならリスト、OS ごとに違うなら {"linux": [...], "darwin": [...]}
     steps: list[Step] | dict[str, list[Step]]
+    dependencies: list[str] = field(default_factory=list)
+    install_steps: list[Step] | dict[str, list[Step]] | None = None
+    # 実行ファイル名が name と異なる場合に指定する
+    command: str | None = None
+    bin_dir: Path | None = None
 
 
 def current_os() -> str:
@@ -39,6 +47,7 @@ def shell_pipe(script: str) -> list[str]:
     return ["bash", "-c", f"set -o pipefail; {script}"]
 
 
+# パッケージごとの定数はなるべく定義せず、設定をここにまとめる。
 TOOLS = [
     Tool(
         "herdr",
@@ -47,8 +56,29 @@ TOOLS = [
             Step(shell_pipe("curl -fsSL https://herdr.dev/install.sh | sh")),
         ],
     ),
-    Tool("claude", [Step(["claude", "update"])]),
-    Tool("codex", [Step(["codex", "update"])]),
+    Tool(
+        "claude",
+        [Step(["claude", "update"])],
+        install_steps=[Step(shell_pipe("curl -fsSL https://claude.ai/install.sh | bash"))],
+    ),
+    Tool(
+        "codex",
+        [Step(["codex", "update"])],
+        install_steps=[Step(shell_pipe("curl -fsSL https://chatgpt.com/codex/install.sh | sh"))],
+    ),
+    Tool(
+        "volta",
+        [
+            Step(shell_pipe("curl -fsSL https://get.volta.sh | bash")),
+            Step(["volta", "install", "node"]),
+        ],
+        bin_dir=Path.home() / ".volta" / "bin",
+    ),
+    Tool(
+        "openspec",
+        [Step(["volta", "install", "@fission-ai/openspec@latest"])],
+        dependencies=["volta"],
+    ),
 ]
 TOOL_MAP = {t.name: t for t in TOOLS}
 
@@ -58,7 +88,11 @@ def run_step(step: Step) -> bool:
         print(f"$ {shlex.join(step.cmd)}  (skipped: {step.requires} not found)")
         return True
     print(f"$ {shlex.join(step.cmd)}", flush=True)
-    result = subprocess.run(step.cmd)
+    try:
+        result = subprocess.run(step.cmd)
+    except FileNotFoundError as error:
+        print(f"{step.cmd[0]}: {error}", file=sys.stderr)
+        return step.optional
     if result.returncode != 0:
         if step.optional:
             print(f"(ignored: exit {result.returncode})")
@@ -67,13 +101,35 @@ def run_step(step: Step) -> bool:
     return True
 
 
-def update(name: str, os_name: str) -> bool:
-    steps = TOOL_MAP[name].steps
+def prepare_path(tool: Tool) -> None:
+    if tool.bin_dir and not shutil.which(tool.command or tool.name):
+        path = os.environ.get("PATH", os.defpath)
+        if str(tool.bin_dir) not in path.split(os.pathsep):
+            os.environ["PATH"] = f"{tool.bin_dir}{os.pathsep}{path}"
+
+
+def update(name: str, os_name: str, parents: tuple[str, ...] = ()) -> bool:
+    if name in parents:
+        print(f"dependency cycle: {' -> '.join((*parents, name))}", file=sys.stderr)
+        return False
+    tool = TOOL_MAP[name]
+    prepare_path(tool)
+    if tool.install_steps is not None and not shutil.which(tool.command or tool.name):
+        steps = tool.install_steps
+    else:
+        steps = tool.steps
     if isinstance(steps, dict):
         steps = steps.get(os_name)
     if steps is None:
         print(f"{name}: unsupported OS: {os_name}", file=sys.stderr)
         return False
+    for dependency_name in tool.dependencies:
+        dependency = TOOL_MAP[dependency_name]
+        prepare_path(dependency)
+        if not shutil.which(dependency.command or dependency.name):
+            if not update(dependency_name, os_name, (*parents, name)):
+                print(f"{name}: dependency failed: {dependency_name}", file=sys.stderr)
+                return False
     print(f"==> {name}")
     for step in steps:
         if not run_step(step):
