@@ -13,6 +13,6 @@ capabilities:
   config:
     install:
     - command: npm install -g @fission-ai/openspec@latest
-      user: '1000'
+      user: '0'
       description: Install openspec
       env: [HTTP_PROXY, HTTPS_PROXY, ALL_PROXY, NO_PROXY, http_proxy, https_proxy, all_proxy, no_proxy]

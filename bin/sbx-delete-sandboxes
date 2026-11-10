@@ -7,10 +7,16 @@
 # ///
 import shlex
 import subprocess
+import sys
 
 import questionary
 
-out = subprocess.run(["sbx", "ls"], check=True, capture_output=True)
+try:
+    out = subprocess.run(["sbx", "ls"], check=True, capture_output=True)
+except subprocess.CalledProcessError as exc:
+    sys.stderr.buffer.write(exc.stderr)
+    raise SystemExit(exc.returncode)
+
 sandbox_list = [
     line.split()[0] for line in out.stdout.strip().decode("utf-8").splitlines()
 ][1:]

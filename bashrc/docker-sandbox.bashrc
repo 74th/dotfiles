@@ -102,3 +102,5 @@ function peco_search_history() {
     READLINE_POINT=${#l}
 }
 bind -x '"\C-r": peco_search_history'
+
+alias gcloud-auth-login='gcloud auth login --update-adc --no-launch-browser'
