@@ -1,0 +1,13 @@
+# syntax=docker/sandbox-kit:3
+schemaVersion: "3"
+kind: mixin
+displayName: Agent History
+
+capabilities:
+  - type: com.docker.sandbox/host-mount@1
+    config:
+      path: /home/agent/.codex
+
+  - type: com.docker.sandbox/host-mount@1
+    config:
+      path: /home/agent/.claude
