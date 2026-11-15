@@ -22,3 +22,6 @@ CMakeFiles
 .work
 
 xprivate
+
+**/.claude/settings.local.json
+*.af~lock~
