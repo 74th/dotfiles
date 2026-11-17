@@ -139,7 +139,14 @@ function p() {
 
 # sbxのherdr用
 function _sbx-run-agent() {
-    local run_command
+    local run_command script
+    for script in "./run_$1.sh" "./xprivate/run_$1.sh"; do
+        if [ -f "$script" ]; then
+            bash "$script"
+            return $?
+        fi
+    done
+
     run_command=$(sbx-detect-sandbox "$1" --include-subdirectory --output-run-command) || return
     eval "$run_command"
 }
