@@ -13,7 +13,7 @@ dependencies = [
     "xonsh[full]>=0.14.0",
 ]
 readme = "README.md"
-requires-python = ">= 3.8"
+requires-python = ">= 3.15"
 
 [build-system]
 requires = ["hatchling"]
